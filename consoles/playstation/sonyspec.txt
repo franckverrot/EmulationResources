@@ -1,0 +1,177 @@
+
+
+Multiple independent custom processors with a 32-bit RISC CPU armed with a double-speed CD-ROM 
+that jams out 360,000 polygons and full-frame video at 30 frames per second. 
+360-degree camera movement. CD-quality sound.Digital lighting and texture mapping capabilities. 
+The ability to display 16.8 million colors,simultaneously. 
+
+
+CPU
+
+•R3000A 
+•32 bit RISC processor 
+•Clock- 33.8688MHz 
+•Operating performance - 30 MIPS 
+•Instruction Cache - 4 KB 
+•Data Cache - 1 KB 
+•BUS - 132 MB/sec. 
+
+
+CD-ROM DRIVE
+
+•Data Transfer Rate (DMA TO RAM) 
+ 150 KB/sec. (Normal) 
+ 300 KB/sec. (Double speed) 
+•Maximum Capacity - 660 Megabytes 
+•Features 
+ Audio CD play 
+ XA Interactive Audio 
+
+
+GRAPHICAL CAPABILITIES
+
+NTSC Display Resolution
+
+MODE RESOLUTION
+
+       (H x V)
+       (non-interlaced) 
+0      256x480
+1      320x480
+2      384x480
+3      512x480
+4      640x480
+      
+       (interlaced
+5      256x480 
+6      320x480 
+7      384x480 
+8      512x480 
+9      640x480
+
+
+Color Depth 
+
+MODE COLORS
+
+4      16
+8      256
+15     32,768
+24     16.777.216
+
+All calculations are performed to 24 bit accuracy 
+Texture mapping color mode 
+
+•4 bit CLUT (16 Colors) 
+•8 bit CLUT (256 Colors) 
+•15 bit direct (32768 Colors) 
+
+
+
+2D GRAPHICAL CAPABILITIES
+
+Sprite display capability 
+
+Size:1X1 pixels to 256X256 pixels 
+
+
+
+SPRITE SIZE          BIT DEPTH
+                4 bit  8 bit  16 bit
+8x8             280k   280k    160k
+16x16           110k    70k     40k
+
+Rectangles per second 
+
+GEOMETRY ENGINE(GTE)
+
+
+•Operating performance: 66 MIPS 
+•3D polygon transformation: 
+
+Type                              Per second
+
+Flat shaded                          1.5 M
+Gouraud, textured and light sourced  500 K
+
+
+GTE performs high speed matrix multiplies
+
+DATA DECOMPRESSION ENGINE
+
+
+•Operating performance - 80 MIPS 
+•Directly connected to CPU bus 
+•Motion JPEG-like Hardware Decompression Engine 
+
+
+HARDWARE RENDERED POLYGONS (GPU)
+
+•Rendered in hardware 
+ Up to 360K polygon/sec. 
+•Texture mapping 
+•Flat or Gouraud shading 
+
+
+I/O SYSTEM OVERVIEW
+
+•Control Pad 
+ Two control pad connectors 
+ Expandable with multitap connector 
+•Backup RAM 
+ Two removable cards 
+ 128 KB Flash Memory 
+ OS support for File Save, Retrieve and Remove 
+•Serial Port I/O 
+ Link Cable Connectivity 
+
+
+MEMORY CONFIGURATION
+
+•Main RAM: 2 Megabytes 
+•Video RAM: 1 Megabyte 
+•Sound RAM: 512 Kilobytes 
+•CD ROM buffer: 32 Kilobytes 
+•OS ROM: 512 Kilobytes 
+
+
+SOUND PROCESSOR
+
+•24 Channels 
+•44.1KHz sample rate 
+•PCM audio source 
+•Digital effects include: 
+ Envelope 
+ Looping 
+ Digital Reverb 
+•Load up to 512K of sampled waveforms 
+ Supports MIDI Instruments 
+
+SPRITE AND BACKGROUND GRAPHICs
+
+Virtually Unlimited: 
+
+•size (up to 256 x 256) 
+•number of sprites on a line 
+•number of sprite images 
+•number of CLUTs 
+
+SPRITE SPECIAL EFFECTS
+
+•Rotation 
+•Scaling up/down 
+•Warping 
+•Transparency 
+•Fading 
+•Priority 
+•Vertical and horizontal line scroll 
+
+
+
+
+
+
+
+
+
+  

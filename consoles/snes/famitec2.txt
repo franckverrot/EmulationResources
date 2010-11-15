@@ -1,0 +1,151 @@
+Version 1.1
+
+Corrected an error in screen sizes and removed a quesry on sound registers.
+
+
+Corsair + Kari presents the first dox of Fami hardware register
+locations and brief explanation of them..
+
+If you would like to add any info found in this list please leave
+a mail message to Corsair or RamRaider on GRAVEYARD BBS +44-91-5160560
+or anything to do with the FAMICON/SNES..
+
+We have an INTERNET address if ya want it leave true e-mail!
+
+Or better still if ya can get the Programmers handbook (Both) please call
+and leave mail :) , or even the 100,000 quid SCSI SNASM board for FAMICON
+development :)
+
+Also if you want more info contact us the same way..
+
+We are esp looking for contacts to help get to grips with this new platform
+everybody welcome!
+
+Special greetings to Starr/QUARTEX and any other True Console Dude! 
+
+coming soon is some sound chip info........
+
+Memory Map
+~~~~~~~~~~ 
+Bank    Address
+~~~~    ~~~~~~~
+
+ 00-    0000-1fff       Lo RAM  (same as at $7e0000-$7e1fff)
+ 7d     2100-2142(?)    Videochip Registers
+        4300-437f       DMA Registers
+
+        8000-ffff       ROM:This contains 32k block of game ROM.
+                            So, the games are divided to 32k chunks
+                            which locate always at address $8000-$ffff,
+                            but in different banks. This means that the first
+                            32k of game is at $008000-$00ffff and next 32k
+                            is at $018000-$01ffff etc.
+
+ 7e     0000-1fff       Lo RAM (same as always at $0000-$1fff)  \
+        2000-ffff       RAM    \ I'm not sure about              } 128k RAM??
+ 7f     0000-ffff       RAM    / this RAM                       /
+
+ 7f-ff  all             Not used???
+
+$ffec($fffc) contains reset vector and $ffea($fffa) is NMI vector. The NMI is
+actually vertical blank interrupt.
+
+Video Chip
+~~~~~~~~~~
+size    loc.
+~~~~    ~~~~
+  B     2100    Screen fade  x000bbbb   x=screen on/off  b=brightness(0-f)
+  B     2106    Screen Pixelation xxxxbbbb  x=pixel size b=planes to expand
+  B     2107    Plane 0 location in vram  xxxxxxab x=address ab=32/64 width xy
+  B     2108    Plane 1 location in vram  xxxxxxab      as above
+  B     2109    Plane 2 location in vram  xxxxxxab      as above
+  B     210a    Plane 3 location in vram  xxxxxxab      as above
+  B     210b    Tile VRAM address  aaaabbbb a=Playfield 0   b=Playfield 1       
+  B     210c    Tile VRAM address  ccccdddd c=Playfield 2   d=Playfield 3       
+ 2B     210d    Plane 0 scroll x   8+3 bits (0-7ff) put first 8 bits and then
+ 2B     210e    Plane 0 scroll y   8+3 bits  (0-7ff)  3 highest bits
+ 2B     210f    Plane 1 scroll x                as above
+ 2B     2110    Plane 1 scroll y                as above
+ 2B     2111    Plane 2 scroll x                as above
+ 2B     2112    Plane 2 scroll y                as above
+ 2B     2113    Plane 3 scroll x                as above
+ 2B     2114    Plane 3 scroll y                as above
+ B      2115    Video port control
+ W      2116    Video port address (lo-hi)
+ W      2118    Video port data (lo-hi) (address is incremented by 2)
+ B      2121    Palette color nr
+ B      2122    Palette color data
+ B      212C    Playfield Enable xxxxabcd  a-d = playfield number..
+ B      2133    Screen mode  0000ab0c a=Interlace Y  b=Overscan  c=Interlace X??
+     2140-2142  Audio Registers
+
+I/O
+~~~
+W B     420b    Start dma (enable bits) bits: 76543210 = dma nr (8 DMA's)
+R B     4212    Pad ready to be read
+R W     4218    Pad 0 data      76543210 = A-B-Select-Start-U-D-L-R
+        4219                    76543210 = X-Y-Top Left-Top Right-0000
+R W     421a    Pad 1 data              as above 
+R W     421c    Pad 2 data              as above
+R W     421e    Pad 3 data              as above
+
+DMA registers  ($4300-$437f)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  B     43X0    DMA control reg??(not sure!)
+  B     43X1    DMA destination (Access only to some of the video chip
+                    registers ($2100-$21ff)
+                    $18=video port  $22=color palette
+  W     43X2    Source address lo-hi  16 lowest bits
+  B     43X4    Source Bank addr. 8 highest bits
+  W     43X5    Transfer size lo-hi
+
+        X=dma number (0-7)  DMA #0= 4300-4305
+                            DMA #1= 4310-4315 ...
+                            DMA #7= 4370-4375
+
+ Symbols:  size: B=byte long    2B=put 2 bytes    W=word long
+             R=read only  W=write only
+
+Screen Details
+~~~~~~~~~~~~~~
+Famicom Tile format is simple. Each Tile is 4 planes and 8x8 bits.
+32 bytes are used per Tile .
+
+PLANES 1  &  2                  PLANES  3  &    4
+    byte0   byte1                  byte 16   byte 17  
+    byte2   byte3                  byte 18   byte 19
+    byte4   byte5                  byte 20   byte 21
+     .....                              .......
+    byte14  byte15                 byte 30   byte 31
+
+Screen Map
+~~~~~~~~~~
+Famicom can use only Tiles $0-$3ff, max 1024 chars.
+16 bits:   YX?c ccNN NNNN NNNN
+           fedc ba98 7654 3210
+
+  Y = mirror y     X = mirror x   ?=unknown
+  ccc = palette nr (8 palettes)   NN.. = character number
+
+Screen Resolution is normally 32x32 chars but only the first 30 y blocks are 
+visible (until scrolled) - 64 bytes / line
+
+Screen VRAM Location
+~~~~~~~~~~~~~~~~~~~~
+Screen Width 32x32 offset for x,y       0,0   = 0
+
+Screen Width 64x32 offset for x,y       0,0   = 0
+                                        33,0  = $400
+
+Screen Width 32x64 offset for x,y       0,0   = 0
+                                        0,33  = $400 
+
+Screen Width 64x64 offset for x,y       0,0   = 0
+                                        33,0  = $400
+                                        0,33  = $800
+                                        33,33 = $c00
+
+As can be seen if a wider mode is selected the extra height/width follow
+after the main screen in memory.
+
+=============================================================================

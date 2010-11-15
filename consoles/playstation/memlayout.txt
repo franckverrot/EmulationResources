@@ -1,0 +1,175 @@
+
+
+•0x00000000-0x001fffff - RAM 
+•0x1f000000-0x1f?????? - Mapped memory to the parallel port 
+•0x1f800000-0x1f800fff - Scratch Pad 
+•0x1f801000-0x1f80???? - Hardware registers, and misc. 
+•0x80000000-0x801fffff - Mirror of RAM 
+•0xa0000000-0xa01fffff - Mirror of RAM 
+•0xbfc00000-0xbfc7ffff - ROM, kernel, and shell 
+
+
+
+------------------------------------------------------------------------
+
+
+
+
+
+0x00000000-0x001fffff
+
+
+
+Relative offset:
+
+
+Note: Address ranging from 0x00007xxx till 0x0000dfff are not shown, since they are 
+machine dependent. On a CEX1000 they might not be the same as on a CEX3000. 
+•0x00000108 - Pointer to Task State table 
+•0x0000010c - Size in bytes. 
+•0x00000110 - Pointer to Task CallBacks table. 
+•0x00000114 - Size in bytes. 
+•0x00000120 - Pointer to Event table. 
+•0x00000124 - Size in bytes. 
+•0x00000140 - Pointer to file descriptor table. See below for details. 
+•0x00000144 - Size in bytes. 
+•0x00000150 - Pointer to IO Device Driver Descriptor Table. See below for details. 
+ Thanks to Foo Chen Hon 
+•0x00000154 - Size in bytes 
+•0x0000e000 - 0x0000ffff - Start of Kernel Memory Pool. 
+
+
+
+
+File descriptor:
+
+The kernel has allocated space for 16 fdescriptors, this means, you can not
+have more than 16 files open, whatever devices they use...
+
+typedef struct _fdTbl_ {
+	long flag;
+	long dev_num;
+	void *buffer;
+	long numBlocks;
+	long position;		/* the actual seek offset on the file */
+	long devflag;
+	long error;
+	iodd *dev;		/* a pointer to a structure containing all
+				routines like read,write,close,etc... for a
+				specific device (cdrom,memcard,...) */
+	long ???,???;
+	long handle;
+} fdTbl;
+
+
+
+
+
+
+
+/* Below thanks to Foo Chen Hon */
+IO Device Driver Descriptor:
+
+typedef struct _iodd_ {
+	char *dev_name;
+	long devflag;			/* Not sure */
+	long blockSize;
+	char *dev_desc;			/* Pointer to description */
+	long init();			/* Init device Driver */
+	long open(int fd,char *fname)	/* open device */
+	long ???;
+	long close();			/* close device */
+	long ioctl();			/* IO control on device */
+	long read();			/* read from the device */
+	long write();			/* write on the device */
+	long erase();			/* erase a file */
+	long undelete();		/* unerase a file */
+	long firstfile();		/* find first file matching pattern */
+	long nextfile();		/* find next file matching pattern */
+	long format();			/* format the device */
+	long cd();			/* change directory */
+	long rename;			/* rename file */
+	long deinit;			/* Deinit the device driver */
+	long ???;
+} iodd;
+
+
+
+
+
+------------------------------------------------------------------------
+
+
+
+
+
+0x1f000000-0x1f??????
+
+
+
+Relative offset:
+
+
+•0x0000 - This address contains an address that the kernel will jump to after bootstrapping. 
+•0x0004 - Must contain 'Licensed by Sony Computer Entertainment Inc.\0' to be a valid interface. 
+•0x0080 - This address contains an address that the kernel will jump to before bootstrapping. 
+•0x0084 - The same as 0x0004 
+•0x00b4 - Code, data, whatever of the device plugged in the psx. 
+
+
+
+------------------------------------------------------------------------
+
+
+
+
+
+0x1f801000-0x1f80xxxx
+
+
+
+Relative offset: 
+
+•0x00001060 - Effective memory size 
+•0x00001080 - MDEC - Data In address 
+•0x00001088 - MDEC - chcr in 
+•0x00001090 - MDEC - Data Out address 
+•0x00001098 - MDEC - chcr out 
+•0x00001800 - CD-ROM B 
+•0x00001801 - CD-ROM - This one is used by CdControl* to write the command number. 
+•0x00001802 - CD-ROM - Used by CdControl* to pass the command arguments 
+•0x00001803 - CD-ROM •0x00001810 - GPU data - One of its use is to write/read VRAM 
+•0x00001814 - GPU status - If read, it gives the GPU status. 
+•0x00001824 - MDEC - status 
+•0x00002040 - Dip switches 
+
+
+
+------------------------------------------------------------------------
+BR> 
+
+
+
+0xbfc00000-0xbfc7ffff
+
+
+
+Relative offset: 
+
+•0x00000100 - Contains the word 0x19951204 , the date it was compiled 
+•0x00000104 - 'Sony Computer Entertainment Inc.' 
+•0x0000012c - 'CEX-3000/1001/1002 by K.S.' (in my case) 
+•0x00000150-0x0000ffff - Initialisation of lots of stuff, some system calls,... 
+•0x00010000-0x00017fff - This contains most of the kernel system calls code. 
+ It is copied to RAM at 0xa0000500. After it is copied, the kernel jumps 
+ to 0xa0000500, where it clears some memory, (used internally by kernel operations). 
+•0x00018000-0x007fffff - This where the Shell is located (CD Player memory card 
+management,etc...). It is copied to main memory at address 0x80030000, and its 
+there that is decided what to do, do the country check, and stuff, and if it 
+should return to kernel to execute an exe file. 
+
+
+
+------------------------------------------------------------------------
+
+si17911@ci.uminho.pt

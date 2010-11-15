@@ -1,0 +1,34 @@
+The Nintendo Super Famicom is capable of displaying 256 colours from a
+palette of 32,768. These 256 colours are split into 8 palettes of 32 colours
+each.
+
+To change the colours the following needs to be done:
+
+Loading the palette control register ($2121) with the colour number you wish
+to change (0-255, 0=background).
+Then load the colour into the palette data register first the low 8 bits,
+followed by the high 7 bits (this gives you the maximum 32768 colours
+possible $0000-$7fff).
+
+Colour data is made up of 3 components (Red,Green,Blue) each of 5 bits (The
+Amiga uses exactly the same system, but only using 4 bits per component).
+Saying that, Nintendo being the stupid japanese idiots they are decided that
+R,G,B wasn't alphabetically correct and so opted to store the bits as B,G,R.
+
+                      00000 00000 00000
+                      \   / \   / \   /
+                       \ /   \ /   \ /
+                        B     G     R
+
+Examples:
+~~~~~~~~~
+         11111 00000 00000 = $7C00 (Bright Blue)
+         00000 11111 00000 = $03E0 (Bright Green)
+         00000 00000 11111 = $001F (Bright Red)
+         00000 00000 00000 = $0000 (Black)
+         11111 11111 11111 = $7FFF (White)
+
+Easy, isn't it?? (But remember to load the lowest 8 bits first, then the top
+                  7 bits).
+
+Starr/QUARTEX

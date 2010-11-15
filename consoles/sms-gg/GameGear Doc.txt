@@ -1,0 +1,306 @@
+This is a early version of a GameGear doc. This is what I know as of now.
+Within the next few days I'll hopefully have a sprite under joystick control.
+I'm researching setting up a vertical retrace interrupt.
+
+PORT.7Eh:        Current Scanline Counter
+PORT.7Fh:        Sound Register. Probably same as TMS9918a sound port, but
+                 haven't checked.
+
+PORT.BEh:        VRAM data WRITE
+--------
+                 Output data 1 byte at a time. Low byte first. High byte next.
+
+PORT.BFh:        VDP status (Interrupt,Spr Conc,5th), VRAM address setup, and
+                 Register write
+--------
+Input from port bfh:
+
+bit  Name  Expl.
+0-3  5/9th Number for the 5'th sprite (9'th in screen 4-8) on a line
+5    C     1 if overlapping sprites
+6    5D    1 if more than 4 sprites on a horizontal line (9 in screen 4-8)
+7    F     Copy of the CPU interrupt (1=interrupt)
+
+Output to port bfh:
+
+Register Write: (Write register data. Write $80+register number)
+
+    VDP REGISTER LIST:
+    -----------------
+    Register 0:
+    Mode register 0
+    bit  Name  Expl.
+    0    D     External video input (0=input disable, 1=enable)
+    1    M3    Mode M3
+    2    M4    Mode M4 
+    3    M5    Mode M5 (Always 0)
+    4    IE1   Horizontal Retrace Interrupt Enable
+    5    IE0   Vertical Retrace Interrupt Enable
+    6    DG    Digitize mode
+    7    0     (Always 0)
+
+    Register 1:
+    Mode register 1
+    bit  Name  Expl.
+    0    MAG   Sprite zoom          (0=x1, 1=x2)
+    1    SZ    Sprite size          (0=8x8, 1=16x16)
+    2    0     (Always 0) 
+    3    M2    Mode M2
+    4    M1    Mode M1
+    5    IE2   Interrupt control (50Hz (PAL), 60 Hz (NTSC)
+                                            (0=Disable, 1=Enable)
+    6    BLK   Screen output control        (0=Disable, 1=Enable)
+    7    416   VRAM size control            (0=4K, 1=16K)
+
+
+    Register 2:      (Not sure if the register is valid)
+    Name table base address 
+    Bit     7    6    5    4    3    2    1    0
+    Name    0   A16  A15  A14  A13  A12  A11  A10
+    
+    Register 3:      (Not sure if the register is valid)
+    color table base address Low 
+    Bit     7    6    5    4    3    2    1    0
+    Name   A13  A12  A11  A10  A09  A08  A07  A06
+    
+    Register 4:      (Not sure if the register is valid)
+    Pattern generator base address
+    Bit     7    6    5    4    3    2    1    0
+    Name    0    0   A16  A15  A14  A13  A12  A11
+    
+    Register 5:      (Not sure if the register is valid)
+    Sprite attribute table base address Low
+    Bit     7    6    5    4    3    2    1    0
+    Name   A14  A13  A12  A11  A10  A09  A08  A07
+    
+    Register 6:      (Not sure if the register is valid)
+    Sprite pattern generator base address
+    Bit     7    6    5    4    3    2    1    0
+    Name    0    0   A16  A15  A14  A13  A12  A11
+    
+    Register 7:
+    color register. (Not sure if the register is valid)
+    bit  Name  Expl.
+    0-3  TC0-3 Background color
+    4-7  BD0-3 Foreground color
+    The bits 0-3 and 4-7 can hold a number in the range of 0-15. 
+    The corresponding colors are:
+    0 = Transparent         8 = Medium red          
+    1 = Black               9 = Light red
+    2 = Medium green        10= Dark yellow
+    3 = Light green         11= Light yellow
+    4 = Dark blue           12= Dark green
+    5 = Light blue          13= Magenta
+    6 = Dark red            14= Gray
+    7 = Cyan                15= White
+
+    Register 8:
+    Mode register 2  (Not sure if the register is valid)
+    bit  Name  Expl.
+    0    BW    32 Grey levels.
+    1    SP    ? Sprite             (0=On, 1=Off)
+    2    VR0   VRAM size and speed
+    3    VR1   VRAM size and speed
+    4    CB    color Bus direction         (0=Output, 1=Input)
+    5    TP    ?Transparent from palette
+    6    LCS   Lightpen Select (active 1) connected trough colorbus
+    7    MSE   Mouse select (active 1) connected trough colorbus
+
+    Register 9:
+    Mode register 3
+    bit  Name  Expl.
+    0    DC    DLCLK Dot Clock Direction    (0=Dot clock Input, 1=Output)
+    1    NT    NTSC                         (0=60Hz, 1=50Hz)
+    2    E0    Even Odd                     (0=Normal, 1=Two screen)
+    3    IL    Interlace                    (1=On, 0=Off)
+    4    S0    Simultaneus mode
+    5    S1    Simultaneus mode 
+    6    0     (Always 0)
+    7    LN    Vertical higth (pixels)      (0=192, 1=212)
+    
+    Simultaneus mode:   S0  S1  Expl.
+                0   0   Normal (Intern)
+                0   1   Mix
+                1   x   External(Digitize)
+
+    Register 0Ah:    (Not sure if the register is valid)
+    color table base address High
+    Bit     7    6    5    4    3    2    1    0
+    Name    0    0    0    0    0   A16  A15  A14
+    
+    Register 0Bh:    (Not sure if the register is valid)
+    Sprite attribute base address High
+    Bit     7    6    5    4    3    2    1    0
+    Name    0    0    0    0    0    0   A16  A15
+
+VRAM Write Setup: (Write LB of VRAM address. Write $40+HB of VRAM address)
+
+CRAM Write Setup: (Write color number. Write $c0. Write color value LB then HB)
+    Color number is 0-15 for screen tiles and 16-31 for sprites.
+    Color Value:
+    LB - G G G 0 R R R 0   
+    HB - 0 0 0 0 B B B 0
+
+JOYSTICK:
+--------
+PORT 00h GameGear Start Button
+        bit   Expl.
+        0 = Not Used
+        1 = Not Used
+        2 = Not Used
+        3 = Not Used
+        4 = Not Used
+        5 = Not Used
+        6 = Not Used
+        7 = Start Button
+
+PORT DCh Joystick Port
+        bit   Expl.
+        0 = Joystick UP                 (0=Moved, 1=Not moved)
+        1 = Joystick DOWN               (0=Moved, 1=Not moved)
+        2 = Joystick LEFT               (0=Moved, 1=Not moved)
+        3 = Joystick RIGHT              (0=Moved, 1=Not moved)
+        4 = Joystick trigger A
+        5 = Joystick trigger B
+        6 = Not Used
+        7 = Not Used
+
+PORT DDh Joystick select
+        bit   Expl.
+        0 =   Not Used
+        1 =   Not Used
+        2 =   Not Used
+        3 =   Not Used
+        4 =   Not Used
+        5 =   Not Used
+        6 =   Joystick select for SMS   (0=Connector 1, 1=Connector 2)
+        7 =   Not Used
+
+SCREEN DESCRIPTION. (Screen 2 seems to be the only screen.)
+------------------
+SCREEN 2 (256*192 Graphics mode. Set by storing $06 to VDP register 0):
+Character patterns              0000-37FF       (See note 1)
+Name table (char positions)     3800-3EFF       (See note 2)
+Sprite attribute table          3F00-3FFF       (See note 3)
+Sprite character patterns       0000-37FF       (See note 4)
+
+
+Font (Note 1):
+
+Byte (+offset):         Expl.:
+     0-7                Pattern number 0 (1st Plane. Lowest bits of each pixel). 
+
+                        0:      00000000
+                        1:      00001000
+                        2:      00010100
+                        3:      00100010                = "A" 
+                        4:      00111110
+                        5:      00100010
+                        6:      00100010
+                        7:      00000000
+
+    8-F                 Pattern number 0 (2nd Plane.)
+   10-17                Pattern number 0 (3rd Plane.)
+   1F-20                Pattern number 0 (4th Plane. Highest bits of each pixel)
+    ...
+
+
+Character Patterns (Note 2):
+
+Byte (+offset):         Expl.:
+     0                  Tile value. Max 224.
+     1                  Tile attribute. (Still working on this.)
+     ...
+
+Sprite attribute (Note 3):
+
+Byte (+offset):         Expl.:
+     0-3                Sprite 0 attribute
+                        
+                0:      Vertical position
+                1:      Horizontal position
+                2:      Pattern number
+                3:      Bit:    Expl.:
+                        0-3     Color code
+                        4-6     0
+                        7       EC (Early Clock, 1=> Shift sprite 32 pixels
+                                    to the left)
+
+     4-7                Sprite 1 attribute
+     8-B                Sprite 2 attribute
+     ...
+
+Sprite character patterns (Note 4):
+
+Used like the 8*8 pixel Font in screen 0 when using 8*8 pixel sprites.
+When using 16*16 pixel sprites, four blocks of 8*8 pixels is organised like:
+
+Byte (+offset):         Expl.:
+     0-7                8 Bytes, Block A
+     8-F                8 Bytes, Block B
+    10-17               8 Bytes, Block C
+    18-1F               8 Bytes, Block D
+
+And the sprite will be assembled on screen like this:
+
+                +---------+---------+
+                |         |         |
+                | Block A | Block C |
+                |         |         |
+                +---------+---------+
+                |         |         |
+                | Block B | Block D |
+                |         |         |
+                +---------+---------+
+
+Example Routines:
+----------------
+Routine to write a value to a VDP register.
+a contains the value to be written to the VDP register.
+b contains the VDP register to write to.
+
+write_register:
+        out     (0bfh),a        ; Send data (note: the data is send FIRST)
+        ld      a,b             ; Get the VDP register in [a]
+        or      10000000b       ; Set bit 7 to indicate register WRITE
+        out     (0bfh),a        ; Select register
+        ret
+
+Routine to Setup VRAM Read/Write Access and read a byte.
+hl coutains the VRAM address.
+
+vpeek:  di
+        call    setup_read_address      ; Setup VRAM read start address
+        in      a,(0beh)                ; Get byte from VRAM to [a]
+        ret
+
+Setup_read_address:
+        ld      a,l
+        out     (0bfh),a   ; Send Low Byte to VDP
+        ld      a,h        ; Note: no special bit is set to indicate READ
+        out     (0bfh),a   ; Send High Byte to VDP
+        ret
+
+vpoke:  di
+        call    setup_write_address     ; Setup VRAM write start address
+        out     (0beh),a                ; Write byte in [a] to VRAM
+        ret
+
+Routine to Setup VRAM Read/Write Access and write a byte.
+hl coutains the VRAM address.
+
+Setup_write_address:
+
+        push    af                      ; Save byte in [a]
+        ld      a,l
+        out     (0bfh),a                ; Send LOW byteto VDP
+        ld      a,h
+        or      01000000b               ; Set bit 6 in High byte to 
+                                        ; indicate WRITE
+        out     (0bfh),a                ; Send MSB to VDP
+        pop     af
+        ret
+
+Note that once set, the VRAM READ/WRITE address will be incremented after each
+byte is read from the VRAM DATA READ port.
+

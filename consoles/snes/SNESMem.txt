@@ -1,0 +1,129 @@
+                      +=-=-=-=-=-=-=-=-=-=-=+
+                      | SNES Memory Mapping |
+                      |    By: ]SiMKiN[     |
+                      |         v2.0        |
+                      +=-=-=-=-=-=-=-=-=-=-=+
+
+
+• FastROM's can execute at 3.58Mhz
+• SlowROM's can only execute 2.68Mhz
+
+  • The SNES lets you access ROM through bank $00 onwards and bank 
+    $80 onwards such that locations $00:8000 and $80:8000 are congruent,
+    (they access the same locations.)
+  • When accessing bank $00 onwards the 65816 runs at 2.68Mhz. However, 
+    when accessing bank $80 onwards the 65816 can run at 2.68Mhz or 
+    3.58Mhz depending on how you set bit 0 of $420D.
+
+  • This Document Contains Information Regarding ROM's upto 32mbit.
+    If you have any information regarding ROM's above 32mbit please send
+    E-Mail to 'simkin@innocent.com'
+
++======================================================================+
+| Mode 20: LoROM Memory Model (32k Banks)                              |
+| ---------------------------------------                              |
+|  • $80-$ef : $8000-$ffff                                             |
+|              Mirrored to $00-6f                                      |
+|  • $f0-$ff : $8000-$ffff                                             |
++=========+=============+====================================+=========+
+| Bank    | Offset      | Definition                         | Shadow  |
++=========+=============+====================================+=========+
+| $00-$2f | $0000-$1fff | LowRAM, shadowed from $7e          |   $7e   |
+|         | $2000-$2fff | PPU1, APU                          | $00-$3f |
+|         | $3000-$3fff | SFX, DSP, etc.                     | $00-$3f |
+|         | $4000-$41ff | Controller                         | $00-$3f |
+|         | $4200-$5fff | PPU2, DMA, etc.                    | $00-$3f |
+|         | $6000-$7fff | RESERVED                           | $00-$3f |
+|         | $8000-$ffff | (Mode 20 ROM)                      | ------- |
++---------+-------------+------------------------------------+---------+
+| $30-$3f | $0000-$1fff | LowRAM, shadowed from $7e          |   $7e   |
+|         | $2000-$2fff | PPU1, APU                          | $00-$3f |
+|         | $3000-$3fff | SFX, DSP, etc.                     | $00-$3f |
+|         | $4000-$41ff | Controller                         | $00-$3f |
+|         | $4200-$5fff | PPU2, DMA, etc.                    | $00-$3f |
+|         | $6000-$7fff | RESERVED                           | ------- |
+|         | $8000-$ffff | (Mode 20 ROM)                      | $80-$bf |
++---------+-------------+------------------------------------+---------+
+| $40-$6f | $0000-$7fff | RESERVED                           | ------- |
+|         | $8000-$ffff | (Mode 20 ROM)                      | $C0-$EF |
++---------+-------------+------------------------------------+---------+
+| $70-$77 | $0000-$ffff | (Mode 20 SRAM) 256KBytes           | ------- |
++---------+-------------+------------------------------------+---------+
+| $78-$7d | $0000-$ffff | RESERVED                           | ------- |
++---------+-------------+------------------------------------+---------+
+|   $7e   | $0000-$1fff | LowRAM                             | $00-$3f |
+|         | $2000-$7fff | HighRAM                            | ------- |
+|         | $8000-$ffff | Expanded RAM                       | ------- |
++---------+-------------+------------------------------------+---------+
+|   $7f   | $0000-$ffff | Expanded RAM                       | ------- |
++---------+-------------+------------------------------------+---------+
+| $80-$ef | $0000-$ffff | Mirror of $00-$6f                  | $00-$6f |
++---------+-------------+------------------------------------+---------+
+| $f0-$ff | $0000-$7fff | RESERVED                           | ------- |
+|         | $8000-$ffff | (Mode 20 ROM)                      | ------- |
++=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+
+
++======================================================================+
+| Mode 21: HiROM Memory Model (64k Banks)                              |
+| ---------------------------------------                              |
+|  • $C0-$ff : $0000-$ffff                                             |
+|              High Parts ONLY '($8000-$ffff)' are Shadowed to $00-3f  |
++=========+=============+====================================+=========+
+| Bank    | Offset      | Definition                         | Shadow  |
++=========+=============+====================================+=========+
+| $00-$2f | $0000-$1fff | LowRAM, shadowed from $7e          |   $7e   |
+|         | $2000-$2fff | PPU1, APU                          | $00-$3f |
+|         | $3000-$3fff | SFX, DSP, etc.                     | $00-$3f |
+|         | $4000-$41ff | Controller                         | $00-$3f |
+|         | $4200-$5fff | PPU2, DMA, etc.                    | $00-$3f |
+|         | $6000-$7fff | RESERVED                           | $00-$3f |
+|         | $8000-$ffff | (Mode 21 ROM) from $C0-$EF         | $C0-$EF |
++---------+-------------+------------------------------------+---------+
+| $30-$3f | $0000-$1fff | LowRAM, shadowed from $7e          |   $7e   |
+|         | $2000-$2fff | PPU1, APU                          | $00-$3f |
+|         | $3000-$3fff | SFX, DSP, etc.                     | $00-$3f |
+|         | $4000-$41ff | Controller                         | $00-$3f |
+|         | $4200-$5fff | PPU2, DMA, etc.                    | $00-$3f |
+|         | $6000-$7fff | (Mode 21 SRAM) 256KBytes           | ------- |
+|         | $8000-$ffff | (Mode 21 ROM) from $C0-$EF         | $C0-$EF |
++---------+-------------+------------------------------------+---------+
+| $40-$6f | $0000-$7fff | (Mode 21 ROM) from $C0-$EF         | $C0-$EF |
++---------+-------------+------------------------------------+---------+
+| $70-$77 | $0000-$ffff | (Mode 20 SRAM) 256KBytes           | ------- |
++---------+-------------+------------------------------------+---------+
+| $78-$7d | $0000-$ffff | RESERVED                           | ------- |
++---------+-------------+------------------------------------+---------+
+|   $7e   | $0000-$1fff | LowRAM                             | $00-$3f |
+|         | $2000-$7fff | HighRAM                            | ------- |
+|         | $8000-$ffff | Expanded RAM                       | ------- |
++---------+-------------+------------------------------------+---------+
+|   $7f   | $0000-$ffff | Expanded RAM                       | ------- |
++---------+-------------+------------------------------------+---------+
+| $80-$bf | $0000-$ffff | Mirror of $00-$3f                  | $00-$3f |
++---------+-------------+------------------------------------+---------+
+| $c0-$ff | $0000-$ffff | (Mode 21 ROM)                      | ------- |
++=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+
+
+• ROM: The SNES ROM Image
+• RAM: The SNES Work Memory (WRAM)
+       LowRAM, HighRAM, & Expanded RAM 
+       All together = 128 Kilo-Bytes
+• SRAM: Save RAM (Extra RAM added by Cart)
+        The SNES only utilizes 256 Kilo-bits
+        However 256 Kilo-Bytes are provided.
+
+• APU: Audio Processing Unit
+       SPC700, Inside which has a DSP   
+• PPU: Picture Processing Unit
+       PPU1: 5c77-01
+       PPU2: 5c78-03
+
+• SFX: Super FX Cart Chip, by Nintendo
+• DSP: Digital Signal Processing Cart Chip
+       a.k.a. 'NEC mUPD77C25'
+
+• Shadow: "Congruent Bank".  Same meaning as Mirror.
+
+          _____________________________________________________
+       .o(_Thanx to: zsKnight, Lord Esnes, Y0SHi, and MintaBoo_)o.
+

@@ -1,0 +1,208 @@
+This I/O map applies to c16/116/+4 computers
+(c) 1990-1994 by Michael Stiller.
+
+
+Extension port pinouts (50 pin female)
+
+   25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 09 08 07 06 05 04 03 02 01
+   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+   CC BB AA Z  Y  X  W  V  U  T  S  R  P  N  M  L  K  J  H  F  E  D  C  B  A
+
+
+1       gnd                     A       gnd
+2       + 5V                    B       C1 low
+3       + 5V                    C       BRESET       --
+4       IRQ       --            D       RAS          --
+5       R/W                     E       I0  (clock0)
+6       C1 high                 F       A15
+7       C2 low                  H       A14
+8       C2 high                 J       A13
+9       CS1       --            K       A12
+10      CS0       --            L       A11
+11      CAS       --            M       A10
+12      MUX                     N       A9
+13      BA                      P       A8
+14      D7                      R       A7
+15      D6                      S       A6
+16      D5                      T       A5
+17      D4                      U       A4
+18      D3                      V       A3
+19      D2                      W       A2
+20      D1                      X       A1
+21      D0                      Y       A0
+22      AEC                     Z       nc
+23      extern Audio            AA      nc
+24      02      (clock2)        BB      nc
+25      gnd                     CC      gnd
+
+
+Verified with the CBM Plus/4 User's Manual.
+Note:pins marked with '--' appear in the schematic as low active
+
+
+User port pinouts (24 pin male)
+
+        1  2  3  4  5  6  7  8  9  10 11 12
+        -- -- -- -- -- -- -- -- -- -- -- --
+        -- -- -- -- -- -- -- -- -- -- -- --
+        A  B  C  D  E  F  H  J  K  L  M  N
+
+1       gnd                     A       gnd
+2       +5V                     B       P0
+3       BRESET   --             C       RxD
+4       P2                      D       RTS
+5       P3                      E       DTR
+6       P4                      F       P7
+7       P5                      H       DCD
+8       RxC                     J       P6
+9       ATN                     K       P1
+10      9V AC                   L       DSR
+11      9V AC                   M       TxD
+12      gnd                     N       gnd
+
+
+Verified with the CBM Plus/4 User's Manual.
+Note:pins marked with '--' appear in the schematic as low active
+
+
+These pinouts are from the book:
+Wilhelm Besenthal/Jens Muus
+'Alles ueber den Plus/4'
+Markt&Technik Verlag AG
+ISBN3-89090-410-6
+
+
+Memory Map Overview
+from the CBM Plus/4 User's Manual
+
+Address         RAM             ROM
+$ffff       End of RAM          ROM Bank High
+$fffe                           IRQ Vector
+$fffc                           RES Vector
+$fffa                           NMI Vector
+
+$ff81                           Kernal Jump Table
+
+$fd00       I/O Register/TED Register
+            End if Basic RAM+1
+$fc00                           ROM-Banking routines
+
+$d800                           Operating System
+
+$d000                           Character Table
+
+$c000                           Basic extensions
+$bfff                           ROM Bank Low
+$8000                           BASIC
+$4000       start of basic ram
+            if graphic
+$3fff
+            graphic bitmap
+$2000
+            color map (graphic)
+$1c00
+            luminance (graphic)
+$1800
+
+$1000       start of basic ram
+            (no graphic)
+
+$0c00       character bytes
+                           (display)
+$0800       attribute bytes
+
+Detailed I/O Port Map as located in Plus/4 and similar CBM Computers
+(C16/116/+4)
+Most ports are not fully decoded by a chip called 7700-xx in the
+schematic, so they may appear
+copied on different memory locations.
+
+Addr $       Chip/Port       Usage:
+
+$fd00-fd03   ACIA 6551A      used for RS232  (for bits see +4 manual)
+             $fd00           DATA port
+             $fd01           STATUS port
+             $fd02           COMMAND port
+             $fd03           CONTROL port
+
+$fd04-fd07   ACIA copy
+$fd08-fd0b   ACIA copy
+$fd0c-fd0f   ACIA copy
+
+$fd10        PIO 6529B       User Port PIO (P0-P7)
+                             Bit 2 (P2) is used to detect
+                             if play on cassette is pressed
+                             (CST sense)
+$fd11-fd1f   PIO copies
+
+$fd20-fd2f   free            not connected
+
+$fd30        PIO 6529B       Keyboard PIO  Keyboard Matrix Connector
+                             P0            15
+                             P1            18
+                             P2            7
+                             P3            12
+                             P4            11
+                             P5            10
+                             P6            5
+                             P7            1
+$fd31-fd3f   PIO copies
+
+$fd40-fdcf   free            not connected
+
+$fdd0-fddf   ADDR CLK        used for module select?
+                             in the schematic this is
+                             the clk/in for 4 D-FlipFlops
+                             located in the 74LS175 chip which generates
+                             the C1,C2 low/high signals
+$fde0-fdff   free            not connected *
+$fe00-fe1f   free            not connected *
+$fe20-fe3f   free            not connected *
+$fe40-fe5f   free            not connected *
+$fe60-fe7f   free            not connected *
+$fe80-fe9f   free            not connected *
+$fea0-febf   free            not connected *
+$fec0-fedf   TIA 6523A       if you have a CBM 1551 as device #9
+                             then the TIA located in the paddle of
+                             you drive will appear at this location
+                             for details see $fee0-feff
+$fee0-feff   TIA 6523A       if you have a CBM 1551 as device #8
+                             then the TIA located in the paddle of
+                             your drive will appear at this location
+             $fee0           TIA PORT A   (DATA)
+             $fee1           TIA PORT B   (STATUS)
+             $fee2           TIA PORT C   (HANDSHAKE)
+             $fee3           TIA PORT A   data direction register
+             $fee4           TIA PORT B   data direction register
+             $fee5           TIA PORT C   data direction register
+             $fee6           not connected
+             $fee7           not connected
+             $fee8-feef      TIA copy
+             $fef0-fef7      TIA copy
+             $fef8-feff      TIA copy
+TIA Notes:
+The TIA 6523A is a triport interface adapter which is located in the
+paddle of the 1551 disk drives. The drivenumber causes the TIA to appear
+at the corresponding memory addresses as mentioned above.
+The address decoding stuff is done by another chip located in the
+1551 paddle, called 8700-011 ?
+The TIA port a is used as direct 8 bit data connection between the
+computer and the drive. (It is called TCBM Bus in the 1551 schematic)
+The other TIA ports are used for other TCBM Bus signals (handshake etc.)
+They are connected as follows:
+Port    bit     used for
+B       0       status 0
+B       1       status 1
+C       6       DAV signal
+C       7       ACK signal
+The marked (*) port may be intended as additional drive locations,but
+they are not supported by the 1551 drives.
+
+(c) 1990-1994 by Michael Stiller.
+The informations here are given without warranty.
+May not be modified without permission.
+For comments,questions,donations etc. write to
+stille00@marvin.informatik.uni-dortmund.de
+
+

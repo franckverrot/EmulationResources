@@ -1,0 +1,1272 @@
+
+===============================================================================
+	     Sony PlayStation (SONY PS) FREQUENTLY ASKED QUESTIONS
+                                                               +--------------+
+ +======\\  ||                 +=======                        | Sept 26 1995 |
+ ||      \\ ||                //                               | Version  1.5 |
+ ||      || ||                ||         ||            ||      +--------------+
+ ||      || ||                ||         |+===         |+===        
+ ||_____//  ||                \\         ||            ||    
+ ||         ||                 +======+  ||            ||    ##
+ ||         ||  _====+ \\  //         \\ ||     _====+ ||        +===+  |+===+
+ ||         ||  ____||  \\//          || ||     ____|| ||    || //   \\ ||   ||
+ ||         || //   ||   //           || ||    //   || ||    || ||   || ||   ||
+ ||         || ||   ||  //            // \\    ||   || \\    || \\   // ||   ||
+ ||         ||  +===|| //     ========+   +===  +===||  +=== ||  +===+  ||   ||
+                      //
+                     //
+=============================================================================== 
+		 * MAINTAINED AND PRODUCED by: James Dunford
+			   (J.Dunford@lmu.ac.uk)
+===============================================================================
+
+			      - CONTENTS -
+
+   (1)		What is this FAQ for?
+   (2)		What is the Sony PlayStation (aka Sony PSX)?
+   (3)		What is the history of the Sony PlayStation?
+   (4)		Who is supporting the Sony PlayStation?
+   (5)		Where/when will it be available? And for how much!?
+   (6)		What do you get for your money?
+   (7)		What are the differences between the US and European releases?
+   (8)		What is the best way to view a PS (or any Next Gen thing)
+   (9)		Will the American, European, and Japanese PlayStation be
+			compatible?
+   (10)		Which machines can/will be compared to the PlayStation?
+   (11)		Which PlayStation should I buy?
+   (12)		What is the arcade connection?
+
+   (13)		Technical Specifications
+
+	(a)	CPU
+	(b)	Geometry Transfer Engine (GTE)
+	(c)	Data Decompression Engine (MDEC)
+	(d)	Memory
+	(e)	Graphics Processing Unit (GPU)
+	(f)	Sound
+	(g)	Graphics
+	(h)	CD-ROM Drive
+	(i)	I/O System Overview
+	(j)	Operating System (O/S)	
+	(k)	Peripherals
+
+   (14)		PlayStation to RGB SCART Connection
+
+   (15)		Release Sheet
+   (16)		On-Line Resources
+   (17)		Off-Line Resources
+
+   (18)		Rumours!!!
+   (19)		Acknowledgements
+   (20)		Other Stuff...
+
+===============================================================================
+
+(1)     What is this FAQ for?
+
+This is my attempt to gather as much useful information regarding the Sony
+PlayStation as possible, and to present it in a concise, readable form that
+answers many of the repeated questions that are posted to rec.games.video.sony
+and rec.games.video.misc every day.
+
+I am only covering Western releases, since I have no way of accessing accurate
+information from Japan and the many of titles will never be seen here in
+the West as official releases (Patchinko games!).  However I will keep track of
+important releases by the major players Namco, Konami, Taito etc.
+
+===============================================================================
+
+(2)     What is the Sony PlayStation!?
+
+The Sony PlayStation, aka PSX, is the initial video gaming console by
+electronics giant, the Sony Corporation of Japan. The Sony PlayStation has been
+admittedly been in development for the last 2 or 2.5 years - remember the SNES
+CD!? <see history> Development included both working with LSI Logic
+Technologies and creating a video game/electronic media department, known as
+the Sony Computer Entertainment of Japan (SCE)
+
+The PlayStation is the initial hardware entry by the Sony Corp. into the video
+gaming arena. The release in Japan in December 1994 has been a resounding
+success with sales of over a million units (as of Summer '95). The US release
+in September 1995, was also a success, selling 100,000 units in the first
+weekend of being on sale.
+
+The PlayStation is pitching against the current 'next generation' of consoles,
+which include: 3DO; 3DO M2; Sega 32X; Sega Saturn; Atari Jaguar; Atari Jaguar
+CD; and Nintendo Ultra 64
+
+Technically, the PlayStation is a 32-bit RISC, CD-ROM/XA2 based video
+game console.  The PlayStation is capable of spectacular graphic effects that
+include: high volume of texture-mapped polygons, incredible sprite renditions,
+hardware tri-axial rotation, and gourard shading, among others.
+
+Although 3D is seemingly stressed in the majority of the scheduled games, there
+is a built-in sprite engine <see specs> Also, instead of having on board RAM
+for saving game positions and games (like Sega Saturn); Sony Corp. has opted
+for a 'Neo-Geoish' option, which utilises memory cards <see specs>
+PlayStation has two ports for two memory cards.
+
+The PS has a built in communications port that will allow linking of two PSs
+via the Combat cable. See <rumours> for more developments.
+
+===============================================================================
+
+(3)     What is the history behind the PlayStation!?
+
+The Sony PlayStation actually has a history... a quite controversial one at
+that.  The PlayStation is the product of the un-consummated relationship
+between the Sony Corp. and Nintendo of Japan. The PlayStation was the name and
+designation of the <vaporware> SNES CD-ROM.  NOJ and the Sony Corp. briefly
+combined in a joint effort in order to create a CD-ROM peripheral for the SNES;
+for the purpose of competing with the Sega-CD. However, NOJ suddenly defaulted
+on the agreement and re-announced the SNES CD, to be developed by Phillips
+Electronics; an European corporation. This version of the SNES CD never came
+to fruition, and the Sony Corp. was stuck with a working model of the SNES CD;
+known as the PlayStation.
+
+What to do!? Well, the Sony Corp. enhanced it, combined with LSI Logic
+Technologies for chip design(s), and finally released it into competition with
+the 'next generation' consoles; with its sights set primarily upon the Nintendo
+Ultra 64. 
+
+===============================================================================
+
+(4)     Who is supporting the Sony PlayStation!?
+
+Sony have created three new divisions to cover the three main markets.
+Sony Computer Entertainment Japan (SCE), Sony Computer Entertainment America
+(SCEA), and Sony Computer Entertainment Europe (SCEE).
+
+Supporting the Sony Playstation are a number quality software developers. This
+list includes: Konami, Capcom, Technosoft, Namco, Taito, SunSoft, UBI ASoft,
+Psygnosis and Takara. 
+
+SCEA has attracted over 160 third party licensees in North America alone and
+over 400 worldwide to partner with the company. The major industry players
+with a full commitment to supporting PlayStation including Acclaim, Electronic
+Arts, Crystal Dynamics, Time Warner Interactive, Williams, Interplay, Virgin.
+
+See 'Rumours' for other <possible> developers.
+
+===============================================================================
+
+(5)     Where/when will it be available? And for how much!?
+
+ +------------------+-----------+-----------------------+-------------+
+ |    Location      |   Model   |  Release Date         |  Price      |
+ +------------------+-----------+-----------------------+-------------+
+ | Japan            | SCPH-1000 |  December 2, 1994     |  Yen 39800  |
+ | Japan            | SCPH-3000 |  July 21, 1995        |  Yen 29800  |
+ | USA              | SCPH-1001 |  September 9, 1995    |  US$ 299    |
+ | USA + Ridge Racer|           |  Late September, 1995 |  US$ 349    |
+ | Canada           |           |  September 9, 1995    |  CAD 430    |
+ | Germany          |           |  September 21, 1995   |   DM 599    |
+ | Britain          |           |  September 29, 1995   |  UKS 299    |
+ | Finland          |           |  September 29, 1995   |             |
+ | Norway           |           |  September 29, 1995   |  NOK 2990   |
+ | Sweden           |           |  September 29, 1995   |  SEK 3200   |
+ | Australia        |           |  October 13, 1995     |  $695       |
+ +------------------+-----------+-----------------------+-------------+
+
+   *	PlayStation II and III
+
+	The PlayStation II and III are already planned, but don't let that stop
+	you from buying the PlayStation I, as the PS II is planned for 1998 and
+	PS III in 2003. So relax and get on with it.
+
+===============================================================================
+
+(6)     What do you get for your money?
+
+Depending on which country you live, depends on what you get. This is the line
+up for the US.
+
+   *	PlayStation base unit (H 60mm x W 270mm x D 188mm)
+   *	One controller
+   *	A Stereo AV cable (Audio L+R and composite video)
+   *	A Sampler CD
+   *	A Power cable (Wahey!)
+   *	An instruction book
+
+In the USA A pack-in game is planned for Late September/ Early October with
+Ridge Racer, which will save you $10, the bundle costing $349 dollars.
+
+The sampler CD contains playable games demos, Toshinden (1 bout vs ); ESPN
+Extreme (1 track rollerblade); Jumping Flash (1 level); and Wipeout (1 level).
+The disk also 8 non-playable demos and intros of more titles. (Kileak - The DNA
+Imperative, Philosoma, Tekken, Air Combat, Twisted Metal, Ridge Racer,
+Destruction Derby and Warhawk)
+
+If you registered (paid a deposit) with a shop for your PS before 27th August
+'95, you also qualified for the "Hear It Now! Play It Later!" Sampler CD. It
+contains several tracks of music (from Sony recording artists The The, Dag,
+Korn, Mother May I and Dandelion) which can be heard on standard compact disc
+players.  When the PlayStation arrives in stores on September 9th, you can use
+the disk to access nine separate impressive visual demonstrations from a
+plain-text menu overlaid on a gyrating rainbow background.
+
+Each demonstration shows off a functional asset of the PlayStation hardware
+and does so in a dramatic way, whether it's frame rate and speed, image
+clarity, number of objects or texture-mapping power. This is a list of each
+demo. (Also Ref: Demo controller button list By George Cifrancis
+<gc3@infinet.com> version 1.0 (9-14-95))
+
+   
+   *	Title Screen: A moving rainbow backdrop provides a little excitement
+	for some drab text.
+   
+   *	Balls
+
+	Begins with a single coloured and shaded ball (a sprite) bouncing up
+	and down off of the walls. Your controller increases the number of
+	balls until thousands are simultaneously moving on screen without any
+	slowdown or glitching.
+	Up: Adds Balls
+	Down: Subtracts Balls
+	L1: Freezes screen when held down
+	Select: Quits Demo
+   
+   *	Diffusion
+
+	Begins with a cube made up of coloured flat pieces which explode in
+	three dimensions out at the screen. The demonstration cycles
+	repeatedly as your controller allows you to adjust the viewing angle
+	and change the flat pieces to shaded ball sprites.
+	L1: Changes from flat squares to balls
+	L2: Toggles transparency??
+	Triangle, Square, Circle and Cross buttons: rotate object
+	Select:	Quits Demo
+
+   *	Rcube
+
+	Begins with a set of shaded polygonal cubes spinning in a matrix
+	resembling a larger cube. Using the controller, you change the
+	flat-shaded cubes to Gouraud-shaded, texture-mapped or transparent
+	cubes, toggle a fog effect on or off, and change the viewing angle of
+	the matrix. Pressing one button will shatter the cube into bouncing
+	pieces.
+	L1: drops cubes on the ground (hitting L1 repeatedly bounces surface)
+	R1: Seems to change cube colors (also restores cubes after hitting L1)
+	L2: Zooms out
+	R2: Zooms in
+	Thumb Pad Up: Rotates Cubes Up
+	Thumb Pad Down: Rotates Cubes Down
+	Thumb Pad Right: Rotates Cubes Left
+	Thumb Pad Left: Rotates Cubes Right
+	Triangle: Cycles cubes from solid, transparent, goraud shaded? and 
+		texture mapped
+	Square: toggles black and white background
+	Select: Quits demo
+   
+   *	Mat
+
+	Begins with a single frog-like creature hopping and casting a shadow
+	on a flat polygonal mat. Your controller increases the number of
+	creatures and changes the viewing angle of the scene.
+	Thumb Pad Up: Rotates Mat Up
+	Thumb Pad Down: Rotates Mat Down
+	Thumb Pad Right: Rotates Mat Left
+	Thumb Pad Left: Rotates Mat Right
+	Triangle: Adds creatures
+	Cross: Subtracts creatures
+	Select: Quits demo
+
+   *	Oden
+
+	Begins with a Gouraud-shaded box, cone and sphere appearing on screen.
+	Using the controller, you can opt to texture map any or all of the
+	shapes while spinning them and adjusting the viewing distance.
+	After brief self running demo....
+	triangle,square,circle and cross buttons: rotate objects
+	L1,L2,R1,R2 and Thumpad changes RGB light source positions
+	Various combinations of L1,L2,R1,R2 and triangle,square,circle and
+	cross buttons change the various light sources intensities.
+	Thumb Pad Down: makes all 3 objects goraud shaded?
+	Thumb Pad Right: puts brick texture map on cube
+	Thumb Pad Left: puts brick texture map on sphere
+	Thumb Pad Up: puts brick texture map on cone
+	Select: Zoom In
+	Start: Zoom out
+	Both Start and Select: ends demo
+   
+   *	Movie
+
+	Begins with a young Asian woman applying make-up and shows incredibly
+	crisp, highly detailed video of clouds over a bridge, a bee hive,
+	computer-generated morphing shapes and underwater scenes, among other
+	things. You cannot control this demonstration except to stop it.
+	Select: quit
+
+   *	Texture Movie
+
+	Begins with a small window in the bottom right corner containing
+	looping snippet from the aforementioned Asian woman makeup scene, and
+	a single, slow-moving globe with the same scene texture-mapped on its
+	outer surface. Using the controller, you can change the position of
+	the globe and increase the number of globes from one to three.
+	Thumb Pad Up: adds video spheres
+	Thumb Pad Down: removes video spheres (if more than one)
+	Triangle,square,circle and cross buttons: rotate video sphere(s)
+	L1: Zoom Out
+	R1: Zoom In
+	Select: quits demo
+
+   *	Manta
+
+	Begins with a manta ray swimming in the depths of the ocean,
+	surrounded by fish. You can change the manta's position with the
+	controller.
+	Start: Zoom In
+	Select: Zoom Out
+	Triangle,square,circle and cross buttons: rotate manta
+	Thumpab buttons: move manta up down left and right
+	Hold R1: Fish leave the area
+	Hold R1,R2,L1,L2 (all at the same time) and hit start: reset demo
+	Hold R1,R2,L1,L2 (all at the same time) and hit select: quit demo
+
+   *	Dino
+
+	Begins with a Tyrannosaurus Rex off in the distance, in front of a
+	static Mayan temple-style background. Using the controller, you can
+	change the dinosaur's position as he walks, move the viewing camera
+	around, tilt his neck separately from the rest of his body, cause him
+	to bare his teeth, and cause him to roar and open his mouth.
+	Start: Zoom In
+	Select: Zoom Out
+	Thumpab buttons: move dino up down left and right
+	Triangle,square,circle and cross buttons: rotate dino
+	L1: Move head left
+	R1: Move head right
+	L2: make Dino growl!
+	R2: make Dino scream!
+	Hold L1 and R1 and press Thumbpad Up: Make dino stand upright and move
+		up.
+	Hold L1 and R1 and press Thumbpad Down: Make dino stand upright and move
+		down.
+	Hold L1 and R1 and press Select: Dino stops and just stand.
+	Note:In the above stop and stand mode you can also play with the 
+	R1,R2,L1,L2 buttons (trying holding all 4 down at once while in this
+		mode! is this balloon mode?).
+	R1,R2,L1,L2,Start,Select (all at once): Quit demo
+
+   
+===============================================================================
+
+(7)	What are the differences between the US and European releases?
+
+In Europe (the UK certainly):
+
+   *	The PS comes with an RF lead (and rumoured RGB SCART lead).
+   *	The demo disk has a different line up of playable demos. Ridge Racer;
+	BA Toshinden; Wipeout; Rapid Reload (Gunner's Heaven); Total NBA (NBA
+	Jam TE)	and Destruction Derby. Plus video footage of other titles and a
+	audio CD graphics package. (Which I presume is audio reactive).
+
+===============================================================================
+
+(8)	What is the best way to view a PS (or any Next Gen thing)
+
+The easy answer to the above question is to use your eyes. However once you tire
+of that gag (like I did the minute I wrote it), then you can get to the serious
+options.
+
+This is the one subject that seems to garner the greatest number of queries
+regarding Next Generation consoles. The answer is pretty simple too, but with
+the wealth of options it is easy to get confused. Recently I have seen worried
+postings from people concerned that they will need a special monitor to be able
+to use these 'Next Gen' machines, but rest assured Sony or Sega et al would not
+release a mass market product that couldn't be used a regular tv.
+
+When Sega were deciding which cable should be bundled with the European Saturn
+release their research showed that 70% of European tvs, of the people who were
+likely to buy a Next Gen machine, supported SCART. However on the day of release
+shops were innundated with customers wanting an RF cable to replace the bundled
+RGB SCART lead. So either Sega's research is wrong or people prefer not to see
+a top quality picture.
+
+Here is the run down of connections from your machine to your tv, going from
+worst to best:
+
+   *	The RF lead.
+
+	The cheapest, most common and certainly the worst, this was the lead
+	you traditionally got with games consoles. It carries a modulated tv
+	signal combined with mono audio. (In the UK Sony are bundling this
+	cable with the PS. I can only assume this is a nervous reaction after
+	Sega sold out of RF cables on day of release, because they had shipped
+	with the Saturn with a far superior RGB SCART cable. Top marks to Sega
+	for that brave choice, bottom marks for charging UKS 20 ($30))
+
+	My opinion is this if you are spending $300 - $400 on a machine, why
+	would you want to cripple the picture you get from it?
+
+   *	Composite audio video cable.
+
+	This three lead cable has one for video and two left and right audio
+	leads for stereo sound. (This is what is getting bundled in America
+	with the PS.)
+
+  *	S-Video cable
+
+	Now we are getting somewhere, this is the first of the two high-end and
+	most suitable options. It is a combined cable with 6 pins carrying a
+	chrominance and luminance signal and the usual two stereo audio outputs.
+
+  *	RGB cable
+
+	The second high-end option is the best, it has three separate lines for
+	the video, each one carrying the colour signal for each of the tvs
+	'guns'. (Red, Green and Blue).
+
+	The essential thing about RGB is that the video signal is split into
+	it's constitutent parts, so any cable that does that job can be called
+	an RGB cable. In Europe the standard connection is called SCART (also
+	Euroconnector and Peritel), which carries stereo audio, RGB video and
+	composite video. Hopefuly a cable specialist will make an RGB cable
+	that could be used with a common games computer monitor like the
+	Commodore 1084S or the Philips CM8833 (so could get the authentic
+	arcade experience by playing Raiden in arcade mode with the monitor on
+	it's side with a crystal clear picture!! Dreamy stuff)
+	
+===============================================================================
+
+(9)     Will the American, Japanese, and European PlayStation be compatible!?
+
+Unfortunately, the answer to this question is no... Sony, and Sega, 
+announced that there will be territorial lock-outs implemented on the Sony
+PlayStation (and Sega Saturn).  However, there are a number of ways to defeat
+this, (one involving a bullet!).
+
+   *	The Disk Swap Method
+	Pop open the door to the CD - make sure there is no disc in the unit.
+	Now, with the controller move the cursor to the CD tracks screen (as
+	if you were intending to play a music CD).  Put in a CD compatible with
+	your system. Now - look under the door of the CD (the underside) - you
+	should notice a long plastic notch. Follow where it would touch if you
+	were to close the door - but don't close it. Notice the little round
+	sensor on the base of the unit? When pressed, this sensor thinks the
+	door is closed which starts the CD spinning. So, what you need to do is
+	get something small- yet has a bit of weight to put on the sensor.
+	Don't use anything WIDE - you don't want to block the actual CD when
+	it spins!  People have had success with sticky tape; a .40 bullet; or
+	even a AAA battery. Then pop in your 'foreign' CD, and Bob's Your
+	Uncle!
+
+   *	Hardware Switch
+	Make a switch that is soldered to the motherboard. (Full schematic to
+	follow. Anyone?)  Tronix are now offering a modification service, that
+	fits a switch to toggles between US and Japanese. This is probably the
+	way the 'Blue' developers PlayStations defeat the protection, and is
+	guaranteed to work.
+
+   *	A third party Cartridge
+	Buy a defeator cartridge (Datel) that plugs in one of the memory
+	sockets. (Unreleased as yet, but see <rumours> for more info.)
+
+PlayStation Differences
+-----------------------
+
+It has been announced that certain revisions (Rev) of PlayStations might not be
+compatible. In Japan two versions of the PS exist. The original SCPH-1000
+(Rev A) and the SCPH-3000 (Rev B), the latter does not have a dedicated
+S-video port. This is an evil move on Sony's part, where they saved a dollar
+on manufacturing, while we lose by having to buy the dedicated AV cable ($15) 
+rather than a standard S-Video cable which would be much cheaper.
+
+The initial worldwide release will be a batch of the SCPH-3000 (Rev B),
+without the S-Video port, allowing you to buy the cable that suits you,
+S-Video, SCART (RGB) or RF (Arrgggh!).
+
+After the initial batch run out Sony will release the Rev C PS, enabling Sony
+to bring the cost of the PS below the $299 price point, maybe by $20 or even
+up to $50 in time for the holiday buying season (Xmas/Thanksgiving). The Rev C
+machine potentially has compatibility problems with early Japanese software,
+due to using cheaper RAM, however it is promised that no problems will exist
+with US-released software.
+
+===============================================================================
+
+(10)	Which machines can/will be compared to the PlayStation?
+
+In order NOT to start a silly flame-war, the only thing that I WILL say is that
+the PlayStation will undoubtedly be compared to (in NO particular order):
+
+   *	3DO & M2 (upcoming upgrade to 3DO; utilising PowerPC chip(s)
+   *	Sega Saturn (dual SH2 Hitachi chips)
+   *	Nintendo Ultra 64 (MIPS design R4200 and SGI based Reality Immersion
+		Graphics)
+   *	Atari Jaguar (with upcoming Jaguar CD) 
+   *	Bandai Power Player (Pippin) - Apple multimedia edutainment, Power PC
+
+Please keep your opinions to yourself on this thorny topic, the newsgroups rec.
+and alt. aren't interested.  All it does is annoy people, take it to .advocacy
+
+Remember that games make a system, not necessarily the hardware. There are some
+titles on the Gameboy that are still better than many 32 bits titles!!
+
+===============================================================================
+
+(11)     Which PlayStation should I buy?
+
+For many people the decision which PlayStation to buy is an easy one; you buy
+the one in your local High Street shop or store. You get a valid warranty, the
+machine will work with your television, and if anything goes wrong, you can go
+to the shop and play merry hell with the staff.
+
+Outide Japan, people will always buy imported machines. Why? Some people buy
+them because they want to play Next Generation titles nearly twelves months
+before they are released in their country or they wish to play the games as
+'nature' intended, full screen and full speed.
+
+If you live in Japan, then you have no problems, the PlayStation was released
+there first so you can walk into any game shop and buy one. The television
+system is NTSC and your voltage is 100 Volts. Life is sweet.
+
+If you live in the USA or Canada, then you may have imported a machine from
+Japan to skip the 11 month wait for the US release or to play rare Japanese
+RPGs, which are apparently unappealing to Western tastes. The television
+system is also NTSC and your voltage is 110 Volts, which is nearly 100V, if
+you are concerned you can buy a extra power supply that gives 100V. You can
+plug in and go. Life is sweet.
+
+If you live in Europe or Australia/New Zealand, things aren't so nice. Your
+tv system probably isn't compatible with NTSC and your power supply is 220 -
+240 Volts.  With other game systems, PAL versions of games are often released
+much later than NTSC ones, and are often not optimised to run PAL so you get
+black borders top and bottom of your screen squashing the games, so in
+fighting games Cammy looks like Eddie Honda and Eddie Honda looks like Jabba
+The Hut (Uncanny!). Life is sweet as a lemon.
+
+Sony have promised that PAL releases will be optomised for PAL and will not
+suffer any slowdown and will be fullscreen. Though Sega promised something
+similar with the PAL Saturn, the fighters in Virtua Fighter are fatter and
+move slower than the NTSC ones, and this game WAS optimised for the PAL
+release. My feelings are that a US or Japan based 3rd party software house is
+not going to spend time and money changing their game to run more efficiently
+on PAL, when it could be making the thing run faster on NTSC!
+
+Games are often released earlier in the US than in the other markets, so again
+non-NTSC areas lose out.  The solution is to import, either a Japanese machine
+and software and potientially have langauge problems (mainly RPGs, with their 
+intensive use of text, things like Tekken are fine), or wait until September
+95 and import a US machine and software, and pay less too! However there are a
+few things that you need. A tv or monitor that supports a 60Hz refresh rate.
+(Many new, expensive tvs support this automatically), and a stepdown
+transformer that will take 220-240V @50Hz supply and change it to 110V @60Hz.
+
+===============================================================================
+
+(12)     What is the Arcade Connection?
+
+Namco, and more recently Konami and Takara, have based cheap coin-ops on the PS
+hardware. Namco originally set out to make Tekken for it's System 22 board as
+used by Ridge Racer, however due to price constraints and a gelling of their
+relationship with Sony, Namco decided to produce the System 11 board and write
+Tekken for it. This allowed Namco to release the PlayStation conversion quickly
+and easily. This low cost system has proved popular with smaller arcades and
+with Tekken fans. Namco plan another four System 11 coin-ops, all of which will
+get a quick translation to the PlayStation.
+
+Takara has announced the sequel to the Battle Arena Toshinden, which will first
+be an arcade game first, debuting at the JAMMA arcade trade show mid-September
+near Tokyo, before a PlayStation release possibly as early as late December.
+Like Namco, the arcade version is built on a system board that is compatible with
+the PlayStation architecture. However, Takara declined to identify which arcade
+company will handle the arcade release.
+
+See <rumours> for more information.
+
+===============================================================================
+
+(13)    Technical Specifications
+
+	(a)	CPU
+	(b)	Geometry Transfer Engine (GTE)
+	(c)	Data Decompression Engine (MDEC)
+	(d)	Memory
+	(e)	Graphics Processing Unit (GPU)
+	(f)	Sound
+	(g)	Graphics
+	(h)	CD-ROM Drive
+	(i)	I/O System Overview
+	(j)	Operating System (O/S)	
+	(k)	Peripherals
+
+  (a)   CPU
+
+   The CPU also contains the GTE, the MDEC and the DMA controller.
+
+   *    R3000A from MIPS(SGI) and LSI Logic Technologies
+   *    32 bit RISC processor
+   *    Clock 33.8688MHz
+   *    Operating performance 30 MIPS
+   *	Instruction Cache 4 KB
+   *    Data Cache 1 KB
+   *    BUS 132 MB/sec.
+
+  (b)	Geometry Transfer Engine (GTE)
+
+   The GTE performs high speed matrix multiplies.
+
+   *    3D Geometry Engine (High speed matrix calculator)
+   *    Clearing capacity: 66 MIPS
+   *    1.5 million flat-shaded polygons/sec
+   *    500,000 texture-mapped and light-sourced polygons/sec
+
+  (c)	Data Decompression Engine (MDEC)
+
+   The MDEC is the propriety video decompression hardware. It gives fullscreen
+   high-quality video playback and also decompress graphics into VRAM.
+
+   *    Motion JPEG Hardware Decompression Engine
+   *   Operating performance 80 MIPS (Clearing Capacity)
+   *    Directly connected to CPU bus
+   *    Compatible with MPEG1, H.261 files (both via additional hardware?)
+
+  (d)	Memory
+
+   *    Main RAM        -         2 Megabytes (16Mbits)
+   *    Video RAM       -         1 Megabytes (8Mbits)
+   *    Sound RAM       -       512 Kilobytes (4Mbits)
+   *    CD ROM buffer   -        32 Kilobytes (256Kbits)
+   *    OS ROM:         -       512 Kilobytes (4Mbits)
+   *    RAM cards       -       128 Kilobytes (1Mbit) flash-memory cards
+
+  (e)	Graphics Processing Unit (GPU)
+
+   Handles everything that is drawn on screen.
+
+   *    Rendered in hardware - Upto 360K polygon/sec.
+   *    Texture mapping
+   *    Flat or Gouraud shading
+
+  (f)	Sound
+
+   *    ADPCM audio source
+   *    24 Channels
+   *    44.1KHz sample rate
+   *    Digital effects include:
+
+		- Pitch Modulation
+		- Envelope
+		- Looping
+		- Digital Reverb
+
+   *    Load up to 512K of sampled waveforms
+
+		- Supports MIDI Instruments
+ 
+  (g)	Graphics
+
+   *    16.7 million colours
+   *    Adjustable frame buffer
+   *    No line restriction
+   *    Simultaneous backgrounds 
+
+   *    NTSC Display Resolution
+
+	+-------+--------------------+-------------------+
+	|  Mode | Resolution (H x V) |       Scan        |
+	+-------+--------------------+-------------------+
+	|   0   |     256 x 240      |                   |
+	|   1   |     320 x 240      |   Non-Interlaced  |
+	|   2   |     512 x 240      |                   |
+	|   3   |     640 x 240      |                   |
+	+-------+--------------------+-------------------+
+	|   4   |     256 x 480      |                   |
+	|   5   |     320 x 480      |    Interlaced     |
+	|   6   |     512 x 480      |                   |
+	|   7   |     640 x 480      |                   |
+	+-------+--------------------+-------------------+
+
+   *    Colour Depth
+
+	+-------+--------------+
+	|  Mode |    Colours   |
+	+-------+--------------+
+	|   4   |      16      |
+	|   8   |     256      |
+	|  15   |    32,768    |
+	|  24   |  16,777,216  |
+	+-------+--------------+
+
+   *    All calculations are performed to 24 bit accuracy
+
+   *    Texture mapping colour mode
+
+	- 4 bit CLUT (Colour Look-Up Table) (16 colours)
+	- 8 bit CLUT (256 colours)
+	- 15 bit direct (32768 colours)
+       
+   *    2D Graphical Capability
+
+	Sprite display capability (Size: 1 X 1 Pixels to 256 X 256 Pixels)
+
+	+---------+--------------------------------+
+	| Sprite  |            Bit Depth           |
+	|  Size   +--------------------------------+
+	|         |   4 bit  |   8 bit  |  16 bit  |
+	+---------+----------+----------+----------+
+	|  8 x 8  |   280K   |   280K   |   160K   |
+	| 16 x 16 |   110K   |    70k   |    40k   |
+	+---------+----------+----------+----------+
+		  |     Rectangles per Second      |
+		  +--------------------------------+
+
+   *    3D Graphical Capability
+
+	Polygon drawing rates
+	---------------------
+
+	- For a 50 Pixel Triangle (10 X 10)
+
+	+------------+-------------------+
+	|  Texture   |      Shading      |   
+	|  Mapping   +-------------------+
+	|            |   Flat  | Gourard |
+	+------------+---------+---------+
+	|    OFF     |   360K  |   200K  |
+	+------------+---------+---------+
+	|     ON     |         |         |  
+	|            |         |         |  
+	|    4 bit   |   200K  |   140K  |
+	|    8 bit   |   100K  |         |
+	|   15 bit   |    60K  |         |
+	+------------+---------+---------+
+		     |   Polygons / Sec  |
+		     +-------------------+
+
+   *    Sprite And Background Graphics
+   
+	The PlayStation is virtually unlimited in:
+
+	- size (up to 256 x 256)
+	- number of sprites on a line
+	- number of sprites images
+	- number of CLUTs
+       
+   *    Sprite Special Effects
+
+	- Rotation
+	- Scaling up/down
+	- Warping
+	- Transparency
+	- Fading
+	- Priority (What the?)
+	- Vertical and horizontal line scroll
+
+  (h)   CD-ROM Drive
+
+   *    Data Transfer Rate (DMA TO RAM):
+
+	- 150 KB/sec. (Normal)
+	- 300 KB/sec. (Double speed)
+
+   *    Maximum Capacity 660 Megabytes
+   *    Features:
+
+	- Audio CD play
+	- XA Interactive Audio
+
+   (i)  I/O System Overview
+
+At the front of the PlayStation there is:
+
+    *   Control Pad socket
+
+	- Two control pad connectors -- expandable with multitap connector 
+
+    *   Memory Card socket
+
+	- Backup RAM in the form of two removable cards 
+	- 128 KB Flash Memory; larger configurations possible 
+	- OS support for File Save, Retrieve and Remove 
+
+At the back of the PlayStation there is:
+
+    *	External I/O (covered by screwed plate)
+
+	- For connecting future devices like hard drive or modem
+
+    *	Communication Port
+
+	- Serial Port I/O
+	- Asynchronous Data Transfer 
+	- For linking two PlayStations together
+
+    *	Audio Left and Right
+
+	-  Red Right and White Left RCA phono plugs for connection to a hifi.
+
+    *	DC Out (5V)
+
+	- 5V power line for external RF convertor
+
+    *	Composite video
+
+	- Yellow RCA (Phono) plug
+
+    *	S-Video DIN socket (Japan only)
+
+	- This available only on Rev A PlayStations. (Japan)
+
+    *	AV Multi Out expansion port
+
+	- Supports RGB Video, S-Video video, and stereo audio
+
+    *	AC In
+
+	- I know this isn't really part of the I/O system, but try playing your
+	PlayStation without it. :)
+
+  (j)   Operating System (O/S)
+
+   *    Designed by game engineers for gamers
+   *    512KB ROM
+   *    Small 64KB RAM footprint
+   *    Multi-thread task handling
+   *    Interupt logic control
+   *    Suite of device drivers
+   *    Extensive high-level C libraries
+
+  (k)   Peripherals
+
+   Sony Brand Products:
+
+   *    Mouse with Pad 
+
+	For some games a mouse does make a difference. Try controlling A-Train
+	VI without one.          
+	  
+   *    Combat Cable (SCPH-1040)
+
+	This, for me, is the most important add-on. This two-player linkup
+	cable allows you to link two PlayStations (and t.v.s) together for head
+	to head PlayStation action.  Providing, of course, you have any friends
+	left after boring the pants off them with your claims of the
+	PlayStation being better than sliced bread.  The cable has a peak baud
+	rate of 4Mbits/sec and feeds data directly to the CPU, which processes
+	it and transmits it to the other machine at the baud rate specified by
+	the programmer.
+
+   *    RFU Adapter (SCPH-1061)
+
+	The true nightmare device. If your TV doesn't support S-Video or SCART
+	then why did you buy a PlayStation?  RF gives a poor picture. Why have
+	a Next Generation console, if you are going to play it on an RF TV!
+	Go and stick with your Genesis or SNES until you can afford a decent
+	screen.
+
+	Incl. RFU Adapter, Antenna Adjuster Integrator and Antenna Converter.
+	  
+   *    Controller (SCPH-1080)
+
+	This is a well designed, ergonomic controller. It has four direction
+	buttons on the left and four fire buttons on the right, in the same
+	formation as the left. It also has four shoulder buttons, two marked
+	Left and two marked Right, especially designed for 3D games. It has
+	been reputedly being enlarged by about 15% after complaints that in
+	Western hands the Japanese controller was too small.
+	  
+   *    Memory Card (SCPH-1020)
+
+	You can save your game at any time - even when the game is not being
+	played.
+
+	Each memory card holds 128KB and divided into 15 blocks.
+	Different numbers of blocks are used depending on the titles, the
+	listing below shows you the number of blocks needed for each title.
+	(So Far)
+
+	     Ridge Racer                1 (per record)
+	     Motor Toon Grandprix       1
+	     Space Griffon VF-9 8 
+	     Kileak the DNA Interactive 1
+	     Myst                       2
+	     Toh Shin Den               -
+	     A IV Evolution             15 (!!!)
+	     Delux Palodius             1
+	     Crime Crackers             4
+	     Twinbee Puzzle             1
+	     Falcata                    4
+	     Victory Zone               2
+	     King's Field               5
+
+   *    RGB Cable (subject to delay)
+
+   *    S-Video Cable (subject to delay)
+   
+   Coming Soon:
+   
+   *    Multitap Unit
+
+	Upgrades your PlayStation by allowing up to 4 controllers or 4 memory
+	cards to be used simultaneously, per joypad port. Add a linkup cable
+	and you have the potential of 16 players at once!!!
+	  
+   *    Analog Joystick
+
+  
+   Other Brand Products:
+
+	These may or not be available outside Japan officially, but may get a
+	release sometime.
+
+   *    Namco NegCon (pronounced NegjiCon) controller
+
+	This is a strange twisting type device that was designed for Ridge
+	Racer, Cybersled and Starblade Alpha. Could be ideal for all games
+	that require analog control.
+
+   *    Hori Fight Stick
+
+	This is a chunky piece of kit, a solid based joystick with six buttons.
+	It sells on import in England for UKS 100 (US$150!!)
+
+
+   *	Datel Action Replay cartridge
+
+	This is the famous cheats device used on many other platforms. They are
+	used for accessing hidden levels and characters, invincibility,
+	unlimited lives and continues etc.
+
+	Unlike the Saturn one, this Action Replay is limited to 15 games, hard
+	coded in. (The Saturn one can be used with codes to access any game.)
+	Volume 1 includes Tekken; King's Field; Kileak The Blood; Parodius
+	Deluxe; Crime Crackers; Ridge Racer etc.
+
+	Datel have promised to release several volumes, as and when they fill a
+	cart up.  However see <rumours> for more developments on this front.
+
+	Datel can be contacted on their 24 Hour Mail Order Hotline, 
+	UK:	01782 744 707		FAX:	01782 744 292
+	INTL:	+44 1782 744 707	Intl:   +44 1782 744 292
+
+===============================================================================
+(14)    PlayStation to RGB  SCART Connection
+
+This is based on the diagram on John Lagerling's web page, somethings don't tie
+up as yet, so until I contact him (or can anyone else here), please don't do
+this as I have no idea if it will work. Scaredy cats can buy one from Sony.
+
+   *    Playstation Connector
+
+	  1  2  3  4  5  6
+	+------------------+
+	| o  o  o  o  o  o |
+	| o  o  o  o  o  o |
+	+------------------+
+	  7  8  9 10 11 12
+
+   *    SCART Socket
+
+       20  18  16  14  12  10   8   6   4   2
+   +--------------------------------------------+
+   \   --  --  --  --  --  --  --  --  --  --   I
+    \                                           I
+     I   --  --  --  --  --  --  --  --  --  -- I
+     +------------------------------------------+
+	 19  17  15  13  11   9   7   5   3   1
+
+   *	RGB connection using an 8-pin shielded cable:
+
+	+-------+--------------------+----------+
+	| SCART |       Signal       | A/V port |
+	+-------+--------------------+----------+
+	|   1   |                    |          |
+	|   2   |   Right Audio      |     8    |
+	|   3   |                    |          |
+	|   4   |   Audio Ground     |          |
+	|   5   |                    |          |
+	|   6   |   Left Audio       |     ?    |
+	|   7   |   Blue             |     5    |
+	|   8   |        ?           |    11    |
+	|   9   |                    |          |
+	|  10   |                    |          |
+	|  11   |   Green            |    12    |
+	|  12   |                    |          |
+	|  13   |                    |          |
+	|  14   |                    |          |
+	|  15   |   Red              |     6    |
+	|  16   |   H-Sync (Blank)   | see note |
+	|  17   |   Ground           | see note | 
+	|  18   |   Video Ground     |    10    | 
+	|  19   |                    |          |
+	|  20   |   Composite Sync   |     9    |
+	+-------+--------------------+----------+
+
+	Note: SCART pins 17 and 18 are bridged together.
+	      SCART pins 8 and 16 are connected to a () resistor.
+
+===============================================================================
+
+(15)    Release Sheet
+
+
+Note:	Items marked with * are available on day of release.
+	In the PLAYERS column:
+			L represents Mulitplayer Linkup via the Combat cable.
+			M represents Multiplayer via the Multitap unit.
+			S represents Multiplayer via a Split screen
+-------------------------------------------------------------------------------
+Released
+-------------------------------------------------------------------------------
+   DATE       NAME          DEVELOPER          CATEGORY          ORIGIN PLAYERS
+-------------------------------------------------------------------------------
+30 Aug 95  Total Eclipse    Crystal Dyn.  Into the screen blaster  USA       1
+             Turbo
+31 Aug 95  Powerserve 3D    Ocean         Tennis I reckon!          GB       2
+             Tennis
+04 Sep 95  NBA Jam TE       Acclaim       Arcade basketball        USA      4M
+04 Sep 95  Street Fighter   Capcom        Beat Em Up             Japan       2
+             :The Movie
+07 Sep 95  Rayman           Ubi Soft      Platform game         France       1
+07 Sep 95  ESPN Extreme     SCEA          Multi sports sim.        USA       2
+             Sports   
+07 Sep 95  Kileak: The DNA  SCEA          3D Action/RPG          Japan       1
+             Imperative
+09 Sep 95  Ridge Racer      Namco         Polygon driving        Japan       1
+09 Sep 95  Raiden Project   SEIBU         Arcade Shoot 'Em Up    Japan       2
+09 Sep 95  Battle Arena     Takara        Fighting               Japan       2
+             Toshinden 
+13 Sep 95  Air Combat       Namco         Arcade Flight Sim.     Japan      2S
+
+===============================================================================
+
+(16)    On-Line Resources
+
+This FAQ can be found at:
+
+	Pete Lambie's site	http://www.gla.ac.uk/~gkrx11/PSX/
+	Andy Eddie's site	ftp.netcom.com/pub/vi/vidgames/faqs
+	Nils Jacobsen's site	http://bert.cs.byu.edu/~nils/psx.html
+
+PlayStation Information can be found:
+
+   *	PlayStation Only
+
+	Nils Jacobsen		http://bert.cs.byu.edu/~nils/psx.html
+	John Lagerling          http://www.algonet.se/~jlager/psx.html
+	Out of Date?		http://www.pitt.edu/~aaronr/newps.html
+	PSX cheats (working?)	http://www.kindafull.com/vgame/PSX/codes.html
+
+				http://www.kaiwan.com/~paulsd/psx/
+	Game Cheats		http://hyperactive.com/games/code/bin/
+					listgames.cgi/playstation
+	???????			http://stanmor.tnova.co.jp:10080/PS/PS.html
+
+   *	General Video Games and Magazines
+
+	Future Net		http://www.futurenet.co.uk/
+	Game Zero		http://www.gamezero.com/team-0/
+	Intellient Gamer        http://igonline.escape.com/
+	   On-line
+	Nuke!			http://www.nuke.com/
+	Tronix Multimedia       http://www.phantom.com/~joecat
+
+   *	Developers Sites
+
+	Bullfrog		http://www.ea.com/drink.html
+	Electronic Arts		http://www.ea.com/
+	Interplay		http://www.interplay.com/
+	Microprose		http://www.microprose.com/gspsx.html
+	Namco			http://www.namco.com/psx/index.html
+	Psygnosis		http://www.sepc.sony.com/SEPC/Psygnosis
+					/pwelcome.html
+	Ubi Soft		http://www.ubisoft.com/
+
+   *	Sony Pages
+
+	Publishing	http://www.sepc.sony.com/SEPC/PSX/PSXindex.HTML
+	Adventure	http://www.scea.sony.com/SCEA
+	SCE (Japan)	http://www.csl.sony.co.jp/InfoPlaza/SME/PlayStation/
+
+   *	PlayStation Mailing Lists
+
+	psx-list-request@cpac.washington.edu	psx mailing list
+	psx-list@netcom.com			psx mailing list
+
+===============================================================================
+
+(17)    Off-Line Resources
+
+It has been suggest that I compile a list of magazines and fanzines and
+official addresses that cover the PlayStation. This is probably the hardest
+section to maintain as different publications are popping up and folding in
+different countries all the time.
+
+Here is my best shot at magazine names and subscription addresses:
+
+   *	Die Hard Gamefan		?
+
+   *	Edge				General Next Generation mag. Lots of
+	Future Publishing		PS coverage. Aimed at more mature
+	FREEPOST BS4900			gamers with big wallets.
+	Somerton			
+	Somerset TA 11 7BR
+	England				(edge@futurenet.co.uk)
+
+   *	EGM^2                           "Sister" magazine to Electronic Gaming
+	1920 Highland Avenue            Monthly (above).  Some duplication of
+	Suite 222                       material between the two publications.
+	Lombard, IL 60148
+	USA
+
+   *	Electronic Gaming Monthly       General video-gaming magazine which
+	1920 Highland Avenue            available is almost everywhere.
+	Suite 222                       (UK at least)
+	Lombard, IL 60148               
+	USA
+
+   *	Game Players			?
+	USA
+
+   *	GamePro				General video-gaming magazine with
+	951 Mariner's Island Blvd.	some PlayStation coverage.
+	San Mateo, CA 91202
+	USA
+
+   *	Next Generation			Edge sister magazine. Differing content
+	?				but with some article/news sharing.
+	USA
+
+   *	P.S.X.				From the Sendai (EGM) stable of mags.
+					Has been described as "Fluffy". Has
+	USA				a junior slant.
+
+   *	The Official PlayStation	Future Publishing's official UK Sony
+	Magazine			PS licence. Edited by former Edge
+					editor Steve Jarrett.
+
+   *	Ultimate Future Games		Next Generation only magazine.
+	Future Publishing		A junior version of Edge, packed with
+	FREEPOST BS4900			screen shots, tips, cheats and reviews
+	Somerton			
+	Somerset TA 11 7BR
+	England				(ultimate@futurenet.co.uk)
+
+   *	Video Games			General video-gaming and computer-
+	9171 Wilshire Blvd.,		gaming magazine.
+	Suite 300
+	Beverly Hills, CA 90210
+	USA
+
+How to contact Sony
+
+USA		SCEA	1-800-345-SONY (7669)
+
+Europe		SCEE	44-1-71-911-8700
+
+===============================================================================
+
+(18)    Rumours
+
+It seems that Namco has *joined* forces with Sony in order to extend the
+competition between Namco and Sega, which is ferocious in the arcade world;
+however, Namco WILL be supporting the Sega Saturn, which seems to be a conflict
+of interests. I can only guess that Namco just wishes to make the most money
+possible.
+
+Ever wondered if the full version of Galaxians is hidden in Ridge Racer or
+Galaga in Tekken? Well the answer is no, however Namco are rumoured to be
+creating a compilation disk of full versions of the classics above and Pac Man
+etc. When is another matter, maybe before Xmas in Japan, who knows.  Namco have
+announced that it is to be called "Museum of Games, Vol.1". (Jap. trans.)
+It will contain Galaga, Pole Position, Pacman, Rally-X, New Rally-X, Bosconian
+and Toypop! Apparently this series is scheduled to Vol.5, so we got a few
+good oldies coming our way!
+
+Ken Kutaragi R&D manager of Sony of Japan has stated that the PlayStation
+joypads will indeed be changed before the European and US release since they
+are considered to small. Also he says that they are currently looking into a
+possible telecommunication option for the PlayStation. Something which is
+already implemented when it comes to connectivity. (Same port as the Link-up
+cable will go into).
+
+Konami has finished development of it's new PlayStation based coin-op board, up
+to now unnamed.  Konami has announced three titles, one of which is rumoured to
+be a 3D Gradius.
+
+According to a telephone conversation I had with Datel, they have a lockout
+breaker ready for September. They could not confirm whether they would do a
+combined lockout breaker and cheat code access system like they have just 
+released with the Saturn.
+
+Takara have announced that Sega will be developing Toshinden S for Saturn under
+license from them.
+
+===============================================================================
+
+(19)    Acknowledgements
+
+Thanks to (in almost no particular order):
+
+	- John Lagerling (jlager@algonet.se)
+	- Par-Salian (par@cloud9.net)
+	- Craig M. Kazial (kazial@ascu.buffalo.edu)
+	- Pete Lambie (gkrx11@udcf.gla.ac.uk)
+	- Andy Eddie (vidgames@netcom.com)
+	- Neil Hirst (Brid Gazzer)
+	- Mike Liang (mike@lsil.com)
+	- Intelligent Gamer On-Line
+	- Game Zero Magazine (gmezero@gz.bomb.com)
+	- Edge magazine (Future Publishing, England)
+	- Ultimate Future Games (Future Publishing, England)
+	- Sony Computer Entertainment of Japan/America/Europe
+	- and all of the others that *helped* along the way...
+	- The original is credited to WiLL McBEE
+	- Special thanks to George Cifrancis III (gc3@infinet.com) for his demo
+	disk control options additions.
+
+===============================================================================
+
+(20)    Other Stuff
+
+
+I have NEVER done a FAQ before; therefore, I could have seemingly left out
+information that could and would be considered important information - if so,
+it was done unintentionally and will be corrected in the future versions of
+the FAQ(s).
+
+ANY and ALL input is welcome... 
+
+Comments and/or criticisms are also welcomed!   
+
+Who am I? I am James Dunford, born in Redcar in 1966 on the North East coast of
+England. My football club (if reading this in America, read soccer club :) ) is
+Middlesbrough. 
+
+I now live and work in Leeds, at Leeds Metropolitan University, for the
+Management Information Systems department. I typed most of this there, and the
+rest at home on my old Amiga A1200.
+
+===============================================================================
+
+                                #######
+                                ##############
+                                ####################
+                                ######################
+                                ########### ###########
+                                ##########   ##########
+                                ##########   ##########
+                                ##########   ##########
+                                ##########   ##########
+                                ##########   ##########
+                         @@@@@@@##########   ##########
+                  @@@@@@@@@@@@@@##########   #########
+            ************@@@@@@@@##########       ####
+          *********************@##########     @@@@@@
+         +++*************       ##########@@@@@@@@@@@@@@@@@@
+         ++++++++               ##########@@@@@@@@@@@@@@@@@@@@@@@@
+         +++++++++        ******##########***@@@@@@@@@@@@@@@@@@@@@@@
+         +++++++++++++++++++++++##########*****          @@@@@@@@@@@@
+          ++++++++++++++++++++++##########                 @@@@@@@@@@
+            ++++++++++++++++++++##########          **************@@@
+                   +++++++      ##########   +++++++++**************
+                                ##########+++++++++++++++++++*****
+                                ##########+++++++++++++++++
+                                ##########++++++++++
+				      ###+++
+
+
+

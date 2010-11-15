@@ -1,0 +1,12 @@
+Spécifications techniques de la Super Cassette Vision
+
+CPU: 8-bit Z80
+
+Couleurs: 16
+
+Sprites: 128
+
+Affichage: 309 pixels x 246 pixels
+
+Controlleurs: 2 joysticks câblés
+

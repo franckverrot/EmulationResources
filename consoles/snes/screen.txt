@@ -1,0 +1,183 @@
+                SNES GRAPHICS INFO FILE V1.0
+                ----------------------------
+                     By DAX on 28/2/93
+
+This is a short text file on how the data for the gfx on the SNES are
+set up..
+Everything is based around an 8x8 pixel 'Tile' and thinking in terms of
+tiles makes the whole thing a lot easier.
+ 
+4 Colour mode - 2 Bitplanes
+---------------------------
+If you split the screen into 8x8 pixel tiles, the order of the graphics data
+is tile 0,1,2,3,4 etc.(with tile 0 being the first, and 1 being the one on
+the right of it.)
+ 
+Then for each tile, the data is stored as shown below.
+        00 01 02 03 04 05 06 07
+        10 11 12 13 14 15 16 17    Each number representing one pixel in
+        20 21 22 23 24 25 26 27    the 8x8 tile.
+        30 31 32 33 34 35 36 37
+        40 41 42 43 44 45 46 47
+        50 51 52 53 54 55 56 57
+        60 61 62 63 64 65 66 67
+        70 71 72 73 74 75 76 77
+         
+The data is stored in the SNES binary in the following format.
+        Bitplane 0 ..   Line 00-07 (One Byte)
+                        Line 10-17
+                        Line 20-27
+                        Line 30-37
+                        Line 40-47
+                        Line 50-57
+                        Line 60-67
+                        Line 70-77
+then    Bitplane 1 ..   Line 00-07
+                        Line 10-17
+                        Line 20-27
+                        Line 30-37
+                        Line 40-47
+                        Line 50-57
+                        Line 60-67
+                        Line 70-77
+then comes the data for the next tile (the one on the right).etc.
+ 
+16 Colour - 4 Bitplanes
+-----------------------
+The data for this mode is stored in the same format, with one main change.
+The data is stored in the format
+        Bitplane 0 ..   Line 00-07
+                               |
+                        Line 70-77
+ 
+        Bitplane 1 ..   Line 00-07
+                               |
+                        Line 70-77
+ 
+        Bitplane 2 ..   Line 00-07
+                               |
+                        Line 70-77
+ 
+        Bitplane 3 ..   Line 00-07
+                               |
+                        Line 70-77
+                         
+then the data for the next tile.
+ 
+256 Colour - 8 Bitplanes
+------------------------
+This is simply an expansion of the 4 and 16 colour modes.
+        Bitplane 0 ..   Line 00-07
+                               |
+                        Line 70-77
+ 
+        Bitplane 1 ..   Line 00-07
+                               |
+                        Line 70-77
+ 
+        Bitplane 2 ..   Line 00-07
+                               |
+                        Line 70-77
+ 
+        Bitplane 3 ..   Line 00-07
+                               |
+                        Line 70-77
+         
+        Bitplane 4 ..   Line 00-07
+                               |
+                        Line 70-77
+ 
+        Bitplane 5 ..   Line 00-07
+                               |
+                        Line 70-77
+ 
+        Bitplane 6 ..   Line 00-07
+                               |
+                        Line 70-77
+ 
+        Bitplane 7 ..   Line 00-07
+                               |
+                        Line 70-77
+ 
+then the data for the next tile.
+
+256 Colours - Mode 7 format
+---------------------------
+This has some very major differences to the other graphics data formats
+ 
+there are two mode7 modes, normal and EXTBG, the data is stored in the
+same way in both, apart from in EXTBG the Bitplane 7 value will be a 
+priority bit for the pixel, which cuts the colours down to 128.
+ 
+Each byte of 'graphics data' is actually the colour value for that pixel
+on the screen, so if the value is 64, then the colour of that pixel will
+be the contents of colour register 64.
+ 
+The data is stored in VRAM differently to the other modes, with the tile
+numbers, and the graphics data 'interleaved', starting at $0000 in VRAM,
+with alternate bytes containing one byte of tile, one byte of gfx - this
+is shown below.
+ 
+        Word of VRAM.        HI                         LO
+        Bit  15  14  13  12  11  10  09  08  07  06  05  04  03  02  01  00
+content     |------------------------------||------------------------------|
+               Graphics data(CHAR DATA)             Tile number(NAME)
+ 
+Because of the storing of 16 bit data in reverse format (LO-HI) this means
+that if you set the VRAM addr to $0.the first byte written should be the
+tile name for that position on screen and the second byte should be the first
+byte of the Mode7 graphics data.if the VRAM addr is set to $1 the first byte
+written will be the tile name for that position on scr, and the second byte
+should be the second byte of the mode7 graphics data.
+  ETC
+   
+In mode7 you can only have a maximum of 256 tiles, because of the fact that
+the mode7 data only takes up the first half of VRAM(32k) you can only have 16k
+of graphics data which is 256 tiles of 8x8 with 256 colours.
+This is quite a limitation, but can be used quite effectively.
+                  
+The tile numbers are stored in a format according to a 128x128 tile screen
+so tile 128($80) would be the tile below 0($0) on the screen, and so on.
+so VRAM addr $0 is the top left tile, and $1 is the one on the right of it
+$80 is the one on the left side, one row down.
+ 
+the graphics data is stored based on an 8x8 tile again.
+but slightly different.
+Each byte(pixel) is stored so... 
+                        Bit number    Contents
+                                0          Bitplane 0 pixel value
+                                1          Bitplane 1 pixel value    
+                                2          Bitplane 2 pixel value
+                                3          Bitplane 3 pixel value
+                                4          Bitplane 4 pixel value
+                                5          Bitplane 5 pixel value
+                                6          Bitplane 6 pixel value
+                                7          Bitplane 7 pixel value /
+                                           (EXTBG mode - Priority value)
+                                            
+The data is then stored in the sequence
+                00,01,02,03,04,05,06,07
+                10,11,12,13,14,15,16,16  (Look at diagram at start of file
+                    |      |      |       for explanation)
+                70,71,72,73,74,75,76,77
+                                         
+with one byte for each position(pixel), according to the 8x8 tile format,  
+with one tile after another.
+ 
+---------------------------------------------------------------------------
+I hope this text file helps those of you having trouble converting graphics
+for use on the SNES, I have been asked a few times recently for this info
+so I decided to type up this short text file on it.
+Hopefully it should explain it!
+ 
+If you have any further questions contact :-
+                Dax      or    Corsair
+
+On the following BBS's
+                 
+                The Graveyard           +44 (0)91 516 0560
+                Treasure Island         +44 (0)992  451191 (Coders Conf)
+                The Fun House           +44 (0)81 443 3174 (Coders Conf)
+                 
+Quick hellos to everyone who I know as I cannot be bothered to type
+out a list.

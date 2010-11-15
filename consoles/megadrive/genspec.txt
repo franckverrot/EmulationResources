@@ -1,0 +1,88 @@
+Genesis Technical Overview
+
+GENESIS: 
+
+•68000 @ 8 MHz 
+•Main CPU 
+•1 MByte ROM area 
+•64 KByte RAM area 
+•VDP (Video Display Processor) 
+•Dedicated video display processor 
+•Controls playfield & sprites 
+•Capable of DMA 
+•Horizontal & Vertical interrupts 
+•64 KByte of dedicated VRAM (Video RAM) 
+•64 x 9-bits of CRAM (Color RAM) 
+•Z80 @ 4 MHz 
+•Controls PSG (Programmable Sound Generator) 
+•8 KByte of dedicated sound RAM 
+
+
+VIDEO: 
+
+•NOTE: Playfield and Sprites are character-based •Display Area (visual) 
+•40 chars wide x 28 chars high 
+•Each char is 8 x 8 pixels 
+•Pixel resolution is 320 x 224 (NTSC) 
+•3 planes 
+•2 scrolling playfields 
+•1 sprite plane 
+•Definable priorities between planes 
+•Playfields 
+•Each char position takes 2 bytes, that includes: 
+•Char name (10 bits); points to char definition 
+•Horizontal flip 
+•Verical flip 
+•Color palette (2 bits); index into CRAM •Priority 
+•Scrolling 
+•1 pixel scrolling resolution •Horizontal 
+•Whole playfield as unit •Each character line •Each scan line 
+•Vertical: 
+•Whole playfield as unit 
+•2 char wide columns 
+
+
+•Sprites 
+•1 x 1 char up to 4 x 4 chars 
+•Up to 80 sprites can be defined 
+•Up to 20 sprites displayed on a scan line 
+•Sprite priorities 
+•Character definitions 
+•4 bits/pixel; points to color register 
+•4 bytes/scanline of char 
+•32 bytes for complete char definition 
+•Playfield & sprite chars are the same! 
+
+
+
+COLOR: 
+
+•Uses CRAM (part of the VDP) 
+•64 9-bit wide color registers 
+•3 bits of Red •3 bits of Green •3 bits of Blue 
+•4 palettes of 16 colors 
+•0th color (of each palette) is always transparent 
+
+
+
+OTHER: 
+
+•DMA 
+•Removes the 68000 from the BUS 
+•Can move 205 bytes/scanline during VBLANK 
+•There are 36 scanlines during VBLANK 
+•DMA can move 7380 bytes during VBLANK 
+
+•Horizontal & Vertical interrupts 
+
+SOUND: 
+
+•Z80 controls 
+•PSG chip (TI 76489) 
+•FM chip (Yamaha YM 2612) 
+•6-channel stereo 
+•Z80 can access ROM data 
+•8 KByte RAM 
+
+
+© 1996 Damaged Cybernetics 

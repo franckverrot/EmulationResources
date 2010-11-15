@@ -1,0 +1,291 @@
+<html>
+<head>
+<title>Xbox Linux sur une Xbox non pucée/ Xbox Linux sans puce</title>
+</head>
+<body>
+
+<h2>Xbox Linux sur une Xbox non pucée/ Xbox Linux sans puce</h2>
+
+<i>par Michael Steil, 5 Juillet 2003,<br/>
+
+traduit par Franck “LXS” Verrot [rootAtdev-fr.com]
+</i>
+
+<br/>
+<br/>
+
+<b>1. Introduction</b><br/>
+
+<br/>
+
+
+La Xbox est un PC sur le standard IBM, avec une différence: il ne lance que le code autorisé par Microsoft, par exemple tous les exécutables doivent être signés avec une clef privée. C'est pour cela que Linux ne pourra s'exécuter si vous insérez un CD d'installation de Xbox Linux dans une Xbox standard non modifée.
+
+<br/>
+
+Mais dorénavant, il a plusieurs façons de contourner cette limitation:<br/>
+
+
+<br/>
+
+*La méthode 007/Mechassault;<br/>
+
+*La méthode Dasboard;<br/>
+
+*La méthode TSOP embarquée;<br/>
+
+
+<br/>
+
+Notez qu'en fonction des lois en vigueurs dans votre pays, ces méthodes pourraient annuler votre garantie. Nous ne serons pas reponsables des dommages causés à votre Xbox, ou sur vous-même...
+
+
+<br/>
+
+<br/>
+
+
+<b>1.1 La méthode 007/Mechassault</b><br/>
+
+
+<br/>
+
+“007 Espion Pour Cible” (Electronic Arts) et le jeu “MechAssault” (Microsoft eux mêmes) contiennent tous deux des disfonctionnements qui rendent possible le lancement de Linux par infiltration de celui dans le système. Tout ce que vous aurez à faire est de charger une sauvegarde qui a été modifiée d'une certaine manière, et Linux démarrera.
+
+<br/>
+<br/>
+
+Le problème est qu'avec cette méthode, vous devrez insérer le CD de jeu et sélectionner “Charger partie” à chaque fois que vous voudrez lancer Linux. De plus, il est impossible d'éjecter le DVD tant que Linux est lancé.
+<br/><br/>
+
+
+
+<b>1.2 La méthode Dashboard</b><br/>
+
+<br/>
+
+
+Un autre disfonctionnement dans le dashboard, l'application lancée par défaut au démarrage si aucun jeu n'est inséré dans le lecteur DVD, rend possible le lancement de Linux et à chaque fois que vous allumez votre Xbox Linux démarrera, à la place du Dashboard,. En utilisant la méthode 007/Mechassault pour installer la modification du Dashboard, vous aurez à utiliser uniquement le DVD de jeu une seule fois, et à partir de ce moment, Linux sera toujours lancé quand il n'y aura pas de jeu dans le lecteur DVD – et vous n'aurez jamais à ouvrir la Xbox. Vous pouvez même éjecter le DVD quand vous booterez depuis le disque dur.
+<br/><br/>
+
+
+
+<b>1.3 La méthode TSOP embarquée</b>
+<br/><br/>
+
+
+
+Quand vous contrôlez la machine, par exemple en utilisant la méthode 007/Mechassault pour lancer Linux une seule fois, il est possible d'écraser le contenu de la puce Flash embarquée, qui contiendra le noyau de la Xbox, avec le BIOS du Xbox Linux - enfin, pas exactement, la ROM Flash est protégée en écriture, donc vous avez ouvert la Xbox et soudé a deux points de la carte mère (ce qui est facile) de manière à contourner la protection en écriture de la ROM. Mais ensuite, vous pourrez l'écraser.
+
+<br/><br/>
+
+
+Le BIOS du Xbox Linux démarrera toujours ensuite immédiatement quand vous démarrerez la Xbox, et essaierez de démarer Linux depuis le disque dur ou CD/DVD. Le défaut de cette méthode est que vous ne pouvez plus jouer à aucun jeu mais l'intéret est que vous pouvez remplacer le disque dur par un de plus grande capacité, puisque la Xbox est ouverte de toutes façons.
+
+<br/><br/>
+
+
+<b>Effectuer les modifications</b>
+
+<br/><br/>
+
+
+<b>2.1 La méthode 007/Mechassault</b><br/>
+
+<i>Ingrédients</i><br/>
+
+<br/>
+
+
+*007 Agent Under Fire" ou "MechAssault";<br/>
+
+*une des sauvegardes de jeu modifées, dépendant des jeux que vous avez;<br/>
+
+*une méthode pour écraser les périphériques de sauvegarde USB formattés avec FATX(voir ci dessous).<br/>
+
+
+<br/>
+
+Il y a différentes méthodes pour écrire des périphériques de sauvegarde avec le système de fichier FATX:<br/>
+
+
+<br/>
+
+utiliser une autre Xbox déjà modifiée, pouvant être aussi bien un périphérique de sauvegarde PC USB, comme un stick USB, ou une unité mémoire Xbox;<br/>
+
+utiliser un périphérique de sauvegarde PC USB avec un Linux supportant le FATX sur un PC;<br/>
+
+utiliser un périphérique de sauvegarde PC USB avec un Linux PC ou Xbox, si vous avez déjà les images des sauvegardes de jeu en FATX.<br/>
+
+
+<br/>
+
+<b>2.1.1 Copier les sauvegardes de jeu sur le périphérique USB</b><br/>
+
+
+
+<br/>
+L'idée est de copier une sauvegarde de jeu modifée (qui crashera le jeu et chargera Linux) sur une Xbox non modifiée. Sans ouvrir la Xbox, vous ne pourre le faire qu'en utilisant une unité de mémoire Xbox. La Xbox accepte également la plupart des médias de sauvegarde, comme les stick USB ou disquettes Zip comme unité de mémoire.
+<br/><br/>
+
+
+
+<b>2.1.1.1 Créer l'unité de mémoire en utilisant une autre Xbox</b>
+<br/><br/>
+
+
+
+Pour cette méthode, vous aurez besoin d'une autre Xbox qui est modifiée pour ainsi uploader les sauvegardes de jeu dans le lecteur E:. Ensuite vous devrez connecter le stick USB ou l'unité de mémoire Xbox et copier la sauvegarde de jeu dans le périphérique USB, en utilisant les fonctions de gestion des sauvegardes de jeu du Dashboard.
+<br/><br/>
+
+
+
+<b>2.1.1.2 Créer l'unité de mémoire en utilisant un PC avec support FATX</b>
+<br/><br/>
+
+
+
+Pour cette méthode, vous aurez besoin d'un périphérique de sauvegarde USB ( une unité de mémoire Xbox ne marchera pas) et un adaptateur USB Xbox. Vous devez compiler le noyau Linux qui inclut le système de fichier FATX, en patchant les sources du noyau avec le patch Xbox Linux et qui supporte uniquement FATX. Ensuite votre PC sera capable de lire et écrire un système de fichier FATX. Premièrement connectez le périphérique USB à la Xbox, en utilisant l'adaptateur, et entre dans le menu “Mémoire”, de manière à formatter le périphérique. Ensuite connectez-le au PC, et copier les fichiers de sauvegardes de jeux dessus.
+<br/><br/>
+
+
+
+<b>2.1.1.3 Créer l'unité de mémoire en utilisant un PC sous Linux et les images en FATX</b>
+<br/><br/>
+
+
+
+S'il arrive que vous ayez des sauvegardes de jeu au format image FATX à la place de ZIP/TGZ, vous pouvez utiliser un ordinateur sous Linux pour écrire des images raw sur le périphérique USB en utilisant la commande “dd”. Comme dans 2.1.1.2, aucune unité de mémoire Xbox ne marchera avec cette méthode, and vous aurez besoin d'un adaptateur Xbox USB pour connecter les périphérique USB à la Xbox.<br/>
+
+<b>2.1.1.4 Ouvrir la Xbox et swapper à chaud le disque dur</b><br/>
+
+
+<br/>
+
+De cette manière, vous aurez pas du tout besoin d'un périphérique USB et d'une unité de mémoire, mais d'ouvrir votre Xbox, swapper à chaud le disque dur quand la Xbox est mise en route à un ordinateur – et une Xbox – permettant le partitionnement FATX sous Linux (exemple vous avez recompiler un noyau) qui est égaelement en cours d'exécution et dans le menu de boot de Lilo/Grub. Le PC reconnaitra le disque dur Xbox, et vou serez en mesure de monter le disque E: et de copier la sauvegarde de jeu dans le sous-répertoire UDATA.<br/>
+
+<br/>
+
+
+En utilisant cette méthode, la sauvegarde de jeu est déjà sur le disque dur cible, vous pouvez passer la description décrite dans 2.1.2.
+
+<br/><br/>
+
+
+<b>2.1.2Copier la sauvegarde de jeu sur le disque dur Xbox</b>
+
+<br/><br/>
+
+
+Du moment que vous avez la sauvegarde de jeu sur le périphérique USB, vous pouvre le connecter sur votre Xbox non modifiée et utiliser le Dashboard pour le copier sur le disque dur.
+
+<br/><br/>
+
+
+<b>2.1.3 Lancer Linux</b>
+
+
+<br/><br/>
+
+Maintenant lancer le jeu et choisissez “Charger Partie”. Dans 007, choisissez “Xbox Hard Disk”, dans MechAssault, choisissez “Run Linux””. Linux démarrera maintenant. Vous pouvez répéter cette étape quand vous avez besoin de lancer Linux, vous n'avez plus besoin de périphérique USB – vous pouvez même l'utiliser pour copier les sauvegardes de jeu dessus sur autant de Xbox que vous voulez.
+
+
+<br/><br/>
+
+<b>2.2 La méthode Dashboard</b>
+
+<br/><br/>
+
+
+Vous pouvez facilement installer Linux définitivement sur un disque dur Xbox, de manière à ce qu'il se lancer à chaque fois que vous allumez la Xbox. Vous pouvez toujours lancer des jeux, en insérant simplement un DVD de jeu quand vous allumez votre Xbox.
+
+<br/><br/>
+
+
+Il est fortement recommandé que vous mettiez à jour votre dashboard à la version incluant le “Xbox Live” (4 entrées dans le menu au lieu de 3), en sélectionnant “Xbox Live” dans n'importe quel jeu supportant le Xbox Live comme MechAssault. Vous n'avez pas besoin d'être inscrit au Xbox Live, sélectionnez uniquement l'entrée dans le menu.
+
+<br/><br/>
+
+
+Maintenant lancer Linux sur votre Xbox non modifiée en utilisant la méthode décrite dans le 2.1, ensuite, utilisez Linux, allez dans C:\, renommez le répertoire “fonts” en “fonts.old”, créer un nouveau répertoire “fonts” et copier ernie.xtf et bert.xtf dans ce réperoire. Ensuite copiez default.xbe distribué avec le hack du dashboard dans C:\, ainsi que linuxboot.cfg, vmlinuz et initrd. La prochaine fois que vous démmarerez votre Xbox sans jeu dedans, Linux démarrera.
+
+<br/><br/>
+
+
+Vous pouvez aisément déinstaller Linux juste en renommant font.old, en utilisant Linux.
+
+<br/><br/>
+
+
+Notez que vous avez besoin du jeu à chaque fois que vous voudrez installer ou déinstaller Linux si le Linux installé est cassé. Tant que Linux est installé, vous ne pourrez plus utiliser le Dashboard.
+
+<br/><br/>
+
+
+<b>Attention:</b> si vous débranchez la Xbox de manière à ce que l'horloge ne fonctionne plus, le dashboard démarrera toujours quand vous allumerez la Xbox, demandant l'heure actuelle ainsi que la date, ignorant le disque présent dans le lecteur DVD. Si cela arrive, et que Linux sur votre disque dur est cassé (s'il manque le noyau ou initrd par exemple), il n'y a actuellement aucune manière de désinstaller Linux sans ouvrir la Xbox, car vous ne pourrez plus lancer un Linux temporaire en utilisant la méthode décrite en 2.1. Veuillez être prudent, nous travaillons déjà sur une solution.<br/>
+
+<b>2.3 La méthode embarquée TSOP</b><br/>
+
+<br/>
+
+
+Une autre méthode est d'installer Linux définitivement est de reprogrammer la ROM Flash sur la carte mère de la Xbox avec un BIOS Linux Xbox. Mais pour cette solution, vous devez ouvrir la Xbox et souder deux ponts sur la carte mère, pour empêcher la protection en écriture, comme décrite sur Xbox-Scene . Veuillez ignorer le paragraphe à propos des puces et “EvoX”, faites uniquement les deux ponts.
+
+
+<br/><br/>
+
+Ensuite, lancer Linux en utilisant la méthode 007 ou MechAssault comme décrite en 2.1. Uploader raincoat et l'image du BIOS Xbox Linux (“Cromwell”) sur votre Xbox, si vous ne les avez pas encore, et tappez:
+
+<br/><br/>
+
+
+<i>$ raincoat -p cromwell.bin</i>
+
+<br/><br/>
+
+
+A chaque vois que vous allumerez la Xbox, le BIOS Xbox Linux démarrera et demandera un CD d'installation Linux, du moment que vous n'avez pas installer Linux de votre disque dur.
+
+<br/><br/>
+
+
+Veuillez noter que le BIOS Linux Xbox ne lancera aucun jeu!
+
+<br/><br/>
+
+
+<b>3. Liens</b>
+
+<br/><br/>
+
+
+Pour le moment, nous ne pouvons pas fournir de liens directs sur les sauvegardes de jeu, donc vous devrez les trouver seul (le site Xbox Linux est toutefois un bon point de départ), mais nous prévoyons de mettre ensemble une liste de liens à disposition prochainement.
+
+<br/><br/>
+
+
+
+<hr>
+
+© 2003 Michael Steil<br/>
+
+Traduit par Franck “LXS” Verrot [rootAtdev-fr.com]<br/>
+
+<hr>
+
+
+
+Tout ce qui est fait dans ce projet est dans le but unique d'écrire un logiciel interoperable sous Sect. 1201 (f) Reverse Engineering du DMCA.<br/>
+
+[NDTraducteur: loi américaine toujours]<br/>
+
+<hr>
+<br/><br/>
+
+
+
+
+<a href="http://xbox-linux.sourceforge.net/" target="_blank">The Xbox Linux Project</a>
+
+<body>
+</html>

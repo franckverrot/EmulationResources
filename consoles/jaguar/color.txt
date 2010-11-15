@@ -1,0 +1,141 @@
+# -------------------------------------------------------------------
+# COLOR SCHEMES                     (c) Copyright 1995 KKP & Nat!
+# -------------------------------------------------------------------
+# These are some of the results/guesses that Klaus and I (Nat!) found
+# out about the Jaguar. Since we are not under NDA or anything from
+# Atari we feel free to give this to you for educational purposes
+# only.
+#
+# Please note, that this is not official documentation from Atari
+# or derived work thereof (both of us have never seen the Atari docs)
+# and Atari isn't connected with this in any way.
+#
+# Please use this informationphile as a starting point for your own
+# exploration and not as a reference. If you find anything innacurate,
+# missing, needing more explanation etc. by all means please write
+# to us:
+#     nat@zumdick.rhein-main.de
+# or
+#     kkp@gamma.dou.dk
+#
+# -------------------------------------------------------------------
+# $Id: jag_col.txt,v 1.2 1995/12/08 18:48:09 nat Exp $
+# -------------------------------------------------------------------
+# Note: This is definetely the weakest doc so far. High bull content!
+# --------------------------------------------------------------------
+1 Quest For Color
+
+
+The Jaguar has a great number of color modes that all can be mixed on
+screen at any time thanks for the Object processor.
+There are 3 major color modes called CRY (chroma-intensity), TC (TrueColor)
+and Palette.
+
+
+1.1 Palette Color Image (1,2,4,8 bits/pixel)
+
+[ Nat! I think the following is only valid for TrueColor Videomode.
+       If the videmode is 16bit RGB or CrY, then the pallete entries
+       are also Cry/RGB 16 bit words (and indexed that way)
+]
+
+Objects using Palette colors can have 1, 2, 4 or 8 bits per pixel.
+There are 256 entrys in the Clut (0xF00400). Each color in the Clut is
+defined by the 4 byte structure:
+
+         +-------+-------+-------+-------+
+         | Green |  Red  |  nc   | Blue  |
+         +-------+-------+-------+-------+
+
+The actuel color displayed on the screen depends on a lot of things, fx the
+O_INDEX value in the Object Processor.
+
+In 8 bits/Pixel the pixel value is used directly as a index into the Clut.
+
+In 1, 2 and 4 bits/pixel modes the Clut-Index for the displayed color is
+calculated as Clut-Index = 2*O_INDEX + Pixel-Value.
+
+
+1.2 CrY Color Image (16 bit/pixel)
+
+
+Objects using CrY colors always uses 16 bits per pixel. Each pixel is
+defined by this 2 byte structure:
+
+         +-------+-------+-------+-------+
+         |    Chroma     |       Y       |
+         +-------+-------+-------+-------+
+
+The Chroma and Y channel are 8 bits each. Y has nothing to do with
+Yellow, but is the Luminence of the color choosen by Chroma!
+The Color on the screen are calculated by the formular:
+
+                color-Trans[ Cr ]
+     color   =  ----------------- * Y,  Color = {Red, Green, Blue}
+                       255
+
+
+
+1.3.1 True Color Image (16 bits/pixel)
+
+
+The other 16 bit/pixel mode uses a normal packed RGB format like
+on the Falcon and some VGA cards to get 5 bit worth of Red and Blue
+and 6 bits worth of Green information. The format used is
+
+         +-------+-------+-------+-------+
+         |   Red   |  Blue   |   Green   |
+         +-------+-------+-------+-------+
+         15......11 10......6 5..........0
+
+To convert use something along the lines of:
+
+; Input:
+;   d5.5        : red
+;   d6.6        : green
+;   d7.5        : blue
+; Output
+;  d0.16    : packed TrueColor pixel
+shiftcolor:
+    move.w  d5,d0   ; d0 = red, now have [0]-[0]-[0]-[red]
+    asl #5,d0   ; shift red up, now have [0]-[0]-[red]-[0]
+    or.w    d7,d0   ; add in blue, now have [0]-[0]-[red]-[blue]
+    asl #6,d0   ; shift red & blue up, now have [0]-[red]-[blue]-[0]
+    or.w    d6,d0   ; add in green, now have [0]-[red]-[blue]-[green]
+    rts
+
+
+1.3.2 True Color Image (24/32 bits/pixel)
+
+
+Objects using the TrueColor model always uses 4 bytes per pixel???? Each
+pixel is defined by the structure:
+
+         +-------+-------+-------+-------+
+         | Green |  Red  |  nc   | Blue  |
+         +-------+-------+-------+-------+
+
+1.5 Default Colors
+
+    move.w  #$0000,BG           ;default background color (16 bit RGB or CRY
+color)
+    move.l  #$00000000,BORD1    ;default border color (green,red,unused,blue)
+
+
+1.4 Video Modes
+
+The VMODE register can switch between some modes of operation in
+the Graphics chip.
+
+It is possible to switch between 24 bit RGB values and 16 bit CrY
+in the Clut.
+
+It is possible to switch between 16 bit RGB mode and 16 bit CrY mode.
+If VMODE is set to CrY mode, then a 16 bit/pixel object is
+interpreted as a CrY Object otherwise as a 16 bit/pixel RGB Object.
+
+
+
+
+--- uugate 0.40 (SunOS 4.1.3)
+ * Origin: Internet gateway [cindy] (2:200/427.1)

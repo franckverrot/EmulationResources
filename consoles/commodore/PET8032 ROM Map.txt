@@ -1,0 +1,454 @@
+
+;	Commodore PET 8032 ROM Memory Map
+;	V1.2	19 DEC 1994
+
+;
+; Data types in headers (for reassembler):
+;
+;	DATA		Misc data
+;	TEXT		String terminated with 00
+;	WORD		Vectors in LO/HI byte pairs
+;	CHIP		I/O Area
+;	EMPTY		ROM containing FF's or AA's
+;
+
+
+;
+; BASIC 4.0 interpreter ROM ($B000 - $CFFF)
+;
+
+b000	stmdsp	BASIC Command Vectors			WORD
+b066	fundsp	BASIC Function Vectors			WORD
+b094	optab	BASIC Operator Vectors			DATA
+; Each Operator Vector is preceded by a priority code.
+
+b0b2	reslst	BASIC Command Keyword Table		DATA
+b13d	msclst	BASIC Misc. Keyword Table		DATA
+b154	oplist	BASIC Operator Keyword Table		DATA
+b161	funlst	BASIC Function Keyword Table		DATA
+b1b1	-	Additional Action Keywords		DATA
+b20d	errtab	Error Message Table			DATA
+b306	okk	Misc. Messages				DATA
+b322	fndfor	Find FOR/GOSUB Entry on Stack
+b350	bltu	Open Space in Memory
+b393	getstk	Check Stack Depth
+b3a0	reason	Check Memory Overlap
+b3cd	omerr	Output ?OUT OF MEMORY Error
+b3cf	error	Error Routine
+b3f4	errfin	Break Entry
+b3ff	ready	Restart BASIC
+b406	main	Input & Identify BASIC Line
+b41f	main1	Get Line Number & Tokenise Text
+b425	inslin	Insert BASIC Text
+b4b6	linkprg	Rechain Lines
+b4e2	inlin	Input Line Into Buffer
+b4fb	crunch	Tokenise Input Buffer
+b5a3	fndlin	Search for Line Number
+b5d2	scrtch	Perform [new]
+b5ee	clear	Perform [clr]
+b622	stxpt	Reset TXTPTR
+b630	list	Perform [list]
+b6ab	qplop	Handle LIST Character
+b6de	for	Perform [for]
+b74a	newstt	BASIC Warm Start
+b75f	ckeol	Check End of Program
+b77c	gone	Prepare to execute statement
+b785	gone3	Perform BASIC Keyword
+b7a7	-	Perform [go]
+b7b7	restor	Perform [restore]
+b7c6	stop	Perform [stop], [end], break
+b7ee	cont	Perform [cont]
+b808	run	Perform [run]
+b813	gosub	Perform [gosub]
+b830	goto	Perform [goto]
+b85d	return	Perform [return]
+b883	data	Perform [data]
+b891	datan	Search for Next Statement / Line
+b8b3	if	Perform [if]
+b8c6	rem	Perform [rem]
+b8d6	ongoto	Perform [on]
+b8f6	linget	Fetch linnum From BASIC
+b930	let	Perform [let]
+b94f	putint	Assign Integer
+b961	ptflpt	Assign Floating Point
+b964	putstr	Assign String
+b96e	puttim	Assign TI$
+b9ab		-get character string
+b9ba	getspt	Add Digit to FAC#1
+ba4e		?
+ba88	printn	Perform [print#]
+ba8e	cmd	Perform [cmd]
+baa2	strdon	Print String From Memory
+baa8	print	Perform [print]
+bac0	varop	Output Variable
+bad2	-	Add zero terminator to string
+badf	crdo	Output CR/LF
+baf0	comprt	Handle comma, TAB(, SPC(
+bb1d	strout	Output String
+bb3a	outspc	Output Format Character
+bb41		-Print '<cursor right>'
+bb44		-Print '?'
+bb46	-	Output Character in A
+bb4c	doagin	Handle Bad Data
+bb7a	get	Perform [get]
+bba4	inputn	Perform [input#]
+bbbe	input	Perform [input]
+bbe8	bufful	Read Input Buffer
+; Bufful scans for a null input and calls DATA to skip to the next statement
+; On old PETs, END was called, thereby crashing the program.
+
+bbf5	qinlin	Do Input Prompt
+bc02	read	Perform [read]
+bc31	rdget	General Purpose Read Routine
+bcf6	exint	Input Error Messages			DATA
+bd19	next	Perform [next]
+bd5b	donext	Check Valid Loop
+bd84	frmnum	Confirm Result
+bd98	frmevl	Evaluate Expression in Text
+be81	eval	Evaluate Single Term
+bea0	pival	Constant - PI				DATA
+bea5	qdot	Continue Expression
+becc	-	Evaluate <equal>
+bee9	parchk	Expression in Brackets
+beef	chkcls	Confirm Character
+beef		-Test ')'-
+bef2		-Test '('-
+bef5		-Test comma-
+bef7		-Confirm Character in A
+bf00	synerr	Output ?SYNTAX Error
+bf05	domin	Set up NOT Function
+
+bf0c		Patch for getspt
+bf21		?
+bf2e		Patch for [input]
+bf41		Unused					EMPTY
+
+bf8c	isvar	Search for Variable
+bfad	tisasc	Convert TI to ASCII String
+c003		-read real time clock
+c047	isfun	Identify Function Type
+c051	strfun	Evaluate String Function
+c071	numfun	Evaluate Numeric Function
+c086	orop	Evaluate <or>
+c089	-	Evaluate <and>
+c0b6	dorel	Evaluate <less> (comparison)
+c0bb	numrel	Numeric Comparison
+c0ce	strrel	String Comparison
+c11e	dim	Perform [dim]
+c12b	ptrget	Identify Variable
+c187	ordvar	Locate Ordinary Variable
+c1b6	isletc	Does A hold an alphabetic character?
+c1c0	notfns	Create New Variable
+c1cb	notevl	Create Variable
+c2c8	aryget	Allocate Array Pointer Space
+c2d9	n32768	Constant 32768 in Flpt			DATA
+
+c2dd	intidx	Evaluate Text for Integer
+c2ea	ayint	FAC#1 to Positive Integer
+c2fc	isary	Get Array Parameters
+c343	fndary	Find Array
+c370	bserr	?BAD SUBSCRIPT
+c373	-	?ILLEGAL QUANTITY
+c378	-	?REDIM'D ARRAY
+c38c	notfdd	Create Array
+c439	inlpn2	Locate Element in Array
+c477	umult	Number of Bytes in Subscript
+c4a8	fre	Evaluate <fre>
+c4bc	givayf	Convert Integer in (AC/YR) to Flpt
+c4c9	pos	Evaluate <pos>
+c4cf	errdir	Confirm Program Mode
+c4d7	-	?UNDEF'D FUNCTION
+c4dc	-	Perform [def]
+c50a	getfnm	Check Syntax of FN
+c51d	fndoer	Perform [fn]
+c58e	strd	Evaluate <str$>
+c598	strlit	Set Up String
+c5fe	putnw1	Save String Descriptor
+c61d	getspa	Allocate Space for String
+	garbag	Garbage Collection
+	dvars	Search for Next String
+	grbpas	Collect a String
+c74f	cat	Concatenate Two Strings
+c78c	movins	Store String in High RAM
+c7b5	frestr	Perform String Housekeeping
+c811	frefac	Clean Descriptor Stack
+c822	chrd	Evaluate <chr$>
+c836	leftd	Evaluate <left$>
+c862	rightd	Evaluate <right$>
+c86d	midd	Evaluate <mid$>
+c897	pream	Pull String Parameters
+c8b2	len	Evaluate <len>
+c8b8	len1	Exit String Mode
+c8c1	asc	Evaluate <asc>
+c8d1	gtbytc	Evaluate Text to 1 Byte in XR
+c8d4		-Eval Byte Parameter
+c8e3	val	Evaluate <val>
+c8eb	strval	Convert ASCII String to Flpt
+c921	getnum	Get parameters for POKE/WAIT
+c92d	getadr	Convert FAC#1 to Integer in LINNUM
+c943	peek	Evaluate <peek>
+c95a	poke	Perform [poke]
+c963	wait	Perform [wait]
+c97f	faddh	Add 0.5 to FAC#1
+c986	fsub	Perform Subtraction
+c989	-	Evaluate <subtract>
+c998	fadd5	Normalise Addition
+c99d	fadd	Perform Addition
+c9a0	-	Evaluate <add>
+ca7d	negfac	2's Complement FAC#1
+cab4	overr	Output ?OVERFLOW Error
+cab9	mulshf	Multiply by Zero Byte
+caf2	fone	Table of Flpt Constants			DATA
+
+;caf2	1.00
+;caf7	#03		(counter)
+;caf8	0.434255942
+;cafd	0.57658454
+;cb02	0.961800759
+;cb07	2.885390073
+;cb0c	0.707106781	SQR(0.5)
+;cb11	1.41421356	SRQ(2)
+;cb16	-0.5
+;cb1b	0.693147181	LOG(2)
+;
+
+cb20	log	Evaluate <log>
+cb5e	fmult	Perform Multiply
+cb61	-	Evaluate <multiply>
+cb8f	mulply	Multiply by a Byte
+cbc2	conupk	Load FAC#2 From Memory
+cbed	muldiv	Test Both Accumulators
+cc0a	mldvex	Overflow / Underflow
+cc18	mul10	Multiply FAC#1 by 10
+cc2f	tenc	Constant 10 in Flpt			DATA
+cc34	div10	Divide FAC#1 by 10
+cc3d	fdiv	Divide FAC#2 by Flpt at (AC/YR)
+cc45	fdivt	Divide FAC#2 by FAC#1
+cc48	-	Evaluate <divide>
+ccd8	movfm	Load FAC#1 From Memory
+ccfd	mov2f	Store FAC#1 in Memory
+cd0a	-	Store FAC#1 at (AC/YR)
+cd32	movfa	Copy FAC#2 into FAC#1
+cd42	movaf	Copy FAC#1 into FAC#2
+cd51	round	Round FAC#1
+cd61	sign	Check Sign of FAC#1
+cd6f	sgn	Evaluate <sgn>
+cd8e	abs	Evaluate <abs>
+cd91	fcomp	Compare FAC#1 With Memory
+cdd1	qint	Convert FAC#1 to Integer
+ce02	int	Evaluate <int>
+ce29	fin	Convert ASCII String to a Number in FAC#1
+cee9	n0999	String Conversion Constants		DATA
+
+cef8		Unused			EMPTY
+
+cf78	inprt	Output 'IN' and Line Number
+cf93	fout	Convert FAC#1 to ASCII String
+d01e	foutim	Convert TI to String
+d0c7	fhalf	Table of Constants			DATA
+
+d108	sqr	Evaluate <sqr>
+d112	fpwrt	Evaluate <power>
+d14b	negop	Negate FAC#1
+d14b	-	Evaluate <greater>
+d156	logeb2	Table of Constants			DATA
+
+;d156	1.44269504	(1/LOG to base 2 e)
+;d15b	#07		(counter)
+;d15c	2.149875 E-5
+;d161	1.435231 E-4
+;d166	1.342263 E-3
+;d16b	9.6414017 E-3
+;d170	5.550513 E-2
+;d175	2.402263 E-4
+;d17a	6.931471 E-1
+;d17f	1.00
+;
+
+d184	exp	Evaluate <exp>
+d1d7	polyx	Series Evaluation
+d221	rmulc	Constants for RND			DATA
+d229	rnd	Evaluate <rnd>
+d282	cos	Evaluate <cos>
+d289	sin	Evaluate <sin>
+d2d2	tan	Evaluate <tan>
+d2fe	pi2	Table of Trig Constants			DATA
+
+;d2fe	1.570796327	pi/2
+;d303	6.28318531	pi*2
+;d308	0.25
+;
+;d30d	#05	(counter)
+;d30e	-14.3813907
+;d313	 42.0077971
+;d318	-76.7041703
+;d31d	 81.6052237
+;d322	-41.3417021
+;d327	 6.28318531
+;
+
+d32c	atn	Evaluate <atn>
+d35c	atncon	Table of ATN Constants			DATA
+
+;d35c	#0b	(counter)
+;d35d	-0.000684793912
+;d362	 0.00485094216
+;d367	-0.161117018
+;d36c	 0.034209638
+;d371	-0.0542791328
+;d376	 0.0724571965
+;d37b	-0.0898023954
+;d380	 0.110932413
+;d385	-0.142839808
+;d38a	 0.19999912
+;d38f	-0.333333316
+;d394	 1.00
+;
+
+d399	initat	CHRGET For Zero-page
+d3b1	rndsed	RND Seed For zero-page			DATA
+;d3b1	0.811635157
+
+d3b6	init	BASIC Cold Start
+
+	initcz	Initialize BASIC RAM
+d417	initms	Output Power-Up Message
+	initv	Initialize Vectors
+d44b	words	Power-Up Message			DATA
+
+d472	?
+
+
+;
+; Machine Language Monitor
+;
+
+d4ba	*Get Command
+
+d531	Print Space
+d534	New Line
+d539	Increment Pointer
+d544	Commands					DATA
+d54c	Command Vectors					DATA
+d55c	'<cr>     pc  irq  sr ac xr yr sp'		DATA
+
+d579	?
+
+d587	Perform [r]
+d5bc	Perform [m]
+d5fb	Perform [;]
+
+d61d	Perform [:]
+d633	Perform [g]
+d66b	Perform [x]
+d675	Perform [l/s]
+
+d722	Output 2-digit Byte
+d731	Output 2 Ascii Chars
+d73a	Byte to 2 Ascii
+d744	Swap Add_ with Add_
+
+d7a4	Print '?'
+
+d7af	Perform [record]
+d873	Perform [catalog/directory]
+d942	Perform [dopen]
+d977	Perform [append]
+d9d2	Perform [header]
+da07	Perform [dclose]
+da65	Perform [collect]
+da7e	Perform [backup]
+daa7	Perform [copy]
+dac7	Perform [concat]
+db0d	Perform [dsave]
+db3a	Perform [dload]
+db55	Perform [rename]
+db66	Perform [scratch]
+
+de9e	?			DATA
+dea4	?			DATA
+dec2	Unused			EMPTY
+
+
+;
+; Editor (E000)
+;
+
+e202	Output to Screen
+e3b6	Output <CR>
+e442	Main IRQ Entry Point
+e600	Exit Interrupt
+e788	Unused			EMPTY
+
+
+;
+; Kernel (F000-FFFF)
+; Tape processing, IEEE-488, jump table
+;
+
+
+f185	Output Kernal Error Message
+f2a6	clrchn	Restore Default I/O
+
+f266	chrout	Output One Character
+f2dd	closet	Perform [close]
+f401	verfyt	Perform [load]
+f4f6	verfyt	Perform [verify]
+f560	opent	Perform [open]
+f6c3	syst	Perform [sys]
+f6dd	savet	Perform [save]
+f7af	chkin	Set Input Device
+f7fe	chkout	Set Output Device
+fd16	-	Power-Up RESET Entry
+fd49	-	NMI Transfer Entry
+fd4c	-	Kernal Reset Vectors			WORD
+fd5d	-	Unused					EMPTY
+
+
+;
+; PET 8032 Jump Table
+;
+
+ff93		Perform [concat]
+ff96		Perform [dopen]
+ff99		Perform [dclose]
+ff9c		Perform [record]
+ff9f		Perform [header]
+ffa2		Perform [collect]
+ffa5		Perform [backup]
+ffa8		Perform [copy]
+ffab		Perform [append]
+ffae		Perform [dsave]
+ffb1		Perform [dload]
+ffb4		Perform [catalog/directory]
+ffb7		Perform [rename]
+ffba		Perform [scratch]
+
+ffc0		Perform [open]
+ffc3		Perform [close]
+
+ffc6	chkin	Set Input
+ffc9	chkout	Set Output
+ffcc	clrch	Restore I/O Vector
+;ffcf	chrin	Input Vector, chrin
+ffd2	chrout	Output Vector, chrout
+
+
+ffd5		Perform [load]
+ffd8		Perform [save]
+ffdb		Perform [verify]
+ffde	sys	Perform [sys]
+
+ffe4	jmp 	getin	Get From Keyboad
+
+
+;fff6	Vectors
+
+fff6	[AAAA]		-		WORD
+fff8	[AAAA]		-		WORD
+ 
+;fffa	Transfer Vectors
+fffa	[fd49]		NMI		WORD
+fffc	[fd16]		RESET		WORD
+fffe	[e442]		IRQ		WORD
+

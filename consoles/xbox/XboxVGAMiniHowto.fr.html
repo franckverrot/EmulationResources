@@ -1,0 +1,184 @@
+<html>
+<head>
+<title>Mini HOWTO sur le VGA de la XBox</title>
+</head>
+<body>
+
+<h1>Mini HOWTO sur le VGA de la XBox</h1>
+<p>par <i>Oliver Schwartz</i>, le 4 Juillet 2003</p>
+<p>traduit par <i>Franck "LXS" Verrot [rootATdev-fr.com]</i></p>
+<p><i>Version 0.1</i></p>
+
+<p><b>DISCLAIMER</b>: Les informations contenues dans ce document sont fournies tels quel, sans aucune garantie. Si vous construisez quelque câbles ou circuits de ce document vous annulerez de ce fait la garantie de votre Xbox, vous pourriez même endommager votre Xbox, votre moniteur, ou les deux. Nous ne prennons aucune reponsabilité quant aux dommages qu'il pourrait arrriver par les câbles et circuits décrits dans ce document. Utilisez-le ainsi à vos risques et périls.</p>
+
+
+<h2>0. Introduction</h2>
+
+<p>Ce document décrit comme connecter un moniteur VGA à votre XBox et le faire marcher sous Linux.</p>
+
+
+<h2>1. Les bases</h2>
+
+<p>SUr un PC standard vous pouvez trouver un connecteur VGA qui délivre 5 signaux:</p>
+<ul>
+<li>3 signaux analogiques pour les composantes des couleurs rouges, vertes et bleues(RGB)</li>
+<li>1 signal numérique de synchronisation horizontale</li>
+<li>1 signal numérique de synchronisation verticale</li>
+</ul>
+
+<p>Un moniteur VGA utilise ces signaux pour générer l'image sur son écran. Les signaux de synchronisation disenty au moniteur quand commencer une nouvelle ligne ou une nouvelle image à l'écran.</p>
+
+<p>
+En arrière dans les vieux jours des adapteurs VGA, les composants principaux sur une carte VGA étaient le contrôleur graphique et le DAC.
+Le contrôleur graphique génère toutes les informations numérique de l'image. Pour convertir l'information sur la couleur en signaux analogiques les informations numérique sur l'image sont passées dans un CNA(convertisseur numérique analogique, ou DAC) qui génèrera le signal analogique RGB.</p>
+
+<p>Dans une Xbox les choses marchent à peu près pareil. Le contrôleur graphique génère toujours de bons vieux signaux RGB et de synchronisations. En lieu et place d'un vrai CNA, la Xbox utilise un encodeur vidéo qui génèrera normalement le signal TV. L'encodeur vidéo peut être programmé pour supporter une plage de différents signaux TV standards(exemple: composite, RGB-SCART, S-VIDEO, HDTV etc...)</p>
+
+<p>Les différents standards de signaux TV combinent habituellement un ou plusieurs signaux mentionnés plus haut dans un seul et unique signal. RGB-SCART, le standard TV le plus proche du VGA, utilise toujours 4 signaux:</p>
+<ul>
+<li>3 signaux analogiques pour les composantes des couleurs rouges, vertes et bleues</li>
+<li>1 signal de synchronisation composite qui contient à la fois les informations sur les synchronisations verticales et horizontales.</li>
+</ul>
+
+<p>HDTV utilises même moins de signaux:</p>
+<ul>
+<li>2 signaux analogiques pour les composantes rouge et bleu.</li>
+<li>1 signal analogique pour la couleur verte qui embarque les signaux des synchronisations.</li>
+</ul>
+
+<p>Pour conséquence la XBox offre un maximum de 4 signaux vidéo sur son connecteur AVIP. Il est toutefois impossible de générer un signal complètement compatible VGA sur le connecteur AVIP.</p>
+
+<p>Il y a deux manières générales pour résoudre ce problème:</p>
+<p>a) Bon nombre de moniteurs modernes supportent "la synchronisation sur le vert"(Sync On Green ou SOG). Dans ce mode l'information de synchronisation est véhiculée dans le signal de la couleur VGA verte, comme dans le mode HDTV. Pour avoir une liste de moniteurs qui supportent la synchronisation sur le vert, visitez <a href="http://playstation2-linux.com/sog.php">http://playstation2-linux.com/sog.php</a>[NDTraducteur: Linux sur PS2 nécessite le SOG, d'où l'url ;)].</p>
+
+<p>b) Utiliser un matériel externe pour extraire l'information de synchronisation du signal vert ou du signal composite et le diviser en deux signaux de synchronisations horizontales et verticales.</p>
+
+<p>Additionnellement vous aurez besoin d'un support VGA dans les logiciels que vous lancerez.</p>
+
+
+<h2>2. Le matériel</h2>
+
+<p>Il ya un nombre d'options pour construire votre propre cable VGA pour Xbox. Ils diffèrent dans la méthode utilisée pour la génération de la synchronisation, comme décrites plus haut.</p>
+
+<p>Si vous avez besoin d'un diviseur de signal dans le cas où votre moniteur ne supporte pas le SOF, il y a un peu plus de travail à effectuer.</p>
+
+<h3>2.1 Utiliser la synchronisation sur le vert</h3>
+
+<p>Si votre moniteur supporte le SOG vous avez de la chance [NDT: je n'ai pas fait exprès personnellement, mais c'est plus qu'obligatoire si vous désirez développer] - vous avez juste besoin d'un câble normal pour brancher votre connecteur AVIP à votre moniteur VGA. Aucun composant électronique additionnel n'est nécessaire.</p>
+
+<p>Premièrement, l'image ci-dessous montre la numérotation des broches pour le connecteur AVIP vu depuis le côté du câble en direction de la Xbox.</p>
+
+<pre>   _______________________________
+  /24 22 20 18 16 14 12 10 8 6 4 2\
+ | 23 21 19 17 15 13 11  9 7 5 3 1 |
+ -----------------------------------
+           COnnecteur AVIP</pre>
+
+<p>Et voici le connecteur VGA, toujours avec une vue depuis le câble sur le PC</p>
+
+<pre>  ___5_______1____
+  \  o o o o o   /
+10 \  o o o o o / 6
+    \o o o o o /
+     ----------
+    15       11
+    Connecteur VGA</pre>
+
+<p>VOus devez effectuer les connexions suivantes:</p>
+
+<pre>Broche AVIP 19 sur broche VGA 1  (rouge)
+Broche AVIP 22 sur broche VGA 2  (vert)
+Broche AVIP 18 sur broche VGA 3  (bleu)
+Broche AVIP 17 sur broche VGA 6  (terre pour rouge)
+Broche AVIP 20 sur broche VGA 7  (terre pour vert)
+Broche AVIP 16 sur broche VGA 8  (terre pour bleu)
+
+Broche AVIP 9 sur broche AVIP 10 (sélection de mode, bit 0)
+Broche AVIP 13 sur broche AVIP 14 (sélection de mode, bit 2)</pre>
+
+<p>La connexion des broches AVIP 9 et 13 est nécessaire pour sélectionner l'identité du câble. La connexion ci-dessus prendra forme d'une câble d'identifaiant "2" (vérifiez que la broche 11 de l'AVIP est déconnectée). De cette manière Cromwell et le noyau Linux sera capable de détecter le câble VGA et de régler les modes correctement.</p>
+
+<p>Pour les signaux audio, utiliser la broche AVIP 2 (canal de droite), la broche 4 (mise à la terre ou GND), la broche 3 (canal de gauche) et la broche 5 (GND).</p>
+
+<p>Nous recommandons d'optenir un adaptateur Xbox SCART pas cher, enelevr le connecteur SCART et souder un connecteur VGA.</p>
+
+<h3>2.2 Utiliser un diviseur de signal</h3>
+
+<p>Si votre moniteur ne supporte pas la synchronisation sur le vert vous aurez besoin d'un diviseur de signal pour la synchronisation. Le diviseur pour la synchronisation utilisé ici est un LM1881N de National Semiconductor (<a href="http://www.national.com/pf/LM/LM1881.html">http://www.national.com/pf/LM/LM1881.html</a>).</p>
+
+<p>VOus devez construire le même câle que décrit ici. Additionellement, vous pouvez construire celui ci-dessous:</p>
+
+<pre>    VGA          LM1881N
+Broche 13 |      --------       AVIP
+          -------|1    8|-----  Broche 1 (+ 5 Volt)
+    AVIP   0.1uF |      |
+Broche 22 ---||--|2    7|         ____  575 kOhm
+                 |      |   |----|____|---|
+     VGA  -------|3    6|---|             |---|
+Broche 14        |      |   |------||-----|   |
+                 |-|4    5|               0.1uF |
+                 | --------                     |
+                 |______________________________|
+                                            |
+                                            |
+                                          Broche AVIP 12 (GND)</pre>
+
+<h3>2.3 Utilisation des signaux de synchronisation internes à la Xbox</h3>
+
+<p>Cette méthode délivrera de meilleurs signaux de synchronisations mais c'est aussi la plus difficile à mettre en place. Vous aurez besoin de quelques années d'expérience en soudure avec les périphériques SMD avant d'essayer cette méthode.</p>
+
+<p>L'interface numérique entre le GPU de NVidia et la puce de Conexant utilise un signal VSYNC et un signal HSYNC. Malheureusement ces signaux sont utilisés uniquement en interne, ils ne sont pas disponibles sur le connecteur AVIP.</p>
+
+<p>Il n'est pas conseillé d'utiliser les signaux HSYNC et VSYNC directement, puis que les lignes de synchronisation d'un moniteur sont habituellement terminées par un condensateur 75Ohms. Au lieu de cela vous devrez utiliser un tampon pour diriger les signaux. Pour rendre les choses compliquées, l'interface entre la puce Conexant et le GPU utilise seulement un signal de voltage 1.5V. Toutefois, certains moniteurs sont capables de faire face à cela.</p>
+
+<p>HSYNC est disponible à la broche 35 du CX25871, VSYNC à la broche 36. Nous recommandons l'utilisation de deux triggers de Schmitt 74HC14 comme tampons. Le voltage additionnel du 74HC14 doit être de 1.5V(disponible à la broche CX25871), sinon le seul d'entrée  sur trigger de Schmitt est trop haut.</p>
+
+<p>Nous conseillons fortement de ne pas souder les fils directement sur le CX25871, puis vous avez raccourci deux ou plusieurs broches. Les signaux de synchronisations sont également disponibles depuis deux petits ajouts de soudures près du bord supérieur du GPU. Utilisez un multimètre pour les trouver.</p>
+
+<p>Connecter la sortie du tampon dirigé par la broche 35 du Conexant sur la broche 13 du connecteur VGA. COnnecter la sortie du tampon dirigé par la broche 36 du Conexant sur la broche 14 du connecteur VGA.</p>
+
+
+<h2>3. Partie Logicielle</h2>
+
+<p>Sur la XBox un nombre de composants logiciel définissent le mode vidéo.
+Premièremen, le BIOS de la XBox définit le mode vidéo initial après la mise sous tension. En fonction de votre méthode de boot le BIOS est soit un BIOS Microsoft modifié soit un Cromwell. La plupart des Bios Microsoft modifiés ne supportent pas le VGA, donc vous ne pouvez pas vous attendre à une sortie dans les premières phases du processus de boot.</p>
+
+<p>Si vous utilisez Cromwell en tant que BIOS pour booter Linux vous obtiendrez un support VGA immédiat après la mise sous tension. Cromwell détectera le câble VGA s'il a un identifiant de câble de "2" et change la résolution en 800x600 à 56Hz qui devrait marcher sur n'importe quel moniteur VGA.</p>
+
+<p>Une fois que le noyau Linux est lancé il prend le contrôle des réglages vidéo (fournis que si vous utilisez le driver rivafb pour Xbox, que vous devriez utiliser). VOus avez besoin d'un noyau qui a été compilé avec les dernières sources du noyau à partir de <a href="http://Xbox-linux.sf.net">http://Xbox-linux.sf.net</a>. Le noyau envoyé avec Ed's Debian 0.3.1 est trop vieux pour supporter les caractéristiques du VGA.</p>
+
+<p>Si votre cable utilise un autre identifiant que 2 vous pouvez toujours forcer le noyau à changer les modes VGA. Pour se faire, ajouter un état "tv=VGA" aux paramètres du rivafb dans la ligne d'ajout dans linuxboot.conf.</p>
+
+<p>Une fois que vous avez Linux qui est lancé vous pouvez modifier les paramètres de fréquence et résolution en utilisant "fbset", comme vous feriez sur un PC. La paramètre de la fréquence dépend énormément de votre moniteur et de la méthode synchronisation que vous utilisez. La valeur de la fréquence est hors-sujet à ce document, pour des détails lisez le XFree86 Video Timings HOWTO, exemple depuis <a href="http://www.yolinux.com/HOWTO/XFree86-Video-Timings-HOWTO.html">http://www.yolinux.com/HOWTO/XFree86-Video-Timings-HOWTO.html</a>.</p>
+
+<p>Voici quelques valeurs qui marchent pour nous(consultez la spécification de votre moniteur avant d'en essayer):</p>
+
+<pre>Sync on green, 640x480, HSync 31.469 kHz, VSync 59.942 kHz:
+  fbset -g 640 480 640 480 32 -t 39721 40 24 32 11 96 2
+  Modeline: Mode "640x480" 25.177 640 664 760 800 480 491 493 525 -hsync -vsync
+
+Sync on green, 800x600, HSync 46.382 kHz, VSync 73.623 kHz:
+  fbset -g 800 600 800 600 32 -t 22000 110 20 15 10 50 5
+  Modeline: Mode "800x600" 45.456 800 820 870 980 600 610 615 630 -hsync -vsync
+
+Sync on green, 1024x768, HSync 53.314 kHz, VSync 65.577 kHz:
+  fbset -g 1024 768 1024 768 32 -t 15200 180 10 20 20 20 5
+  Modeline: Mode "1024x768" 65.790 1024 1034 1054 1234 768 788 793 813 -hsync -vsync
+
+Internal sync, 1024x768, HSync 60.020 kHz, VSync 75.025 kHz:
+  fbset -g 1024 768 1024 768 32 -t 12699 176 16 28 1 96 3 -hsync high -vsync high
+  Modeline: Mode "1024x768" 78.747 1024 1040 1136 1312 768 769 772 800 +hsync +vsync</pre>
+
+
+<h2>4. Limitations</h2>
+
+<p>Toutes les solutions matérielles utilises des CNAs des puces Conexant pour générer les signaux des couleurs. La puce Conexant est conçue pour aller à la fréquence d'horloge de pixel pouvant aller jusqu'à 80Mhz. C'est assez pour 1024x768 à 80Hz et 1152x864 à 60Hz; mais les résolutions plus hautes et/ou une fréquence de rafraîchissement trop élevée ne sont pas possible.</p>
+<hr> &copy; 2003 Oliver Schwartz<br/>Traduit par Franck "LXS" Verrot<hr>
+<i>Tout ce qui est fait dans ce projet est dans le but unique d'écrire un logiciel interoperable sous Sect. 1201 (f) Reverse Engineering du DMCA.</i>
+<hr>
+<a href="http://xbox-linux.sourceforge.net/">The Xbox Linux Project</a>
+</td>
+</tr>
+</table>
+</body>
+</html>

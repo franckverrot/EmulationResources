@@ -1,0 +1,21 @@
+
+
+void checkRECT(char *FuncName,RECT *rect)
+{
+	switch(gs.DebugLvl) {
+		case 1:
+			if ( gs.Width < rect->w || gs.Width < rect->w + rect->x ||
+			gs.Height < rect->y || gs.Height < rect->y+rect->h ||
+			rect->w <= 0 || rect->x < 0 ||
+			rect->y < 0 || rect->h <= 0 ) {
+				GPU_printf("%s:bad RECT",FuncName);
+	GPU_printf("(%d,%d)-(%d,%d)\n",rect->x,rect->y,rect->w,rect->h);
+			}
+			break;
+		case 2:
+			GPU_printf("%s:",FuncName);
+	GPU_printf("(%d,%d)-(%d,%d)\n",rect->x,rect->y,rect->w,rect->h);
+			break;
+		default: return; break;
+	}
+}

@@ -1,0 +1,32 @@
+CPU:           ARM920T Core (Samsung S3C2400X01), running at up to 99MHz
+Display:       3.5" Reflective TFT, 320x240, 256 or 65536 colors
+               (index 239 (255,102,255) is default color key for transparency)
+Storage:       SMC (Smart Media Card), probably any available size supported
+Memory:        8MB SDRAM (HY57V641620HGT-H)
+               512KB flash memory (AT49BV040-90VC) for firmware
+               serial EEPROM (SO24LBOX91-BCB0)
+Connections:   - USB connector (1795A-042)
+               - EXT connector (3050-18R-0.5HTBD) : UART, JTAG & I2C
+                 http://www.hyupjininc.com/kor/product/3050_1801pin.htm
+                 http://www.sebo2000.com/connector/3050%20series.htm
+                 Pins: 1=3.3v             10=TXD0/GPF2
+                       2=nRESET           11=IIC-bus[SCL]
+                       3=nTRST            12=IIC-bus[SDA]
+                       4=JTAG[TDI]        13=nRTS0/GPF4
+                       5=JTAG[TMS]        14=nCTS0/GPF5
+                       6=JTAG[TCK]        15=RXD1/GPF1
+                       7=JTAG[TDO]        16=TXD1/GPF3
+                       8=AIN0             17=NoConnection(?)
+                       9=RXD0/GPF0        18=Ground
+                 Refer to the CPU data sheet for more info on these signals.
+               - Headphone Jack (TSH-3675(AJ332))
+Sound:         8 or 16Bit PCM Stereo DAC (Phillips TDA1330)
+Power:         - 2 AA Batteries (said to last ~12 Hours)
+               - DC Power-Jack (TSH-3675(AJ238S-SMT)), 3.3v "reversed" polarity
+Controls:      8-Way directional pad (joystick) + A,B,L,R,Start,Select buttons
+                       A=GPB14[pin19]              B=GPB13[pin18]
+                   Start=EINT6/GPE6[pin125]   Select=EINT7/GPE7[pin126]
+                       L=GPB12[pin17]              R=GPB15[pin20]
+                      Up=GPB11[pin16]           Down=GPB9[pin14]
+                    Left=GPB8[pin13]           Right=GPB10[pin15]
+               When read, the values will be 0 when pressed & 1 when released.

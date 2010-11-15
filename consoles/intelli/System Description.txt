@@ -1,0 +1,313 @@
+
+
+SYSTEM DESCRIPTION
+
+
+
+
+[With some corrections and clarifications, the following information is from an in-house 
+document dated October 31, 1980.]
+
+
+This document covers the main components of the Intellivision (product number 2609) that 
+are of interest to the programmer. These are:
+
+
+•CPU: General Instruments CP1610 
+•Standard Television Interface Chip (STIC): GI AY-3- 8900-1 
+•System RAM: GI RA-3-9600 
+•Sound Chip: GI AY-3-8914 
+•Graphics ROM (GROM) and Graphics RAM (GRAM) 
+•The Executive ROM (EXEC) 
+•Scratchpad RAM 
+•Hand Controllers
+
+
+In addition, the Intellivision includes components not directly accessed by 
+the game program. The principal functions of these components are to (1) generate 
+the 3.579545 MHz system clock, (2) convert the digital sound and video signals to 
+an RF output and (3) supply power for the system. These are not discussed further here.
+
+
+The information here also applies to the Radio Shack Tandyvision One, 
+the Sears Super Video Arcade, and the INTV Master Component (also called 
+INTV System III and the INTV Super Pro System), which are all simply clones of the 
+Intellivision Master Component with minor cosmetic differences.
+
+
+
+CPU
+
+The CPU is the General Instruments CP1610. This is a general purpose 16-bit 
+microprocessor which has 1024 separate op-codes, and can equally well use 8-bit, 
+10-bit, 14-bit, and 16-bit RAM or ROM. The CP1610 in the Intellivision uses a machine 
+cycle rate of 894.886 KHz. Individual operations on the 1610 take between 4 and 12 microcycles 
+(Note: the CP1600 is the prototypical or conventional form of the microprocessor; 
+the CP1610 used in the Intellivision is precisely the same in all respects except for a 
+differing clock rate.)
+
+
+
+Since most 1610 instructions are 10-bits wide, game programs are stored in 10-bit 
+wide ROMs. This 10-bit "byte" is referred to as a decle (rhymes with "heckle"). Some 
+instructions require 16 bits; these are stored in two successive 10-bit locations, referred 
+to as a bidecle. (For prototyping, dual 8-bit EPROMs are used, with the low 8 bits of each 
+decle stored in one EPROM and the top 2 bits stored in the other.)
+
+
+
+STIC
+
+The Standard Television Interface Chip (STIC), the General Instruments AY-3-8900-1, 
+controls the video display of the Intellivision. Roughly speaking, the CPU tells the 
+STIC how to create a desired visual display, and the STIC does all the dirty work 
+without further work by the CPU.
+
+
+
+The STIC will display a background field of 240 "cards" (20 wide and 12 high; each 
+card is 8 by 8 pixels), giving a resolution of 160 pixels wide and 96 pixels high (each pixel 
+is 2 TV lines high and is in the proportion of 5 wide by 4 high). NOTE: The STIC does NOT 
+display the far right column of pixels, giving an actual displayed resolution of 159 by 96 
+pixels. Each pixel can be in any of 16 colors (eight "primaries" and eight "pastels.").
+
+
+
+In addition, the STIC controls 8 "moving objects", each of which can be 8 wide by 8 high 
+or, at double resolution, 8 wide by 16 half-pixels high (each moving object can also be 
+double-sized in width and/or height). The beauty of this system is that once the CPU has 
+defined a background and a moving object shape, it can change the location of an object 
+merely by writing a different address to the STIC. NOTE: The moving objects can be located 
+on a grid space wider and taller than the displayed background, allowing them to smoothly 
+slide on or off the screen at the edges.
+
+
+
+[Blue Sky Rangers comment: Two methods were developed to get around the limit of only 
+eight moving objects: (1) multiplexing is redefining and repositioning one object from 
+frame to frame to give the illusion of two separate objects; (2) sequencing GRAM is writing
+directly to the Graphics RAM locations, normally only accessed by the EXEC, to animate 
+background cards. Because it causes objects to flicker, marketing forbid the use of 
+multiplexing (common in Atari 2600 and Colecovision games). Sequencing GRAM, however, 
+was used often, including in Space Armada, Star Strike and TRON Solar Sailer to create 
+screens full of movement.]
+
+
+
+The STIC will take care of changing the location of an object, background, overlaps, etc. 
+The STIC will also keep track of moving object interactions with other moving objects or 
+with the background field, and will signal the CPU when crashes occur. As an example, the 
+CPU can define a playing field and a ball moving on it. Then the CPU can move the ball 
+around the field merely by writing a new X,Y location to the STIC. The STIC will make sure 
+that the background properly re-appears after an object moves away, and (if requested) will 
+signal the CPU when the ball moves off the edge of the playing field or intersects another 
+moving object such as an opposing player.
+
+
+
+The STIC also can cause the entire background to move smoothly, one pixel at a time, 
+either in the X-direction or the Y-direction. Moving objects move with the background. 
+(Special subroutines are available to the programmer to use this feature to create continuous 
+scrolling backgrounds.)
+
+
+
+Obviously, the STIC takes a lot of work off the CPU, and it makes it possible for 
+Intellivision to have higher quality graphics than any other video game or home computer 
+system. However, the STIC has limitations which the programmer has to work within, 
+particularly in defining colors:
+
+
+
+Moving objects can have only ONE color each; a multi-color character must therefore 
+be made up of more than one of the only eight moving objects.
+
+
+
+Each 8 by 8 background card can have only TWO colors on it. There are two methods 
+for defining these colors: (1) Foreground/Background mode allows the colors for each 
+card to be defined individually, but one of the two colors on each card is limited to 
+the eight primary colors. Two pastel colors cannot appear on the same card. (2) Color 
+Stack mode restricts one of the two colors on each card to either the current or next 
+color from a programmer-defined four-color circular stack. However, since all 16 colors 
+are available for the color stack, two pastel colors CAN appear on the same card. Modes 
+cannot be mixed on one screen. In general, a complex screen design is easier to create in 
+Foreground/Background mode, but a simpler (or very clever) design using Color Stack can be 
+more colorful.
+
+
+
+(NOTE: There is a third mode, Colored Squares mode, that allows four primary colors 
+to be defined per card, but it is literally limited to colored squares -- four equal-sized 
+blocks per card. Therefore, the entire background must be made up of 4-pixel by 4-pixel 
+solid-color squares. [This mode was only used three times, for Snafu and the unreleased 
+games Empire and Brickout!])
+
+
+
+SYSTEM RAM
+
+The CPU and the STIC are linked together and served by the System RAM, 
+the GI RA-3-9600. The System RAM is not just a simple dumb memory chip. 
+It contains (1) 240 locations of information about the 240 background cards 
+(BACKTAB), (2) 112 locations of simple 16-bit ram, used as the CPU stack and (3) 
+a bus arbitration controller to control access to the Graphics ROM (GROM) and the 
+Graphics RAM (GRAM), both of which are accessed by the CPU and the STIC (but never 
+at the same time). The System RAM is crucial from the hardware point of view, but the 
+timing features are transparent to the programmer.
+
+
+
+SOUND CHIP
+
+The sound chip is a GI AY-3-8914. This chip contains three separate channels of 
+sound, each channel of which can be individually controlled for frequency and volume. 
+There is also a noise generator on the chip, which can be added to any of the three channels. 
+All three channels are mixed, and fed to the sound output of the TV.
+
+
+
+GROM AND GRAM
+
+Graphics ROM and the Graphics RAM (GROM and GRAM) are, in effect, character chips, 
+storing shapes of images used on-screen. GRAM is programmable and GROM is not.
+
+
+
+GRAM has space for 64 program-defined 8 by 8 bit images. Both background and moving 
+object images are stored here; since there can be up to 8 double-resolution moving objects 
+defined in GRAM, there are always at least 64-(8*2)=48 background locations which the program 
+can define.
+
+
+
+GROM contains 213 pre-defined 8 by 8 bit image locations (TRIVIA: it was intended 
+to contain 256 images, but space was stolen for an overflow of system software 
+from the EXEC ROM) which include numbers, upper and lower case alphabetic characters, 
+punctuation, and graphics characters (triangles, lines and what-not).
+
+
+
+For example, GROM location #37 contains the character E stored as:
+
+
+
+01111110
+01000000
+01000000
+01111110
+01000000
+01000000
+01111110
+00000000
+
+
+
+The 240 BACKTAB locations each points to a location in GRAM or GROM. For example, 
+if BACKTAB location #1 points to GROM location #37, an E will appear in the upper 
+left corner of the screen.
+
+
+
+BACKTAB contains other information on the display, such as foreground and background 
+color, and whether the character is in GROM or GRAM. Therefore, one GROM or GRAM image 
+can be used to produce different colored images on different parts of the same screen 
+(e.g. you can have a white E on a black background on one part of the screen and a red 
+E on a blue background on a different part of the screen; both use the same bit images 
+pattern stored in GROM location #37).
+
+
+
+GROM is a GI RO-3-9503 2K ROM. GRAM is made up of two GTE 3539 256-byte static RAM chips.
+
+
+
+THE EXEC
+
+The whole system is controlled by a 4K program called the Executive (the EXEC) 
+which resides in the Intellivision's Executive ROM chip (with an additional 344 
+bytes over in the GROM chip). In a sense, the EXEC is the main game program, and the 
+plug-in cartridge merely contains subroutines and data which are used by the EXEC. 
+Normally, only EXEC routines access GROM, GRAM and the STIC control registers. The EXEC 
+contains routines for moving objects around the screen, loading GRAM, creating sound and 
+music, testing for moving object interaction, etc. The EXEC was written for Mattel 
+Electronics by APh Technology Consultants. [Note: In the Intellivision, 
+the Executive ROM is physically two 2K chips, a GI RO-3-9502 and a GI RO-3-9504; 
+in the Intellivision II it is a single 4K GI RO-3-9506 chip.]
+
+
+
+<Image>BUG: The EXEC's square root subroutine will crash the system if it's given a 
+negative number. Other EXEC routines which calculate position and velocity of moving 
+objects use this subroutine; a game can freeze if one of them is called after an 
+object moves off the top or left side of the screen, into negative coordinates. On 
+many games this problem showed up during testing and extra code had to be added to 
+check for a negative position. But on some games the problem showed up too late: the 
+released version of B-17 Bomber will freeze up sometimes when a bomb goes off the left 
+side of the screen.
+
+
+
+When the Intellivision II was being designed, consideration was given to fixing the 
+square root routine bug. But the fear was that games developed and tested principally 
+on an Intellivision II would then be more likely to crash on an original Intellivision. 
+The bug was left as is.
+
+
+
+FUN FACT: The least frequently asked question of the Blue Sky Rangers was 
+from the guy who opened up his Intellivision and noticed that there is no data bus 
+connection between the CPU and the GROM chip. How then, he asked, does the processor 
+execute the EXEC instructions that are located in the GROM chip? The answer is that those 
+instructions, when needed, are loaded from GROM into the BACKTAB locations of System RAM. 
+The processor then executes them from RAM. Since BACKTAB normally defines what's on screen, 
+the STIC is set to black out the video display while the instructions execute. 
+These instructions are used to load picture definitions from the game cartridge into GRAM, 
+which normally occurs only at RESET. This is why the screen goes black for a second when 
+you press RESET, and why you occasionally see a flash of strange characters.
+
+
+
+SCRATCHPAD RAM
+
+The scratchpad 256-by-8-bit static RAM chip (GTE 3539) is used by the EXEC and by 
+the sound chip for temporary data storage. 147 bytes are left over for use by the 
+game program to keep track of score, level, lives left, and other game variables.
+
+
+
+HAND CONTROLLERS
+
+An Intellivision has a left and a right hand controller. Each controller 
+has a disc controller, a 12-number keypad, and 4 "action" buttons (2 on the 
+left side and 2 on the right side). The disc controller can record any of 16 
+different locations when pressed, somewhat like a joystick. There are two peculiarities 
+of the hand controller:
+
+
+
+1. The top action keys are wired together, so there are really only three 
+separate action buttons: left bottom, right bottom and the left/right top button.
+
+
+
+2. The 12-number keypad duplicates the disc controller and the action keys, 
+so you can either use the disc controller and the action buttons -- OR -- the 
+keypad, but not both at the same time.
+
+
+
+Each hand controller is hooked to an 8-bit input port. (These are physically 
+the input ports of the sound chip, but that's not relevant to the programmer.) 
+The disc controller outputs a 5-bit code; the action buttons output a 3-bit code. 
+The 12-number keypad outputs an 8-bit code. The EXEC contains routines which debounce 
+key inputs and convert 5-bit disc hardware codes to numbers, 0 through 15, 
+which indicate directions. A game program can access the input ports directly, 
+but the EXEC routines are usually used, instead.
+
+
+------------------------------------------------------------------------
+The Blue Sky Rangers
+intellivision@makingit.com 
+
+

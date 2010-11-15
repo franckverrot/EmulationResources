@@ -1,0 +1,324 @@
+GP32 MemoryMap v0.0.1                                                02.03.2002
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+0x00000000 - 0x0003ffff  512kb   system rom (BOOT_ROM)
+
+Exception Vectors
+
+0x00000000 Reset                   Supervisor
+0x00000004 Undefined instruction   Undefined
+0x00000008 Software Interrupt      Supervisor
+0x0000000C Abort (prefetch)        Abort
+0x00000010 Abort (data)            Abort
+0x00000014 Reserved                Reserved
+0x00000018 IRQ                     IRQ
+0x0000001C FIQ                     FIQ
+
+-------------------------------------------------------------------------------
+0x0c000000 - 0x0c7fffff  8mb     workram (WORK_RAM)
+0x0c780000 - 0x0c7fffff  0.5mb   used by system
+-------------------------------------------------------------------------------
+0x14000000 - 0x15a0003f          hardware registers
+
+- The special registers have to be accessed by the recommended access unit.
+- All registers except ADC registers, RTC registers and UART registers must be
+  read/written in word unit (32bit) at little endian.
+- It is very important that the ADC registers, RTC registers and UART registers
+  be read/written by the specified access unit and the specified address.
+  Moreover, one must carefully consider which endian mode is used.
+
+W: 32-bit register, access by LDR/STR or int type pointer(int *)
+HW: 16-bit register, access by LDRH/STRH or short int type pointer(short int *)
+B: 8-bit register, access by LDRB/STRB or char type pointer(char int *)
+-------------------------------------------------------------------------------
+
+MEMORY CONTROLLER
+
+BWSCON             0x14000000  W  r/w   Bus Width & Wait Status Control
+BANKCON0           0x14000004           Boot ROM Control
+BANKCON1           0x14000008           BANK1 Control
+BANKCON2           0x1400000c           BANK2 Control
+BANKCON3           0x14000010           BANK3 Control
+BANKCON4           0x14000014           BANK4 Control
+BANKCON5           0x14000018           BANK5 Control
+BANKCON6           0x1400001c           BANK6 Control
+BANKCON7           0x14000020           BANK7 Control
+REFRESH            0x14000024           DRAM/SDRAM Refresh Control
+BANKSIZE           0x14000028           Flexible Bank Size
+MRSRB6             0x1400002c           Mode register set for SDRAM
+MRSRB7             0x14000030           Mode register set for SDRAM
+
+USB HOST CONTROLLER
+
+HcRevision         0x14200000  W        Control and Status Group
+HcControl          0x14200004
+HcCommonStatus     0x14200008
+HcInterruptStatus  0x1420000c
+HcInterruptEnable  0x14200010
+HcInterruptDisable 0x14200014
+HcHCCA             0x14200018           Memory Pointer Group
+HcPeriodCuttentED  0x1420001c
+HcControlHeadED    0x14200020
+HcControlCurrentED 0x14200024
+HcBulkHeadED       0x14200028
+HcBulkCurrentED    0x1420002c
+HcDoneHead         0x14200030
+HcRmInterval       0x14200034           Frame Counter Group
+HcFmRemaining      0x14200038
+HcFmNumber         0x1420003c
+HcPeriodicStart    0x14200040
+HcLSThreshold      0x14200044
+HcRhDescriptorA    0x14200048           Root Hub Group
+HcRhDescriptorB    0x1420004c
+HcRhStatus         0x14200050
+HcRhPortStatus1    0x14200054
+HcRhPortStatus2    0x14200058
+
+INTERRUPT CONTROLLER
+
+SRCPND             0x14400000  W  R/W   Interrupt Request Status
+INTMOD             0x14400004  W        Interrupt Mode Control
+INTMSK             0x14400008     R/W   Interrupt Mask Control
+PRIORITY           0x1440000c  W        IRQ Priority Control
+INTPND             0x14400010     R/W   Interrupt Request Status
+INTOFFSET          0x14400014     R     Interrupt request source
+
+DMA
+
+DISRC0             0x14600000  W  R/W   DMA 0 Initial Source
+DIDST0             0x14600004           DMA 0 Initial Destination
+DCON0              0x14600008           DMA 0 Control
+DSTAT0             0x1460000c     R     DMA 0 Count
+DCSRC0             0x14600010           DMA 0 Current Source Address
+DCDST0             0x14600014           DMA 0 Current Destination Address
+DMASKTRIG0         0x14600018     R/W   DMA 0 Mask Trigger
+DISRC1             0x14600020  W  R/W   DMA 1 Initial Source
+DIDST1             0x14600024           DMA 1 Initial Destination
+DCON1              0x14600028           DMA 1 Control
+DSTAT1             0x1460002c     R     DMA 1 Count
+DCSRC1             0x14600030           DMA 1 Current Source Address
+DCDST1             0x14600034           DMA 1 Current Destination Address
+DMASKTRIG1         0x14600038     R/W   DMA 1 Mask Trigger
+DISRC2             0x14600040  W  R/W   DMA 2 Initial Source
+DIDST2             0x14600044           DMA 2 Initial Destination
+DCON2              0x14600048           DMA 2 Control
+DSTAT2             0x1460004c     R     DMA 2 Count
+DCSRC2             0x14600050           DMA 2 Current Source Address
+DCDST2             0x14600054           DMA 2 Current Destination Address
+DMASKTRIG2         0x14600058     R/W   DMA 2 Mask Trigger
+DISRC3             0x14600060  W  R/W   DMA 3 Initial Source
+DIDST3             0x14600064           DMA 3 Initial Destination
+DCON3              0x14600068           DMA 3 Control
+DSTAT3             0x1460006c     R     DMA 3 Count
+DCSRC3             0x14600060           DMA 3 Current Source Address
+DCDST3             0x14600064           DMA 3 Current Destination Address
+DMASKTRIG3         0x14600068     R/W   DMA 3 Mask Trigger
+
+CLOCK & POWER MANAGEMENT
+
+LOCKTIME           0x14800000  W  R/W   PLL Lock Time Counter
+MPLLCON            0x14800004           MPLL Control
+UPLLCON            0x14800008           UPLL Control
+CLKCON             0x1480000c           Clock Generator Control
+CLKSLOW            0x14800010           Slow Clock Control
+CLKDIVN            0x14800014           Clock divider Control
+
+LCD CONTROLLER
+
+LCDCON1            0x14a00000  W  R/W   LCD Control 1
+LCDCON2            0x14a00004           LCD Control 2
+LCDCON3            0x14a00008           LCD Control 3
+LCDCON4            0x14a0000c           LCD Control 4
+LCDCON5            0x14a00010           LCD Control 5
+LCDSADDR1          0x14a00014           STN/TFT: Frame Buffer Start Address1
+LCDSADDR2          0x14a00018           STN/TFT: Frame Buffer Start Address2
+LCDSADDR3          0x14a0001c           STN/TFT: Virtual Screen Address Set
+REDLUT             0x14a00020           STN: Red Lookup Table
+GREENLUT           0x14a00024           STN: Green Lookup Table
+BLUELUT            0x14a00028           STN: Blue Lookup Table
+DITHMODE           0x14a0004c           STN: Dithering Mode
+TPAL               0x14a00050           TFT: Temporary Palette
+
+0x14A00400                       palette memory
+                                  Palette format is 5:6:5 (or 5:5:5:1)
+                                  each entry is 32bit
+
+UART
+
+ULCON0             0x15000000  W  R/W   UART 0 Line Control
+UCON0              0x15000004           UART 0 Control
+UFCON0             0x15000008           UART 0 FIFO Control
+UMCON0             0x1500000c           UART 0 Modem Control
+UTRSTAT0           0x15000010     R     UART 0 Tx/Rx Status
+UERSTAT0           0x15000014           UART 0 Rx Error Status
+UFSTAT0            0x15000018           UART 0 FIFO Status
+UMSTAT0            0x1500001c           UART 0 Modem Status
+UTXH0              0x15000020  B  W     UART 0 Transmission Hold
+URXH0              0x15000024     R     UART 0 Receive Buffer
+UBRDIV0            0x15000028  W  R/W   UART 0 Baud Rate Divisor
+
+ULCON1             0x15004000  W  R/W   UART 1 Line Control
+UCON1              0x15004004           UART 1 Control
+UFCON1             0x15004008           UART 1 FIFO Control
+UMCON1             0x1500400c           UART 1 Modem Control
+UTRSTAT1           0x15004010     R     UART 1 Tx/Rx Status
+UERSTAT1           0x15004014           UART 1 Rx Error Status
+UFSTAT1            0x15004018           UART 1 FIFO Status
+UMSTAT1            0x1500401c           UART 1 Modem Status
+UTXH1              0x15004020  B  W     UART 1 Transmission Hold
+URXH1              0x15004024     R     UART 1 Receive Buffer
+UBRDIV1            0x15004028  W  R/W   UART 1 Baud Rate Divisor
+
+PWM TIMER
+
+TCFG0              0x15100000  W  R/W   Timer Configuration
+TCFG1              0x15100004           Timer Configuration
+TCON               0x15100008           Timer Control
+TCNTB0             0x1510000c           Timer Count Buffer 0
+TCMPB0             0x15100010           Timer Compare Buffer 0
+TCNTO0             0x15100014     R     Timer Count Observation 0
+TCNTB1             0x15100018     R/W   Timer Count Buffer 1
+TCMPB1             0x1510001c           Timer Compare Buffer 1
+TCNTO1             0x15100020     R     Timer Count Observation 1
+TCNTB2             0x15100024     R/W   Timer Count Buffer 2
+TCMPB2             0x15100028           Timer Compare Buffer 2
+TCNTO2             0x1510002c     R     Timer Count Observation 2
+TCNTB3             0x15100030     R/W   Timer Count Buffer 3
+TCMPB3             0x15100034           Timer Compare Buffer 3
+TCNTO3             0x15100038     R     Timer Count Observation 3
+TCNTB4             0x1510003c     R/W   Timer Count Buffer 4
+TCNTO4             0x15100040     R     Timer Count Observation 4
+
+USB DEVICE
+
+FUNC_ADDR_REG      0x15200140  W  R/W   Function Address
+PWR_REG            0x15200144           Power Management
+INT_REG            0x15200148     R     Interrupt Pending and Clear
+INT_MASK_REG       0x1520014c     R/W   Interrupt Mask
+FRAME_NUM_REG      0x15200150     R     Frame Number
+RESUME_CON_REG     0x15200154     R/W   Resume Signal Control
+EP0_CSR            0x15200160           Clock Generator Control
+EP0_MAXP           0x15200164           End Point0 MAX Packet
+EP0_OUT_CNT        0x15200168           End Point0 Out Write Count
+EP0_FIFO           0x1520016c           End Point0 FIFO Read/Write
+EP1_IN_CSR         0x15200180           End Point1 in Control Status
+EP1_IN_MAXP        0x15200184           End Point1 in MAX Packet
+EP1_FIFO           0x15200188  W        End Point2 FIFO Write
+EP2_IN_CSR         0x15200190     R/W   End Point2 in Control Status
+EP2_IN_MAXP        0x15200194           End Point2 in MAX Packet
+EP2_FIFO           0x15200198  W        End Point2 FIFO Write
+EP3_OUT_CSR        0x152001a0     R/W   End Point3 Out Control Status
+EP3_OUT_MAXP       0x152001a4           End Point3 Out MAX Packet
+EP3_OUT_CNT        0x152001a8     R     End Point3 Out Write Count
+EP3_FIFO           0x152001ac           End Point3 FIFO Read
+EP4_OUT_CSR        0x152001b0     R/W   End Point4 Out Control Status
+EP4_OUT_MAXP       0x152001b4           End Point4 Out MAX Packet
+EP4_OUT_CNT        0x152001b8     R     End Point4 Out Write Count
+EP4_FIFO           0x152001bc           End Point4 FIFO Read
+DMA_CON            0x152001c0     R/W   DMA Interface Control
+DMA_UNIT           0x152001c4           DMA Transfer Unit Counter
+DMA_FIFO           0x152001c8           DMA Transfer FIFO Counter
+DMA_TX             0x152001cc           DMA Total Transfer Counter
+TEST_MODE          0x152001f4  W        Test Mode Control
+IN_CON_REG         0x152001f8           In Packet Number Control
+
+WATCHDOG TIMER
+
+WTCON              0x15300000  W  R/W   Watch-Dog Timer Mode
+WTDAT              0x15300004           Watch-Dog Timer Data
+WTCNT              0x15300008           Watch-Dog Timer Count
+
+IIC
+
+IICCON             0x15400000  W  R/W   IIC Control
+IICSTAT            0x15400004           IIC Status
+IICADD             0x15400008           IIC Address
+IICDS              0x1540000c           IIC Data Shift
+
+IIS
+
+IISCON             0x15508000  HW,W R/W IIS Control
+IISMOD             0x15508004  HW,W     IIS Mode
+IISPSR             0x15508008  HW,W     IIS Prescaler
+IISFIFCON          0x1550800c  HW,W     IIS FIFO Control
+IISFIF             0x15508010  HW       IIS FIFO Entry
+
+I/O PORT
+
+PACON              0x15600000  W  R/W   Port A Control
+PADAT              0x15600004           Port A Data
+PBCON              0x15600008           Port B Control
+PBDAT              0x1560000c           Port B Data
+PBUP               0x15600010           Pull-up Control B
+PCCON              0x15600014           Port C Control
+PCDAT              0x15600018           Port C Data
+PCUP               0x1560001c           Pull-up Control C
+PDCON              0x15600020           Port D Control
+PDDAT              0x15600024           Port D Data
+PDUP               0x15600028           Pull-up Control D
+PECON              0x1560002c           Port E Control
+PEDAT              0x15600030           Port E Data
+PEUP               0x15600034           Pull-up Control E
+PFCON              0x15600038           Port F Control
+PFDAT              0x1560003c           Port F Data
+PFUP               0x15600040           Pull-up Control F
+PGCON              0x15600044           Port G Control
+PGDAT              0x15600048           Port G Data
+PGUP               0x1560004c           Pull-up Control G
+OPENCR             0x15600050           Open Drain Enable
+MISCCR             0x15600054           Miscellaneous Control
+EXTINT             0x15600058           External Interrupt Control
+
+RTC
+
+RTCCON             0x15700040  B  R/W   RTC Control
+TICINT             0x15700044           Tick time count
+RTCALM             0x15700050           RTC Alarm Control
+ALMSEC             0x15700054           Alarm Second
+ALMMIN             0x15700058           Alarm Minute
+ALMHOUR            0x1570005c           Alarm Hour
+ALMDAY             0x15700060           Alarm Day
+ALMMON             0x15700064           Alarm Month
+ALMYEAR            0x15700068           Alarm Year
+RTCRST             0x1570006c           RTC Round Reset
+BCDSEC             0x15700070           BCD Second
+BCDMIN             0x15700074           BCD Minute
+BCDHOUR            0x15700078           BCD Hour
+BCDDAY             0x1570007c           BCD Day
+BCDDATE            0x15700080           BCD Date
+BCDMON             0x15700084           BCD Month
+BCDYEAR            0x15700088           BCD Year
+
+A/D CONVERTER
+
+ADCCON             0x15800000  W  R/W   ADC Control
+ADCDAT             0x15800004     R     ADC Data
+
+SPI
+
+SPCON              0x15900000  W  R/W   SPI Control
+SPSTA              0x15900004     R     SPI Status
+SPPIN              0x15900008     R/W   SPI Pin Control
+SPPRE              0x1590000c           SPI Baud Rate Prescaler
+SPTDAT             0x15900010           SPI Tx Data
+SPRDAT             0x15900014     R     SPI Rx Data
+
+MMC INTERFACE
+
+MMCON              0x15a00000  B,HW,W  R/W  MMC Control
+MMCRR              0x15a00004               MMC Command
+MMFCON             0x15a00008               MMC FIFO Control
+MMSTA              0x15a0000c          R    MMC Status
+MMFSTA             0x15a00010  HW,W         MMC FIFO Status
+MMPRE              0x15a00014  B,HW,W  R/W  MMC Baud Rate Prescaler
+MMLEN              0x15a00018  HW,W         MMC Block Length
+MMCR7              0x15a0001c  B,HW,W  R    Response CRC7
+MMRSP0             0x15a00020  W            MMC Response Status 0
+MMRSP1             0x15a00024               MMC Response Status 1
+MMRSP2             0x15a00028               MMC Response Status 2
+MMRSP3             0x15a0002c               MMC Response Status 3
+MMCMD0             0x15a00030  B,HW,W  R/W  MMC Command 0
+MMCMD1             0x15a00034  W            MMC Command 1
+MMCR16             0x15a00038  HW,W    R    Data Read CRC16 Buffer
+MMDAT              0x15a0003c  B,HW,W  R/W  MMC Data

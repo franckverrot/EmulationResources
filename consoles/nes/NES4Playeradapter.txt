@@ -1,0 +1,51 @@
+NES 4player-adapter documentation
+
+Date: 1998-01-20
+By: Fredrik Olsson
+Version: 0.9
+
+Background: The NES has a couple of good 4player games and I wanted to emulate
+the 4player-adapter, but there was no documentation. So the only solution
+seemed to be to hack some games to see what they were doing to read the adapter.
+And here it is, the (hopefully) complete documentation on NES 4player-adapter.
+
+To start the reading of a joystickport you will have to do the normal strobe
+(write #1 to $4016 and then #0 to $4016). Then you read bit #0 of $4016 8 times
+for joystick#1 and 8 times again for joystick#3. The same rules apply to $4017
+for joystick#2 and #4.
+This would be all if it wasn't that some games need to know whether there is an
+adapter or not. The information is supplied in the next 8 bits (read 17 to 24),
+these bits I think represent the kind of adapter, for normal emulation it would
+be "0001.0000" in $4016 and "0010.000" in $4017. It seems that there are adapters
+that supply the information in the second bit of $4016 and $4017, but I don't
+think any games require these. If you want to make your emulator emulate this
+too then the last(?) (17 to 24) 8 bits would be "0010.000" in $4016 and "0001.0000"
+in $4017, but then you must supply the bits for joystick information in the
+second bit (bit #1) of $4016 and $4017. A real NES has some timing aspects too,
+but that won't (probably) matter for an emulator.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+|Read# 1 | 2 |   3    |   4   | 5  |  6   |  7   |   8   | 9 | 10 |   11   |  12   | 13 |  14  |  15  |  16   | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 |
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+     |                     Joy#1/Joy#2                   |                      Joy#3/Joy#4                   |             Adapter info              |
+     |-------------------------------------------------------------------------------------------------------------------------------------------------
+     | A | B | Select | Start | Up | Down | Left | Right | A | B  | Select | Start | Up | Down | Left | Right | 0  | 0  | 0  | 1  | 0  | 0  | 0  | 0  |
+     --------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                                                              | 0  | 0  | 1  | 0  | 0  | 0  | 0  | 0  |
+                                                                                                              -----------------------------------------
+To test this I recommend Gauntlet II for test without adapterinfo and
+RCProAmII for test with adapterinfo.
+
+So use this information for your new cool NES-game =))  or in your emulator.
+And please give me some credits if you think I deserve it ;).
+This information may be put in either Yoshi's NES-doc or Marat's NES-doc
+without any questions, but please ask me first if you put it somewhere else,
+thank you.
+
+Special thanks to:
+Juan Antonio Gomez Galvarez
+Yoshi
+Marat Fayzulin
+Morgan Johansson
+
+

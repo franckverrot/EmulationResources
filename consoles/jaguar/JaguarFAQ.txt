@@ -1,0 +1,1841 @@
+From: Robert A. Jung <rjung@netcom.com>
+Subject: FAQ: Atari Jaguar Frequently-Asked Questions
+Date: Saturday, January 09, 1999 12:55 PM
+
+Archive-name: games/video-games/atari/jaguar
+Posting-Frequency: monthly
+
+
+              _    _  ____  _   _    _ ____
+ |||   Atari | |  / |/ ___\| | | |  / |  _ \    Frequently Asked Questions
+ |||         | | /  | |  __| | | | /  | |_| |
+/ | \     /| | |/ / | | |_ | | | |/ / |  _ <
+         | |_| / _  | |__| | |_| / _  | | \\\
+          \___/_/ |_|\____/ \___/_/ |_|_|  \\\
+                                            \\\
+  Created by Robert Jung (rjung@netcom.com), because no one else wanted to.
+      Dedicated to ASTEROIDS, for getting me hooked in the first place
+
+Last update: 12/2/1998
+
+==============================================================================
+
+This file is not maintained by, overseen by, endorsed, or otherwise associated
+with Atari Corp., JTS, or any of its subsidiaries.  It's just a collection of
+questions and answers, with a few news tidbits thrown in.
+
+This file is posted on a monthly basis to rec.games.video.atari,
+alt.atari-jaguar.discussion, news.answers, and rec.answers around the first
+of the month.  The latest version of this file is also available on the world-
+wide web at http://www.digiserve.com/eescape/atari/Atari.shtml.  It is
+maintained by Robert Jung at rjung@netcom.com on the Internet.  Send
+corrections, news, updates, comments, questions, or other stuff to that
+address.  All mail is welcome!
+
+Updates since the last publicly posted FAQ have a percent sign (%) in the
+first column.
+
+==============================================================================
+ 
+Q. What was the Atari Jaguar/Jaguar64?
+ 
+A. The Atari Jaguar was the world's first 64-bit home console video game
+   system.  Developed after three years of research, manufactured by IBM, the
+   Jaguar was released in Fall 1993, and offered high-speed action, CD-quality
+   sound, and polygon graphics processing beyond most other machines available
+   at the time.
+
+   Orignally released as the Jaguar, Atari had, at times, referred to the
+   machine as the "Jaguar64" for marketing purposes.  For the sake of
+   simplicity in this document, the term "Jaguar" will be used.
+
+==============================================================================
+ 
+Q. What was included when you bought a Jaguar?
+ 
+A. The Jaguar was first sold for $250.  It came with the Jaguar itself, one
+   controller, an AC adapter, a television RF switch box, and the CYBERMORPH
+   video game.  Later on, the Jaguar was sold without a game, and as time
+   progressed, the Jaguar was sold for $150, then $99.
+
+==============================================================================
+ 
+Q. What happened to Atari, anyway?
+ 
+A. The trials and tribulations of Atari could fill a small book (and, in fact,
+   once did).  To summarize VERY briefly, the history of Atari is as follows:
+ 
+     1972   Atari Inc. founded by Nolan Bushnell from a $250 investment.
+              Pong arcade game becomes a smash sensation.
+     1976   Atari Inc. sold by Bushnell to Warner Inc. for $28 million.
+     1980   Atari Inc. posts record sales.  $2 billion profits annually.
+              Atari occupies 80 offices in Sunnyvale, CA.
+     1983   Decline of video games and irresponsible spending by Atari Inc.
+              results in record losses ($536 million, up to $2 million daily).
+     1984   Warner divides Atari Inc.  Home division (Atari Corp.) is sold to
+              Jack Tramiel.
+     1985   Atari Corp. releases Atari ST home computer.
+     1989   Atari Corp. releases Atari Lynx, the world's first color hand-held
+              video game system (see the Atari Lynx FAQ).
+     1993   Atari Games becomes Time-Warner Interactive.
+     1993   Atari Corp. releases Atari Jaguar, the world's first 64-bit home
+              video game system.
+     1996   Time-Warner Interactive (Atari Games) sold to WMS.
+     1996   Atari Corp. announces reverse merger with JTS Corporation.
+     1996   Atari Corp. and JTS connsumate deal on July 31 1996.
+     1998   Hasbro acquires the rights to Atari Corp.'s name and properties
+
+==============================================================================
+ 
+Q. What was IBM's role in the Jaguar?
+ 
+A. IBM had a $500 million contract with Atari Corp. to assemble, test,
+   package, and distribute Jaguar units.  Manufacturing was done at IBM's
+   Charlotte, NC facility, and the Jaguar was IBM's first attempt at producing
+   a consumer-grade product for an outside vendor.  By mid-1994, Jaguar units
+   were also manufactured by Comptronix in Colorado Springs.
+ 
+   Jaguar circuit boards were manufactured and assembled by an IBM
+   subcontractor; IBM then cased, tested, and packaged final Jaguar units,
+   which were then sent to Atari.  IBM had no participation in the actual
+   design of the Jaguar chipset.
+
+==============================================================================
+
+Q. Okay, who did design the Jaguar?
+
+A. The primary designers of the Jaguar were Martin Brennan and John Mathieson.
+   They started their own company in 1986 called Flare 1, and designed an
+   original multiprocessor game console.  After the system was finished, Flare
+   wanted to "evolve" the system, but needed funding for the job.  Atari was
+   contacted, believed in the idea, and agreed to participate.  Atari,
+   Brennan, and Mathieson started a new company called Flare 2 to develop the
+   system. As Jaguar development moved along, it became apparent that the
+   machine would leapfrog the then-new systems from Nintendo and Sega (the
+   Super Nintendo and Sega Genesis, respectively), so they decided to bring
+   the machine to light.  The entire process took three years, from initial
+   design to production-ready models.
+
+   The proprietary Jaguar chipsets were manufactured by Toshiba and Motorola.
+
+%  The Flare design was was reportedly based on a project called "Loki,"
+%  developed by Sinclair Research.  Information about the Loki project can
+%  be found at http://www.nvg.ntnu.no/sinclair/planet/lokifram.htm
+
+==============================================================================
+
+Q. What are the specifications of the Jaguar?
+
+A. Physical dimensions:
+
+       Size: 9.5" x 10" x 2.5"
+   Controls: Power on/off
+    Display: Programmable screen resolution.  Horizontal resolution is
+               dependent on the amount of scanline buffer space given to the
+               "Tom" graphics processor.  Maximum vertical resolution varies
+               according to the refresh rate (NTSC or PAL).  Reportedly, a
+               stock Jaguar (without additional memory) running NTSC can
+               display up to 576 rows of pixels.
+             24-bit "True Color" display with 16,777,216 colors
+               simultaneously (additional 8 bits of supplimental graphics
+               data support possible)
+             Multiple-resolution, multiple-color depth objects (monochrome,
+               2-bit, 4-bit, 8-bit, 16-bit, 24-bit) can be used
+               simultaneously
+      Ports: Cartridge slot/expansion port (32 bits)
+             RF video output
+             Video edge connector (video/audio output)
+               (supports NTSC and PAL; provides S-Video, Composite, RGB
+               outputs, accessible by optional add-on connector)
+             Two controller ports
+             Digital Signal Processor port (includes high-speed synchronous
+               serial input/output)
+Controllers: Eight-directional joypad
+             Size 6.25" x 5" x 1.6", cord 7 feet
+             Three fire buttons (A, B, C)
+             Pause and Option buttons
+             12-key keypad (accepts game-specific overlays)
+
+  The Jaguar has five processors which are contained in three chips.  Two of
+  the chips are proprietary designs, nicknamed "Tom" and "Jerry".  The third
+  chip is a standard Motorola 68000, and used as a coprocessor.  Tom and
+  Jerry are built using an 0.5 micron silicon process.  With proper
+  programming, all five processors can run in parallel.
+
+  - "Tom"
+    - 750,000 transistors, 208 pins
+    - Graphics Processing Unit (processor #1)
+      - 32-bit RISC architecture (32/64 processor)
+        - 64 registers of 32 bits wide
+        - Has access to all 64 bits of the system bus
+        - Can read 64 bits of data in one instruction
+      - Rated at 26.591 MIPS (million instructions per second)
+      - Runs at 26.591 MHz
+      - 4K bytes of zero wait-state internal SRAM
+      - Performs a wide range of high-speed graphic effects
+      - Programmable
+    - Object processor (processor #2)
+      - 64-bit RISC architecture
+      - 64-bit wide registers
+      - Programmable processor that can act as a variety of different video
+        architectures, such as a sprite engine, a pixel-mapped display, a
+        character-mapped system, and others.
+    - Blitter (processor #3)
+      - 64-bit RISC architecture
+      - 64-bit wide registers
+      - Performs high-speed logical operations
+      - Hardware support for Z-buffering and Gouraud shading
+    - DRAM memory controller
+      - 64 bits
+      - Accesses the DRAM directly
+
+  - "Jerry"
+    - 600,000 transistors, 144 pins
+    - Digital Signal Processor (processor #4)
+      - 32 bits (32-bit registers)
+      - Rated at 26.6 MIPS (million instructions per second)
+      - Runs at 26.6 MHz
+      - Same RISC core as the Graphics Processing Unit
+        - Not limited to sound generation
+      - 8K bytes of zero wait-state internal SRAM
+      - CD-quality sound (16-bit stereo)
+        - Number of sound channels limited by software
+        - Two DACs (stereo) convert digital data to analog sound signals
+      - Full stereo capabilities
+      - Wavetable synthesis, FM synthesis, FM Sample synthesis, and AM
+        synthesis
+    - A clock control block, incorporating timers, and a UART
+    - Joystick control
+
+  - Motorola 68000 (processor #5)
+    - Runs at 13.295MHz
+    - General purpose control processor
+
+   Communication is performed with a high speed 64-bit data bus, rated at
+   106.364 megabytes/second.  The 68000 is only able to access 16 bits of this
+   bus at a time.
+
+   The Jaguar contains two megabytes (16 megabits) of fast page-mode DRAM,
+   in four chips with 512 K each.  Game cartridges can support up to six
+   megabytes (48 megabits) of information, and can contain an EEPROM
+   (electrically erasable/programmable read-only memory) chip to save game
+   information and settings.  Up to 100,000 writes can be performed with the
+   EEPROM; after that, future writes may not be saved (performance varies
+   widely, but 100,000 is a guaranteed minimum).  Depending on use, this limit
+   should take from 10 to 50 years to reach.
+
+   The Jaguar uses 24-bit addressing, and is reportedly capable of accessing
+   data as follows:
+
+           Six megabytes cartridge ROM
+           Eight megabytes DRAM
+           Two megabytes miscellaneous/expansion
+
+   All of the processors can access the main DRAM memory area directly.  The
+   Digital Signal Processor and the Graphics Processor can execute code out of
+   either their internal caches, or out of main memory.  The only limitations
+   are that
+
+   (1) "jump" instructions in main memory have certain restrictions; the JMP
+         (unconditional jump) command is longword-aligned, while the JR
+         (jump-indexed-by-register) command must be either word- or longword-
+         aligned.  And
+   (2) running out of the cache is much faster (up to four times faster) and
+         efficient.
+
+   Some believe that the inability to jump/branch in main memory makes the
+   main memory feature useless.
+
+   Swapping data between the caches and the main memory is a quick, low
+   overhead operation, and therefore the main memory is often used as "swap
+   space" for cache code.  The RISC compiler included in the latest Jaguar
+   developer's kit produced code that transparently swaps code through the
+   cache.  This effectively allowed developers write RISC code without concern
+   for the cache size limits.
+
+   Compressed cartridge data can be uncompressed in real-time, and ratios of
+   up to 14:1 have been cited.  In theory, a Jaguar cartridge can store up to
+   84 megabytes (672 megabits) of data, though actual results will vary
+   widely (most often, images are compressed, while sound and code are not).
+   Compression is performed with BPEG, an enhanced JPEG image decompression
+   mechanism.  BPEG supercedes the former JagPEG algorithm, working up to 10
+   times faster and with more flexibility.
+
+   Other Jaguar features:
+   - Support for ComLynx I/O for communications with the Atari Lynx hand-held
+       game system and networked multiconsole games (on DSP port, accessible
+       by optional add-on connector).  Networking of up to 32 Jaguar units
+       available.
+   - The two controller ports can be expanded to support "dozens" of
+     controllers
+     - Digital and analog interfaces
+     - Keyboards, mice, and light guns are possible
+   - Expansion port allows connection to cable TV and other networks
+   - Digital Signal Processor port allows connection to modems and digital
+     audio peripherals (such as DAT players)
+   - One megabyte per second serial interface
+   - 9600 baud, RS-232 serial port (accessible with optional interface)
+   - General-purpose I/O bits via the cartridge port
+   - Can accomodate future expansions of different processor types, I/O types,
+       video types, and memory types and/or quantities.
+
+==============================================================================
+ 
+Q. Was the Jaguar really a 64-bit system?
+ 
+A. The question is hard to resolve, largely because the definition of what
+   constitutes an "N-bit" system has not been set.  Of the five processors in
+   the Jaguar, only the object processor and the blitter are "true" 64-bit
+   components.  Because the blitter and the object processor are in the Tom
+   chip, by extension Tom is a 64-bit chip.  Furthermore, the Jaguar also used
+   a 64-bit memory architecture, according to Jez San of Argonaut Software.
+
+   Some say the Jaguar should be considered a 32-bit system, as that is the
+   maximum register size in the programmable processors (the 68000, the
+   graphics processor, and the DMA sound processor).  Others say the Jaguar
+   can be considered a 64-bit system, because 64-bit components are used, and
+   the GPU can access 64 bits of data if required.  Again, the lack of an
+   agreed-upon definition serves to complicate the issue.
+
+   According to Jaguar designer John Mathieson, "Jaguar has a 64-bit memory
+   interface to get a high bandwidth out of cheap DRAM. ... Where the system
+   needs to be 64 bit then it is 64 bit, so the Object Processor, which takes
+   data from DRAM and builds the display is 64 bit; and the blitter, which
+   does all the 3D rendering, screen clearing, and pixel shuffling, is 64 bit.
+   Where the system does not need to be 64 bit, it isn't.  There is no point
+   in a 64 bit address space in a games console!  3D calculations and audio
+   processing do not generally use 64-bit numbers, so there would be no
+   advantage to 64 bit processors for this.
+
+   "Jaguar has the data shifting power of a 64 bit system, which is what
+   matters for games, so can reasonably be considered a 64 bit system.  But
+   that doesn't mean it has to be 64 bits throughout."
+
+   For the record, the opinion of most third party developers and observers
+   is that the Jaguar is indeed a 64-bit system.  The emphasis is on the word
+   "system"; while not every component is 64 bits, the Jaguar architecture, as
+   a COMPLETE SYSTEM, is.
+
+==============================================================================
+ 
+Q. The Jaguar used a 68000.  Isn't that the CPU?
+ 
+A. Again, quoting from Jaguar designer John Mathieson, "It may be the CPU in
+   the sense that it's the centre of operation, and boot-straps the machine,
+   and starts everything else going; however, it is not the centre of Jaguar's
+   power. ... The 68000 is like a manager who does no real work, but tells
+   everybody else what to do."
+
+   And...
+
+   "Atari were keen to use a 68K family device, and we looked closely at
+   various members.  We did actually build a couple of 68030 versions of the
+   early beta developers systems, and for a while were going to use a 68020.
+   However, this turned out too expensive.  We also considered the possibility
+   of no [Motorola 680x0 chip] at all.  I always felt it was important to have
+   some normal processor, to give developers a warm feeling when they start.
+   The 68K is inexpensive and does that job well.  I maintain that it's only
+   there to read the joysticks."
+
+==============================================================================
+ 
+Q. How could a graphics processor be the CPU?
+ 
+A. The 64-bit custom graphics chip was a good general purpose RISC unit, but
+   it had been optimized for graphics work.  Developers were free to specify
+   which processor(s) to use in a program, as desired.
+
+==============================================================================
+ 
+Q. What kind of special effects could the Jaguar do?
+ 
+A. The Jaguar was capable of doing the following visual effects:
+ 
+   - High-speed scrolling (Object Processor).
+   - Texture mapping on two- and three-dimensional objects (GPU and Blitter).
+   - Morphing one object into another object (GPU).
+   - Scaling, rotation, distortion, and skewing of sprites and images
+       (Object Processor).
+   - Lighting and shading from single and multiple light sources (GPU and
+       Blitter).
+   - Transparency (Object Processor).
+   - "Rendering" up to 850 million one-bit pixels/second (35 million 24-bit
+       pixels/second, 26 million 32-bit pixels/second), or 50 million Goroud
+       shaded pixels/second.  "Rendering" is believed to mean transferring a
+       pixel from a frame buffer to the screen.
+   - Sprites of "unlimited" size and quantity.  Realistically, sprites can be
+       over 1,000 pixels wide/tall, and the number of sprites allowed is
+       limited by processor cycles instead of a fixed value in hardware
+       (Object processor).
+   - Programmable screen resolutions, from 160 to 800 pixels per line.  The
+       resolution can be increased even further with additional hardware up to
+       a reported 1350 pixels per line.
+
+   One of the Jaguar modes is called "CRY mode", which supports lighting and
+   effects in 3D graphics.  Red, green, and blue color elements are ranged
+   from 0 to 255, and the lighting level for any pixel can be changed by
+   setting one byte linearly.  E.g., the relative proportions of red, blue,
+   and green are indicated with one byte, while a second byte selects an
+   overall intensity of 0 to 255.  CRY allows much smoother shading of single
+   colors, but doesn't allow blending between colors as smoothly.
+
+   Actual graphics performance is hard to measure, as there are no industry-
+   standard benchmarks.  Rebellion Software has claimed that the Jaguar can
+   render "10,000 Gourard shaded, large, 65536 color, any shape polygons per
+   second," while still performing other tasks.  Presumably this level can
+   be increased further with optimized programming; indeed, some unofficial
+   calculations speculate that FIGHT FOR LIFE may generate between 20,000 to
+   40,000 texture-mapped polygons per second.
+
+   A key to understanding the Jaguar's performance is to realize that most
+   effects are accomplished by programming one of the processors to do the
+   job.  To perform texture-mapping, for instance, required a developer to
+   write a texture-mapping routine for the GPU and/or blitter, then call it
+   as needed.  The general-purpose nature of the Jaguar architecture gave
+   developers a lot of flexibility; unfortunately, the drawback was that
+   software routines for such effects are invariably slower and less efficient
+   than dedicated hardware chips and components.
+
+==============================================================================
+ 
+Q. How come the Jaguar claims to have "32-bit" graphics, when only 24 bits are
+   needed to render 16 million colors?
+ 
+A. The additional 8-bits was for programmers to implement whatever visual
+   effects might be desired.  Examples cited include Z-buffering (for polygon
+   graphics) and an alpha channel (for transparency).
+
+==============================================================================
+ 
+Q. Who were the third-party publishers/developers for the Jaguar?
+ 
+A. The following companies have, at one time or another, been announced as
+   official developers, licensees, or publishers for the Jaguar.  Note that
+   an official announcement was not an obligation for a company to produce
+   Jaguar-related products; many times, it merely meant that the company made
+   a commitment to "consider" producing product(s) for Atari.
+
+     Attention to Detail (ATD)                       Imagitech Design
+     Llamasoft                Rebellion              Handmade Software
+     Anco Software Ltd.       Maxis Software         Telegames
+     Beyond Games Inc.        Microids               Tiertex Ltd.
+     Dimension Technologies   Midnite Software Inc.  Titus Eurosoft
+     Ocean Software Ltd.      Tradewest              High Voltage Software
+     Rebellion Software       Trimark Interactive    Krisalis Software Ltd.
+     Virtual Experience       U.S. Gold Ltd.         Loriciel U.S.A.
+     Silmarils                Millenium              Park Place Productions
+     Ubi Soft                 Gremlin Software       Microprose/S. Holobyte
+     Accolade                 Virgin                 Interplay
+     21st Century Software    Activision             Id Software
+     Twilight                 Brainstorm             3D Games
+     All Systems Go           Argonaut Software      Euro-Soft
+     ICD Incorporated         Photosurrealism        DTMC
+     Epic Megagames           V-Reel Productions     Sunsoft
+     Domark Group Ltd.        Elite                  Br0derbund
+     Williams (Midway/Williams)                      Rage Software
+     Readysoft                Spacetec               Visual Concepts
+     Bullfrog Productions     Imagineer              Jaleco
+     Sculptured Software      Williams Brothers      Accent Media Productions
+     Anthill Industries       Audio/Visual Magic     Bethesda Softworks
+     Black Scorpion Software  Visual Sciences Ltd.   Steinberg Soft-und Hdw
+     Borta & Associates       Clearwater Software    Computer Music Consulting
+     Cybervision              CyberWare              Delta Music Systems Inc.
+     Pixel Satori             Elite                  E-On
+     EZ Score Software Inc.   GameTek Inc.           Genus Microprogramming
+     H2O Design Corp.         HiSoft                 Limelight Media Inc.
+     Manley & Associates      NMS Software Ltd.      PIXIS Interactive
+     Rest Easy                Software Creations     Team Infinity
+     Team 17 Software Ltd.    Techtonics             Technation Digital World
+     Teque London Ltd.        Thrustmaster           American Laser Masters
+     Tengen                   Eclipse                Zeppelin Games
+     Time/Warner Interactive  Acid Software          20th Century Fox Int.
+     Alfaro Corporation Ltd.  B.S.A.                 Bando Svenska AB
+     Beris                    Bitmotion Software     Bizzare Computing
+     Brandlewood Computers Ltd.                      Cannonball Software
+     Celebrity Systems Inc.   Condor Software        Cross Products Ltd.
+     DAP Developments         Data Design            Denton Designs Ltd.
+     Diskimage                Electro Brain Corp.    Electrom
+     Extreme                  Factor 5               Flair Software Ltd.
+     Frankenstein Software    Funcom Productions     Human Soft Ltd.
+     JVC Musical Industries Inc.                     Kungariket Multimedia
+     Lost in Time Software    Malibu Interactive     Michton Inc.
+     Media Technology Scandinavia                    Merit Industries Inc.
+     Miracle Designs          Nebulous Games         Neon-Buttner
+     i-SPACE                  Network 23 Software    NMS Software Ltd.
+     Odyssey Software Inc.    Orion Technologies     Phobyx
+     Rage Software Ltd.       Rainmaker Software     Riedel Software Prod.
+     Scangames Interactive    Wave Quest Inc.        4Play
+     Selgus Limited           Shadowsoft Inc.        Sigma Designs
+     Sinister Development     Soft Enterprises       Softgold Gmbh
+     Software 2000            Software Development Systems
+     Tantalus Entertainment   Hyper Image            Virtual Artistry, Inc.
+     Springer Spaniel         Core Design            Acclaim
+     Electronic Arts          Level Seven            iThink, Inc.
+     Arcade Zone              JV Enterprises         Fatal Design
+     Moving Target Software Design                   Visual Dimensions 3D
+     OMC Games                Dark Knight Games
+
+   Also, Time-Warner Interactive had licensed the Jaguar architecture for
+   use in arcade games.  The modified systems were referred to as "CoJag"
+   architectures, with more memory, additional storage, and other
+   additions.  More information can be found elsewhere in this FAQ.
+
+==============================================================================
+ 
+Q. What were all of the Jaguar games released?
+ 
+A. Jaguar cartridge games:
+
+   Title              Players  Publisher      Developer      Type
+   -----------------  -------  ------------   ------------   --------------
+   Air Cars             1-8    ICD            Midnite Sw.    Action/Driving
+   Alien vs. Predator    1     Atari          Rebellion      Action/Adventure
+   Atari Karts          1-2    Atari          Miracle        Sports
+   Attack of the Mutant 1-2    Atari          Sunrise        Puzzle/Strategy
+     Penguins
+   Breakout 2000        1-2    Telegames      Atari          Action
+   Brutal Sports        1-2    Telegames      Millenium/     Sports
+     Football                                   Teque
+   Bubsy in Fractured   1-2    Atari          Imagitec       Platform
+     Furry Tales
+   Cannon Fodder         1     Computer West  Virgin         Action
+   Checkered Flag        1     Atari          Rebellion      Sports
+   Club Drive           1-2    Atari          Atari          Action/Simulator
+   Crescent Galaxy       1     Atari          Atari          Shooter
+   Cybermorph            1     Atari          ATD            Action/Strategy
+   Defender 2000        1-2    Atari          Llamasoft      Action/Arcade
+   Doom                 1-2(1) Atari          id Software    Action/Adventure
+   Double Dragon V:     1-2    Williams       Williams       Action/Fighting
+     The Shadow Falls
+   Dragon               1-2    Atari          Virgin         Action/Fighting
+   Evolution:Dino Dudes  1     Atari          Imagitec       Puzzle/Strategy
+   Fever Pitch Soccer   1-2    Atari          Atari          Sports
+   Fight For Life       1-2    Atari          Atari          Action/Fighting
+   Flashback             1     Tiertex Ltd.   U.S. Gold      Action/Adventure
+   Flip Out              1     Atari          Gorilla Sys.   Action/Puzzle
+   Hover Strike         1-2(2) Atari          Atari          Action/Shooter
+   I-war                1-2    Atari          Imagitec       Action/Shooter
+   International        1-2    Telegames      Williams Br.   Sports
+     Sensible Soccer
+   Iron Soldier          1     Atari          Eclipse        Action/Simulator
+   Iron Soldier 2        1     Telegames      Eclipse        Action/Shooter
+     Limited Ed.
+   Kasumi Ninja         1-2    Atari          Handmade Sw.   Action/Fighting
+   Missile Command 3D    1     Atari          Atari          Action/Arcade
+   NBA Jam Tournament   1-4(4) Atari          High Voltage   Arcade
+     Edition
+   Pinball Fantasies    1-8(3) Computer West  Spidersoft     Action
+   Pitfall: The Mayan    1     Activision     Imagitec       Action
+     Adventure
+   Power Drive Rally    1-8(3) Time-Warner    Rage           Action/Driving
+   Raiden               1-2    Atari          Imagitec       Arcade
+   Rayman                1     Ubi Soft Int.  UBI Soft Int.  Action/Platform
+   Ruiner               1-4(3) Atari          High Voltage   Action/Pinball
+   Super Burnout        1-2    Atari          Shen           Action/Sports
+   Supercross 3D        1-2    Atari          Tiertex        Sports
+   Syndicate             1     Ocean          Bullfrog       Strategy
+   Tempest 2000         1-2    Atari          Llamasoft      Action/Arcade
+   Theme Park            1     Ocean          Bullfrog       Simulation
+   Towers II             1     Telegames      JV Enterprises Adventure
+   Troy Aikman NFL      1-2    Williams       Telegames      Sports
+     Football
+   Ultra Vortek         1-2    Atari          Beyond Games   Action/Fighting
+   Val D'Isere Skiing   1-2    Atari          Virtual Studio Sports
+     and Snowboarding
+   White Men Can't      1-4(4) Atari          High Voltage   Sports
+     Jump (w/Team Tap)
+   Wolfenstein 3D        1     Atari          id Software    Action/Adventure
+   Worms                1-16   Telegames      Team 17        Action/Strategy
+   Zero 5                1     Telegames      Caspian Sw.    Action/Shooter
+   Zool 2               1-2    Atari          Gremlin        Platform
+   Zoop                  1     Atari          Viacom         Action/Puzzle
+
+
+   Jaguar CD-ROM games:
+
+   Title              Players  Publisher      Developer      Type
+   -----------------  -------  ------------   ------------   --------------
+   Baldies               1     Atari          Creative Edge  Puzzle/Strategy   
+   Battlemorph           1     Atari          ATD            Action/Strategy
+   Blue Lightning        1     Atari          ATD            Action
+   Brain Dead 13         1     ReadySoft      ReadySoft      Action
+   Dragon's Lair         1     ReadySoft      ReadySoft      Arcade
+   Highlander            1     Atari          Lore Design    Action/Adventure
+   Hover Strike:        1-2(2) Atari          Atari          Action/Shooter
+     Unconquered Lands
+   Iron Soldier 2        1     Telegames      Eclipse        Action/Shooter
+   Myst                  1     Atari          Atari          Adventure
+   Primal Rage          1-2    Time-Warner    Probe          Arcade
+   Space Ace             1     ReadySoft      ReadySoft      Arcade
+   Vid Grid             1-8(3) Atari          High Voltage   Puzzle
+   World Tour Racing    1-2    Telegames      Teque          Sports
+
+   (1) Multiplayer games supported by connecting multiple Jaguars together.
+   (2) Cooperative play only.
+   (3) Players alternate turns with one controller.
+   (4) Three and four players can play simultaneously with the Jaguar Team Tap
+         peripheral.
+
+==============================================================================
+ 
+Q. What were the unreleased Jaguar games?
+ 
+A: The following games were announced at one time or another as being planned
+   for the Jaguar.  With the dissolution of Atari, the chances are very slim
+   that any of these games will ever be produced or released.  However, a few
+   enterprising companies and individuals have considered plans to either
+   finish their Jaguar titles for release, to sell finished-but-unreleased
+   games, or to produce new games on their own.
+
+   Announced Jaguar cartridge games (? = Uncertain entry):
+
+   Title              Players  Publisher      Developer      Type
+   -----------------  -------  ------------   ------------   --------------
+   Allegiance           1-2?     ?            Team 17        Action/Strategy
+   Al Michaels          1-2    Accolade/Atari Atari          Sports
+     Announces Hardball
+   Arena Football       1-8    Atari          V-Reel Prod.   Sports
+     League
+   Assault: Covert Ops  1-2?   Midnite Sw     Midnite Sw     Action
+   Automaniacs          1-2    Visual Dim.    Visual Dim.    Action/Driving
+   Batman Forever       1-2?   Atari          Atari          Action
+   Battlesphere         1-8    4Play          4Play          Action/Shooter
+   Battlewheels 2025    1-2    Beyond Games   Beyond Games   Action
+   Bong+ 1999           1-2?     ?            Just Claws     Action
+   Brett Hull Hockey    1-2    Atari          Ringler        Sports
+   Casino Royale        1-2?   Telegames      Telegames      Strategy
+   Center Court Tennis  1-2    Zeppelin         ?            Sports
+   Charles Barkley      1-4?     ?            Ringler        Sports
+     Basketball
+   'Dactyl Joust         1?    Atari          High Voltage   Action/Arcade?
+   Deathwatch           1-2    Atari          Data Design    Action
+   Demolition Man        1?    Atari          Virgin         Action/Shooting
+   Dino Dudes 2          1     Atari          Imagitec       Puzzle/Strategy
+   Dune Racer           1-2    Atari            ?            Action/Driving
+   Dungeon Depths        1     Midnite Sw     Midnite Sw     Adventure
+   Droppings             1?    Delta Music      ?              ?
+   European Soccer      1-2    Telegames      Telegames      Sports
+     Challenge
+   Frank Thomas "Big    1-2    Atari          Acclaim        Sports
+     Hurt" Baseball
+   Galactic Gladiators  1-2      ?            Photosur.      Action/Strategy
+   Gorf 2000            1-2?     ?            Krunch Corp.   Arcade
+   Gotcha!               1?      ?              ?              ?
+   Graham Gooch's World 1-2?   Telegames      Telegames      Sports
+     Class Cricket
+   Hyper Force          1-2    Computer West  Visual Impact  Action/Fighting
+   Indiana Jags          1       ?            Virtual Exp.   Action/Platform
+   Iratan Supremecy     1-2      ?            Level Seven    Action/Fighting
+   Iron Man/XO-Manowar  1-2    Atari          Acclaim        Action?
+   James Pond 3          1     Telegames      Telegames      Platform
+   Jagmania              1       ?            Matthias Domin Action
+   Jagmarble             1       ?            Matthias Domin Action
+   Jagtris               1       ?            Bastian Schick Action/Puzzle
+   Kick Off 3           1-2      ?            Anco Software  Sports
+   Legions of the        1?    Atari          Rebellion      Action/Adventure
+     Undead
+   Lester the Unlikely   1     DTMC           DTMC           Action/Strategy
+   Max Force             1?      ?              ?            Action/Shooter
+   Mountain Sports      1-2    DTMC           DTMC           Action/Sports
+   Nanoterror            1?      ?            Delta Music      ?
+   Native                1?      ?            Duranik Sw.    Action/Shooter
+   Nerves of Steel       1?      ?            Rainmaker      Action/Adventure
+   Painter               1?      ?            Sinister         ?
+   Phase Zero           1-8    Atari          Hyper Image    Action
+   Phear                1-2    Atari          H2O Design     Puzzle
+   Powerdrive            1?    Telegames      Elite          Action/Driving
+   Protector            1-2      ?            C. Forhan      Arcade/Action
+   Rainbow Warrior       1?      ?            3D Games       Action?
+   Return of Magic       1?      ?            Virtual Art.   Adventure?
+   Rise of the Robots    1     Time-Warner    Williams Br.   Action/Adventure
+   Robotron:2084        1-2    Atari            ?            Action/Arcade
+   Rollcage             1-2?     ?            Team 17        Sports/Driving
+   Skyhammer             1?    Atari          Rebellion      Flight/Simulator
+   Soccer Kid            1?    Ocean          Krisalis       Platform
+   Space War 2000       1-2    Atari            ?            Action
+   Star Raiders 2000     1?    Atari            ?            Action
+   Sudden Impact        1-2?     ?              ?            Action
+   Super Off-Road       1-2    Telegames        ?            Arcade/Driving
+   T-Mek                1-2?   Time-Warner      ?            Arcade
+   Thunderstalker        1?    Telegames      Telegames        ?
+   Ultimate Brain Games 1-2?   Telegames        ?            Puzzle
+   Virtuoso              1?    Telegames      Williams Br.   Action
+   Virtual Warriors     1-2      ?            Rainmaker      Action/Fighting
+   Waterworld            1?    Ocean          Ocean            ?
+   Wild Cup Soccer      1-2?   Telegames        ?            Action/Sports
+   Witchwood            1-2    Atari          Team 17        Action
+   World Cup            1-2?     ?            Anco Software  Sports
+   Zzyorxx II            1?      ?            Virtual Exp.   Action/Shooter
+
+
+   Announced Jaguar CD-ROM games:
+
+   Title              Players  Publisher      Developer      Type
+   -----------------  -------  ------------   ------------   --------------
+   Age of Darkness       1       ?            OMC Games      Action/Adventure
+   Artemis               1?    Springer Sp.   Springer Sp.     ?
+   Black Ice/            1?    Atari            ?            Adventure
+     White Noise 
+   Brett Hull Hockey    1-2    Atari          Ringler        Sports
+   Circle of Four        1       ?            JV Enterprises Adventure
+   Commander Blood       1?    Atari            ?            Adventure
+   Commando              1     Atari          Microids       Action/Strategy
+   Country Grid         1-8    Atari          High Voltage   Puzzle
+   Creature Shock        1     Virgin         Argonaut Sw.   Action/Adventure
+   Dante                1-2?   Atari            ?            Adventure?
+   Defcon 1              1     Dark Knight    Dk Kngt/Vis.D  Action/Adventure
+   Demolition Man        1     Atari          Virgin         Action
+   Deus ex Machina       1       ?            Silmarils      Adventure
+   Evidence              1       ?            Microids       Action/Adventure
+   FIFA International   1-2      ?            Elec. Arts     Sports
+     Soccer
+   Freelancer 2120       1     Atari          Imagitec       Action/Adventure
+   Highlander II         1     Atari          Lore Design    Action/Adventure
+   Highlander III        1     Atari          Lore Design    Action/Adventure
+   Horrorscope           1?      ?            V-Reel Prod.   Action/Fighting
+   Ishar Genesis         1     Atari          Silmaris       Adventure
+   Kid Grid             1-8    Atari          High Voltage   Puzzle
+   Laura Cruz: Tomb      1       ?            Core Design    Action/Adventure
+     Raider
+   Litil Devil           1       ?            Gremlin Int.   Adventure?
+   Lobo                  1?      ?            Ocean          Action?
+   Magic Carpet          1     Atari          Bullfrog       Action/Arcade
+   Max Force             1     Atari          Genus          Action
+   Mind-Ripper           1?    Atari            ?            Strategy?
+   Mortal Kombat III    1-2    Atari          Williams       Arcade/Fighting
+   Need For Speed, The   1       ?            Elec. Arts     Driving
+   Neurodancer           1?      ?            PIXIS Int.     Adventure?
+   Orb of Bangzai        1       ?            OMC Games      Action/Adventure
+   Powerslide            1     Telegames      Williams Br.   Driving
+   Return Fire          1-2      ?            Alexandria     Action/Strategy
+   Return to Zork        1       ?            Activision     Adventure
+   Robinson's Requiem    1?    Atari          Silmarils      Adventure
+   Rocky Horror          1     Atari?           ?            Adventure
+     Interactive
+   Scottish Open        1-2?     ?            Core Design    Sports
+     Virtual Golf
+   Sinister Missions    1-2      ?            OMC Games      Action/Shooter
+   Soul Star             1     Atari          Core Design    Action/Shooter
+   Starlight            1-2      ?            V-Reel Prod.   Action/Sports
+     Bowl-A-Rama
+   Striker '95          1-2    Time-Warner    Rage           Action/Sports
+   Swagman               1       ?            Core Design    Adventure
+   Thunderhawk           1       ?            Core Design    Action/Shooter
+   Varuna's Forces       1     Atari          Accent Media   Action/Adventure
+   Virtuoso              1     Telegames      Williams Br.   Action
+   Wayne Gretzky NHL    1-2    Time-Warner    Time-Warner    Sports
+     Hockey
+   Wing Commander III    1       ?            Elec. Arts     Action/Strategy
+
+
+   Announced Jaguar Virtual Reality Headset games:
+
+   Title              Players  Publisher      Developer      Type
+   -----------------  -------  ------------   ------------   --------------
+   Gravon                1       ?            Suma           Action/Simulation
+   Zone Hunter           1     Atari          Virtuality     Action
+
+==============================================================================
+
+Q. Where can I get a review and/or comments about <insert game name here>?
+ 
+A: Robert A. Jung (rjung@netcom.com) has reviews of some Jaguar games and
+   peripherals.  They are available on the world-wide web at his web site,
+   at http://www.digiserve.com/eescape/atari/Atari.shtml
+
+==============================================================================
+ 
+Q. Where can I find secrets, tips, and hints for <insert game name here>?
+ 
+A. A comprehensive list of Jaguar cheats and codes is available from "The
+   Mage," at http://users.aol.com/TheMage1/jaguar/jagcodes.txt or
+   http://members.aol.com/TheMage1/jaguar/jagcodes.txt
+
+   Clay Halliwell maintains the Atari Jaguar Cheats and Codes FAQ, which he
+   updates regularly.  It can be found on the world-wide web at
+   http://www.atarihq.com/jaglynx/jag/jagcheat.txt
+
+==============================================================================
+ 
+Q. Some of my Jaguar games don't have overlays for the keypads.  Where can I
+   get them?
+ 
+A. Not all Jaguar games used overlays for the keypad; some titles didn't use
+   the keypad at all, while others used the keypad, but the developers did not
+   feel that an overlay was needed.  Making your own keypads is certainly
+   possible; simply use an existing keypad for a template, draw whatever
+   designs you like, then cut and to fit.
+ 
+   Tony Price has made a number of overlays for Jaguar games that didn't
+   include them, as well as dust covers for the keypads.  He can be reached by
+   mail at mfmurdock@earthlink.net, or on the world-wide web at
+   http://home.earthlink.net/~mfmurdock/jaguar/jaguar.htm
+ 
+==============================================================================
+ 
+Q. What Jaguar peripherals are available?
+ 
+A: The following Jaguar-related peripherals were released.  Availability will
+   vary according to source:
+
+   * Atari Corp.
+     1196 Borregas Avenue
+     Sunnyvale, CA  94089-1302
+     Phone: (800) GO-ATARI  (800-462-8274)  9:00am to 5:00pm PST, M-F
+
+     - CD-ROM PLAYER.  Attaches to the top of the Jaguar console.  Allows the
+       Jaguar to play Jaguar CD games.  See the dedicated entry for details.
+
+     - COMPOSITE VIDEO CABLE.  Attaches to the Jaguar expansion port to
+       provide a clearer/sharper picture.
+
+     - JAG LINK.  Networking peripheral.  Allows two Jaguars to be connected
+       for networked games, up to 100 feet apart.
+
+     - MEMORY TRACK.  Peripheral.  Plugs into the cartridge slot of the
+       CD-ROM drive.  Allows Jaguar CD games to be saved for later play.
+       Holds up to 128K of data.
+
+     - PRO CONTROLLER.  Game controller.  Provides more action buttons to
+       be used in games.  Adds three more "fire" buttons (X, Y, Z, which
+       correspond to 7, 8, 9 on the numeric keypad) and two index-finger
+       buttons (L and R, which correspond to 4 and 6).  Some games were
+       designed/optimized for the Pro Controller (PRIMAL RAGE, HIGHLANDER,
+       SUPER BURNOUT, ATARI KARTS, and BATTLEMORPH are the most notable ones);
+       other titles, while not specifically written for the Pro Controller,
+       are easier to play with the easier access to the keypad.
+
+     - S-VIDEO CABLE.  Attaches to the Jaguar expansion port to provide a
+       clearer picture.
+
+     - TEAM TAP.  Controller port expansion.  Allows up to four Jaguar
+       controllers to be attached to a single controller port.  With two Team
+       Tap adaptors, eight players can play simultaneously on one Jaguar.
+       Was sold with the game WHITE MEN CAN'T JUMP and also available
+       separately.
+
+     - TEMPEST 2000: THE SOUNDTRACK.  Audio CD.  Contains twelve tracks of
+       "techno-rave" rock music by Imagitec Design Inc.  Tracks are either
+       remixes or inspired by the soundtrack from the Jaguar game TEMPEST
+       2000.
+
+   * Ben Aein
+     B.Aein@genie.geis.com
+     (301) 251-0997
+
+     - LAPCAT.  Joystick controller.  Lap/table-sized joystick controller.
+       12" x 11.5" x 3".  Arcade-quality build, with steel joystick shaft
+       and reed contact buttons.  Six large fire buttons are provided, and all
+       Jaguar controller keys are available.  Available in left-handed or
+       right-handed models (fire buttons on the side of the hand).  A "Lapcat
+       Pro" is also available.  Write to Ben for pricing details.
+
+   * Dark Knight Games
+%    http://www.darkknightgames.com
+
+%    - JAGUAR EXTREME ROTARY/JAGUAR EXTREME ROTARY PRO.  Game controller.
+%      These are rotary controllers to be used for playing TEMPEST 2000.
+%      The "Extreme Rotary" controller includes three fire buttons, a numeric
+%      keypad, and a TEMPEST 2000 keypad overlay.  The "Extreme Rotary Pro"
+%      controller differs by having six fire buttons (corresponding to Atari's
+%      Pro Controller layout) and a joystick.  Price is $80 US for the Extreme
+%      Rotary and $99 US for the Extreme Rotary Pro.  Send e-mail to
+%      "bell_d@darkknightgames.com" to order.
+
+%    - JOYSTICK UPGRADE KIT.  Game controller enhancement.  This kit allows
+%      you to permanetly attach a joystick to the joypad of a standard Jaguar
+%      controller.
+
+   * Demand Systems
+     Phone: (805) 482-7900
+
+     - PRO-STICK.  Joystick controller.  An arcade-quality joystick and
+       buttons, mounted on a large base.  Suitable for lap or tabletop use.
+       A Jaguar controller is attached to allow use of the keypad and other
+       buttons.
+
+   * ICD, Inc.
+     1220 Rock Street
+     Rockford, IL  61101
+     Phone: (815) 968-2228, extension 222
+     FAX: (815) 968-6888
+     GEnie e-mail: ICDINC
+     CompuServe e-mail: 76004,1600
+     Internet e-mail: icdinc@genie.com
+
+     - CATBOX.  Output/Networking adaptor.  Attaches to the rear of the
+       Jaguar, and provides a variety of industry-standard output ports:
+
+         > S-Video, RGB, and composite video
+         > Left/right channel RCA jacks
+         > Two 1/8th inch stereo headphone jacks (with volume control)
+         > Pass-through Jaguar DSP bus
+         > RS-232 (modem) port and "CatNet" networking
+
+       The CatNet is a differential pair network that is formed by connected
+       multiple Jaguars/CatBoxes with RJ-11 telephone wiring.  Up to 32 units
+       can be connected, up to 1,000 feet apart.  Price is $69.95.
+
+     - CATBOX ACCESSORIES.  ICD sells video, audio, and networking adaptors
+       and cables for use with the CatBox if you cannot find them locally.
+       ICD can also custom-manufacture RGB adaptors to suit most computer
+       monitors, per buyer specifications.  Contact ICD Inc. for individual
+       prices and details.
+
+   * Sandwich Islands Publishing
+     P.O. Box 10669
+     Lahaina, HI  96761
+     Phone: (808) 661-2715
+
+     - JAGUAR GAMER'S GUIDE.  Game tips book.  Provides codes, tips, maps,
+       and solutions for almost 20 Jaguar games.  ISBN is 1-884364-13-6.
+       Can be reached at http://gamebooks.com, or send e-mail to
+       sales@gamebooks.com
+
+   * Victor Maxx
+
+     - CYBERMAXX 2.0.  Peripheral.  A "Virtual Reality" helmet that uses
+       standard RCA video and audio inputs.  Existing games can be played with
+       the helmet display for two-dimensional graphics, but full "virtual
+       reality" games requires custom-written software (none exist at this
+       time).  The helmet provides 62 degrees of vision and weighs one pound.
+       Includes three IBM PC Cybermaxx games and a VCR tape.
+
+   * Virtual i-O
+
+     - I-GLASSES.  Peripheral.  Shows video images on the lenses of the
+       glasses, providing a very large display.  Accepts standard RCA video
+       and audio inputs.  Weight is 8 ounces.  The "video" version accepts
+       only RCA audio/video inputs, while the "PC" version also accepts SVGA
+       input and supports head tracking.  [Ed. note -- ViO had a Jaguar in-
+       house, and recommend the i-Glasses for DOOM and WOLFENSTEIN 3D.]
+
+==============================================================================
+ 
+Q. What Jaguar peripherals were announced?
+
+A. The following Jaguar-related peripherals were announced at one time or
+   another:
+
+   * Atari Corp.
+     1196 Borregas Avenue
+     Sunnyvale, CA  94089-1302
+     Phone: (800) GO-ATARI  (800-462-8274)  9:00am to 5:00pm PST, M-F
+
+     - VIRTUAL REALITY HEADSET.  Controller/Peripheral.  Allows playing of
+       Jaguar virtual reality games, with head and controller tracking.  See
+       dedicated entry for details.
+
+     - VOICE MODEM.  Networking/Communications device.  Allows two players to
+       play networked games over standard phone lines at 9600 baud.  A headset
+       and microphone allows players to talk to each other during the game.
+       Call-waiting support will pause the game if an incoming call arrives,
+       and the game can be continued after the call is complete.  Project has
+       been suspended indefinitely.
+
+       In addition, rumors of a rotary controller continue to exist, even
+       though no official announcement was ever made.  See the dedicated
+       section below for details.
+
+   * CSCN (Cybercon Systems Carsten Nipkow)
+ 
+     - MULTIBOX.  Output/Networking adaptor.  Similar to ICD's Catbox, the
+       Multibox was supposed to attach to the rear of the Jaguar and
+       provide a variety of industry-standard output ports.  In addition,
+       the Multibox was supposed to provide error-free networking by using
+       error correcting hardware.
+ 
+     - INFRA-RED JAGLINK.  A Jaguar linking system that allowed two Jaguars
+       to communicate via infra-red broadcasting.
+ 
+     - RADIO JAGLINK.  A Jaguar linking system that allowed two Jaguars to
+       communicate via short-wave radio.  A distance of up to five kilometers
+       was promised.
+
+   * Sigma Designs
+
+     - JAGUAR PC CARD.  Computer peripheral.  Sigma Designs is developing a
+       card for IBM PCs and compatables that runs Jaguar CD software and acts
+       as a ReelMagic MPEG card.  Last announced release date was December
+       1994.  No price has been given.
+
+   * Spacetec
+
+     - SPACE PLAYER.  Game controller.  The Space Player is a controller that
+       is reported to offer six degrees of movement (up/down, left/right, and
+       in/out).  No further details are available at this time.
+
+   * Thrustmaster
+
+     - FLYING YOLK.  Game controller.  A four-directional flight controller
+       for use with flying games.  No release date or price has been
+       announced.
+
+     - STEERING WHEEL.  Game controller.  A two-directional controller and
+       pedal for driving games.  No release date or price has been announced.
+
+   * Time-Warner Cable
+
+     - JAGUAR GAME CHANNEL.  Game service.  Time-Warner Cable's Full Service
+       Network (FSN) plans to offer Jaguar games over television cable lines.
+       The games are downloaded to the customer and played at home, and game
+       instructions can be printed with additional equipment.  Details are
+       available from local FSN service providers.
+
+==============================================================================
+
+Q. What's the information on the CD-ROM drive?
+
+A. A double-speed CD-ROM drive was available.  The CD drive has an access time
+   of 210 milliseconds, and has a sustained data transfer rate of 352.8K per
+   second.  The CD-ROM drive features a modified data bus interface for access
+   to the Tom and Jerry chips almost directly, allowing for a higher
+   throughput rate on sound and graphics.  Storage on a disc is approximately
+   790 megabytes (6,320 megabits).  The CD-ROM drive plugs into the Jaguar's
+   cartridge slot.  A pass-through cartridge slot allows cartridges to be used
+   with the CD-ROM attached.  Separate memory cartridges allow Jaguar CD games
+   to be saved for later play.
+
+   The Jaguar CD format is a non-standard format that is not compatable with
+   the ISO-9660 standard.  It uses audio-format sectors for data, which allows
+   for 2352 bytes of useable space in each sector.  Unfortunately, this leaves
+   no provision for error correction or file system management (though errors
+   are detected by the CD drive hardware).  Each disc is copy-protected with
+   encrypted data that is specially formatted to look like an error.  Attempts
+   to copy a Jaguar CD will fail because it cannot read the encrypted data,
+   which means the copy will not work.
+
+   The Jaguar CD allows delivery of full-screen, full-motion video.  The
+   CinePak video decompression system has been licensed from SuperMac
+   Technologies.  It is a 7K routine in the GPU and can be included in any
+   CD-ROM software that needs it, allowing full-screen video at 24 frames per
+   second.  Movie quality pictures can then be overlaid on the screen with
+   computer generated graphics if the game demands it.  Time-Warner has
+   licensed a library of film clips from its movies to Atari.
+
+   The Jaguar CD has "Virtual Light Machine" built in.  This program plays
+   audio CDs and generate accompanying color and visual effects that react to
+   the music and sounds.  The user can control and select effects with the
+   Jaguar controller.  Regular audio CD playback features (volume control,
+   track programming, etc.) are also available.
+
+   The Jaguar CD can also display CD+Graphics discs.  Supplimental cartridges
+   for Kodak PhotoCD and MPEG-1 (Motion Picture Experts Group) compression are
+   being considered.  The MPEG cartridge will reportedly include extra RAM for
+   buffering and support the whitebook video format.
+
+   The drive was being manufactured by Philips in the United States.  Its
+   dimensions are 6.5" x 10.5" x 3.5", and it weighs 1 pound, 10 ounces.  The
+   price was $150, and includes the TEMPEST 2000 soundtrack audio disc, a
+   sampler for the CD game MYST, and two CD-ROM games: VID GRID and BLUE
+   LIGHTNING.
+
+==============================================================================
+
+Q. What's the information on the virtual reality headset?
+
+A. Atari Corp. and the Virtuality Group had signed a contract whereupon
+   Virtuality would develop virtual reality hwardware and software for the
+   Jaguar.  In return, Virtuality would get the rights to port Jaguar VR games
+   to their Virtuality arcade consoles.
+
+   Though announced, the Jaguar VR was never produced.  Unofficial reports
+   conflict on whether the unit was cancelled, suspended, and/or reworked.
+   Reasons given for the inaction ranged from Atari's needs to reassess their
+   investments and focus on core business, to the high suggested retail price
+   of the Jaguar VR headset, to Virtuality's problems in trying to create
+   a mass-market headset that could track head movement fast enough to avoid
+   motion sickness after a few minutes of play.
+
+   As originally reported, the Jaguar VR package consisted of two components:
+
+   (1) A lightweight headset (weighs less than one pound).  It can be adjusted
+       for fit and works with or without glasses.  Game graphics are provided
+       by a single 7", TFT active-matrix color LCD screen, with a resolution
+       of 260 by 400 pixels and up to 65,000 colors.  Dual temple speakers
+       provide sound, and a built-in microphone allows player communication
+       in future networked games.  A custom optical system projects a
+       binocular image to both eyes; it is aligned at infinity, so focus
+       adjustment is not needed.  Two degrees of freedom (left/right and
+       up/down) are available.  Field of view is 52 degrees horizontal by 40
+       degrees vertical.
+
+   (2) A tabletop-mounted tracking station.  The station senses the position
+       of the controller and the headset with "V-Trak" infra-red tracking.
+       The tracking speed is 250 Hz, with a lag time of 4 milliseconds, four
+       times faster than Virtuality's arcade hardware.  The tracker has a
+       range of approximately 100 degrees; multiple trackers can be daisy-
+       chained together to provide a complete 360-degree tracking range, but
+       most Jaguar VR games will not require a full 360 degrees.
+
+   The Jaguar VR equipment was designed to be played while sitting down, so as
+   to avoid injuries.  if a player moves out of the tracking station's range,
+   a safety cutoff would have been triggered to suspend the game.
+
+   Jaguar VR games would have been written for use with the regular
+   controller, as well as a two-button "virtual gun" hand-held joystick.  The
+   licensing agreement between Atari and Virtuality permitted authorized
+   Jaguar third-party software developers to write their own VR titles.
+
+   One product did come out of the Atari/Virtuality agrement.  MISSILE COMMAND
+   3D for the Jaguar provided virtual-reality type play, without the need for
+   special equipment or controllers.  The game was later transported to
+   Virtuality's arcade systems.
+
+==============================================================================
+ 
+Q. What's the "Panther"?
+ 
+A. Quick history lesson: Sometime in the late 1980s, Atari Corp. was doing
+   research and development on "next generation" video game consoles.  There
+   were two systems, a 32-bit machine called the Panther, and a 64-bit machine
+   called the Jaguar.  It is reported that work on the Jaguar was progressing
+   better/faster than expected, so Atari abandoned the Panther to focus their
+   energies on the Jaguar instead.  Supposedly, if both machines were fully
+   developed, the Jaguar would have followed the Panther only two years later.
+
+   Reports of development work on the Panther have been whispered since 1988;
+   some people have erroneously mistaken those rumors to be about the Jaguar.
+
+   The Panther reportedly was considered a "32-bit" machine by Atari, though
+   for reasons unknown.  It featured three chips, consisting of a Motorola
+   68000 running at 16Mhz, an object processor called the Panther, and an
+   Ensoniq sound processor called Otis, featuring 32 sound channels.  The
+   Panther could supposedly display 8,192 colors from a palette of 262,144
+   colors, and could display 65,535 sprites of any size simultaneously.
+
+   According to Jeff Minter, the Panther's sprite hardware was very similar to
+   the object processor in the Jaguar, to the point where both had the same
+   limitations.  Putting too many sprites on a single scan-line, for instance,
+   would require too much time to draw the line and caused a "tearing" effect
+   in the affected row.
+
+   Stefan Walgenbach is the proud owner of a working Panther prototype.  He
+   has a web page at http://www.HomeComputer.de/ devoted to all sorts of
+   information on the Panther.
+
+==============================================================================
+ 
+Q. What's the "Jaguar II"?
+ 
+A. There's been a little confusion with this topic, since at least two
+   separate machines have been called a "Jaguar II."  The first was to have
+   been an integrated Jaguar/Jaguar CD-ROM unit.  That project has since been
+   cancelled, making the point moot.
+
+   The other Jaguar II was Atari's next video-game console.  Though rumors
+   were passed, a final design was apparently never produced for even the
+   prototype stage.  The following rumors were strongly suggested, however:
+ 
+   * Main chipset (codename "Midsummer") developed by Motorola.
+   * Fully backwards compatable with the existing Jaguar.  Would have been
+       able to play all Jaguar games and use all Jaguar peripherals.
+   * Processing speed "two to four times faster than the Sony PlayStation."
+   * Full C/C++ development package available.
+
+==============================================================================
+ 
+Q. What's the information on the CoJag and CoJag games?
+ 
+A. To briefly recap, after the Jaguar was released, Time-Warner Interactive
+   (now a subsidiary of WMS/Midway known as Atari Games) licensed the Jaguar
+   architecture for use in arcade games.  These systems were called "CoJag"
+   games, and consisted of a Jaguar chipset with additional memory, extra
+   storage, and other architectural changes.
+ 
+   Two CoJag games have been released:
+ 
+   * Area 51: A light-gun shooting game for two players.  The Jaguar's 68000
+     was replaced with a 68020 or SGI R3K, and ran at 25 MHz.  It was also
+     equipped with a four megabytes of RAM and a one gigabyte hard drive.
+ 
+   * Maximum Force: Another light-gun shooting game.  The 68000 was replaced
+     with an SGI R3K, and came with six megabytes of RAM and a two gigabyte
+     hard drive.
+ 
+   While it was rumored that the TWI games "Primal Rage" and "T-Mek" were also
+   CoJag games, this is false; developer Al Vernon has confirmed that those
+   titles did not use any aspect of the Jaguar design or chipset.
+ 
+   Finally, funkster@midwinter.com reports that he playtested a third CoJag
+   game, "Freeze," that was never released.  Here's a slightly-edited version
+   of his report:
+ 
+     "I saw Freeze a couple weeks ago at a local arcade pinball/video
+     game expo.  The game made it to field test but didn't do well, so
+     Atari Games axed it early this year.
+ 
+     "Freeze was a puzzle game, most closely related to Bust-A-Move or
+     Super Puzzle Fighter II Turbo.  You controlled a character at the
+     bottom of a rectangular grid, five wide and eight deep.  You had
+     the following controls: move left, move right, throw, and special.
+     You start with a fish in your hands; when you press 'throw,' you
+     threw it into the grid, where it goes up until it hits something.
+     Once your hands are empty, a fish launcher gives you another.
+ 
+     "The goal is to get groupings of three or more similarly-colored
+     fish to touch each other, at which point they disappear.  Holes
+     are filled in by reverse gravity -- the fish fall up.  The game is
+     over when your grid is full of fish or ice.
+ 
+     "Here's where it gets original: when you get a group of fish to
+     disappear, you "freeze" a couple of fish on your opponent's field,
+     starting at the top and working down.  A frozen fish doesn't work
+     for groupings; fish are unfrozen by making a group nearby.  Empty
+     slots get frozen too (the ice is empty).
+ 
+     "The 'special' button is for a special attack.  When you start the
+     game, you pick a character, which also decides which special attack
+     you get.  I didn't play that much of the game, so I don't know how
+     the special works or when you get it.  You could play one or two
+     players simultaneously.  One player meant playing against computer
+     opponents, along with a bizarre story -- I usually played the
+     monkey character, who was searching for an alarm clock so he
+     wouldn't oversleep, and he asked his opponents for a clock.
+ 
+     "The game was pretty fun, and the graphics were nice.  It had a
+     look like Trog -- simple 3D, bright saturated colors.  It's a shame
+     it didn't fare better in field test."
+ 
+==============================================================================
+ 
+Q. Was there a difference in Jaguar games/units sold in different countries?
+   Do I need to keep track of PAL and NTSC versions of a game?
+
+A. There is no difference in the Jaguar game software.  A properly-written
+   Jaguar game detects PAL or NTSC at startup and changes the playfield size
+   and game speeds accordingly.  A properly-written Jaguar game will run at
+   the same speed on either machine.  There are no regional or national
+   market lock-outs as there are for other game consoles.
+
+   The Jaguar consoles themselves were configured differently, according to
+   the country they were sold in.  The primary differences were in the video
+   output format (NTSC or PAL) and the power adapters (110 volt or 220 volt).
+   Due to the Jaguar's use of an external adapter, a step-down transformer is
+   not needed.  A local PSU can be used so long as it matches these
+   specifications:
+ 
+         1. 9 volt direct current (DC)
+         2. 1.2 amps
+         3. Center pin negative
+ 
+   The PSUs from old Sinclair computers and Sega Game Gears can be used with
+   the Jaguar without problems.
+ 
+   To use an American (NTSC) Jaguar in Europe, you will need a new power
+   adapter and a SCART lead to supply the Jaguar's RGB signals to the TV.
+   Some European TV sets might have also required changing the Jaguar display
+   from a 60Hz frame rate to 50Hz.
+ 
+   The 50Hz/60Hz frame rate is set by soldering pads on the bottom of the
+   Jaguar PCB.  On an NTSC Jaguar, they're located on the bottom of the PCB
+   near the controller ports.  The set labelled "R140" determines between
+   50Hz and 60Hz.  Connect the two points for 50Hz, or leave them
+   disconnected for 60Hz, as follows:
+
+             60Hz          50Hz
+              o-o   R135    o-o
+              o o   R136    o o   (Information courtesy of Martin Zimmer,
+              o o   R137    o o    marz@haari.mayn.sub.de)
+              o o   R140    o-o
+
+   PAL Jaguars sold in Europe have the R140 pads connected with a zero ohm
+   SMD resistor, which can be removed with a soldering iron.  It is possible
+   to wire a switch to the points, allowing the Jaguar to be toggled between
+   50Hz/60Hz.  This is mainly useful for PAL Jaguars to play games at the
+   original speed and screen resolution of the NTSC version.
+
+   Russ Juckes (russ_j@raiden.demon.co.uk) gives these instructions for
+   finding the pads on a European/PAL Jaguar:
+
+   "Hold the Jaguar PCB with the Joystick ports to the bottom.  On the
+   underside of the board, near the joystick ports, and to the left of centre
+   there are four links, the top and the bottom one bridged.  (Both with zero
+   ohm resistors).  Above them there is another link, with a brown resistor.
+
+   "The bottom link is the one that needs to be broken.  I used a penknife to
+   scratch away the solder, and then a needle-nosed pair of pliers to break
+   the resistor.
+
+   "The links are *not* labelled in any way.  As another guide to make sure
+   you are about to snip the correct link, they are placed directly underneath
+   a chip (which is obviously on the top of the PCB!) so if you use a
+   soldering iron, be careful!"
+
+==============================================================================
+ 
+Q. Hey!  My Jaguar makes a quiet hissing sound!  What's going on?  Is it
+   dangerous?
+ 
+A. Early Atari Jaguars had a rumored problem with the console hissing softly.
+   Atari had cited several reasons for the hissing noise.  Some have said that
+   the sound is from the RF generator.  The RF shield has holes in it
+   (ostensibly to help air flow and keep the unit cool), and it is believed
+   that the holes produce the noise.
+
+   Others said the sounds are produced by coil L29 which is responsible for
+   the proper voltage regulation to +10.0V, together with U38.  The coil's
+   copper wire vibrates when the current through it changes abruptly, making
+   the hiss.
+ 
+   There are two solutions: 1) Use plastic spray or silicone rubber glue to
+   fix the coil's wire. 2) Replace the original Jaguar power-supply with a
+   variable power-source, using 7.5V DC instead of 9V DC (it is not certain
+   whether the Jaguar CD will require 9V DC, which would make this "fix"
+   unworkable with the CD drive).
+
+   In any case, the "hissing" noise was not dangerous, but merely annoying.
+   It was usually audible only if you put your ear next to the unit and listen
+   closely, and is not interference in the audio output.  It is roughly
+   analogous to the buzz made by electric clocks.
+
+   Most later Jaguars did not have this problem, though a few rare cases have
+   been noted.
+
+==============================================================================
+
+Q. My Jaguar comes up with a red screen instead of a game!  Is it broken?
+
+A. Most often, the "red screen" problem appears after the Jaguar logo has
+   disappeared off the TV screen, and is caused by one of the following:
+
+   1. Poor contact between the Jaguar and the cartridge (most likely).  Make
+   sure that the cartridge is firmly seated in the cartridge slot, and that
+   contacts are not dirty/dusty.
+
+   2. Bent pins in the cartridge slot (rare).  This may be caused by rough
+   edges on some cartridges.  The pins should be carefully straightened.
+
+   3. Defective cartridge (rare).  If the red screen only appears with one
+   cartridge but not others, the game may be defective.  Exchange it for
+   another.
+
+   If the Jaguar logo appears without problems, then the Jaguar is probably
+   working fine, and it's only the data transfer between the unit and the
+   cartridge that's causing the problem.
+
+==============================================================================
+ 
+Q. I've heard stories about the Jaguar version of DOOM having network errors
+   when playing with two Jaguars linked together.  Are they real?  If so, what
+   causes the problem, and can I avoid it?
+ 
+A. There is some truth to the reports -- when linking two Jaguars together for
+   multiplayer DOOM games, network errors sometimes appear which interfere
+   with the gameplay.  At worst, the game resets to the start of the current
+   level, which can be annoying if you're in the middle of a heated Deathmatch
+   firefight.
+ 
+   The problem stems from several causes.  The networking code in DOOM was not
+   thoroughly tested before release, because the game was finished before
+   Atari settled on the final specifications for the JagLink cable (the cable
+   came out almost a year after DOOM did).  As a result, this causes some
+   problems due to integration differences.  On the other hand, some of the
+   folks playing networked DOOM are using their own home-made link cables,
+   which might not have enough shielding, which also causes errors.  There are
+   reports that earlier Jaguar models are more susceptible to errors as well,
+   but the evidence is inconclusive.
+ 
+   Recommendations?  Set up your Jaguars in an area relatively clean of
+   electromagnetic interference, make sure you are using a well-shielded
+   cable, and cross your fingers.  And remember that, even with an occassional
+   networking error, DOOM is still lots of fun with a friend (or foe).
+ 
+==============================================================================
+
+Q: What's the wiring schematic for the Jaguar controller?
+
+A: Uwe Roeger (uwer@aragon.bb.bawue.de) reverse-engineered the Jaguar
+   controller port and dissected a Jaguar controller to provide the
+   following circuit diagram:
+
+   Padport 4  Padport 3  Padport 2  Padport 1
+   (yellow)   (orange)   (red)      (brown)               74HC244
+     |          |          |          |                   ______
+     |          |          |          |         R1 4k7   |      |
+     |          |          |          |          |       |      |  Padport 6
+   Pause -------|----------|----------|----------+----- 2| -|)- |18- (blue)
+     |          |          |          |                  |      |
+     |      +---|------+---|------+---|------+  R2 4k7   |      |
+     |      |   |      |   |      |   |      |   |       |      |  Padport 10
+    "A"--|<-+  "B"--|<-+  "C"--|<-+  Opt -|<-+---+----- 4| -|)- |16- (black)
+     |          |          |          |                  |      |
+     |      +---|------+---|------+---|------+  R3 4k7   |      |
+     |      |   |      |   |      |   |      |   |       |      |  Padport 11
+   Right-|<-+  "1"--|<-+  "2"--|<-+  "3"--|<-+---+----- 6| -|)- |14- (grey)
+     |          |          |          |                  |      |
+     |      +---|------+---|------+---|------+  R4 4k7   |      |
+     |      |   |      |   |      |   |      |   |       |      |  Padport 12
+   Left -|<-+  "4"--|<-+  "5"--|<-+  "6"--|<-+---+----- 8| -|)- |12- (l.blue)
+     |          |          |          |                  |      |
+     |      +---|------+---|------+---|------+  R5 4k7   |      |
+     |      |   |      |   |      |   |      |   |       |      |  Padport 13
+   Down -|<-+  "7"--|<-+  "8"--|<-+  "9"--|<-+---+-----11| -|)- |9-- (pink)
+     |          |          |          |                  |      |
+     |      +---|------+---|------+---|------+  R6 4k7   |      |
+     |      |   |      |   |      |   |      |   |       |      |  Padport 14
+    Up --|<-+  "*"--|<-+  "0"--|<-+  "#"--|<-+---+-----13| -|)- |7-- (white)
+                                                         |______|
+
+              Padport 9: Ground (violet) -- Pin 1,10,15,17,19 on 74HC244
+              Padport 7: +5 VDC (green)  -- Pin 20 on 74HC244
+
+   SYMBOL KEY
+   ==========
+     --|<--   1N4148 Diode
+       +      Wire connexion
+     Rx 4k7   Standard resistor, 4700 Ohms, .25 Watts (all resistors are
+                pull-ups; i.e. tied to +5VDC on one end)
+
+   Padport numbers correspond to those on a standard 15-pin SUB-D plug.  The
+   colors of the wires may be different in other versions of the controller.
+
+==============================================================================
+
+Q. What's this about a rotary controller?  What games use it?  How do I make
+   one for myself?
+
+A. TEMPEST 2000 has hidden in it an option for a rotary controller (at the
+   "Game Options" menu, press Pause on both controllers to activate the
+   "Controller Type").  No plans for an official Atari rotary controller were
+   announced, but many TEMPEST fans have been trying to build such a
+   controller, to give the game a feel that's close to its arcade original.
+
+   Andy Light has written instructions for taking a Jaguar joypad and an Atari
+   2600 Driving Controller and building a rotary controller with the parts.
+   His instructions are condensed below.  READ THE INSTRUCTIONS THOROUGHLY
+   BEFORE ASSEMBLY -- there are some areas that are left to the whim of the
+   builder, and advance planning is highly recommended.
+
+                                    * * *
+
+   ANDY LIGHT'S JAGUAR ROTARY CONTROLLER INSTRUCTIONS
+   Parts needed: Atari Jaguar controller
+                 Atari 2600 Driving Controller (NOT the paddles)
+                 13 wires, preferably of separate colors
+                 Buttons
+                 A board or box or shell to mount everything on/in
+ 
+   1. Open the driving controller by removing the two underside screws.
+   Inside is a top-like device or a grey box with three wires coming out of
+   it.  This is the encoder.  Pull the driving controller's knob off the
+   encoder's shaft, then remove the encoder by unscrewing the nut that holds
+   it in place.  Disconnect the wires from the encoder.
+
+   2. Open the Jaguar controller.  There are four screws on the bottom holding
+   it together, behind the round rubber pads.  Inside the controller are two
+   circuit boards connected by a ribbon of wires.  The bottom board is for the
+   numeric keypad and is held by two screws.  Remove the screws and take out
+   the keypad.
+
+   3. Disconnect the wire ribbon from the keypad by melting the solder.
+   CAREFUL!  This is delicate work -- get help if you need it.  Solder the
+   thirteen wires where the ribbon connection was; do not confuse them.
+
+   4. From the left side of the board (the side that says "P2"), I've numbered
+   the wires as follows:
+      1) Common         5) Button A       9) Button C      13) Down
+      2) Right          6) Button B      10) Pause
+      3) Option         7) Button B      11) Up
+      4) Option         8) Button C      12) Left
+ 
+   5. On the encoder, connect wire #1 to the center terminal, #2 to the right
+   terminal, and #12 to the left terminal.  The rotary part of the controller
+   is now finished.
+
+   6. How to connect the other controls is up to you.  I'm using arcade
+   buttons, a thumbpad, and a switch (to toggle joypad or rotary control)
+   mounted in an Atari 5200 trak-ball controller case.  You can mount a
+   joystick, extra buttons, or other features for your own controller.
+   Buttons and empty control boxes are available at stores such as Radio
+   Shack.
+
+   Wiring for the other signals are as follows:
+         Up       - wires #1 and #11       Button A - wires #1 and #5
+         Down     - wires #1 and #13       Button B - wires #6 and #7
+         Pause    - wires #1 and #10       Button C - wires #8 and #9
+         Option   - wires #3 and #4
+   Because wire #1 has multiple uses, you will either need to string it or
+   split it for each destination.
+
+   7. Reassemble and mount everything according to your design.  For better
+   spin, you can glue lead fishing sinkers to the inside of the knob, and
+   lubricate the shaft of the encoder with light oil or silicone lubricant.
+
+   That's it!  Please forgive me for any mistakes in my grammer, terminology,
+   spelling, etc.  If you encounter any problems, feel free to e-mail me at
+   ALIGHT55@AOL.COM.  Good luck!
+
+==============================================================================
+
+Q. I want something better than RF output from my Jaguar.  What do I do?
+ 
+A. Atari had an S-Video cable and a Composite video cable available for use
+   with the Jaguar.  See the "Peripherals" section for details.
+
+   If you are willing to build your own, the schematics for the expansion port
+   are as follows:
+
+             Pinouts for Jaguar Video Cable
+        (view is looking at the rear of the Jaguar)
+      01A 02A 03A 04A 05A 06A 07A 08A 09A 10A 11A 12A
+      --- --- --- --- --- --- --- --- --- --- --- ---
+      --- --- --- --- --- --- --- --- --- --- --- ---
+      01B 02B 03B 04B 05B 06B 07B 08B 09B 10B 11B 12B
+
+      01A - Left Audio           01B - Right Audio
+      02A - Audio Ground         02B - Audio Ground
+      04A - Chroma Ground        04B - Red
+      05A - Blue                 05B - Composite Sync (can also be used
+      06A - Horizontal Sync                            for vertical sync)
+      07A - Green                07B - Luma Ground
+      08A - Chroma               08B - Luma
+                                 10B - Video Ground
+      11A - +10V power supply    11B - Composite Video
+
+
+               S-Video Cable
+      ##\                           /---(##- P2 RCA Male (Red)
+      ###                          /
+   P1 ###>>--(Shielded cable)-----<-----(##- P3 RCA Male (White)
+      ###                          \                           ___
+      ##/                           \---<##  P4 4 pin SVHS   3/. .\4
+   Jaguar                                       Mini-DIN    1| . . |2
+                                                Plug Male     \_=_/ (front)
+   Conn    Pin       Signal     Conn  Pin
+  +----+--------+--------------+----+-----+
+    P2   Center   Right Audio    P1  01B
+    P2   Shell    Audio Ground   P1  02B
+    P3   Center   Left Audio     P1  01A
+    P3   Shell    Audio Ground   P1  02A
+    P4      1     Luma Ground    P1  07B
+    P4      3     Luma           P1  08B
+    P4      4     Chroma         P1  08A
+    P4      2     Chroma Ground  P1  04A
+    P4    Shell   Not Connected  P1  N/A
+
+
+               Composite Video Cable
+      ##\                           /---(##- P2 RCA Male (Red)
+      ###                          /
+   P1 ###>>--(Shielded cable)-----<-----(##- P3 RCA Male (White)
+      ###                          \
+      ##/                           \---(##- P4 RCA Male (Yellow)
+   Jaguar
+
+   Conn    Pin       Signal     Conn  Pin
+  +----+--------+--------------+----+-----+
+    P2   Center   Right Audio    P1  01B
+    P2   Shell    Audio Ground   P1  02B
+    P3   Center   Left Audio     P1  01A
+    P3   Shell    Audio Ground   P1  02A
+    P4   Center   Comp Video     P1  11B
+    P4   Shell    Video Ground   P1  10B
+
+
+   For Jaguar owners who wish to use SCART, a Jaguar-to-SCART RGB cable can
+   be made as follows:
+
+   SCART socket:
+       20  18  16  14  12  10   8   6   4   2
+   +--------------------------------------------+
+   \   --  --  --  --  --  --  --  --  --  --   |
+    \                                           |
+     |   --  --  --  --  --  --  --  --  --  -- |
+     +------------------------------------------+
+         19  17  15  13  11   9   7   5   3   1
+
+   RGB connection using an 8-pin shielded cable:
+
+    SCART     Signal      Jaguar A/V port
+   +-----+---------------+---------------+
+       6    Left Audio         1A
+       2    Right Audio        1B
+       4    Audio Ground       2A
+      15    Red                4B
+       7    Blue               5A
+      11    Green              7A
+      16    H-Sync (Blank)     6A
+      20    Composite Sync     5B
+      17    Video Ground      10B  (connected by cable shield)
+
+==============================================================================
+ 
+Q. How did the ComLynx port on the Jaguar work?  Could I connect my Lynx to
+   it?
+
+A. The Jaguar does not have a ComLynx port per se, but has a ComLynx signal
+   on the system bus.  An expansion port add-on would have made the port
+   available, and developers had announced plans for such accessories.  It is
+   possible to daisy-chain multiple Jaguars for multiplayer games into a
+   "Jaguar network".  In theory, it would have also been possible to connect
+   Jaguars and Lynxes, though no plans for cross-system software were ever
+   finalized.
+
+   There was also talk that the Jaguar's ComLynx signal could allow Lynxes to
+   be used as peripherals: software could have been developed to allow Lynxes
+   to be part of a Jaguar game as "smart" controllers.  Again, no actual plans
+   were ever announced.
+
+   For enterprising engineers who wish to build a ComLynx cable for two
+   Jaguars, the following schematics from jonin@netcom.com are available.
+   USE AT YOUR OWN RISK!
+
+                                    * * *
+
+          12 Contact IDE Card Edge Connector (Atari Jaguar DSP Connector)    
+
+   View from the front of the connector (not the solder side):
+
+              Top                             Cable pinouts
+        7  8  9 10 11 12              Jaguar 1            Jaguar 2
+   L  +------------------+  R         2 (TX) ______  ______ 2 (Tx)
+   e  | x  x  x  x  x  x |  i                      \/
+   f  | x  x  x  x  x  x |  g         3 (RX) ______/\______ 3 (Rx)
+   t  +------------------+  h         6 (Ground) __________ 6 (Ground)
+        6  5  4  3  2  1    t
+                Key signals: 2 - Transmit, 3 - Receive, 6 - Ground
+
+   Assembly Notes:
+     As shown, the only 3 wires needed for the cable are 2, 3 and 6 (Tx, Rx,
+     and Ground).  All of these wires are on the bottom connector, so that
+     is a good indicater of which way the cable plugs in the Jaguar.
+     Shielded and RF-Choked cables work best.  Due to the nature of this
+     connector, it will be hard to shield this cable completely.
+
+     If you cannot find a 12-contact IDE Card Edge Connector, a 10-contact
+     version can be used.  A quick one can be built with no soldering using
+     JDR MicroDevices (Part# IDE10).  This is made for ribbon cable, but you
+     can use regular shielded cables with a little work.  As long as lines 2,
+     3, and 6 remain properly connected, there should be no difference.
+
+   Usage tips:
+   * DO NOT PLUG THIS CABLE IN UPSIDE-DOWN!  You may damage internal
+       components if you plug it incorrectly.
+   * TURN OFF BOTH JAGUARS BEFORE CONNECTING.  You may damage internal
+       components if you do not.
+   * Since there isn't much strengh in the wires, remove the cable by the
+       connectors.
+
+==============================================================================
+ 
+Q. Agh!  My Jaguar is broken!  How can I fix it?
+ 
+A. Unforutnately, with the dissolution of Atari Corp., repair or replacement
+   of broken Jaguars is no longer available; Atari/JTS does not have any units
+   remaining for sale or replacement.  On the other hand, with the low price
+   of clearance Jaguars today, it isn't expensive to buy a new unit.
+ 
+   In Great Britian, Telegames UK will offer to repair your Jaguar for a fee.
+   They can be reached at:
+ 
+                         TeleMail
+                         Kilby Bridge, Wigston,
+                         Leicester LE18 3TE, UK
+                         Tel. +44-116-2880445
+                         Fax. +44-116-2813437
+
+==============================================================================
+
+Q. Where can I get other information about the Jaguar?
+
+A. Publications:
+
+   - Instant Replay                  Newsletter devoted to the Jaguar, with
+     7570 South Manor Avenue         news and reviews.  Write to Frank Eva
+     Oak Creek, WI 53154             for more information.
+
+   - Wild Cat                        A one-man, home-made Atari video gaming
+     Phil Patton                     "fanzine."  Subscvriptions are $12/year
+     131 Dake Ave.                   for eight issues, at 12 pages each issue.
+     Santa Cruz, CA  95062           Covers all Atari consoles and computers.
+
+
+   Internet/USENET newsgroups and services:
+
+   - rec.games.video.atari
+
+       USENET newsgroup.  Contains news for all Atari video-game systems.
+
+   - World-Wide Web Pages
+
+       CWest is now handling the sales of Atari software and hardware:
+         http://www.cwest.com/atari/
+
+       Telegames UK sells Jaguar consoles, games, accessories:
+         http://www.telegames.co.uk
+
+       The Electric Escape is the official home of the Jaguar FAQ.
+         http://www.digiserve.com/eescape/atari/Atari.shtml
+
+       Jaguar Explorer On-line is a free electronic newsletter covering the
+       latest news on the Jaguar (and other Atari-related matters):
+         http://www.atarihq.com/jeo/
+ 
+       The Jaguar Community Webring is a collection of web sites devoted to
+       all aspects of the Jaguar:
+         http://www.geocities.com/SiliconValley/Vista/6856/JCU-WebRing.html
+
+       Carl Forhan's Lynx and Jaguar projects can be found on his web site:
+         http://www.millcomm.com/~forhan/
+
+       The Atari Lynx and Jaguar Club Deutschland is on the web:
+         http://www.geocities.com/SiliconValley/Park/6679/
+
+       General-purpose Atari/Jaguar Web pages:
+         http://www2.ecst.csuchico.edu/~jschlich/
+         http://www.redsun.net/jaguar/
+         http://www.mcc.ac.uk/~dlms/atari.html
+         http://dcpu1.cs.york.ac.uk:6666/~andrew/jaguar/
+         http://rzserv2.fh-lueneburg.de:8080/Jaguar/
+         http://www.geocities.com/SiliconValley/Heights/5916/
+         http://www.cwo.com/~holstine/jz/us640.htm
+ 
+       Also, Yahoo!'s list of Atari Jaguar web sites can be found at
+       http://www.yahoo.com/Recreation/Games/Video_Games/Systems/Atari/Jaguar/
+
+       Llamasoft has a web page which contains updates on upcoming Jaguar
+       projects, as well as ruminations on lovely llamas, hot music CDs, and
+       other musings from Jeff Minter:
+         http://www.magicnet.net/~yak/
+
+
+   Internet TELNET site:
+
+   - Cleveland Free-Net Atari SIG
+
+       freenet-in-{a,b,c}.cwru.edu or 129.22.8.51 or nextsun.INS.CWRU.edu
+       Access via modem at (216) 368-3888.
+
+       You can log on as visitor to explore the system and apply for a
+       Free-Net account online.  At the opening menu, enter "2" to log in as a
+       visitor.  At the next menu, enter "2" again to explore the system.  You
+       will then read an opening disclaimer and a login bulletin, then be sent
+       to the main menu.  Once inside, type "go atari".  Follow the menus to
+       read discussions, reviews, news, and information.  In order to post
+       messages and send e-mail, you need a Free-Net account.  Apply for a
+       Free-Net account by entering "1" at the second menu instead of "2".
+
+
+   Mailing list:
+ 
+   - Atari Jag-mail
+ 
+       J. Sinn runs a Jaguar e-mail newsletter.  For subscription information,
+       write to j-sinn@ellijay.com
+
+
+   BBS:
+
+   - CATScan
+
+       (209) 239-1552, 300/1200/2400/9600/14400 bps.  Single line.
+
+       The BBS is completely dedicated to Atari products and Atari video game
+       consoles.  Includes screen shots, press releases, pictures, and other
+       files.  Run by Don Thomas of Atari Corp.
+
+   - Video Game Information Service.
+
+       (201) 509-7324, 300/1200/2400/9600/14400 bps. Multiple lines
+
+       Located in West Orange, New Jersy (USA).  The BBS is completely
+       dedicated to video gaming, and maintains files of cheats and reviews
+       for all game systems.  Carries video-game-related conferences from
+       other computer networks, including Fidonet, Worldnet, and Globalnet.
+
+
+   On-line services:
+
+   - America On-Line
+
+       The PC Games/Video Games discussion group has areas devoted to the
+       Atari Lynx and the Atari Jaguar consoles.  Use the keyword PC GAMES,
+       then go to the Video Games discussion board.  From there, select Atari
+       Discussion, then the console of your choice.
+
+   - GEnie
+
+       A dedicated/expanded Jaguar roundtable has been established.  Type
+       M475;1 to reach it.  For assistance regarding the roundtable, send
+       e-mail to JAGUAR$ on GEnie.
+
+==============================================================================
+ 
+Q. How was development for the Jaguar done?
+ 
+A. Jaguar game development environments existed for the Atari TT030 computer
+   or an IBM PC/compatible.  Art development could be performed on any
+   machine, whether a low-end Apple Macintosh or commercial rendering software
+   such as SoftImage.  Wavefront's "GameWare" was the official 2D/3D graphics
+   development system; Atari itself used GameWare for in-company development,
+   and registered third-party Jaguar developers could buy GameWare licenses at
+   special discount prices.
+
+   Estimated price for a developer's package was $9,000 for the TT030 setup,
+   and $7,500 for the PC/compatible platform.  The package included a Jaguar
+   development unit, documentation, and development/debugging software.
+   The Jaguar had modified boot firmware to run the development board (the
+   "Alpine board"), and it had a cable coming out to provide signals to the
+   Alpine board that are not normally present via the cartridge connector.
+
+   CD-ROM developement packages (including the cartridge development kit) were
+   ranged at about $8,000, and were upgradeable from the card-only kit.
+
+   Software routines packaged with the system included a multi-channel
+   polyphonic FM/Wavetable synth; JPEG decompression; video set-up; drawing
+   primitives; 3D rendering with gourad shading, texture mapping, and camera
+   manipulation.  GCC is the primary 68000 C compiler; support for other
+   languages was not available from Atari, but developers were free to use
+   whatever tools they may prefer.  The development toolkit ran under DOS,
+   TOS, or Linux.  Work was proceeding on a Linux development system using the
+   GNU tools.
+
+   The centerpiece of the TT030 deveopment platform was DB, an assembly-
+   language level debugging tool.  The Jaguar and the TT030 were connected
+   with a parallel cable, and software could be debugged interactively without
+   interfering with the Jaguar's screen display.  DB supported the use of
+   scripts and aliases, which simplified the use of complex or common
+   functions.
+
+   Support for the development packages was primarily provided by Brainstorm
+   (Atari France), who worked closely with Atari Corp.
+
+   Atari granted final code approval, but did not see the need to "censor"
+   games.  Every game was given one man-month of compatibility and quality
+   testing before it was approved.  Atari offered technical support via FAX,
+   mail, electronic mail and voice.  Atari allowed developers to source their
+   own cartridges, documentation and shells if desired.  Jaguar software is
+   encrypted with a proprietary key, thus preventing unauthorized developers
+   from releasing Jaguar software.
+
+   Cross Products (SNASM) offered an alternative Jaguar Development system.
+   It came with a multiwindowed debugger, assemblers, compilers, and SCSI
+   support, for approximately $3,700.  The package allowed for full screen,
+   source level debugging of multiple processors, in C or assembler.  This was
+   software only for the IBM PC; the Jaguar development hardware (Alpine
+   board, modified Jaguar, etc.) had to be purchased separately from Atari.
+
+   Ambitious hobbists have started their own unendorsed Jaguar development
+   efforts, with several "home-brewed" development systems and electronic
+   documentation of the Jaguar's inner workings.  Several games have been
+   written for play on the "Jaguar Server" development system (requires some
+   hardware modification to an existing Jaguar, and an IBM PC or Atari ST
+   computer).
+ 
+   Information about these efforts may be found on the web at the following
+   sites:
+ 
+     - "Jaguar Server" Development system
+         http://hem.passagen.se/isvar/jaguar_server/jserver.html
+ 
+     - "Behind Jaggi Lines" Development system
+         http://rghx54.gp.fht-esslingen.de/students/mt/elw5basc/jaguar/
+ 
+     - Jaguar Underground Mailing List
+         http://www.geocities.com/SoHo/1460/ugd.html
+ 
+     - Gavin's Jaguar Hardware page
+         http://www.cee.hw.ac.uk/~ceegbs/jaghard.html
+
+==============================================================================

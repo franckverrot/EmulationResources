@@ -1,0 +1,413 @@
+
+;	Commodore 1541 / OC-118 Disk Drive Memory Map
+;	V1.3	18 Jan 1995
+
+;	Covered in this file:
+;	   1541 / OC-118 Disk Drive RAM Map
+;	   1541 / OC-118 Disk Drive I/O Area
+;
+
+
+ The following text was grabbed from "The anatomy of the 1541" by
+ Lothar Englisch and Norbert Szczepanowski.
+ Additions from "1541 levyasema".
+
+
+Layout of the 2Kb RAM area
+==========================
+
+;	Commodore 1541 Disk Drive RAM Map
+;
+; The number in brackets after description is the default value after
+; power-up.
+
+
+; Work queue
+
+0000		Command code for buffer 0
+0001		Command code for buffer 1
+0002		Command code for buffer 2
+0003		Command code for buffer 3
+0004		Command code for buffer 4
+0005		Command code for buffer 5 (unused)
+
+; ***
+
+0006 - 07	Track and sector for buffer 0
+0008 - 09	Track and sector for buffer 1
+000a - 0b	Track and sector for buffer 2
+000c - 0d	Track and sector for buffer 3
+000e - 0f	Track and sector for buffer 4
+0010 - 11	Track and sector for buffer 5 (unused)
+
+0012 - 13	Disk ID, drive 0
+0014 - 15	Disk ID, drive 1
+0016		Header block: ID
+0018		Header block: Track
+0019		Header block: Sector
+001a		Header block: Parity
+
+001b		Not used (Disk Controller work)
+001c		Flag for disk change, drive 0 [01]
+001d		Flag for disk change, drive 1 [01]
+001e		Flag for write protect sense, drive 0 [01]
+001f		Flag for write protect sense, drive 1
+
+0020		Drive 0 status (disk and step motor)
+;		   bit 7: Disk drive ready (1 = No, 0 = Yes)
+;		   bit 6: Read/Write head moving (1 = Yes, 0= No)
+;		   bit 5: Motor on (1 = Yes, 0 = No)
+;		   bit 4: Switch off motor (1 = Yes, 0 = No)
+
+0021		Drive 1 status (disk and step motor)
+
+0022		Current track for drive 0
+0023		Flag for 1541 (0), 1540 (not 0)
+;		Not used (track for drive 1)
+
+0024		Scratch pad of GCR conversion
+;		Storage for BIN -> GCR conversions
+
+002e		Pointer for temporary storage			WORD
+0030		Buffer pointer for disk controller		WORD
+;		Pointer: Active buffer
+
+0032		Pointer: *** active track
+0033		Pointer: *** active sector
+0034		Pointer to last converted byte
+0035		Not used (decode error, GCR)
+0036		Byte counter for GCR/BIN conversion
+0037		Not used (bit counter)
+0038		Constant 7, ID mark for start of data block
+0039		Constant 8, ID mark for start of block header
+003a		Parity for data buffer
+003b		Not directly used
+003c		Not directly used
+003d		Motor flag
+;		Disk drive number, on 1541 always 00
+
+003e		Active drive (FF, if not active)
+003f		Buffer number for disk controller
+;		Previous work place in queue (0 - 5)
+
+0040		Byte counter for GCR conversion
+0041		Number of next work in queue (0 - 5)
+0042		Destination track (to move R/W head to)		DATA
+0043		Number of sectors per track for formatting	DATA
+0044		Temp. work area; Scratch pad			DATA
+0045		Work code temp. storage
+0046		Not used
+0047		Data block ID char, default 07.
+;	By changing this value, a data block can be written
+;	with different ID. The value must be less than 10.
+
+0048		Counter for head movement
+;		Timer: R/W head acceleration
+
+0049		Stack pointer temp. storage [39]
+004a		Step counter for head transport
+;	Values 0 - 127 move the head outside and values over
+;	 128 move towards the centre.
+
+004b		? (Temp. storage)				DATA
+004c		Last read sector				DATA
+004d		Next sector					DATA
+004e - 4f	Pointer to buffer for GCR->BIN conversion	WORD
+0050		Flag for GCR format (0=BIN, 1=GCR)		DATA
+0051		Current track number for formatting [FF]	DATA
+0052 - 55	Storage for 4 BIN bytes for GCR coding		DATA
+0056 - 5d	Storage for 5 GCR bytes				DATA
+005e		Number of steps for head motor accelerating/decl. [04]
+005f		accelerating/decl. factor [04]
+0062 - 63	Pointer to routine for head movement [FA05]	WORD
+0064		Minimum number of steps [C8]
+0065 - 66	UI vector [$EB22]				WORD
+0067		Flag: NMI
+0068		Flag for disk initialisation			DATA
+;	Automatic disk initialisation if ID MISMATCH occurred (1 = no, 0 = yes)
+
+0069		Step size for sector division [0A]
+;	Sector number interleave for SEQ files, default 10 (0A)
+
+006a		Number of read attempts [5]			DATA
+006b - 6c	Pointer: Start of Jump table for U commands [FFEA]	WORD
+006d - 6e	Pointer: Start of bitmap [0400]
+
+006f - 70	Pointer to address for M & B commands		WORD
+0071		Temp. work area
+0072		Temp. work area [FF]
+0073		Temp. work area
+0074		Temp. work area
+
+0075 - 76	Indirect pointer [0100]
+
+0077		Listener address (Device number + $20) [28]
+0078		Talker address (Device number + $40) [48]
+0079		Flag: Active listener
+007a		Flag: Active talker
+007b		?
+007c		Flag for ATN from serial bus receiving
+;		ATN interrupt
+007d		Flag for ATN on serial bus active
+007e		Last handled program
+007f		Drive number (on 1541 always 00)
+0080		Current Track number
+0081		Current Sector number
+0082		Channel number (Logical index)
+0083		Secondary address
+0084		Original Secondary address [6F]
+0085		Current Data byte [3F]
+
+
+0086 - 8a	Temp Results
+008b - 8e	Work storage for division
+;		Result, Multiply and divide
+008f - 93	?
+
+0094 - 95	Current buffer pointer				WORD
+;		Pointer: Directory buffer (0204)
+
+0096		?
+0099 - 9a	Pointer: Next byte in buffer 0 [0300]
+009b - 9c	Pointer: Next byte in buffer 1 [0400]
+009d - 9e	Pointer: Next byte in buffer 2 [0500]
+009f - a0	Pointer: Next byte in buffer 3 [0600]
+00a1 - a2	Pointer: Next byte in buffer 4 [0700]
+00a3 - a4	Pointer: Next byte in command buffer [0200]
+00a5 - a6	Pointer: Next byte in error message buffer [02D6]
+
+00a7 - ad	Table: Non-active channel numbers for each buffer
+00ae - b4	Table:
+00b5 - ba	Table: Record # low , block # low
+00bb - c0	Table: Record # high, block # high
+00c1 - c6	Write pointer for REL file
+;		Table: next record numbers
+
+00c7 - cc	Table: Record length for REL file
+00cd - d2	Table: Side sectors
+
+00d3		?
+
+00d4		Pointer in record for REL file
+00d5		Side sector number
+00d6		Pointer to data block in side sector
+00d7		Pointer to record in REL file
+
+00d8 - dc	Directory sectors
+00dd - e1	Index: Directory
+00e2 - e6	Default disk drive [00]
+00e7 - eb	File type (wild cards, @, closed)
+00ec - f1	File type (channel)
+00f2 - f7	Channel status
+00f8		Flag for EOI
+00f9		Current work (Buffer number)
+
+00fa - fe	Last used table
+00ff		Flag: FF = drive 0 not ready (No disk), 00 = ready
+0100		Flag: FF = drive 1 not ready (No disk), 00 = ready
+0101		Format marker, drive 0
+;		DOS version (from track 18 sector 0)
+
+0102		Format marker, drive 1
+0103		Not used
+0104 - ff	Stack area
+
+0146		?
+01ba		Buffer for GCR code
+
+0200 - 29 	Buffer for command string
+022a		Command code
+
+;022b - 2d	Array: Logical index (LINDX)
+;		Array of status bytes for each channel (secondary address)
+;		Possible values:
+;			FF = inactive
+;			81 = opened for writing
+;			41 = read/write
+;			01 = opened for reading
+
+022b		Logical index, channel 0
+022c		Logical index, channel 1
+022d		Logical index, channel 2
+
+022e - 43	Last read/written byte for each channel
+0244 - 49	Pointer: Last char on channel.
+;		Points to the last character read/written in buffer.
+
+024a		Type of active file
+024b		String length
+024c		Temp. channel number (secondary address)
+024d		Current work with drive number
+024e		Work area to find the best sector
+
+024f - 50	Buffer allocated
+0251		Flag: BAM changed, drive 0
+0252		Flag: BAM changed, drive 1
+0253		Flag for directory entry found (FF = Not found, 00 = Found)	DATA
+0254		Flag for directory output
+0255		Flag: Waiting for command
+0256		?
+0257		Last used buffer
+0258		Record length
+0259		Track of side sector
+025a		Sector of side sector
+
+025b - 5f	Last work (buffers)
+0260 - 65	Directory sector (buffers)
+0266 - 6b	File's index in directory (buffers)
+
+026c		Counter for LED flash
+;		Error Message
+
+026d		Error LED
+026e		Drive for last program
+026f		sector for last program
+0270		Write LINDX
+0271		Read LINDX
+
+0272 - 73	Number of blocks (temp)
+0274		Length of input line
+0275		Char to interpret
+0276		Index: End of filename in command buffer
+0277		?
+0278		Number of file names
+0279		?
+027a - 7f	Pointer table: Filenames
+0280 - 84	Track of a file
+0285 - 89	Sector of a file
+028a		Flag: wild cards
+028c		Number of drive(s ?) to look for
+028d		Flag: Looking for drive
+028e		drive with last write/open error, used as default drive
+028f		Flag: Found in directory
+0290		Directory sector
+0291		Sector for first available file
+0292		Index (in directory) for first available file
+0293		For the last directory entry 0
+0294		Current buffer-index
+0295		Counter: Files
+0296		Flag: Name matching wild cards
+0297		Active operating mode (R or W)
+0298		Flag: Work return
+0299		Pointer: Re-read error
+029a		Total tracks
+
+029b - 9c	Pointer: BAM last update
+029d - a0	BAM: image sector (drives 0 and 1)
+02a1 - b0	BAM image
+02b1 - d4	Buffer for directory output
+02d5 - f8	Buffer for error message
+
+02f9		Flag: Don't write BAM
+;		This flag is reset to zero before and after each command
+
+02fa - fb	Number of free blocks, low byte for drives 0 ja 1
+02fc - fd	Number of free blocks, hi byte for drives 0 ja 1
+02fe - ff	Stepper motor sequence
+
+0300		Buffer 0
+0400		Buffer 1
+0500		Buffer 2
+0600		Buffer 3
+0621 - 22	Formatting counter
+0700		Buffer 4
+07ff		End of RAM
+
+
+
+
+Layout of the I/O Ports (VIA 6522)
+==================================
+
+VIA 1: 6522, port for serial bus
+-------------------------------
+
+$1800	PB, port B
+$1801	PA, port A
+$1802	CB, data direction port B
+$1803	CA, data direction port A
+
+$1805	Timer
+
+    PB 7, CB2:	ATN IN
+    PB 6,5:	Device address preset switches
+    PB 4:	ATN acknowledge OUT
+    PB 3:	CLOCK OUT
+    PB 2:	CLOCK IN
+    PB 1:	DATA OUT
+    PB 0:	DATA IN
+
+
+VIA 2: 6522, port for motor and read/write head control
+------------------------------------------------------
+
+$1C00	PB, control port B
+$1C01	PA, port A (data to and from read/write head)
+$1C02	CB, data direction port B
+$1C03	CA, data direction port A
+
+
+    PB 7:	SYNC IN
+    PB 6,5:	Bit rate D1 and D0
+    PB 4:	WPS - Write Protect Sense (1 = On)
+    PB 3:	ACT - LED on drive
+    PB 2:	MTR - drive motor
+    PB 0,1:	step motor for head movement
+
+    CA 1:	Byte ready
+    CA 2:	SOE - Set Overflow Enable for 6502
+    CA 3:	read/write
+
+
+
+
+Disk Controller Routines
+========================
+
+This table contains the addresses and the assigned buffers:
+
+	JOB	TRACK  SECTOR	 BUFFER
+	00	  06	  07	  0300-03FF
+	01	  08	  09	  0400-04FF
+	02	  0A	  0B	  0500-05FF
+	03	  0C	  0D	  0600-06FF
+	04	  0E	  0F	  0700-07FF
+	05	  10	  11	  -no ram-
+
+If a disk controller routine is to be performed in the interrupt, one
+writes the job code and the track and sector numbers of the block to be
+processed (if necessary) in the appropriate memory locations. Now the
+job code can be passed. This job code has a value greater than 127 (the
+7th bit is set). In order to wait until the job is finished, only the
+seventh bit need be tested. If this bit is cleared, the job is completed.
+The disk controller can perform the following jobs:
+
+	JOB   NAME	DESCRIPTION
+	80    READ	Read sector
+	90    WRITE	Write sector
+	A0    VERIFY	Verify sector
+	B0    SEEK	Find sector
+	C0    BUMP	Bump, Find track 1
+	D0    JUMP	Execute program in buffer
+	E0    EXECUTE	Execute program, first switch drive on and find track
+
+The verify job (A0) is performed automatically after writing a blcok.
+
+If the job ends in an error then the memory location with job command
+code is replaced with and error code. Here is a list of the error numbers:
+
+	CODE	MEANING				DOS ERROR MESSAGE
+	01	Everything OK			00, OK
+	02	Header block not found		20, READ ERROR
+	03	SYNC not found			21, READ ERROR
+	04	Data block not found		22, READ ERROR
+	05	Checksum error in data block	23, READ ERROR
+	07	Verify error			25, WRITE ERROR
+	08	Disk write protected		26, WRITE PROTECT ON
+	09	Checksum error in header block	27, READ ERROR
+	0B	Id mismatch			29, DISK ID MISMATCH
+	0F	Disk not inserted		74, DRIVE NOT READY
+
+  Error codes 06 and 0A do not occur on the 1541.
+
+

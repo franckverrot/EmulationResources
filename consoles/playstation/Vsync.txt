@@ -1,0 +1,304 @@
+
+
+#ifndef NULL
+#define NULL ((void *)(0))
+#endif
+
+typedef unsigned short u_short;
+typedef unsigned long u_long;
+
+#define H0x1f801070 (*(u_short*)(0x1f801070))
+#define IntrMask    (*(u_long *)(0x1f801074))
+#define DmaMask     (*(u_long *)(0x1f8010f4))
+#define H_count     (*(u_long *)(0x1f801110))
+#define H0x1f801114 (*(u_long *)(0x1f801114))
+
+typedef struct {
+	char *RCSid;			/* 00 */
+	void (*dmaIntr)();		/* 04 */
+	void (*setIntr)();		/* 08 */
+	void (*startIntr)(void);	/* 0c */
+	void (*stopIntr)(void);		/* 10 */
+	void (*vsyncIntr)();		/* 14 */
+} INTR_CB_T;
+
+setIntr(int index, u_long callback);
+void startIntr(void);
+void stopIntr(void);
+
+static INTR_CB_T intrCallbacks = {
+	"$Id: intr.c,v 1.68 1995/07/11 08:45:01 suzu Exp $",
+	NULL,
+	setIntr,
+	startIntr,
+	stopIntr,
+	NULL
+};
+
+static INTR_CB_T *intrCB = &intrCallbacks;
+
+/* memclr(*ptr, size) -> size in WORDS */
+
+/* 0x8002ec34 */
+void ResetCallback(void)
+{
+	intrCB->startIntr();
+}
+
+/* 0x8002ec64 */
+void InterruptCallback(index, callback)
+{
+	intrCB->setIntr(index, callback);
+}
+
+/* 0x8002ec94 */
+void DMACallback(index, callback)
+{
+	intrCB->dmaIntr(index, callback);
+}
+
+/* 0x800????? */
+void VSyncCallback(callback)
+{
+	intrCB->vsyncIntr(0, callback);
+}
+
+/* 0x8002ecc4 */
+void VSyncCallbacks(index, callback)
+{
+	intrCB->vsyncIntr(index, callback);
+}
+
+/* 0x8002ecf4 */
+void StopCallback()
+{
+	intrCB->stopIntr();
+}
+
+/* 0x8002ed24 */
+int CheckCallback()
+{
+	return intrData.cback;
+}
+
+/* 0x8002ed38 */
+int GetIntrMask()
+{
+	return IntrMask;
+}
+
+/* 0x8002ed50 */
+int SetIntrMask(int mask)
+{
+	int old;
+
+	old = IntrMask;
+	IntrMask = mask;
+
+	return old;
+}
+
+/* 0x8002ed6c */
+void startIntr(void)
+{
+	if (!intrData.flag) {
+		EnterCriticalSection();
+	}
+	memclr(&intrData, 25);
+	if (setjmp(&intrData.jmp)) {
+		trapIntr();
+	}
+	intrData.flag = 1;
+	intrCB->vsyncIntr = startIntrVSync();
+	intrCB->dmaIntr = startIntrDMA();
+	_96_remove();
+	intrData.jmp[JB_SP] = &_0x8005aaec;	/* rescan */
+	HookEntryInt(&intrData.jmp);
+	ExitCriticalSection();
+}
+
+/* 0x8002ee2c */
+trapIntr()
+{
+	intrData.callback = 1;
+	while (s = (IntrMask & (intrData.mask & H0x1f801070))) {
+	}
+}
+
+/* 0x8002effc */
+setIntr(int index, u_long callback)
+{
+	u_short mask;
+
+	if (callback == intrData.callback[index] || !intrData.flag) {
+		return intrData.callback[index];
+	}
+	mask = IntrMask;
+	IntrMask = 0;
+	if (callback) {
+		intrData.callback[index] = callback;
+		mask |= (1 << index);
+		intrData.mask = (1 << index) | intrData.mask;
+	} else {
+		intrData.callback[index] = NULL;
+		mask &= ~(1 << index);
+		intrData.mask = ~(1 << index) & intrData.mask;
+	}
+	if (index == 4) {
+		ChangeClearRCnt(0, (callback == NULL));
+	}
+	if (index == 5) {
+		ChangeClearRCnt(1, (callback == NULL));
+	}
+	if (index == 6) {
+		ChangeClearRCnt(2, (callback == NULL));
+	}
+	IntrMask = mask;
+
+	return intrData.callback[index];
+}
+
+/* 0x8002f12c */
+void stopIntr(void)
+{
+	EnterCriticalSection();
+	memclr(&intrData, 25);
+	H0x1f801070 = 0;			/* u_short */
+	IntrMask = H0x1f801070;			/* u_short */
+	stopIntrVSync();
+	stopIntrDMA();
+	ResetEntryInt();
+	ExitCriticalSection();
+}
+
+/* 0x8002f228 */
+void startIntrDMA(void)
+{
+	memclr(&dmaData, 9);
+	DmaMask = 0;
+	InterruptCallback(3, trapIntrDMA);
+	dmaData.flag = 1;
+
+	return setIntrDMA;
+}
+
+/* 0x8002f28c */
+void stopIntrDMA(void)
+{
+	dmaData.flag = 0;
+	memclr(&dmaData, 9);
+	DmaMask = 0;
+	InterruptCallback(3, NULL);
+}
+
+/* 0x8002f2d4 */
+trapIntrDMA()
+{
+	while (s = (IntrMask >> 24) & 127) {
+		/* Real mess, i'll do it later */
+	}
+}
+
+/* 0x8002f438 */
+setIntrDMA(index, callback)
+{
+	int old;
+
+	if (callback == dmaData.callback[index] || !dmaData.flag) {
+		return dmaData.callback[index];
+	}
+	old = SetIntrMask(0);
+	if (callback) {
+		dmaData.callback[index] = callback;
+		DmaMask = (DmaMask & 0x00ffffff) | ((1 << (index + 16)) | 0x00800000);
+	} else {
+		dmaData.callback[index] = NULL;
+		DmaMask = ((DmaMask & 0x00ffffff) | 0x00800000) & ~(1 << (index + 16));
+	}
+	SetIntrMask(old);
+
+	return dmaData.callback[index];
+}
+
+/* 0x8002f684 */
+void startIntrVSync(void)
+{
+	H0x1f801114 = 0x0107;
+	ChangeClearPad(0);
+	ChangeClearRCnt(3, 0);
+	memclr(&vsyncData, 2);
+	InterruptCallback(0, trapIntrVSync);
+	vsyncData.flag = 1;
+
+	return setIntrVSync;
+}
+
+/* 0x8002f6fc */
+stopIntrVSync()
+{
+	vsyncData.flag = 0;
+	memclr(&vsyncData, 2);
+	InterruptCallback(0, NULL);
+}
+
+/* 0x8002f734 */
+trapIntrVSync()
+{
+	Vcount++;
+	if (vsyncData.intr) {
+		return (*vsyncData.intr)();
+	}
+
+	return Vcount;
+}
+
+/* 0x8002f780 */
+setIntrVSync(vsync)
+{
+	int old;
+
+	if (vsyncData.flag && vsync != vsyncData.intr) {
+		old = vsyncData.intr;
+		vsyncData.intr = vsync;
+	}
+
+	return old;
+}
+
+/* 0x8002f7e4 */
+VSync(count)
+{
+	s0 = H0x1f801814;		/* latch read ? */
+	s1 = H_count - Hcount;
+	if (count < 0) {
+		return Vcount;
+	}
+	if (count == 1) {
+		return s1;
+	}
+	v_wait( count > 0 ? (oldVcount - 1) + count : oldVcount,
+		count > 0 ? 0 : count - 1);
+	s0 = H0x1f801814;
+	v_wait(Vcount - 1, 1);
+	if (s0 & 0x00080000 && s0 ^ H0x1f801814) {	/* rescan */
+		while ((s0 ^ H0x1f801814) & 0x80000000) ;
+	}
+	oldVcount = Vcount;
+	Hcount = H_count;
+
+	return s1;
+}
+
+v_wait(a0, a1)
+{
+	a1 <<= 15;
+	while (Vcount < a0) {
+		a1--;
+		if (a1 == -1) {
+			puts("VSync: timeout\n");
+			ChangeClearPad(0);
+			ChangeClearRCnt(3, 0);
+			break;
+		}
+	}
+}

@@ -1,0 +1,122 @@
+Date: 04/10/02
+Auteur(et traduction): LXS root@dev-fr.com
+Merci: contributions sur mailing-listes et manuel SH4
+
+
+Liste des registres du hardware de la Dreamcast:
+================================================
+(trouvé en traçant la librairie...peut-être pas correct à 100%)
+
+-=-=-=-=- Vidéo -=-=-=-=-
+
+Base des Registres Video @ 0xA05F800
+
+0xA05F 8040.L -> Couleur de Bordure
+
+0xA05F 810C.L -> Compteur HBL
+
+-=-=-=-=- SH4 -=-=-=-=-
+
+0xFF000038 -> Adresse de contrôle de la file de stockage, registre 0
+
+0xFF00003C -> Adresse de contrôle de la file de stockage, registre 1
+
+f0*b0+f1*b1+f2*b2+f3*b3->f0
+
+4 fmul + 3 fadd = 1 cycle
+
+16 fmul + 12 fadd = 4 cycles
+
+Les accès aux membres des structures <60 bytes sont 2/1 (byte/cycle)
+
+-=-=-=-=- Memory Map -=-=-=-=-
+
+Adrr Début- Addr Fin  Type             Taille d'accès Type d'accès
+
+0000 0000 - 03FF FFFF Periph Systèmes  1-4            RW
+
+0400 0000 - 07FF FFFF Mémoire texture  4-32           RW
+
+0C00 0000 - 0CFF FFFF Mémoire système  4-32           RW
+
+1000 0000 - 107F FFFF Accél. de Tuiles 32             W
+
+1080 0000 - 11FF FFFF Mémoire Texture  32             W
+
+1400 0000 - 17FF FFFF Périphériques G2 1-4            RW
+
+1C00 0000 - 1FFF FFFF Registres de contrôle SH4
+
+8C00 0000 - 8CFF FFFF Mémoire système (mmu on)
+
+A000 0000 Adresse du vecteur pour reset/boot,etc...
+
+A05F 8040 Couleur de Bordure           4
+
+A05F 810C Compteur HBL                 4
+
+
+AC00 0000 - ACFF FFFF Mémoire sysème (non cachable)
+
+E000 0000 - E3FF FFFF Zone d'adresses de la file de stockage
+
+FF00 0000 PTEH Registre haut d'entrée de table de page
+
+FF00 0004 PTEL Registre bas d'entrée de table de page
+
+FF00 0008 TTB Registre de base de table de traduction
+
+FF00 000C TEA TLB registre d'adresse d'exception
+
+FF00 0010 MMUCR registre de contrôle MMU
+
+FF00 001C CCR registre de contrôle de Cache
+
+FF00 0020 TRA TRAPA registre d'exception
+
+FF00 0024 EXPEVT Regisre d'évènement d'exception
+
+FF00 0028 INTEVT Registre d'évènement d'interruption
+
+FF00 0034 PTEA Page table entry assistance register
+
+FF00 0038 QACR0 Adresse de contrôle de la file de stockage, registre 0
+
+FF00 003C QACR1 Adresse de contrôle de la file de stockage, registre 1
+
+============================================================
+
+Il y a 3 registres en relation avec les prises en charge des exceptions.
+Ceux-ci sont assignés à la mémoire, et peuvent être consultés en indiquant l'adresse P4 ou l'adresse du secteur 7.
+
+EXPEVT:
+=======
+Le registre d'évenements d'exception (EXPEVT) réside à l'adresse P4 H'FF00 0024, et contient un code d'exception de 12 bits.
+
+Les codes d'exception dans EXPEVT sont ceux pour une remise à zéro ou un événement général d'exception. 
+
+Le code d'exception est placé automatiquement par le matériel quand une exception se produit. 
+
+EXPEVT peut aussi être modifié par le logiciel.
+
+
+INTEVT:
+=======
+Le registre d'évènements d'interruption (INTEVT) réside à l'adresse P4H'FF00 0028, et contient un code d'exception de 12 bits.
+
+Les codes d'exception dans INTEVT est celle d'une requête d'interruption.
+
+Le code d'exception est placé automatiquement par le matériel quand une interruption se produit. 
+
+INTEVT peut aussi être modifié par le logiciel.
+
+TRA:
+====
+
+Le registre d'exception TRAPA (TRA) résides à l'adresse H'FF00 0020, et contient une donnée immédiate sur 8 bits (imm) pour l'instruction TRAPA.
+
+TRA est placé automatiquement par le matériel quand une instruction TRAPA est exécutée. 
+
+TRA peut aussi être modifié par le logiciel.
+
+=============================

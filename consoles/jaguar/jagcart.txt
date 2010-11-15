@@ -1,0 +1,512 @@
+
+
+
+# -------------------------------------------------------------------
+# CARTRIDGE/SERVER                      (c) Copyright 1996 Nat! & KKP
+# -------------------------------------------------------------------
+# These are some of the results/guesses that Klaus and Nat! found
+# out about the Jaguar with a few helpful hints by other people, 
+# who'd prefer to remain anonymous. Thanks go to marz@haari.mayn.de
+# for the pinout info.
+#
+# Since we are not under NDA or anything from Atari we feel free to 
+# give this to you for educational purposes only.
+#
+# Please note, that this is not official documentation from Atari
+# or derived work thereof (both of us have never seen the Atari docs)
+# and Atari isn't connected with this in any way.
+#
+# Please use this informationphile as a starting point for your own
+# exploration and not as a reference. If you find anything inaccurate,
+# missing, needing more explanation etc. by all means please write
+# to us:
+#    nat@zumdick.rhein-main.de
+# or
+#    kkp@gamma.dou.dk
+#
+# If you could do us a small favor, don't use this information for
+# those lame flamewars on r.g.v.a or the mailing list.
+#
+# HTML soon ?
+# -------------------------------------------------------------------
+# $Id: cartridge.html,v 1.11 1997/03/30 02:27:12 nat Exp $
+# -------------------------------------------------------------------
+
+
+
+(Totally lacking at the moment!) 
+
+Here's how to access the cartridge and its EEPROM as well as the Jaguar Server Cartridge. 
+Actually when we say cartridge we mean the cartridge connector of the jag. 
+Note that to access the memory mapped cartridge, you seem to need to do 32 bit accesses. 
+
+
+
+
+
+
+
+Jaguar Server
+=============
+
+This is the protocol found on the BOOT ROM of your jaguar server
+"cartridge". The protocol used in the current JAGOS.BIN is a bit
+more extensive (noted with *)
+
+Its a kind of handshaking protocol that looks like this (and starts 
+with reset):
+
+reset():
+~~~~~~~
+   Server:     sends garbage (except $FF)
+   Jaguar:     ignores garbage 
+   Server:     $FF
+   Jaguar:     'O' 'K'
+   Jaguar:     next_command()
+
+
+next_command():
+~~~~~~~~~~~~~~~
+   Server:     sends garbage (except $0-$7)
+   Jaguar:     ignores garbage
+   Server:     A number from 0 to 7 (11)  MSB LSB  (16 bit!!)
+   Jaguar:     0: send_ok_to_host
+               1: copy_to_host
+               2: copy_from_host
+               3: copy_from_host_and_go
+               4: send_version_to_host
+               5: reset
+               6: test_FF
+               7: jsr_to
+               8: send_rom_type_to_host   (*)
+               9: clear_memory            (*)
+              10: nop                     (*)
+              11: send_eeprom_to_host     (*)
+
+
+send_ok_to_host()
+~~~~~~~~~~~~~~~~~
+   Jaguar:     'O' 'K'
+   Jaguar:     next_command()
+
+
+copy_to_host()
+~~~~~~~~~~~~~~
+   Server:     address              MSB NSB ISB LSB
+   Server:     length               MSB NSB ISB LSB
+   Jaguar:     sends [length] bytes from [address]
+   Jaguar:     next_command()
+
+
+copy_from_host():
+~~~~~~~~~~~~~~~~
+   Server:     address              MSB NSB ISB LSB
+   Server:     length               MSB NSB ISB LSB
+   Jaguar:     receives [length] bytes into [address] 
+   Jaguar:     next_command()
+
+
+copy_from_host_and_go()
+~~~~~~~~~~~~~~~~~~~~~~~
+   Server:     address              MSB NSB ISB LSB
+   Server:     length               MSB NSB ISB LSB
+   Server:     run-address          MSB NSB ISB LSB
+   Jaguar:     receives [length] bytes into [address]
+   Jaguar:     (*run-address)()     ;; JSR
+   Jaguar:     next_command()
+   
+   
+send_version_to_host()
+~~~~~~~~~~~~~~~~~~~~~~
+   Jaguar:     version number       MSB NSB ISB LSB  ;; ASCII
+   Jaguar:     next_command()
+
+
+will be 'B001' or somesuch for the BOOT ROM,
+will be '1.08' or somesuch for the downloaded JAGOS.BIN
+
+
+test_FF():
+~~~~~~~~~
+   Server:     sends garbage (except $FF)
+   Jaguar:     sends garbage back
+   Server:     $FF
+   Jaguar:     next_command()
+
+
+jsr_to():
+~~~~~~~~
+   Server:     run-address          MSB NSB ISB LSB
+   Jaguar:     (*run-address)()     ;; JSR
+   Jaguar:     next_command()
+
+
+send_rom_type_to_host()
+~~~~~~~~~~~~~~~~~~~~~~~
+   Jaguar:     either 'E' 'R' or 'D' 'R'     ; ER means Server EPROM
+   Jaguar:     next_command()
+
+
+clear_memory()
+~~~~~~~~~~~~~~
+   Server:     start-address              MSB NSB ISB LSB
+   Server:     end-address (exclusive)    MSB NSB ISB LSB
+   Jaguar:     clears [length] bytes from [address]
+   Jaguar:     'C' 'O'
+   Jaguar:     next_command()
+
+
+send_eeprom_to_host():
+~~~~~~~~~~~~~
+   Server:     dummy word
+   Jaguar:     reads EEPROM
+   Jaguar:     send $0000 on success, $0001 on failure  (MSB LSB)
+   Jaguar:     on success sends also 128 bytes of EEPROM data
+   Jaguar:     next_command()
+
+
+nop():
+~~~~~
+   Jaguar:     next_command()
+
+
+
+
+SERVER INTERFACE :
+==================
+
+R: SERVSTAT ($E1FD00)
+~~~~~~~~~~~~~~~~~~~~~
+  8        4        0
+  +--------^----+----+
+  |     unused  | st |
+  +-------------+----+
+                 1..0
+   status (st):
+      bit 0:   read possible  (1: yes  0:no)
+      bit 1:   write possible (1: no   0:yes)
+
+
+R: SERVREAD ($E1FE00)
+~~~~~~~~~~~~~~~~~~~~~
+  8        4         0
+  +--------^---------+
+  |       byte       |
+  +------------------+
+
+   byte: 
+      get the next byte in the stream
+      e.g.
+
+read_byte:       
+.wait:            BTST      #0,SERVSTAT
+                  BEQ.B     .wait
+
+                  MOVE.B    SERVREAD,D0 
+
+
+R: SERVWRITE ($E1FF00-$E1FFFF)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  8        4         0
+  +--------^---------+
+  |       byte       |
+  +------------------+
+
+   byte: 
+      write a byte into the steam, by reading from the address, whose
+      lower 8 bytes matches your data byte.
+      e.g.
+
+write_byte:       
+                  MOVEA.L   #SERVWRITE,A0 
+.wait:            BTST      #1,SERVSTAT
+                  BNE.B     .wait
+                  MOVE.B    0(A0,D0.W),D0
+
+
+
+Cartridge
+=-=-=-=-=
+
+This is the pinout of the cartridge:
+
+Pin     ROW A                           ROW B
+--------------------------------------------------------------
+1       A10     ...................     GND
+        A9                              GND
+        A11                             A23
+        A8                              A22
+5       A12     ...................     A21
+        A7                              A20
+        A13                             A19
+        A6                              GND
+        A14                             n.c.?
+10      A5      ...................     GND
+        A15                             n.c.?
+        A4                              GND
+        N/A                             N/A
+        N/A                             N/A
+15      A16     ...................     CPU Pin x
+        A3                              CPU Pin x
+        A17                             68000 HALT
+        A2                              CPU Pin 53
+        A18                             RAM U23 Pin 12
+20      CPU CE (U1..U4) Pin 57   ..     RAM U24 Pin 12
+        GND                             68000 R/W
+        D15                             CPU OE(LowWORD)
+        D0                              CPU OE(HighWORD)
+        D7                              GND
+25      D8      ...................     DSP Pin ?
+        D14                             DSP Pin ?
+        D1                              +10V (DIRECT)
+        D6                              n.c.
+        D9                              GND
+30      D13     ...................     n.c.
+        D2                              DSP Pin ?
+        D5                              GND
+        D10                             68000 RESET
+        D12                             CARD INSERT A
+35      D3      ...................     CARD INSERT B
+        D4                              VCC
+        D11                             VCC
+        VCC                             ?
+        D31                             n.c.
+40      D16     ...................     EEPROM SERIAL DATA/STATUS
+        D23                             n.c.
+        D24                             EEPROM CLOCK
+        D30                             EEPROM SELECT
+        D17                             DSP Pin ?
+45      D22     ...................    *DSP Pin ?
+        D25                             DSP Pin ?
+        D29                             DSP Pin ?
+        D18                             DSP Pin ?
+        D21                             DSP Pin ?
+50      D26     ...................     DSP Pin ?
+        D28                             GND
+        D19                             68000 CLOCK 13.295453MHz
+        D20                             GND
+54      D27     ...................     GND
+
+
+And here is the pinout of the 42-leg ROM IC. 
+
+               ----u----
+      A18    1=|       |=42   VCC?
+      A17    2=|       |=41   A 8
+      A 7    3=|       |=40   A 9
+      A 6    4=|       |=39   A10
+      A 5    5=|       |=38   A11
+      A 4    6=|       |=37   A12
+      A 3    7=|       |=36   A13
+      A 2    8=|       |=35   A14
+      A 1    9=|       |=34   A15
+      A 0   10=|       |=33   A16
+      !CE   11=|       |=32   !BYTE
+      GND   12=|       |=31   GND
+      !OE   13=|       |=30   D15
+      D 0   14=|       |=29   D 7
+      D 8   15=|       |=28   D14
+      D 1   16=|       |=27   D 6
+      D 9   17=|       |=26   D13
+      D 2   18=|       |=25   D 5
+      D10   19=|       |=24   D12
+      D 3   20=|       |=23   D 4
+      D11   21=|       |=22   VCC
+               ---------
+
+
+
+
+EEPROM:
+~~~~~~~
+
+The EEPROM has 128 bytes, which is organized as 64 16 bit words.
+Each cell is addressed by a number from $00 to $3F
+
+Access to the EEPROM is done though a serial (bitwise) channel.
+When writing or reading to the EEPROM, you need to address the word
+first that you want to write. The communication on the bit channels
+is most significant bit first:
+
+
+The protocol for reading is something like this:
+
+o     read from EEPROM_WRITE to indicate that you want to write (sic!)
+      something to the EEPROM
+
+o     send 9 bits to the EEPROM in the following format
+
+         <- 1 1 0 n5 n4 n3 n2 n1 n0
+
+      where n is the index of the cell you wanna read (MSB first)
+
+then do the following 16 times
+o     read from EEPROM_READ to indicate that you want to read (sic!)
+      something from the EEPROM
+      then get a bit of information from the EEPROM-RDATA   
+
+
+The protocol for writing is something like this (????, probably NOT)
+
+o     read from EEPROM_WRITE to indicate that you want to write 
+      something to the EEPROM
+
+o     send 9 bits to the EEPROM in the following format
+
+         <- 1 0 1 n n n n n n
+
+      where n is the index of the cell you wanna write (MSB first)
+
+then do the following 16 times
+o     read from EEPROM_WRITE to indicate that you want to read (sic!)
+      something from the EEPROM
+      then write a bit of your data into EEPROM-WDATA
+
+
+The EEPROM is a little bit slow at providing and receiving the data, 
+so with the 68000 you should put in an a few NOPs between accesses.
+
+Here's a little routine to read out the EEPROM and store it into A0
+
+read_eeprom:      
+                  CLR.W     D1               ; cell counter
+                  CLR.W     D2               ; chksum counter
+
+.copy:            JSR       eeprom_r_word 
+                  ADD.W     D0,D2 
+                  MOVE.W    D0,(A0)+         ; copy into bufffer
+                  ADDQ.W    #1,D1 
+                  CMP.W     #$3F,D1          ; do 0 to $3E
+                  BLT.B     .copy 
+
+                  EORI.W    #$FFFF,D2        ; calc checksum
+                  BSR       eeprom_r_word    ; compare with last cell
+                  CMP.W     D0,D2            ; OK ?
+                  BNE       .checksum_err    
+                  MOVEQ     #0,D0 
+                  RTS
+
+.checksum_err:    MOVEQ     #-1,D0 
+                  RTS 
+
+
+
+eeprom_r_word:    MOVEM.L   A0/D1-D3,-(A7)
+
+                  ORI.W     #$180,D1         ;; set prepare to read bits
+                  MOVE.W    D1,D2            ;; and write it out
+                  BSR       eeprom_w_9bit
+         
+                  MOVEQ     #0,D0 
+                  MOVEQ     #$F,D2           ;; do 16 bits
+.readbit:         TST.W     EEPROM_READ
+                  NOP 
+                  MOVE.W    EEPROM_RDATA,D1 
+                  LSR.W     #1,D1            ;; get LSB into X
+                  ADDX.W    D0,D0            ;; shift left and add X
+                  NOP 
+                  NOP 
+                  NOP 
+                  NOP 
+                  NOP 
+                  NOP 
+                  DBF       D2,.readbit 
+                  MOVEM.L   (A7)+,A0/D1-D3
+                  RTS 
+
+
+eeprom_w_16bit:   
+                  MOVEQ     #$F,D3           ;; wanna do 16 bits
+                  BRA.B     _writebit
+        
+eeprom_w_9bit:    ROL.W     #7,D2            ;; move 9th bit into MSB
+                  MOVEQ     #8,D3            ;; wanna do 9 bits
+
+_writebit:        TST.W     EEPROM_WRITE     ;; prepare for write
+                  ROL.W     #1,D2            ;; get MSB into LSB
+                  MOVE.W    D2,EEPROM_WDATA  ;; write it down 
+                  NOP                        
+                  NOP 
+                  NOP 
+                  NOP 
+                  NOP 
+                  DBF       D3,_writebit
+                  RTS 
+
+
+R: EEPROM_WRITE   $(F15000)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  16        12         8         4         0
+   +---------^---------+---------^---------+
+   |                                       | 
+   +---------------------------------------+
+
+   Just read from this register to set the
+   EPROM to writing state (?)
+
+
+R: EEPROM_RMODE   $(F14800)    
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  16        12         8         4         0
+   +---------^---------+---------^---------+
+   |                                       | 
+   +---------------------------------------+
+
+   Just read from this register to set the
+   EPROM to reading state (?)
+
+
+W: EEPROM_WDATA   (F14800)  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  16        12         8         4      1  0
+   +---------^---------+---------^------+--+
+   |          unused                    |b | 
+   +------------------------------------+--+
+       15..............................1  0
+
+   After setting the EEPROM to write mode, you can
+   serially toggle in the bits from this register.
+
+
+R: EEPROM_RDATA   (F14000)  Same as JOYSTICK!!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  16        12         8         4      1  0
+   +---------^---------+---------^------+--+
+   |          unused                    |b | 
+   +------------------------------------+--+
+       15..............................1  0
+
+   After setting the EEPROM to read mode, you can
+   serially toggle out the bits from this register.
+
+
+
+
+Atari Boot ROM
+=-=-=-=-=-=-=-=
+
+Supposedly there's no JAGPEG code in the bootroms, because Atari wasn't
+able to finish it on time.
+
+
+
+Discussion:
+~~~~~~~~~~~
+   EEPROM:
+      Its strange that you would use different addressing modes for
+      writing to a cell _and_ need to set different "READY" registers.
+      I think I have a misunderstanding somewhere.
+
+
+
+
+
+------------------------------------------------------------------------
+Nat! (nat@zumdick.rhein-main.de)
+Klaus (kkp@gamma.dou.dk)
+
+
+
+
+$Id: cartridge.html,v 1.11 1997/03/30 02:27:12 nat Exp $ 
+

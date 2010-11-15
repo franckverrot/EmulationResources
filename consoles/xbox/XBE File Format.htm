@@ -1,0 +1,2191 @@
+<html>
+  <head>
+    <style type="text/css">
+    <!--
+      a:link    { color: #000000; face:verdana;}
+      a:visited { color: #000000; face:verdana;}
+      a:hover   { color: #8888FF; face:verdana;}
+    -->
+    </style>
+    <title>.XBE File Format</title>
+  </head>
+  <body bgcolor=#ffffff>
+  <font face="verdana, helvetica">
+    <font color=#000044 size=+2>
+      <center>
+        .XBE File Format 1.1<br>
+      </center>
+    </font>
+    <font color=#000044 size=-1>
+      <center>
+        <br>
+        XBox Executable Documentation by Caustik (caustik@caustik.com)<br>
+        <br>
+      </center>
+    </font>
+    <p align="justify">
+    <font color=#000000 size=-1 face="verdana, helvetica">
+    This document is, afaik, the most precise .XBE documentation out there 
+    (other than official Microsoft documentation). The reason for this is
+    the simple fact that I have done a lot of work with this type of file,
+    and I am very familiar with the format. .XBE files are very similar to
+    .EXE, so you won't have much of a problem using them if you have any sort
+    of experience with .EXE files. Well, here we go..
+    <br>
+    <br>
+    <font color=#AA0000><b>Note</b>: The author of this document is not responsible
+    for anything you do with this information. This information is solely for
+    entertainment purposes, and the author does not condone any illegal goals you may
+    decide to use this information to achieve.<br></font>
+    <br>
+    <center>|&nbsp;<a href="#XBEImageHeader">Image&nbsp;Header</a>&nbsp;|&nbsp;<a href="#XBECertificate">Certificate</a>&nbsp;|&nbsp;<a href="#XBESectionHeader">Section&nbsp;Header</a>&nbsp;|&nbsp;<a href="#XBELibraryVersion">Library&nbsp;Version</a>&nbsp;|&nbsp;<a href="#XBETLS">TLS</a>&nbsp;|&nbsp;<a href="#XBELogoBitmap">Logo&nbsp;Bitmap</a>&nbsp;|&nbsp;<a href="#XBECSource">C&nbsp;Source</a>&nbsp;|</center>
+    </font>
+    </p>
+    <!-- XBEImageHeader -->
+    <a name="#XBEImageHeader"></a>
+    <table align="center" width=95% cellspacing=0 cellpadding=3 border=1 bordercolor=#AAAAAA>
+      <tr>
+        <td align="center" bgcolor=#000000 colspan=4>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            .XBE Image Header
+          </font>
+        </td>
+      </tr>
+      <tr valign="top">
+        <td align="left" width=225 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Field Name
+          </font>
+        </td>
+        <td align="left" bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Description
+          </font>
+        </td>
+        <td align="right" width=40 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Size
+          </font>
+        </td>
+        <td align="right" width=40 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Offset
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0000 - Size: 0x0004 - Field: Magic Number-->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Magic Number
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            This field must always equal 0x48454258 ("XBEH")
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0000
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0004 - Size: 0x00FF - Field: Digital Signature -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Digital Signature
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            256 Bytes. This is where a game is signed. Only on officially signed games is this field worthwhile.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0100
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0104 - Size: 0x0004 - Field: Base Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Base Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address at which to load this .XBE. Typically this will be 0x00010000.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0104
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0108 - Size: 0x0004 - Field: Size of Headers -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Size of Headers
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Number of bytes that should be reserved for headers.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0108
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x010C - Size: 0x0004 - Field: Size of Image -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Size of Image
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Number of bytes that should be reserved for this image.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x010C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0110 - Size: 0x0004 - Field: Size of Image Header -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Size of Image Header
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Number of bytes that should be reserved for image header.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0110
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0114 - Size: 0x0004 - Field: TimeDate -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            TimeDate
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Time and Date when this image was created. Standard windows format.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0114
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0118 - Size: 0x0004 - Field: Certificate Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Certificate Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to a <a href="#XBECertificate">Certificate</a> structure, after the .XBE is loaded into memory.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0118
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x011C - Size: 0x0004 - Field: Number of Sections -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Number of Sections
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Number of sections contained in this .XBE.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x011C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0120 - Size: 0x0004 - Field: Section Headers Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Section Headers Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to an array of <a href="#XBESectionHeader">SectionHeader</a> structures, after the .XBE is loaded into memory.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x011C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0124 - Size: 0x0004 - Field: Initialization Flags -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Initialization Flags
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Various flags for this .XBE file. Known flags are:<br>
+            <br>
+            <font face="lucida console, courier new">
+              &nbsp;&nbsp;MountUtilityDrive&nbsp;&nbsp;= 0x00000001<br>
+              &nbsp;&nbsp;FormatUtilityDrive&nbsp;= 0x00000002<br>
+              &nbsp;&nbsp;Limit64Megabytes &nbsp;&nbsp;= 0x00000004<br>
+              &nbsp;&nbsp;DontSetupHarddisk &nbsp;= 0x00000008<br>
+            </font>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0124
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0128 - Size: 0x0004 - Field: Entry Point -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Entry Point
+          </font>
+        </td>
+        <td align="left">
+          <p align="justify">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to the Image entry point, after the .XBE is loaded into memory. This is where execution starts.<br>
+            <br>
+            This value is encoded with an XOR key.
+            Considering this is far too weak to be considered security, I assume this XOR is a clever
+            method for discerning between Debug/Retail .XBE files without adding another field to the
+            .XBE header. The XOR key is dependant on the build:<br>
+            <br>
+            &nbsp;&nbsp;Debug = 0x94859D4B, Retail = 0xA8FC57AB<br>
+            <br>
+            To encode an entry point, you simply XOR the real entry point with either Debug or Retail key,
+            depending on if you want the XBox to see this as a Debug or Retail executable.<br>
+            <br>
+            To decode an entry point, you XOR with the debug key, then check if it is a valid
+            entry point. If it is not, then you try again with the retail key.<br>
+            <br>
+            <font color="#AA000"><b>Note</b>: The Kernel Image Thunk Address member of this header must also be encoded as described later in this document.</font>
+          </font>
+          </p>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0128
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x012C - Size: 0x0004 - Field: TLS Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            TLS Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to a <a href="#XBETLS">TLS</a> (Thread Local Storage) structure.<br>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x012C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0130 - Size: 0x0004 - Field: PE Stack Commit -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            PE Stack Commit
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Copied from the PE file this .XBE was created from.<br>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0130
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0134 - Size: 0x0004 - Field: PE Heap Reserve -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            PE Heap Reserve
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Copied from the PE file this .XBE was created from.<br>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0134
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0138 - Size: 0x0004 - Field: PE Heap Commit -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            PE Heap Commit
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Copied from the PE file this .XBE was created from.<br>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0138
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x013C - Size: 0x0004 - Field: PE Base Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            PE Base Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Copied from the PE file this .XBE was created from.<br>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x013C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0140 - Size: 0x0004 - Field: PE Size of Image -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            PE Size of Image
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Copied from the PE file this .XBE was created from.<br>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0140
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0144 - Size: 0x0004 - Field: PE Checksum -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            PE Checksum
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Copied from the PE file this .XBE was created from.<br>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0144
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0148 - Size: 0x0004 - Field: PE TimeDate -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            PE TimeDate
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Copied from the PE file this .XBE was created from.<br>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0148
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x014C - Size: 0x0004 - Field: Debug PathName Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Debug PathName Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to the debug pathname (i.e. "D:\Nightlybuilds\011026.0\code\build\xbox\Release\simpsons.exe")<br>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x014C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0150 - Size: 0x0004 - Field: Debug FileName Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Debug FileName Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to the debug filename (i.e. "simpsons.exe")<br>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0150
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0154 - Size: 0x0004 - Field: Debug Unicode FileName Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Debug Unicode FileName Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to the debug unicode filename (i.e. L"simpsons.exe")<br>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0154
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0158 - Size: 0x0004 - Field: Kernel Image Thunk Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Kernel Image Thunk Address
+          </font>
+        </td>
+        <td align="left">
+          <p align="justify">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to the Kernel Image Thunk Table, after the .XBE is loaded into memory. This is how .XBE files import kernel functions and data.<br>
+            <br>
+            This value is encoded with an XOR key.
+            Considering this is far too weak to be considered security, I assume this XOR is a clever
+            method for discerning between Debug/Retail .XBE files without adding another field to the
+            .XBE header. The XOR key is dependant on the build:<br>
+            <br>
+            &nbsp;&nbsp;Debug = 0xEFB1F152, Retail = 0x5B6D40B6<br>
+            <br>
+            To encode a kernel thunk address, you simply XOR the real address with either Debug or Retail key,
+            depending on if you want the XBox to see this as a Debug or Retail executable.<br>
+            <br>
+            To decode a kernel thunk address, you XOR with the debug key, then check if it is a valid
+            address. If it is not, then you try again with the retail key.<br>
+            <br>
+            The Kernel Thunk Table itself is simply an array of pointers to Kernel imports. There are 366 possible imports,
+            and the table is terminated with a zero dword (0x00000000). Typically the values in this table can
+            be generated with the following formula:<br>
+            <br>
+            &nbsp;&nbsp;KernelThunkTable[v] = ImportThunk + 0x80000000;<br>
+            <br>
+            so, for example, the import PsCreateSystemThreadEx, which has a thunk value of 255 (0xFF) would be...<br>
+            <br>
+            &nbsp;&nbsp;KernelThunkTable[v] = 0xFF + 0x80000000; // (0x800000FF)<br>
+            <br>
+            When the .XBE is loaded by the OS (or the CXBX Emulator), all kernel imports are replaced by a valid function
+            or data type address. In the case of CXBX, the import table entry at which (KernelThunkTable[v] & 0x1FF == 0xFF) will be replaced
+            by &cxbx_PsCreateSystemThreadEx (which is a wrapper function).<br>
+            <br>
+            <font color="#AA000"><b>Note</b>: The Entry Point member of this header must also be encoded as described earlier in this document.</font>
+          </font>
+          </p>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0158
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x015C - Size: 0x0004 - Field: Non-Kernel Import Directory Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Non-Kernel Import Directory Address
+          </font>
+        </td>
+        <td align="left">
+          <p align="justify">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to the Non-Kernel Import Directory. It is typically safe to set this to zero.<br>
+          </font>
+          </p>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x015C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0160 - Size: 0x0004 - Field: Number of Library Versions -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Number of Library Versions
+          </font>
+        </td>
+        <td align="left">
+          <p align="justify">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Number of Library Versions pointed to by Library Versions Address.<br>
+          </font>
+          </p>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0160
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0164 - Size: 0x0004 - Field: Library Versions Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Library Versions Address
+          </font>
+        </td>
+        <td align="left">
+          <p align="justify">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to an array of <a href="#XBELibraryVersion">LibraryVersion</a> structures, after the .XBE is loaded into memory.<br>
+          </font>
+          </p>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0164
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0168 - Size: 0x0004 - Field: Kernel Library Version Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Kernel Library Version Address
+          </font>
+        </td>
+        <td align="left">
+          <p align="justify">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to a <a href="#XBELibraryVersion">LibraryVersion</a> structure, after the .XBE is loaded into memory.<br>
+          </font>
+          </p>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0168
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x016C - Size: 0x0004 - Field: XAPI Library Version Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            XAPI Library Version Address
+          </font>
+        </td>
+        <td align="left">
+          <p align="justify">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to a <a href="#XBELibraryVersion">LibraryVersion</a> structure, after the .XBE is loaded into memory.<br>
+          </font>
+          </p>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x016C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0170 - Size: 0x0004 - Field: Logo Bitmap Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Logo Bitmap Address
+          </font>
+        </td>
+        <td align="left">
+          <p align="justify">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to the Logo Bitmap (Typically a "Microsoft" logo). The format of this image is described <a href="#LogoBitmap">here</a>. This field can be set to zero, meaning there is no bitmap present.<br>
+          </font>
+          </p>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0170
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0174 - Size: 0x0004 - Field: Logo Bitmap Size -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Logo Bitmap Size
+          </font>
+        </td>
+        <td align="left">
+          <p align="justify">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Size (in bytes) of the Logo Bitmap data. The format of this image is described <a href="#LogoBitmap">here</a>.<br>
+          </font>
+          </p>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0174
+          </font>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <br>
+    <!-- XBECertificate -->
+    <a name="#XBECertificate"></a>
+    <table align="center" width=95% cellspacing=0 cellpadding=3 border=1 bordercolor=#AAAAAA>
+      <tr>
+        <td align="center" bgcolor=#000000 colspan=4>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            .XBE Certificate
+          </font>
+        </td>
+      </tr>
+      <tr valign="top">
+        <td align="left" width=225 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Field Name
+          </font>
+        </td>
+        <td align="left" bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Description
+          </font>
+        </td>
+        <td align="right" width=40 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Size
+          </font>
+        </td>
+        <td align="right" width=40 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Offset
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0000 - Size: 0x0004 - Field: Size of Certificate -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Size of Certificate
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Number of bytes that should be reserved for this certificate.<br>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0000
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0004 - Size: 0x0004 - Field: TimeDate -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            TimeDate
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Time and Date when this certificate was created. Standard windows format.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0008 - Size: 0x0004 - Field: Title ID -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Title ID
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Title ID for this application. This field doesn't appear to matter with unsigned code, so it can be set to zero.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0008
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x000C - Size: 0x0050 - Field: Title Name -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Title Name
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Title name for this application (i.e. L"The Simpsons Road Rage"). This buffer contains enough room for 40 Unicode characters.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0050
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x000C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x005C - Size: 0x0040 - Field: Alternate Title IDs -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Alternate Title IDs
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Alternate Title IDs (16 4-byte DWORDs) for this certificate. These do not appear to matter with unsigned code (or signed code, for that matter), so they can all be set to zero.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0040
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x005C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x009C - Size: 0x0004 - Field: Allowed Media -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Allowed Media
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            <font face="lucida console, courier new">
+            Allowed media types for this .XBE. The following values are known:<br>
+            <br>
+            #define XBEIMAGE_MEDIA_TYPE_HARD_DISK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x00000001<br>
+            #define XBEIMAGE_MEDIA_TYPE_DVD_X2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x00000002<br>
+            #define XBEIMAGE_MEDIA_TYPE_DVD_CD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x00000004<br>
+            #define XBEIMAGE_MEDIA_TYPE_CD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x00000008<br>
+            #define XBEIMAGE_MEDIA_TYPE_DVD_5_RO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x00000010<br>
+            #define XBEIMAGE_MEDIA_TYPE_DVD_9_RO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x00000020<br>
+            #define XBEIMAGE_MEDIA_TYPE_DVD_5_RW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x00000040<br>
+            #define XBEIMAGE_MEDIA_TYPE_DVD_9_RW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x00000080<br>
+            #define XBEIMAGE_MEDIA_TYPE_DONGLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x00000100<br>
+            #define XBEIMAGE_MEDIA_TYPE_MEDIA_BOARD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x00000200<br>
+            #define XBEIMAGE_MEDIA_TYPE_NONSECURE_HARD_DISK 0x40000000<br>
+            #define XBEIMAGE_MEDIA_TYPE_NONSECURE_MODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x80000000<br>
+            #define XBEIMAGE_MEDIA_TYPE_MEDIA_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x00FFFFFF<br>
+            </font>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x009C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x00A0 - Size: 0x0004 - Field: Game Region -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Game Region
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Game region for this .XBE. For example:<br>
+            <br>
+            <font face="lucida console, courier new">
+             #define XBEIMAGE_GAME_REGION_NA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x00000001<br>
+            #define XBEIMAGE_GAME_REGION_JAPAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0x00000002<br>
+            #define XBEIMAGE_GAME_REGION_RESTOFWORLD&nbsp;&nbsp;&nbsp;&nbsp;0x00000004<br>
+            #define XBEIMAGE_GAME_REGION_MANUFACTURING&nbsp;&nbsp;0x80000000<br>
+            </font>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x00A0
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x00A4 - Size: 0x0004 - Field: Game Ratings -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Game Ratings
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Game ratings for this .XBE. It is typically safe to set this to 0xFFFFFFFF.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x00A4
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x00A8 - Size: 0x0004 - Field: Disk Number -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Disk Number
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Disk Number. Typically zero.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x00A8
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x00AC - Size: 0x0004 - Field: Version -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Version
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Certificate Version.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x00AC
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x00B0 - Size: 0x0010 - Field: LAN Key -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            LAN Key
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            16-byte LAN Key. An unsigned .XBE can just zero these out.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0010
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x00B0
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x00C0 - Size: 0x0010 - Field: Signature Key -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Signature Key
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            16-byte Signature Key. An unsigned .XBE can just zero these out.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0010
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x00C0
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x00C0 - Size: 0x0010 - Field: Alternate Signature Keys -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Alternate Signature Keys
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            16 x 16-byte Signature Keys. An unsigned .XBE can just zero these out.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0100
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x00D0
+          </font>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <br>
+    <!-- XBESectionHeader -->
+    <a name="#XBESectionHeader"></a>
+    <table align="center" width=95% cellspacing=0 cellpadding=3 border=1 bordercolor=#AAAAAA>
+      <tr>
+        <td align="center" bgcolor=#000000 colspan=4>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            .XBE Section Header
+          </font>
+        </td>
+      </tr>
+      <tr valign="top">
+        <td align="left" width=225 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Field Name
+          </font>
+        </td>
+        <td align="left" bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Description
+          </font>
+        </td>
+        <td align="right" width=40 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Size
+          </font>
+        </td>
+        <td align="right" width=40 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Offset
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0000 - Size: 0x0004 - Field: Section Flags -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Section Flags
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Various flags for this .XBE section. Known flags are:<br>
+            <br>
+            <font face="lucida console, courier new">
+              &nbsp;&nbsp;Writable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x00000001<br>
+              &nbsp;&nbsp;Preload&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x00000002<br>
+              &nbsp;&nbsp;Executable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x00000004<br>
+              &nbsp;&nbsp;Inserted File&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 0x00000008<br>
+              &nbsp;&nbsp;Head Page Read Only&nbsp;= 0x00000010<br>
+              &nbsp;&nbsp;Tail Page Read Only&nbsp;= 0x00000020<br>
+            </font>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0000
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0004 - Size: 0x0004 - Field: Virtual Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Virtual Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address of memory to load this section at.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0008 - Size: 0x0004 - Field: Virtual Size -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Virtual Size
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Number of bytes in memory to fill with this section.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0008
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x000C - Size: 0x0004 - Field: Raw Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Raw Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            File address where this section resides in the .XBE file.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x000C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0010 - Size: 0x0004 - Field: Virtual Size -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Raw Size
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Number of bytes of this section that exist in the .XBE file.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0010
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0014 - Size: 0x0004 - Field: Section Name Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Section Name Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address to the name for this section, after the .XBE is loaded into memory.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0014
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0018 - Size: 0x0004 - Field: Section Name Reference Count -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Section Name Reference Count
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            It is typically safe to set this to zero.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0018
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x001C - Size: 0x0004 - Field: Head Shared Page Reference Count Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Head Shared Page Reference Count Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            It is typically safe to set this to point to a 2-byte WORD in memory with value zero.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x001C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0020 - Size: 0x0004 - Field: Tail Shared Page Reference Count Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Tail Shared Page Reference Count Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            It is typically safe to set this to point to a 2-byte WORD in memory with value zero.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0020
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0024 - Size: 0x0014 - Field: Section Digest -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Section Digest
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            20-byte digest for this section. For unsigned .XBE files, it is safe to set this to zeros.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0014
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0024
+          </font>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <br>
+    <!-- XBELibraryVersion -->
+    <a name="#XBELibraryVersion"></a>
+    <table align="center" width=95% cellspacing=0 cellpadding=3 border=1 bordercolor=#AAAAAA>
+      <tr>
+        <td align="center" bgcolor=#000000 colspan=4>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            .XBE Library Version
+          </font>
+        </td>
+      </tr>
+      <tr valign="top">
+        <td align="left" width=225 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Field Name
+          </font>
+        </td>
+        <td align="left" bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Description
+          </font>
+        </td>
+        <td align="right" width=40 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Size
+          </font>
+        </td>
+        <td align="right" width=40 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Offset
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0000 - Size: 0x0008 - Field: Library Name -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Library Name
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            8-byte name of this library. (i.e. "XAPILIB")
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0008
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0000
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0008 - Size: 0x0002 - Field: Major Version -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Major Version
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Major version for this library (2-byte WORD).
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0002
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0008
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x000A - Size: 0x0002 - Field: Minor Version -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Minor Version
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Minor version for this library (2-byte WORD).
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0002
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x000A
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x000C - Size: 0x0002 - Field: Build Version -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Build Version
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Build version for this library (2-byte WORD).
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0002
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x000C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x000E - Size: 0x0002 - Field: Library Flags -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Library Flags
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Various flags for this library. The fields are:<br>
+            <br>
+            <font face="lucida console, courier new">
+              &nbsp;&nbsp;QFEVersion&nbsp;&nbsp;= 0x1FFF (13-Bit Mask)<br>
+              &nbsp;&nbsp;Approved&nbsp;&nbsp;&nbsp;&nbsp;= 0x6000 (02-Bit Mask)<br>
+              &nbsp;&nbsp;Debug Build&nbsp;= 0x8000 (01-Bit Mask)<br>
+              <br>
+              To see how these can easily be modified, view the C structs included in this document.<br>
+            </font>
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0124
+          </font>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <br>
+    <!-- XBETLS -->
+    <a name="#XBETLS"></a>
+    <table align="center" width=95% cellspacing=0 cellpadding=3 border=1 bordercolor=#AAAAAA>
+      <tr>
+        <td align="center" bgcolor=#000000 colspan=4>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            .XBE TLS
+          </font>
+        </td>
+      </tr>
+      <tr valign="top">
+        <td align="left" width=225 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Field Name
+          </font>
+        </td>
+        <td align="left" bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Description
+          </font>
+        </td>
+        <td align="right" width=40 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Size
+          </font>
+        </td>
+        <td align="right" width=40 bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            Offset
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0000 - Size: 0x0004 - Field: Data Start Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Data Start Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address, after the .XBE is loaded into memory, of this .XBE's TLS Data.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0000
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0004 - Size: 0x0004 - Field: Data End Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Data End Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address, after the .XBE is loaded into memory, of the end of this XBE's TLS Data.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0008 - Size: 0x0004 - Field: TLS Index Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            TLS Index Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address, after the .XBE is loaded into memory, of this XBE's TLS Index.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0008
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x000C - Size: 0x0004 - Field: TLS Callback Address -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            TLS Callback Address
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Address, after the .XBE is loaded into memory, of this XBE's TLS Callback.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x000C
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0010 - Size: 0x0004 - Field: Size of Zero Fill -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Size of Zero Fill
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Size of Zero Fill
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0010
+          </font>
+        </td>
+      </tr>
+      <!-- Offset: 0x0014 - Size: 0x0004 - Field: Characteristics -->
+      <tr valign="top">
+        <td align="left">
+          <font color=#000000 width=225 size=-1 style="font-size:10px">
+            Characteristics
+          </font>
+        </td>
+        <td align="left">
+          <font color=#000000 size=-1 style="font-size:10px">
+            Various TLS characteristics.
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0004
+          </font>
+        </td>
+        <td align="right" width=40>
+          <font color=#000000 size=-1 style="font-size:10px">
+            0x0014
+          </font>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <br>
+   <!-- XBELogoBitmap -->
+    <a name="#XBELogoBitmap"></a>
+    <table align="center" width=95% cellspacing=0 cellpadding=3 border=1 bordercolor=#AAAAAA>
+      <tr>
+        <td align="center" bgcolor=#000000 colspan=4>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            .XBE Logo Bitmap
+          </font>
+        </td>
+      </tr>
+      <tr>
+        <td align="left" bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            &nbsp;Encoding Algorithm
+          </font>
+        </td>
+      </tr>
+      <tr>
+        <td align="left">
+          <font face="lucida console, courier new" color=#000000 width=225 size=-1 style="font-size:10px">
+          <pre>
+          <xmp>
+// ******************************************************************
+// * standard typedefs
+// ******************************************************************
+typedef signed int     sint;
+typedef unsigned int   uint;
+
+typedef char           int08;
+typedef short          int16;
+typedef long           int32;
+
+typedef unsigned char  uint08;
+typedef unsigned short uint16;
+typedef unsigned long  uint32;
+
+typedef signed char    sint08;
+typedef signed short   sint16;
+typedef signed long    sint32;
+
+// ******************************************************************
+// * func : import_logo (100x17 8bit grayscale -> LogoBitmap format)
+// ******************************************************************
+void cxbx_xbe::import_logo(const uint08 x_gray[100*17])
+{
+    char *rle = get_logo();     // get raw logo data bytes
+
+    // calculate maximum bitmap size supported by the existing file
+    uint32 max_size = m_header.m_logo_bitmap_size;
+
+    while(rle[max_size] == 0)
+        max_size++;
+
+    if(rle == 0)
+    {
+        if(get_error() == 0)
+            set_error("logo bitmap could not be imported (not enough space in file?)", false);
+
+        return;
+    }
+
+    // clear old bitmap data area
+    {
+        for(uint32 x=0;x<max_size;x++)
+            rle[x] = 0;
+    }
+
+    uint32 offs = 0;
+
+    for(uint32 v=1;v<100*17;offs++)
+    {
+        char color = x_gray[v] >> 4;
+
+        uint32 len = 1;
+
+        while(++v<100*17-1 && len < 1024 && color == x_gray[v] >> 4)
+            len++;
+
+        if(offs >= max_size)
+        {
+            set_error("not enough room to write logo bitmap", true);
+            return;
+        }
+
+        logo_rle *cur = (logo_rle *)&rle[offs];
+
+        if(len <= 7)
+        {
+            cur->m_eight.m_type1 = 1;
+            cur->m_eight.m_len = len;
+            cur->m_eight.m_data = color;
+        }
+        else
+        {
+            cur->m_sixteen.m_type1 = 0;
+            cur->m_sixteen.m_type2 = 1;
+            cur->m_sixteen.m_len = len;
+            cur->m_sixteen.m_data = color;
+            offs++;
+        }
+    }
+
+    m_header.m_logo_bitmap_size = offs;
+}</xmp></pre>
+          </font>
+        </td>
+      </tr>
+      <tr>
+        <td align="left" bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            &nbsp;Decoding Algorithm
+          </font>
+        </td>
+      </tr>
+      <tr>
+        <td align="left">
+          <font face="lucida console, courier new" color=#000000 width=225 size=-1 style="font-size:10px">
+          <pre>
+          <xmp>
+// ******************************************************************
+// * standard typedefs
+// ******************************************************************
+typedef signed int     sint;
+typedef unsigned int   uint;
+
+typedef char           int08;
+typedef short          int16;
+typedef long           int32;
+
+typedef unsigned char  uint08;
+typedef unsigned short uint16;
+typedef unsigned long  uint32;
+
+typedef signed char    sint08;
+typedef signed short   sint16;
+typedef signed long    sint32;
+
+// ******************************************************************
+// * func : export_logo (LogoBitmap format -> 100x17 8bit grayscale)
+// ******************************************************************
+void xbe::export_logo(uint08 x_gray[100*17])
+{
+    // in that rare case that we have no logo bitmap, we should
+    // just clear it to black.
+    memset(x_gray, 0, 100*17);
+
+    uint32 leng = m_header.m_logo_bitmap_size;
+
+    char *rle = get_logo();
+
+    if(rle == 0 || get_error())
+        return;
+
+    uint32 o = 0;
+
+    for(uint32 v=0;v<leng;v++)
+    {
+        uint32 len = 0, data = 0;
+
+        logo_rle *cur = (logo_rle *)&rle[v];
+
+        if(cur->m_eight.m_type1)
+        {
+            len     = cur->m_eight.m_len;
+            data    = cur->m_eight.m_data;
+        }
+        else
+        {
+            if(cur->m_sixteen.m_type2)
+            {
+                len     = cur->m_sixteen.m_len;
+                data    = cur->m_sixteen.m_data;
+                v      += 1;
+            }
+        }
+
+        for(uint32 j=0;j<len;j++)
+        {
+            o++;
+
+            if(o < 100*17)
+                x_gray[o] = (char)(data << 4); // could use (int)(data * 15.0 + .5);
+        }
+    }
+}</xmp></pre>
+          </font>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <br>
+    <!-- XBE Structures -->
+    <a name="#XBECSource"></a>
+    <table align="center" width=95% cellspacing=0 cellpadding=3 border=1 bordercolor=#AAAAAA>
+      <tr>
+        <td align="center" bgcolor=#000000>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            .XBE Structures (From CXBX Source)
+          </font>
+        </td>
+      </tr>
+      <tr>
+        <td align="left" bgcolor=#666666>
+          <font color=#ffffff size=-1 style="font-size:10px">
+            &nbsp;C++ Source
+          </font>
+        </td>
+      </tr>
+      <tr>
+        <td align="left">
+          <font face="lucida console, courier new" color=#000000 width=225 size=-1 style="font-size:10px">
+          <pre>
+
+// Note: This source is compatible with MSVC 6.0 or higher, and is public domain.
+
+// ******************************************************************
+// * standard typedefs
+// ******************************************************************
+typedef signed int     sint;
+typedef unsigned int   uint;
+
+typedef char           int08;
+typedef short          int16;
+typedef long           int32;
+
+typedef unsigned char  uint08;
+typedef unsigned short uint16;
+typedef unsigned long  uint32;
+
+typedef signed char    sint08;
+typedef signed short   sint16;
+typedef signed long    sint32;
+
+// ******************************************************************
+// * class : xbe
+// ******************************************************************
+class xbe
+{
+    public:
+
+        #pragma pack(1)
+        struct header
+        {
+            uint32 m_magic;                         // magic number [should be "XBEH"]
+            uint08 m_digsig[256];                   // digital signature
+            uint32 m_base;                          // base address
+            uint32 m_sizeof_headers;                // size of headers
+            uint32 m_sizeof_image;                  // size of image
+            uint32 m_sizeof_image_header;           // size of image header
+            uint32 m_timedate;                      // timedate stamp
+            uint32 m_certificate_addr;              // certificate address
+            uint32 m_sections;                      // number of sections
+            uint32 m_section_headers_addr;          // section headers address
+
+            struct init_flags
+            {
+                uint m_mount_utility_drive    : 1;  // mount utility drive flag
+                uint m_format_utility_drive   : 1;  // format utility drive flag
+                uint m_limit_64mb             : 1;  // limit development kit run time memory to 64mb flag
+                uint m_dont_setup_harddisk    : 1;  // don't setup hard disk flag
+                uint m_unused                 : 4;  // unused (or unknown)
+                uint m_unused_b1              : 8;  // unused (or unknown)
+                uint m_unused_b2              : 8;  // unused (or unknown)
+                uint m_unused_b3              : 8;  // unused (or unknown)
+            }m_init_flags;
+
+            uint32 m_entry;                         // entry point address
+            uint32 m_tls_addr;                      // thread local storage directory address
+            uint32 m_pe_stack_commit;               // size of stack commit
+            uint32 m_pe_heap_reserve;               // size of heap reserve
+            uint32 m_pe_heap_commit;                // size of heap commit
+            uint32 m_pe_base_addr;                  // original base address
+            uint32 m_pe_sizeof_image;               // size of original image
+            uint32 m_pe_checksum;                   // original checksum
+            uint32 m_pe_timedate;                   // original timedate stamp
+            uint32 m_debug_pathname_addr;           // debug pathname address
+            uint32 m_debug_filename_addr;           // debug filename address
+            uint32 m_debug_unicode_filename_addr;   // debug unicode filename address
+            uint32 m_kernel_image_thunk_addr;       // kernel image thunk address
+            uint32 m_nonkernel_import_dir_addr;     // non kernel import directory address
+            uint32 m_library_versions;              // number of library versions
+            uint32 m_library_versions_addr;         // library versions address
+            uint32 m_kernel_library_version_addr;   // kernel library version address
+            uint32 m_xapi_library_version_addr;     // xapi library version address
+            uint32 m_logo_bitmap_addr;              // logo bitmap address
+            uint32 m_logo_bitmap_size;              // logo bitmap size
+        }
+        m_header;
+
+        struct certificate
+        {
+            uint32 m_size;                          // size of certificate
+            uint32 m_timedate;                      // timedate stamp
+            uint32 m_titleid;                       // title id
+            uint16 m_title_name[40];                // title name (unicode)
+            uint32 m_alt_title_id[0x10];            // alternate title ids
+            uint32 m_allowed_media;                 // allowed media types
+            uint32 m_game_region;                   // game region
+            uint32 m_game_ratings;                  // game ratings
+            uint32 m_disk_number;                   // disk number
+            uint32 m_version;                       // version
+            uint08 m_lan_key[16];                   // lan key
+            uint08 m_sig_key[16];                   // signature key
+            uint08 m_title_alt_sig_key[16][16];     // alternate signature keys
+        }
+        m_certificate;
+
+        struct section_header
+        {
+            struct flags                            // flags
+            {
+                uint m_writable             : 1;    // writable flag
+                uint m_preload              : 1;    // preload flag
+                uint m_executable           : 1;    // executable flag
+                uint m_inserted_file        : 1;    // inserted file flag
+                uint m_head_page_ro         : 1;    // head page read only flag
+                uint m_tail_page_ro         : 1;    // tail page read only flag
+                uint m_unused_a1            : 1;    // unused (or unknown)
+                uint m_unused_a2            : 1;    // unused (or unknown)
+                uint m_unused_b1            : 8;    // unused (or unknown)
+                uint m_unused_b2            : 8;    // unused (or unknown)
+                uint m_unused_b3            : 8;    // unused (or unknown)
+            }m_flags;
+            uint32  m_virtual_addr;                  // virtual address
+            uint32  m_virtual_size;                  // virtual size
+            uint32  m_raw_addr;                      // file offset to raw data
+            uint32  m_sizeof_raw;                    // size of raw data
+            uint32  m_section_name_addr;             // section name addr
+            uint32  m_section_reference_count;       // section reference count
+            uint16 *m_head_shared_ref_count_addr;    // head shared page reference count address
+            uint16 *m_tail_shared_ref_count_addr;    // tail shared page reference count address
+            uint08  m_section_digest[20];            // section digest
+        }
+        *m_section_header;
+
+        struct library_version
+        {
+            char   m_name[8];                       // library name
+            uint16 m_major_version;                 // major version
+            uint16 m_minor_version;                 // minor version
+            uint16 m_build_version;                 // build version
+            struct flags                            // flags
+            {
+                uint16 m_qfe_version        : 13;   // QFE Version
+                uint16 m_approved           : 2;    // Approved? (0:no, 1:possibly, 2:yes)
+                uint16 m_debug_build        : 1;    // Is this a debug build?
+            }m_flags;
+        }
+        *m_library_version, *m_kernel_version, *m_xapi_version;
+
+        struct tls                                  // thread local storage
+        {
+            uint32 m_data_start_addr;               // raw start address
+            uint32 m_data_end_addr;                 // raw end address
+            uint32 m_tls_index_addr;                // tls index  address
+            uint32 m_tls_callback_addr;             // tls callback address
+            uint32 m_sizeof_zero_fill;              // size of zero fill
+            uint32 m_characteristics;               // characteristics
+        }
+        *m_tls;
+}
+          </pre>
+          </font>
+        </td>
+      </tr>
+    </table>
+  </font>
+  </body>
+</html>

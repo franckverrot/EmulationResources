@@ -1,0 +1,532 @@
+;
+;	Commodore VIC-20 ROM Memory Map
+;	V1.0	1 Sep 1994
+
+;
+; Data types in headers (for reassembler):
+;
+;	DATA		Misc data
+;	TEXT		String terminated with 00
+;	WORD		Vectors in LO/HI byte pairs
+;	CHIP		I/O Area
+;	EMPTY		ROM containing FF's or AA's
+;
+
+;
+; BASIC v2.0 interpreter ROM ($B000 - $DFFF)
+; This is almost identical to the C64 one.
+;
+
+c000	-	Basic Restart Vectors			WORD
+c004	-	'cbmbasic'				DATA
+c00c	stmdsp	BASIC Command Vectors			WORD
+c052	fundsp	BASIC Function Vectors			WORD
+c080	optab	BASIC Operator Vectors			WORD
+c09e	reslst	BASIC Command Keyword Table		DATA
+c129	msclst	BASIC Misc. Keyword Table		DATA
+c140	oplist	BASIC Operator Keyword Table		DATA
+c14d	funlst	BASIC Function Keyword Table		DATA
+c19e	errtab	Error Message Table			DATA
+c328	errptr	Error Message Pointers			WORD
+c364	okk	Misc. Messages				DATA
+;c364		'<cr>ok<cr>'				TEXT
+;c369		'error'					DATA
+
+c389	-	Unused byte				DATA
+c38a	fndfor	Find FOR/GOSUB Entry on Stack
+c3b8	bltu	Open Space in Memory
+c3fb	getstk	Check Stack Depth
+c408	reason	Check Memory Overlap
+c435	omerr	Output ?OUT OF MEMORY Error
+c437	error	Error Routine
+c469	errfin	Break Entry
+c474	ready	Restart BASIC
+c480	main	Input & Identify BASIC Line
+c49c	main1	Get Line Number & Tokenise Text
+c4a2	inslin	Insert BASIC Text
+c533	linkprg	Rechain Lines
+c560	inlin	Input Line Into Buffer
+c579	crunch	Tokenise Input Buffer
+c613	fndlin	Search for Line Number
+c642	scrtch	Perform [new]
+c65e	clear	Perform [clr]
+c68e	stxpt	Reset TXTPTR
+c69c	list	Perform [list]
+c717	qplop	Handle LIST Character
+c742	for	Perform [for]
+c7ae	newstt	BASIC Warm Start
+c7c4	ckeol	Check End of Program
+c7e1	gone	Prepare to execute statement
+c7ed	gone3	Perform BASIC Keyword
+c81d	restor	Perform [restore]
+c82c	stop	Perform [stop], [end], break
+c857	cont	Perform [cont]
+c871	run	Perform [run]
+c883	gosub	Perform [gosub]
+c8a0	goto	Perform [goto]
+c8d2	return	Perform [return]
+c8f8	data	Perform [data]
+c906	datan	Search for Next Statement / Line
+c928	if	Perform [if]
+c93b	rem	Perform [rem]
+c94b	ongoto	Perform [on]
+c96b	linget	Fetch linnum From BASIC
+c9a5	let	Perform [let]
+c9c4	putint	Assign Integer
+c9d6	ptflpt	Assign Floating Point
+c9d9	putstr	Assign String
+c9e3	puttim	Assign TI$
+ca2c	getspt	Add Digit to FAC#1
+ca80	printn	Perform [print#]
+ca86	cmd	Perform [cmd]
+ca9a	strdon	Print String From Memory
+caa0	print	Perform [print]
+cab8	varop	Output Variable
+cad7	crdo	Output CR/LF
+cae8	comprt	Handle comma, TAB(, SPC(
+cb1e	strout	Output String
+cb3b	outspc	Output Format Character
+cb4d	doagin	Handle Bad Data
+cb7b	get	Perform [get]
+cba5	inputn	Perform [input#]
+cbbf	input	Perform [input]
+cbea	bufful	Read Input Buffer
+cbf9	qinlin	Do Input Prompt
+cc06	read	Perform [read]
+cc35	rdget	General Purpose Read Routine
+ccfc	exint	Input Error Messages			DATA
+;ccfc	'?extra ignored<cr>'
+;cd0c	'?redo from start<cr>'
+
+cd1e	next	Perform [next]
+cd61	donext	Check Valid Loop
+cd8a	frmnum	Confirm Result
+cd9e	frmevl	Evaluate Expression in Text
+ce83	eval	Evaluate Single Term
+cea8	pival	Constant - pi				DATA
+cead	qdot	Continue Expression
+cef1	parchk	Expression in Brackets
+cef7	chkcls	Confirm Character
+cef7	-	-test ')'-
+cefa	-	-test '('-
+cefd	-	-test comma-
+cf08	synerr	Output ?SYNTAX Error
+cf0d	domin	Set up NOT Function
+cf14	rsvvar	Identify Reserved Variable
+cf28	isvar	Search for Variable
+cf48	tisasc	Convert TI to ASCII String
+cfa7	isfun	Identify Function Type
+cfb1	strfun	Evaluate String Function
+cfd1	numfun	Evaluate Numeric Function
+cfe6	orop	Perform [or], [and]
+d016	dorel	Perform <, =, >
+d01b	numrel	Numeric Comparison
+d02e	strrel	String Comparison
+d07e	dim	Perform [dim]
+d08b	ptrget	Identify Variable
+d0e7	ordvar	Locate Ordinary Variable
+d11d	notfns	Create New Variable
+d128	notevl	Create Variable
+d194	aryget	Allocate Array Pointer Space
+d1a5	n32768	Constant 32768 in Flpt			DATA
+d1aa	facinx	FAC#1 to Integer in (AC/YR)
+d1b2	intidx	Evaluate Text for Integer
+d1bf	ayint	FAC#1 to Positive Integer
+d1d1	isary	Get Array Parameters
+d218	fndary	Find Array
+d245	bserr	'?bad subscript error'
+d248	-	'?illegal quantity error'
+d261	notfdd	Create Array
+d30e	inlpn2	Locate Element in Array
+d34c	umult	Number of Bytes in Subscript
+d37d	fre	Perform [fre]
+d391	givayf	Convert Integer in (AC/YR) to Flpt
+d39e	pos	Perform [pos]
+d3a6	errdir	Confirm Program Mode
+d3e1	getfnm	Check Syntax of FN
+d3f4	fndoer	Perform [fn]
+d465	strd	Perform [str$]
+d487	strlit	Set Up String
+d4d5	putnw1	Save String Descriptor
+d4f4	getspa	Allocate Space for String
+d526	garbag	Garbage Collection
+d5bd	dvars	Search for Next String
+d606	grbpas	Collect a String
+d63d	cat	Concatenate Two Strings
+d67a	movins	Store String in High RAM
+d6a3	frestr	Perform String Housekeeping
+d6db	frefac	Clean Descriptor Stack
+d6ec	chrd	Perform [chr$]
+d700	leftd	Perform [left$]
+d72c	rightd	Perform [right$]
+d737	midd	Perform [mid$]
+d761	pream	Pull sTring Parameters
+d77c	len	Perform [len]
+d782	len1	Exit String Mode
+d78b	asc	Perform [asc]
+d79b	gtbytc	Evaluate Text to 1 Byte in XR
+d7ad	val	Perform [val]
+d7b5	strval	Convert ASCII String to Flpt
+d7eb	getnum	Get parameters for POKE/WAIT
+d7f7	getadr	Convert FAC#1 to Integer in LINNUM
+d80d	peek	Perform [peek]
+d824	poke	Perform [poke]
+d82d	wait	Perform [wait]
+d849	faddh	Add 0.5 to FAC#1
+d850	fsub	Perform Subtraction
+d862	fadd5	Normalise Addition
+d867	fadd	Perform Addition
+d947	negfac	2's Complement FAC#1
+d97e	overr	Output ?OVERFLOW Error
+d983	mulshf	Multiply by Zero Byte
+d9bc	fone	Table of Flpt Constants			DATA
+d9ea	log	Perform [log]
+da28	fmult	Perform Multiply
+da59	mulply	Multiply by a Byte
+da8c	conupk	Load FAC#2 From Memory
+dab7	muldiv	Test Both Accumulators
+dad4	mldvex	Overflow / Underflow
+dae2	mul10	Multiply FAC#1 by 10
+daf9	tenc	Constant 10 in Flpt			DATA
+dafe	div10	Divide FAC#1 by 10
+db07	fdiv	Divide FAC#2 by Flpt at (AC/YR)
+db0f	fdivt	Divide FAC#2 by FAC#1
+dba2	movfm	Load FAC#1 From Memory
+dbc7	mov2f	Store FAC#1 in Memory
+dbfc	movfa	Copy FAC#2 into FAC#1
+dc0c	movaf	Copy FAC#1 into FAC#2
+dc1b	round	Round FAC#1
+dc2b	sign	Check Sign of FAC#1
+dc39	sgn	Perform [sgn]
+dc58	abs	Perform [abs]
+dc5b	fcomp	Compare FAC#1 With Memory
+dc9b	qint	Convert FAC#1 to Integer
+dccc	int	Perform [int]
+dcf3	fin	Convert ASCII String to a Number in FAC#1
+ddb3	n0999	String Conversion Constants		DATA
+ddc2	inprt	Output 'IN' and Line Number
+dddd	fout	Convert FAC#1 to ASCII String
+de68	foutim	Convert TI to String
+df11	fhalf	Table of Constants			DATA
+df71	sqr	Perform [sqr]
+df7b	fpwrt	Perform power ($)
+dfb4	negop	Negate FAC#1
+dfbf	logeb2	Table of Constants			DATA
+dfed	exp	Perform [exp]
+
+;
+;	VIC-20 Kernel ROM
+;
+
+;e000	(exp continues) EXP continued From BASIC ROM
+e040	polyx	Series Evaluation
+e08a	rmulc	Constants for RND			DATA
+e094	rnd	Perform [rnd]
+e0f6	bioerr	Handle I/O Error in BASIC
+e109	bchout	Output Character
+e10f	bchin	Input Character
+e115	bckout	Set Up For Output
+e11b	bckin	Set Up For Input
+e121	bgetin	Get One Character
+e127	sys	Perform [sys]
+e153	savet	Perform [save]
+e162	verfyt	Perform [verify / load]
+e1bb	opent	Perform [open]
+e1c4	closet	Perform [close]
+e1d1	slpara	Get Parameters For LOAD/SAVE
+e1fd	combyt	Get Next One Byte Parameter
+e203	deflt	Check Default Parameters
+e20b	cmmerr	Check For Comma
+e216	ocpara	Get Parameters For OPEN/CLOSE
+e261	cos	Perform [cos]
+e268	sin	Perform [sin]
+e2b1	tan	Perform [tan]
+e2dd	pi2	Table of Trig Constants			DATA
+
+;e2dd	1.570796327	pi/2
+;e2e2	6.28318531	pi*2
+;e2e7	0.25
+
+;e2ec	#05	(counter)
+;e2ed	-14.3813907
+;e2f2	42.0077971
+;e2f7	-76.7041703
+;e2fc	81.6052237
+;e301	-41.3417021
+;e306	6.28318531
+
+e30b	atn	Perform [atn]
+e33b	atncon	Table of ATN Constants			DATA
+
+;e33b	#0b	(counter)
+;e3ec	-0.000684793912
+;e341	 0.00485094216
+;e346	-0.161117018
+;e34b	 0.034209638
+;e350	-0.0542791328
+;e355	 0.0724571965
+;e35a	-0.0898023954
+;e35f	 0.110932413
+;e364	-0.142839808
+;e369	 0.19999912
+;e36e	-0.333333316
+;e373	 1.00
+
+e378	init	BASIC Cold Start
+e387	initat	CHRGET For Zero-page
+e39f	rndsed	RND Seed For zero-page			DATA
+;e39f	0.811635157
+e3a4	initcz	Initialize BASIC RAM
+e404	initms	Output Power-Up Message
+e429	words	Power-Up Message			DATA
+;e429	' bytes free<cr>'
+;e436	'<clr>**** cbm basic v2 ****<cr>'
+
+e44f	bvtrs	Table of BASIC Vectors (for 0300)	WORD
+e45b	initv	Initialize Vectors
+e467	bassft	BASIC Warm Restart [RUNSTOP-RESTORE]
+
+e475	?
+e47c	-	Unused Bytes For Future Patches		EMPTY
+e4a0	-	Serial Output 1
+e4a9	-	Serial Output 0
+e4b2	-	Get Serial Data And Clock In
+e4bc	-	Get Secondary Address patch for Serial LOAD/VERIFY
+e4c1	-	Relocated Load patch for Serial LOAD/VERIFY
+e4cf	-	Tape Write patch for CLOSE
+e4da	-	Unused					EMPTY
+
+e500	iobase	Return I/O Base Address
+e505	screen	Return Screen Organization
+e50a	plot	Read / Set Cursor X/Y Position
+e518	cint1	Initialize I/O
+e55f	-	Clear Screen
+e581	-	Home Cursor
+e587	-	Set Screen Pointers
+e5b5	-	Set I/O Defaults (Unused Entry)
+e5bb	-	Set I/O Defaults
+e5cf	lp2	Get Character From Keyboard Buffer
+e5e5	-	Input From Keyboard
+e64f	-	Input From Screen or Keyboard
+e6b8	-	Quotes Test
+e6c5	-	Set Up Screen Print
+e6ea	-	Advance Cursor
+e719	-	Retreat Cursor
+e72d	-	Back on to Previous Line
+e742	-	Output to Screen
+e756	-	-unshifted characters-
+e800	-	-shifted characters-
+e8c3	-	Go to Next Line
+e8d8	-	Output <CR>
+e8e8	-	Check Line Decrement
+e8fa	-	Check Line Increment
+e912	-	Set Colour Code
+e921	-	Colour Code Table			DATA
+
+e929	?						DATA
+
+e975	-	Scroll Screen
+e9ee	-	Open A Space On The Screen
+ea56	-	Move A Screen Line
+ea6e	-	Syncronise Colour Transfer
+ea7e	-	Set Start of Line
+ea8d	-	Clear Screen Line
+eaa1	-	Print To Screen
+eab2	-	Syncronise Colour Pointer
+eabf	-	Main IRQ Entry Point
+eb1e	scnkey	Scan Keyboard
+eb71	-	Process Key Image
+ec46	-	Pointers to Keyboard decoding tables	WORD
+ec5e	-	Keyboard Decoding Table	- Unshifted	DATA
+ec9f	-	Keyboard Decoding Table	- Shifted	DATA
+ece0	-	Keyboard Decoding Table	- Commodore	DATA
+ed21	-	Graphics/Text Control
+ed69	-	Keyboard Decoding Table			DATA
+eda3	-	Keyboard Decoding Table	- Control	DATA
+
+ede4	-	Video Chip Set Up Table			DATA
+edf4	-	Shift-Run Equivalent			DATA
+edfd	-	Low Byte Screen Line Addresses		DATA
+ee14	talk	Send TALK Command on Serial Bus
+ee17	listn	Send LISTEN Command on Serial Bus
+ee49	-	Send Data On Serial Bus
+eeb4	-	Flag Errors
+eeb4	Status #80 - device not present
+eeb7	Status #03 - write timeout
+
+eec0	second	Send LISTEN Secondary Address
+eec5	-	Clear ATN
+eece	tksa	Send TALK Secondary Address
+eed3	-	Wait For Clock
+eee4	ciout	Send Serial Deferred
+eef6	untlk	Send UNTALK on Serial Bus
+ef04	unlsn	Send UNLISTEN on Serial Bus
+ef19	acptr	Receive From Serial Bus
+ef84	-	Serial Clock On
+ef8d	-	Serial Clock Off
+ef96	-	Delay 1 ms
+efa3	-	RS-232 Send
+efee	-	Send New RS-232 Byte
+f016	-	'No DSR' Error
+f019	-	'No CTS' Error
+f021	-	Disable Timer
+f027	-	Compute Bit Count
+f036	-	RS-232 Receive
+f05b	-	Set Up To Receive
+f068	-	Process RS-232 Byte
+f0bc	-	Submit to RS-232
+f0ed	-	Send to RS-232 Buffer
+f116	-	Input From RS-232
+f14f	-	Get From RS-232
+f160	-	Serial Bus Idle
+
+f174	-	Table of Kernal I/O Messages		DATA
+;f174	'<cr> i/o error #'
+; ...
+;f1df	'ok<cr>'
+
+f1e2	-	Print Message if Direct
+f1e6	-	Print Message
+f1f5	getin	Get a byte
+f20e	chrin	Input a byte
+f250	-	Get From Tape / Serial / RS-232
+f27a	chrout	Output One Character
+f2c7	chkin	Set Input Device
+f309	chkout	Set Output Devic
+f34a	close	Close File
+f3cf	-	Find File
+f3df	-	Set File values
+f3ef	clall	Abort All Files
+f3f3	clrchn	Restore Default I/O
+f40a	open	Open File
+f495	-	Send Secondary Address
+f4c7	-	Open RS-232
+f542	load	Load RAM From Device
+f549	LOAD	-load-
+f55c	-	Load File From Serial Bus
+f5ca	-	Load File From Tape
+f647	-	Print "SEARCHING"
+f659	-	Print Filename
+f66a	-	Print "LOADING / VERIFYING"
+f675	save	Save RAM To Device
+f685	SAVE	-save-
+f692	-	Save to Serial Bus
+f6f1	-	Save to Tape
+f728	-	Print "SAVING"
+f734	udtim	Increment Real-Time Clock
+f760	rdtim	Read Real-Time Clock
+f767	settim	Set Real-Time Clock
+f770	STOP	Check STOP Key
+
+;f77e	-	Output I/O Error Messages
+f77e	'too many files'
+f781	'file open'
+f784	'file not open'
+f787	'file not found'
+f78a	'device not present'
+f78d	'not input file'
+f790	'not output file'
+f793	'missing filename'
+f796	'illegal device number'
+
+f7af	-	Find Any Tape Header
+f7e7	-	Write Tape Header
+f84d	-	Get Buffer Address
+f854	-	Set Buffer Stat / End Pointers
+f867	-	Find Specific Tape Header
+f88a	-	Bump Tape Pointer
+f894	-	Print "PRESS PLAY ON TAPE"
+f8ab	-	Check Tape Status
+f8b7	-	Print "PRESS RECORD..."
+f8c0	-	Initiate Tape Read
+f8e3	-	Initiate Tape Write
+f8f4	-	Common Tape Code
+f94b	-	Check Tape Stop
+f95d	-	Set Read Timing
+f98e	-	Read Tape Bits
+faad	-	Store Tape Characters
+
+fbd2	-	Reset Tape Pointer
+fbdb	-	New Character Setup
+fbea	-	Send Tone to Tape
+fc06	-	Write Data to Tape
+fc95	-	Write Tape Leader
+fccf	-	Restore Normal IRQ
+fcf6	-	Set IRQ Vector
+fd08	-	Kill Tape Motor
+fd11	-	Check Read / Write Pointer
+fd1b	-	Bump Read / Write Pointer
+fd22	-	Power-Up RESET Entry
+fd3f	-	Check For A-ROM
+fd4d	-	ROM Mask 'a0CBM'			DATA
+fd52	restor	Restore Kernal Vectors (at 0314)
+fd57	vector	Change Vectors For User
+fd6d	-	Kernal Reset Vectors			WORD
+fd8d	ramtas	Initialise System Constants
+fdf1	-	IRQ Vectors For Tape I/O		WORD
+fdf9	ioinit	Initialise I/O
+fe39	-	Enable Timer
+fe49	setnam	Set Filename
+fe50	setlfs	Set Logical File Parameters
+fe57	readss	Get I/O Status Word
+fe66	setmsg	Control OS Messages
+fe6f	settmo	Set IEEE Timeout
+fe73	memtop	Set / Read Top of Memory
+fe82	membot	Set / Read Bottom of Memory
+fea9		NMI Transfer Entry
+fed2		Warm Start Basic [BRK]
+;fed2	User Vector (default BRK)
+
+ff56		Exit Interrupt
+ff5b		RS-232 Timing Table			DATA
+ff72		IRQ Transfer Entry
+
+
+;
+;ff8a	Vic-20 Kernel Jump Table
+;
+ff8a	jmp $fd52	restor		Restore Vectors
+ff8d	jmp $fd57	vector		Change Vectors For User
+ff90	jmp $fe66	setmsg		Control OS Messages
+ff93	jmp $eec0	secnd		Send SA After Listen
+ff96	jmp $eece	tksa		Send SA After Talk
+ff99	jmp $fe73	memtop		Set/Read System RAM Top
+ff9c	jmp $fe82	membot		Set/Read System RAM Bottom
+ff9f	jmp $eb1e	scnkey		Scan Keyboard
+ffa2	jmp $fe6f	settmo		Set Timeout In IEEE
+ffa5	jmp $ef19	acptr		Handshake Serial Byte In
+ffa8	jmp $eee4	ciout		Handshake Serial Byte Out
+ffab	jmp $eef6	untalk		Command Serial Bus UNTALK
+ffae	jmp $ef04	unlsn		Command Serial Bus UNLISTEN
+ffb1	jmp $ee17	listn		Command Serial Bus LISTEN
+ffb4	jmp $ee14	talk		Command Serial Bus TALK
+ffb7	jmp $fe57	readss		Read I/O Status Word
+ffba	jmp $fe50	setlfs		Set Logical File Parameters
+ffbd	jmp $fe49	setnam		Set Filename
+ffc0	jmp ($031a)	(iopen)		Open Vector [F40A]
+ffc3	jmp ($031c)	(iclose)	Close Vector [F34A]
+ffc6	jmp ($031e)	(ichkin)	Set Input [F2C7]
+ffc9	jmp ($0320)	(ichkout)	Set Output [F309]
+ffcc	jmp ($0322)	(iclrch)	Restore I/O Vector [F353]
+ffcf	jmp ($0324)	(ichrin)	Input Vector, chrin [F20E]
+ffd2	jmp ($0326)	(ichrout)	Output Vector, chrout [F27A]
+ffd5	jmp $f542	load		Load RAM From Device
+ffd8	jmp $f675	save		Save RAM To Device
+ffdb	jmp $f767	settim		Set Real-Time Clock
+ffde	jmp $f760	rdtim		Read Real-Time Clock
+ffe1	jmp ($0328)	(istop)		Test-Stop Vector [F770]
+ffe4	jmp ($032a)	(igetin)	Get From Keyboad [F1F5]
+ffe7	jmp ($032c)	(iclall)	Close All Channels And Files [F3EF]
+ffea	jmp $f734	udtim		Increment Real-Time Clock
+ffed	jmp $e505	screen		Return Screen Organization
+fff0	jmp $e50a	plot		Read / Set Cursor X/Y Position
+fff3	jmp $e500	iobase		Return I/O Base Address
+
+;fff6	Unused Vectors
+fff6	[ffff]
+fff8	[ffff]
+
+;fffa	Transfer Vectors
+fffa	[fea9]		NMI
+fffc	[fd22]		RESET
+fffe	[ff72]		IRQ

@@ -1,0 +1,38 @@
+
+
+I dont take any responsibility whatsoever caused by reading/using information
+found on this documentation.
+
+So:
+	I checked the cable and found out this kind of connections:
+
+	1 <-> 4
+	2  NC
+	3 <-> 6
+	4 <-> 1
+	5 <-> 8
+	6 <-> 3
+	7 <-> 7
+	8 <-> 5 
+
+	and the pins are like this (looking into the link cable connector
+	(looking into the pins of the cable connector) and the connector
+	facing up) :
+
+
+				CABLE
+                     _________________________________
+                    //                               \\
+                   //                                 \\
+         ________________                       ________________
+        /       UP       \                     /        UP      \
+        ------------------                     ------------------- 
+ LEFT	|1 2 3 4 5 6 7 8 | RIGHT          LEFT | 1 2 3 4 5 6 7 8 | RIGHT
+	------------------                     -------------------
+
+
+
+Flame / Pygmy Projects
+
+
+

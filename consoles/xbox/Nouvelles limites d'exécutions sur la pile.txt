@@ -1,0 +1,196 @@
+Dans la version 5455 sur Kit de Développement Xbox(XDK), Microsoft a ajouté
+un nouveau "dispositif": la protection contre le buffer overflow. Avec la
+prolifération du hack de 007, Microsoft a décidé qu'ils devaient prévoir
+les apparitions d'un autre incident de la sorte en établissant une protection
+contre le buffer overflow dans le nouveau XDK, que les développeurs se
+devront d'utiliser.
+
+La nouvelle protection contre le buffer overflow fonctionne en initialisant
+une limite maximale dans les adresses mémoires que contenait le code.
+Essentiellement, Microsoft fait en sorte que la pile ne puisse contenir de
+code exécutable. Cela rend impossible ainsi de nombreux exploits par buffer
+overflow. Mais l'essai de Microsoft est ici futile - cette nouvelle mesure
+ne les aide pas du tout, pour les raisons suivantes:
+
+1. Il y a trop d'anciens jeux.
+
+	Il y a presque déjà 200 jeux pour la Xbox qui utilisent les anciennes
+	versions du XDK qui ne sont pas affectés par ce changement. Cette
+	mise à jour n'est - et ne peut être - rétroactive. 007 est un des
+	nombreux jeux exploitables.
+
+2. Le hack 007 lui-même n'a pas besoin d'une pile exécutable!
+
+	Le hack 007 nécessite uniquement l'écrasement de l'adresse de retour-
+	il n'a pas besoin d'écxecuter du code depuis la pile. Si 007 eut été
+	compilé avec le XDK 5455, le hack aurait toujours été possible!
+	Aussi, il y a une autre classe d'exploits, appelés "integer overflow"
+	qui ne sont pas affectés du tout.
+
+3. Microsoft n'a rien dit aux développeurs.
+
+	Il n'y a aucun avertissement dans la documentation du XDK de ce
+	changement. Un développeur peut avoir relié le code exécutable dans
+	la pile ou se modifiant par lui-même dans des boucles internes pour
+	lles optimisations de son moteur 3d. Quand ils mettront à jour vers
+	la version 5455, ils auront un problème: leurs jeux tourneront sur
+	les Xbox avec le noyau de débuggage, pas celui pour distribuer. Ils
+	n'auront aucun indice qu'il s'agit d'un dispositif de sécurité -
+	celui qui est inactif dans les noyaux de débuggage - leur provoquant
+	des ennuis. Ils auront perdu de nombreuses heures à essayer de
+	débugguer quelquechose qui ne l'est pas.
+
+Microsoft s'il vous plait faites une petite recherche avant d'implémenter
+quelquechose comme cela. Aussi, soyez plus ouvert envers les développeurs.
+
+anonymous, 05/23/2003.
+
+Un désassemblage de leur nouveau code dans la xapilib.lib, et une version
+C dérivée de ce désassemblé, sont ci-dessous.
+
+
+[NdLXS: pas traduit, les codeurs comprendront pourquoi...]
+xapidlla.obj:
+
+.text:00000000 ; __stdcall XapiChangeCodeSelectorLimit(x,x)
+.text:00000000                 public _XapiChangeCodeSelectorLimit@8
+.text:00000000 _XapiChangeCodeSelectorLimit@8:
+.text:00000000                 mov     ecx, [esp+4]      ; Put parameter into EDX:ECX.
+.text:00000004                 mov     edx, [esp+8]
+.text:00000008                 sgdt    qword ptr [esp+6] ; Get the address of the GDT.
+.text:0000000D                 mov     eax, [esp+8]
+.text:00000011                 cli                       ; Don't allow interrupts.
+.text:00000012                 xchg    ecx, [eax+8]      ; Overwrite selector 0008's
+.text:00000015                 xchg    edx, [eax+0Ch]    ;    descriptor, which is CS.
+.text:00000018                 sti                       ; Bug: sti should be after jmp.
+.text:00000019                 jmp     far ptr 8:20h     ; Reload CS: jump to next line.
+.text:00000020 ; ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+.text:00000020 
+.text:00000020 ChangeCodeSelectorLimitDone:
+.text:00000020                 mov     eax, ecx          ; Return value is old descriptor
+.text:00000022                 retn    8                 ; CODE XREF: .text:00000019J
+
+
+krnlptch.obj:
+
+.text:000002F8 ; __stdcall XapiRestrictCodeSelectorLimit()
+.text:000002F8                 public _XapiRestrictCodeSelectorLimit@0
+.text:000002F8 _XapiRestrictCodeSelectorLimit@0 proc near
+.text:000002F8                                         ; CODE XREF: XapiApplyKernelPatches()+BFj
+.text:000002F8 
+.text:000002F8 var_8           = dword ptr -8
+.text:000002F8 
+.text:000002F8                 push    ebp
+.text:000002F9                 mov     ebp, esp
+.text:000002FB                 push    ecx
+.text:000002FC                 push    ecx
+.text:000002FD                 mov     eax, ds:8001003Ch
+.text:00000302                 mov     edx, -80010000h
+.text:00000307                 sub     eax, edx
+.text:00000309                 movzx   ecx, word ptr [eax+6]
+.text:0000030D                 push    esi
+.text:0000030E                 movzx   esi, word ptr [eax+14h]
+.text:00000312                 add     esi, eax
+.text:00000314                 lea     ecx, [ecx+ecx*4]
+.text:00000317                 lea     eax, [esi+ecx*8-10h]
+.text:0000031B                 cmp     dword ptr [eax], 'TINI'
+.text:00000321                 pop     esi
+.text:00000322                 jnz     short locret_35A
+.text:00000324                 mov     eax, [eax+0Ch]
+.text:00000327                 and     word ptr [ebp+var_8+2], 0
+.text:0000032C                 sub     eax, edx
+.text:0000032E                 shr     eax, 0Ch
+.text:00000331                 mov     ecx, eax
+.text:00000333                 shr     ecx, 10h
+.text:00000336                 and     ecx, 0Fh
+.text:00000339                 shl     ecx, 10h
+.text:0000033C                 or      ecx, 0C09B00h
+.text:00000342                 push    ecx
+.text:00000343                 mov     word ptr [ebp+var_8], ax
+.text:00000347                 push    [ebp+var_8]
+.text:0000034A                 call    _XapiChangeCodeSelectorLimit@8 ; XapiChangeCodeSelectorLimit(x,x)
+.text:0000034F                 mov     dword ptr ds:_XapiOriginalCodeSelectorEntry, eax
+.text:00000354                 mov     dword ptr ds:_XapiOriginalCodeSelectorEntry+4, edx
+.text:0000035A 
+.text:0000035A locret_35A:                             ; CODE XREF: XapiRestrictCodeSelectorLimit()+2Aj
+.text:0000035A                 leave
+.text:0000035B                 retn
+.text:0000035B _XapiRestrictCodeSelectorLimit@0 endp
+
+
+Dessous vous pouvez apercevoir une bonne reconstruction en C de ce code. Ce
+code est difficile à lire à cause des optimisations du compilateur et du
+manque de noms de structure. J'ai trouvé les structeurs dont j'avais besoin
+dans winnt.h. Le XDK et le SDk de Win32 ont tous deux ces structures dans
+winnt.h.
+
+// Assembly language function.  Changes the descriptor of 0008 (CS on Xbox)
+// to the specified descriptor, and returns the old descriptor.
+LDT_ENTRY WINAPI XapiChangeCodeSelectorLimit(LDT_ENTRY NewDescriptor);
+
+// Copy of old descriptor.  This is written back to the GDT when loading a
+// new XBE by XapiShutdownNotification.
+extern LDT_ENTRY XapiOriginalCodeSelectorEntry;
+
+
+VOID WINAPI XapiRestrictCodeSelectorLimit(VOID)
+{
+    // New descriptor of CS to use
+    // LDT is a misnomer here; we're actually modifying the GDT.
+    LDT_ENTRY Descriptor;
+
+    // Pointer to the "MZ" EXE header of the loaded xboxkrnl.exe
+    IMAGE_DOS_HEADER *ExeHeader = (IMAGE_DOS_HEADER) 0x80010000;
+
+    // Get the pointer to the PE header by reading the MZ header
+    IMAGE_NT_HEADERS *PeHeader = (IMAGE_NT_HEADERS *) (ExeHeader->e_lfanew +
+        0x80010000);
+
+    // Get the address of the last section.  The disassembly is really
+    // confusing, but this is what it is doing.
+    IMAGE_SECTION_HEADER *LastSection = &IMAGE_FIRST_SECTION(PeHeader)
+        [PeHeader->FileHeader.NumberOfSections - 1];
+
+    // Make sure that the last section is named INIT.
+    if (!memcmp(LastSection->Name, "INIT", 4))
+    {
+        // Build the new CS descriptor.  Set the limit to the start address
+        // of the INIT section.  The reason this is done is the INIT section
+        // is the highest section with code.  Because the INIT section is
+        // discarded by the kernel after bootup (before running a game), it
+        // is not in memory by the time this routine executes.  So all the
+        // executable code in a retail kernel should be below the *start*
+        // address of the INIT section.  (This routine is not called at all
+        // if a debugger is present, since xbdm.dll loads at B00xxxxx.)
+        ULONG_PTR NewLimit = LastSection->VirtualAddress + 0x80010000;
+
+        // Note that the assembly code sets this all at once, meaning either
+        // the compiler optimized it or it was hard-coded.
+
+        // Set the base address to 00000000
+        Descriptor.BaseLow = 0x0000;
+        Descriptor.BaseMid = 0x00;
+        Descriptor.BaseHi = 0x00;
+
+        // Set the limit.  Note that the low 12 bits of the limit are
+        // assumed FFF.
+        Descriptor.LimitLow = (WORD) (NewLimit >> 12);
+	Descriptor.LimitHi = NewLimit >> 28;
+
+        // Set the descriptor flags:
+        // Code segment, readable, conforming, DPL 0, present, big, limit
+        // shifted by 12.
+        Descriptor.Type = 0x1B;
+        Descriptor.Dpl = 0;
+        Descriptor.Pres = 1;
+        Descriptor.Sys = 0;
+        Descriptor.Reserved_0 = 0;
+        Descriptor.Default_Big = 1;
+        Descriptor.Granularity = 1;
+
+        // Set the new descriptor
+        XapiOriginalCodeSelectorEntry = XapiChangeCodeSelectorLimit
+            (&Descriptor);
+    }
+}
+

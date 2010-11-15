@@ -1,0 +1,526 @@
+
+
+# -------------------------------------------------------------------
+# MEMORY MAP                            (c) Copyright 1996 Nat! & KKP
+# -------------------------------------------------------------------
+# These are some of the results/guesses that Klaus and Nat! found
+# out about the Jaguar with a few helpful hints by other people, 
+# who'd prefer to remain anonymous. 
+#
+# Since we are not under NDA or anything from Atari we feel free to 
+# give this to you for educational purposes only.
+#
+# Please note, that this is not official documentation from Atari
+# or derived work thereof (both of us have never seen the Atari docs)
+# and Atari isn't connected with this in any way.
+#
+# Please use this informationphile as a starting point for your own
+# exploration and not as a reference. If you find anything inaccurate,
+# missing, needing more explanation etc. by all means please write
+# to us:
+#    nat@zumdick.rhein-main.de
+# or
+#    kkp@gamma.dou.dk
+#
+# If you could do us a small favor, don't use this information for
+# those lame flamewars on r.g.v.a or the mailing list.
+#
+# HTML soon ?
+# -------------------------------------------------------------------
+# 1997/03/30 02:27:13 
+# -------------------------------------------------------------------
+Very incomplete and very buggy! The main memory map is probably bullshit.
+
+Hmm, fabulous ASCII art again :)
+
+Interesting enough is that all addresses in the Jaguar are accessible.
+Even if there's no memory 'behind' the address, you will not be 
+buserrored. This is probably a wise decision, making the running programs
+more stable.
+
+Hopefully you have some 68000 docs lying around, because the low memory
+usage is just the same as on a 68000 in terms of vectors and the like.
+
+
+
+General Jaguar Memory Model:
+===========================
+
+$000000  +------------------------+ 
+         |                        | 
+         |          RAM           | 
+         |                        | $1FFFFF 
+$200000  +------------------------+ 
+         |         shadow         | 
+         |   of $000000-$1FFFFF   |    with 2MB 
+         |          RAM           | $3FFFFF
+$400000  +------------------------+ 
+         .                        .
+         .           ...          .
+         .                        .
+         .                        . $7FFFFF
+$800000  +------------------------+ 
+         |                        |
+         |          ROM           |
+         |                        | $DFFFFF
+$E00000  +------------------------+
+         |       BOOT-(EP)ROM     | $E1FFFF
+$E20000  +------------------------+
+         .                        .
+         .           ...          .
+         .                        . $EFFFFF
+$F00000  +------------------------+
+         |           TOM          |
+$F10000  |------------------------+
+         |          JERRY         |
+         +------------------------+ $F1FFFF
+         .                        .
+         .           ...          .     ????
+         .                        .
+         ..........................
+      
+
+
+TOM in more detail:
+==================
+         
+$F00000  +-------------------------+
+         |   Memory Configuration  | $F00003
+$F00004  +-------------------------+
+         |      Video Chip         | $F0000F
+$F00010  +-------------------------+
+         |        Object           |
+         |       Processor         | $F00027
+$F00028  +-------------------------+
+         |                         |
+         |      Video Chip         |
+         |                         | $F000DF
+$F000E0  +-------------------------+
+         |       IRQ Control       | $F000E3
+$F000E4  +-------------------------+
+         .           ...           . $F003FF
+$F00400  +-------------------------+
+         |                         |             
+         |    Color Lookup Table   |
+         |                         | $F007FF             
+$F00800  +-------------------------+
+         |                         |
+         |                         |
+         |      Linebuffer  0      |
+         |                         |
+         |                         | $F00FFF
+$F01000  +-------------------------+         
+         |                         |
+         |                         |
+         |      Linebuffer  1      |
+         |                         |
+         |                         | $F017FF
+$F01800  +-------------------------+
+         |                         |            probably Linebuffer 0 and 1
+         |                         |            get mapped to this address
+         |    Current Linebuffer   |            when they are active
+         |                         |
+         |                         | $F01FFF
+$F02000  +-------------------------+
+         .           ...           . $F020FF
+$F02100  +-------------------------+
+         |                         |
+         |       GPU Control       |
+         |                         | $F0211F
+$F02120  +-------------------------+
+         .           ...           . $F021FF
+$F02200  +-------------------------+
+         |                         |
+         |        Blitter          |
+         |                         | $F0229F
+$F022A0  +-------------------------+
+         .           ...           . $F02FFF
+$F03000  +-------------------------+
+         |                         |
+         |                         |
+         |      4 KB  GPU RAM      |
+         |                         |
+         |                         | $F03FFF
+$F04000  +-------------------------+
+         .           ...           .
+         ........................... $F0FFFF
+ 
+
+
+Jerry in more detail:
+====================
+       
+$F10000  ...........................
+         .           ...           . $F1000F
+$F10010  +-------------------------+
+         |   Clock Configuration   | $F10015
+$F10016  +-------------------------+
+         .           ...           .
+$F10030  +-------------------------+
+         |       Networking        | $F10037
+$F10038  +-------------------------+
+         .                         .
+         .           ...           .
+         .                         . $F13FFF
+$F14000  +-------------------------+
+         |    Joystick/Config      | $F14003
+$F14004  +-------------------------+
+         .                         .
+         .     EEPROM channel      .
+         .                         .
+         .                         . $F1A0FF
+$F1A100  +-------------------------+
+         |        DSP Control      | $F1A11F
+$F1A120  +-------------------------+
+         .           ...           . $F1A147
+$F1A148  +-------------------------+
+         |         DAC / SSI       | $F1A157
+$F1A158  +-------------------------+
+         .                         .        
+         .           ...           .
+         .                         .
+$F1B000  +-------------------------+
+         |                         |
+         |                         |
+         |      8 KB  DSP RAM      |
+         |                         |
+         |                         | $F1CFFF
+$F1D000  +-------------------------+
+         |     Triangle Waveform   | $F1D1FF
+$F1D200  +-------------------------+
+         |       Sine Waveform     | $F1D3FF
+$F1D400  +-------------------------+
+         |  Another Sine Waveform  | $F1D5FF
+$F1D600  +-------------------------+
+         |  sin( x) + sin( x + x)  | $F1D7FF
+$F1D800  +-------------------------+
+         |       Sweep waveform    | $F1D9FF
+$F1DA00  +-------------------------+
+         |   Triangle with Noise   | $F1DBFF
+$F1DC00  +-------------------------+
+         |       Positive Spike    | $F1DDFF
+$F1DE00  +-------------------------+
+         |            Noise        | $F1DFFF
+$F1E000  +-------------------------+
+         .           ...           .
+         ........................... $F1FFFF
+
+Each of the rom tables is a 128 entry long array of 32 bit values.
+
+
+Memory Configuration:
+=-=-=-=-=-=-=-=-=-=-=
+
+$F00000  +------------+
+         |   MEMCON1  | $F00001
+$F00002  +------------+
+         |   MEMCON2  | $F00003
+         +------------+
+
+         
+Object Processor:
+=-=-=-=-=-=-=-=-=
+
+$F00010  +---------------------------------------------------+
+         |               Curent object phrase                | $F00017
+         +---------------------------------------------------+
+
+$F00020  +-------------------------+
+         |     OP-List pointer     | $F00023     Pointer to the Objectlist
+$F00024  +-------------------------+
+         |   Data pointer / Flag   | $F00027     Internal pointer, OP flag
+         +-------------------------+
+
+
+The Video Chip :
+=-=-=-=-=-=-=-=
+
+$F00004  +------------+
+         |   Hor Cnt  | $F00005     Horizontal beam position
+$F00006  +------------+
+         |   Ver Cnt  | $F00007     Vertical beam position
+$F00008  +------------+
+         |   Hor Pen  | $F00009     Lightpen hor position
+$F0000A  +------------+
+         |   Ver Pen  | $F0000B     Lightpen ver position
+         +------------+
+
+$F00028  +-------------+
+         |  Video Mode |  $F00029    Bordercolor Red+Green
+$F0002A  +-------------+-----------+
+         |        Border RGB       | $F0002D    Red Green X Blue
+$F0002E  +-------------------------+
+         | hor period  | $F0002F
+$F00030  +-------------+
+         |  HBL start  | $F00031    horuizontal blanking start
+$F00032  +-------------+
+         |  HBL end    | $F00033    horizontal blanking end
+$F00034  +-------------+
+         |  hor sync   | $F00035
+$F00036  +-------------+
+         | hor/ver sync| $F00037
+$F00038  +-------------+
+         | disp strt1  | $F00039
+$F0003A  +-------------+
+         | disp strt2  | $F0003B
+$F0003C  +-------------+
+         |  disp end   | $F0003D
+$F0003E  +-------------+
+         | ver period  | $F0003F
+$F00040  +-------------+
+         |  VBL start  | $F00041
+$F00042  +-------------+
+         |  VBL end    | $F00043
+$F00044  +-------------+
+         |  ver sync   | $F00045
+$F00046  +-------------+
+         | v disp start| $F00047
+$F00048  +-------------+
+         | v disp end  | $F00049
+$F0004A  +-------------+
+         | v equ begin | $F0004B
+$F0004C  +-------------+
+         |  v equ end  | $F0004D
+$F0004E  +-------------+
+         |   vert IRQ  | $F0004F
+         +-------------+
+
+$F00054  +-------------+
+         |  h equ end  | $F00055
+$F00056  +-------------+
+         |    unused   | $F00057
+$F00058  +-------------+
+         |  BKG Color  | $F00059
+         +-------------+
+
+
+Programmable Timer:
+=-=-=-=-=-=-=-=-=-=
+
+$F00050  +---------------------------+
+         |           Timer           | $F00053
+         +---------------------------+
+
+         
+TOM Interrupt control:
+=-=-=-=-=-=-=-=-=-=-=
+
+$F000E0  +------------+
+         |    INT1    | $F000E1
+$F000E2  +------------+
+         |    INT2    | $F000E3
+         +------------+
+
+
+GPU Control:
+=-=-=-=-=-=
+
+$F02100  +-------------------------+
+         |        GPU Flags        | $F02103
+$F02104  +-------------------------+
+         |       Matrix Control    | $F02107
+$F02108  +-------------------------+
+         |   Pointer to Matrix     | $F0210B
+$F0210C  +-------------------------+
+         |    Data Organization    | $F0210F
+$F02110  +-------------------------+
+         |         GPU PC          | $F02113
+$F02114  +-------------------------+
+         |   GPU Control + Status  | $F02117
+$F02118  +-------------------------+
+         |   High 32bit of phrase  | $F0211B
+$F0211C  +-------------------------+
+         |  Div remainder/control  | $F0211F
+         +-------------------------+
+
+
+Blitter:
+=-=-=-=
+
+$F02200  +-------------------------+
+         |      A1 Datapointer     | $F02203
+$F02204  +-------------------------+
+         |         A1 FLAGS        | $F02207
+$F02208  +-------------------------+
+         |         A1 CLIP         | $F0220B
+$F0220C  +-------------------------+
+         |         A1 PIXEL        | $F0220F
+$F02210  +-------------------------+
+         |         A1 STEP         | $F02213
+$F02214  +-------------------------+
+         |         A1 FSTEP        | $F02217
+$F02218  +-------------------------+
+         |         A1 FPIXEL       | $F0221B
+$F0221C  +-------------------------+
+         |         A1 INC          | $F0221F
+$F02220  +-------------------------+
+         |         A1 FINC         | $F02223
+         +-------------------------+
+
+$F02224  +-------------------------+
+         |       A2 Data pointer   | $F02227
+$F02228  +-------------------------+
+         |         A2 FLAGS        | $F0222B
+$F0222C  +-------------------------+
+         |         A2 MASK         | $F0222F
+$F02230  +-------------------------+
+         |         A2 PIXEL        | $F02233
+$F02234  +-------------------------+
+         |         A2 STEP         | $F02237
+         +-------------------------+
+
+$F02238  +-------------------------+
+         |         Command         | $F0223B
+$F0223C  +-------------------------+
+         |    Pixel/Line Counter   | $F0223F
+$F02240  +-------------------------+-------------------------+
+         |                    Source data                    | $F02247
+$F02248  +---------------------------------------------------+
+         |                  Destination data                 | $F0224F
+$F02250  +---------------------------------------------------+
+         |                    Destination Z                  | $F02257
+$F02258  +---------------------------------------------------+
+         |                   Source Z  integer               | $F0225F
+$F02260  +---------------------------------------------------+
+         |                   Source Z  fractional            | $F02267
+$F02268  +---------------------------------------------------+
+         |                     Pattern data                  | $F0226F
+$F02270  +---------------------------------------------------+
+         |    Intensity Increment  | $F02273
+$F02274  +-------------------------+
+         |        Z Increment      | $F02277
+$F02278  +-------------------------+
+         |    Collision Control    | $F0227B
+         +-------------------------+
+
+$F0227C  +-------------------------+
+         |    Phrase Intensity 3   | $F0227F
+$F02280  +-------------------------+
+         |    Phrase Intensity 2   | $F02283
+$F02284  +-------------------------+
+         |    Phrase Intensity 1   | $F02287
+$F02288  +-------------------------+
+         |    Phrase Intensity 0   | $F0228B
+         +-------------------------+
+
+$F0228C  +-------------------------+
+         |        Phrase Z 3       | $F0229F
+$F02290  +-------------------------+
+         |        Phrase Z 2       | $F02293
+$F02294  +-------------------------+
+         |        Phrase Z 1       | $F02297
+$F02298  +-------------------------+
+         |        Phrase Z 0       | $F0229B
+         +-------------------------+
+
+
+Timer:
+=-=-=
+
+$F10000  +------------+
+         |    JPIT1   | $F10003
+$F10004  +------------+
+         |    JPIT2   | $F10007
+         +------------+
+
+Clocks:
+=-=-=-=
+
+$F10010  +------------+
+         |     CLK1   | $F10011
+$F10012  +------------+
+         |     CLK2   | $F10013
+$F10014  +------------+
+         |Chroma Clock| $F10015
+         +------------+
+
+
+Network:
+=-=-=-=
+
+$F10030  +------------+
+         |   ASIDATA  | $F10031
+$F10032  +------------+
+         |   ASISTAT  | $F10033
+$F10034  +------------+
+         |   ASICLK   | $F10035
+         +------------+
+
+
+JOYPAD:
+=-=-=-=
+      
+$F14000  +------------+
+         |  Ctrl/Data | $F14001        ;; also used for EEPROM
+$F14002  +------------+
+         |   Button   | $F14003
+         +------------+
+
+
+EEPROM:
+=-=-=-=
+
+$F14800  +------------+
+         |  EEPROM_RD | $F14801
+         +------------+
+
+$F15000  +------------+
+         |  EEPROM_WR | $F15001
+         +------------+
+
+
+DSP Control:
+=-=-=-=-=-=
+
+$F1A100  +-------------------------+
+         |        GPU Flags        | $F1A103
+$F1A104  +-------------------------+
+         |       Matrix Control    | $F1A107
+$F1A108  +-------------------------+
+         |   Pointer to Matrix     | $F1A10B
+$F1A10C  +-------------------------+
+         |    Data Organization    | $F1A10F
+$F1A110  +-------------------------+
+         |         DSP PC          | $F1A113
+$F1A114  +-------------------------+
+         |   DSP Control + Status  | $F1A117
+$F1A118  +-------------------------+
+         |        Modulo Mask      | $F1A11B
+$F1A11C  +-------------------------+
+         |  Div remainder/control  | $F1A11F
+$F1A120  +-------------------------+
+         |     High byte of MAC    | $F1A123
+         +-------------------------+
+
+
+DAC:
+=-=
+      
+$F1A148  +-------------------------+
+         |         Right DAC       | $F1A14B
+$F1A14C  +-------------------------+
+         |         Left DAC        | $F1A14E
+         +-------------------------+
+
+
+Synchronous Serial Interface (SSI): (maybe also used for DAC frequency)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+      
+$F1A150  +-------------------------+
+         |         Frequency       | $F1A153
+$F1A154  +-------------------------+
+         |          Control        | $F1A157
+         +-------------------------+
+
+
+
+
+
+
+------------------------------------------------------------------------
+Nat! (nat@zumdick.rhein-main.de)
+Klaus (kkp@gamma.dou.dk)
+
+
+1997/03/30 02:27:13 
+

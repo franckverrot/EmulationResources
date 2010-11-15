@@ -1,0 +1,143 @@
+-----------------------------------------------------------------------------
+ NES Game Genie Code Format DOC v0.71      /
+    by Benzene of Digital Emutations      /
+              July 10 1997               /
+----------------------------------------/
+
+1.  Thanks
+
+2.  What the letters mean
+
+3.  How to decode 6 character codes
+
+4.  How to decode 8 character codes
+
+5.  Contact Info
+
+-----------------------------------------------------------------------------
+                        /
+1 . Special thanks to  /
+----------------------/
+Sardu(for figuring out most of the address information)
+Opcode
+Deuce
+DrSplat
+KingPin
+and all the people on GameNet
+all the NES emu authors(wouldn't need to figure this out
+  if it wasn't for you).
+codemasters and galoob for making the Game Genie(it would be
+  nice if they gave me some info though)
+
+-----------------------------------------------------------------------------
+                            /
+2.  What the letters mean  /
+--------------------------/
+
+As the handbook states the letters are grouped into two
+groups.
+
+group 1
+
+-------------------
+| A P Z L G I T Y |
+-------------------
+
+group 2
+
+-------------------
+| E O X U K S V N |
+-------------------
+
+All the letters also have the binary representation shown below
+
+A = 0000
+P = 0001
+Z = 0010
+L = 0011
+G = 0100
+I = 0101
+T = 0110
+Y = 0111
+E = 1000
+O = 1001
+X = 1010
+U = 1011
+K = 1100
+S = 1101
+V = 1110
+N = 1111
+
+In later parts of this doc i'll explain what to do with the letters
+binary representation
+
+-----------------------------------------------------------------------------
+                                      /
+3.  How to decode 6 character codes  /
+------------------------------------/
+
+Since the code is scrambled, you will need the table below
+to descrable it.
+
+Char # |   1   |   2   |   3   |   4   |   5   |   6   |
+Bit  # |3|2|1|0|3|2|1|0|3|2|1|0|3|2|1|0|3|2|1|0|3|2|1|0|
+maps to|1|6|7|8|H|2|3|4|-|I|J|K|L|A|B|C|D|M|N|O|5|E|F|G|
+
+note char 3 bit 3 is used by the game genie to determine the length
+of the code.
+
+The value is made of 12345678 of the maps to line.
+The address is made of ABCDEFGHIJKLMNO of the maps to line.
+
+if I take code SXIOPO(infinite lives in smb1) I get this
+
+|   S   |   X   |   I   |   O   |   P   |   O   |
+|1|1|0|1|1|0|1|0|0|1|0|1|1|0|0|1|0|0|0|1|1|0|0|1|
+
+The value would be(using the above table) 10101101 or ADh in hex
+The address would be 001000111011001 or 11D9h in hex
+
+Special note about the address, the adress can be one of any 32656 bytes
+and uses the addresses the mapper assigns to the data in the rom banks
+
+for use in emulators the addresses needs to be converted to CPU addresses
+between 0x8000 and 0xFFFF(just add 8000h to the hex address given by the
+address part of the code)
+
+-----------------------------------------------------------------------------
+                                     /
+4. How to decode 8 character codes  /
+-----------------------------------/
+
+Decoding 8 character codes is similar to 6 character codes exept the code
+has to be split into 3 parts not 2, the table below would be helpfull
+
+Char # |   1   |   2   |   3   |   4   |   5   |   6   |   7   |   8   |
+Bit  # |3|2|1|0|3|2|1|0|3|2|1|0|3|2|1|0|3|2|1|0|3|2|1|0|3|2|1|0|3|2|1|0|
+maps to|1|6|7|8|H|2|3|4|-|I|J|K|L|A|B|C|D|M|N|O|%|E|F|G|!|^|&|*|5|@|#|$|
+
+Once again char 3 bit 3 denotes the code length.
+
+Once again:
+The value is made of 12345678 of the maps to line.
+The address is made of ABCDEFGHIJKLMNO of the maps to line.
+The compare value is made of !@#$%^&* of the maps to line.
+
+It then checks the value to be replaced with the compare
+value, if they are the same it replaces the original value with the new
+value if not the value remains the same.
+
+-----------------------------------------------------------------------------
+                  /
+4. Contact Info  /
+----------------/
+
+You have info or comments about this doc please email me at demu@wspice.com
+
+especialy if you have new info or find that some of mine is incorrect.
+
+or you can meet me on GameNet IRC at dannyw.iamerica.net:6667 or in europe 
+phm.ml.org:6667
+
+Feel free to change and add to this doc, just make sure you give credit where
+it is due(ie, be sure to credit the original authors AND yourself)

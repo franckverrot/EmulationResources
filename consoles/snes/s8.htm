@@ -1,0 +1,648 @@
+<html>
+
+<!-- Mirrored from www.classicgaming.com/epr/super/s8.htm by HTTrack Website Copier/3.x [XR&CO'2002], Sun, 19 May 2002 08:29:21 GMT -->
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Mike">
+   <meta name="GENERATOR" content="Mozilla/4.0b4 [en] (Win95; I) [Netscape]">
+   <title>Sound</title>
+<meta name="Microsoft Theme" content="sumipntg 011, default"></head>
+<body background="../_themes/sumipntg/sumtextb.jpg" bgcolor="#FFFFFF" text="#808080" link="#3333CC" vlink="#666699" alink="#990099"><!--mstheme--><font face="verdana">
+From PARADIS@htu.tu-graz.ac.at Fri Mar 25 08:41:08 1994
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The Bloody SPC-700
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ------------------
+<br>
+
+<p>A try to stumble into the inner secret of a nasty chip.
+
+<p>By Antitrack exclusively for the FAMIDEV development group.
+<br>
+
+<p>Chapter 1:
+<br>----------
+<br>
+
+<p>FACTS
+
+<p>* The SPC 700 is a very stupid sound chip with about the worst handling
+<br>&nbsp; that you have seen in your lifetime.
+
+<p>* This chip is a co processor. He has a quite large instruction set
+<br>&nbsp; (contrary to the Amiga's COPPER, who has a very small one) and
+64KB
+<br>RAM memory, of which you can use atleast 32KB.&nbsp; (or so)
+
+<p>* All program and data that is supposed to be run by this chip must
+<br>be'&nbsp; moved to the SPC's own ram with a small loop that pokes each
+byte of
+<br>&nbsp; your SPC assembler program and (e.g. sample-)data into four
+memory
+<br>&nbsp; locations : $2140 - $2143. They are your only chance to communicate
+<br>with&nbsp; the SPC.
+
+<p>* These four memory locations have different meanings for read and
+<br>write;
+<br>&nbsp; if you read (LDA) $2140, you get the data from memory loc. 00f4
+(or
+<br>so)&nbsp; of the sound chip.
+
+<p>* On power-on, the SPC 700 jumps (much like the main processor) to a
+<br>very&nbsp; small ROM area that resides from $ffc0 to $ffff inside the
+SPC.
+<br>&nbsp; (This chip REALLY follows the black box principle, eh...) This
+<br>program&nbsp; at $ffc0 is waiting to get the data in the right format
+on his
+<br>input ports&nbsp; at $00f4/5/6/7 , which are $2140/1/2/3 from the 65c816's
+(e.g.
+<br>your's )&nbsp;&nbsp; point of view.
+
+<p>* Your main program will therefore have to follow the SPC's
+<br>conditions and&nbsp; poke all the program and data for the SPC into
+2140/1/2/3 in a
+<br>special&nbsp; order.
+
+<p>* When transmission is completed, you will also have transmitted the
+<br>start&nbsp; address of your SPC code, and the SPC will start to execute
+your
+<br>program&nbsp; there.
+<br>
+<br>
+
+<p>--------------------QUESTIONS.
+<br>
+
+<p>Q: How do I move my program and data to the SPC then, what format do
+<br>I have to use?
+<br>
+
+<p>A: First, your SPC data/code has to be moved from ROM to the extra
+<br>RAM at e.g. $7f0000 . Dont ask me why it has to be in RAM, probably
+it doesnt
+<br>but all the existing routines that send data to the SPC do something
+like
+<br>that.
+
+<p>Your data/code has to be in groups which I will call &quot;chunks&quot;. A
+<br>alid chunk looks like that:
+
+<p>first word: number of bytes to transmit to SPC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-+
+<br>sec. word : start address where to move data to the SPC&nbsp;&nbsp;
+|&nbsp; one chunk
+<br>byte 4-???? : your data/code&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-+
+
+<p>You can have as many chunks as you want to , but the last chunk must
+<br>be like that:
+
+<p>first word : $0000
+<br>second word: Start address of your code.
+<br>
+
+<p>Q: So if you are right, this means: After I transmitted all my code
+<br>and data, and my own SPC code takes over the control, I might encounter
+<br>problems if my SPC program has to communicate with the outer world
+(the
+<br>65c816).What if the main program wants to change sounds? What if a
+background
+<br>melody shall always play on two voices, and extra two voices will be
+used for
+<br>sound effects whenever the player sprite e.g. picks up an object?
+
+<p>A: That is sure a point. Your own code will have to look at memory
+<br>locations $00f4/00f5/00f6/00f7 , because they are the only accessible
+from
+<br>outside at $2140/1/2/3. The easiest way would be: As soon as any of
+$f4-$f7
+<br>change, jump into the Boot ROM at $ffc0 (?) so the SPC is executing
+his
+<br>receive routine again. Then you *probably* can send another SPC chunk
+with new
+<br>sound and code to the SPC....
+
+<p>Q: This only helps if a complete new tune is to be played, this
+<br>doesnt help if a melody using two voices shall still remain....
+
+<p>A: Thats true. The best approach is to send own command bytes to the
+<br>SPC and your SPC code has to check out $f4-$f7 constantly and react
+to it.....
+<br>A command byte like $00 could mean: sound off,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : play
+tune 1
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$0f&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : play tune $0f
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : play
+jingle (fx) 01
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$ff&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : jump
+to $ffc0 (??) the receive
+<br>ROM routine
+<br>
+<br>
+
+<p>Q: is there another approach?
+
+<p>A: Yes there is. As you probably know, all important addresses of the
+<br>SPC 700 reside inside its own RAM's zeropage:
+
+<p>Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / register&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/ usage
+<br>0000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Volume left
+<br>0001&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Volume right
+<br>0002&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Pitch low
+<br>0003&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Pitch high&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (The total
+14 bits of pitch
+<br>height)
+<br>0004&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SRCN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Designates source number from 0-
+<br>255
+<br>0005&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ADSR 1
+<br>0006&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ADSR 2
+<br>0007&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+GAIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Envelope can be freely designated by
+<br>your code
+<br>0008&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ENVX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Present val of envelope with DSP
+<br>rewrites
+<br>0009&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+VALX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Present wave height val
+
+<p>(and so on...)
+
+<p>Your approach would be to move only sample data there, and/or (lots
+<br>of) very
+<br>small chunks of data with a target address in the zeropage, and a
+<br>starting
+<br>address of e.g. $ffc0. The small chunks would access zeropage
+<br>addresses e.g.
+<br>for the volume etc and thus result in tones; if this is done every
+<br>frame
+<br>you might end up with a music player quite similar to the C64 styled
+<br>ones.
+<br>
+
+<p>Q: So anyway, in what format exactly do I have to move data to the
+<br>SPC?
+
+<p>A: I have the following source code for you, but let me explain it a
+<br>bit
+<br>BEFORE you start to dig into it.
+
+<p>I've already mentioned the general &quot;chunk&quot; format. The loop does the
+<br>following:
+<br>
+
+<p>- move ram destination address to $2142/3 (akku: 16 bit)
+<br>- move either #$00 or #$01 into 2141, this depends if you have more
+<br>than $0100
+<br>&nbsp; bytes of data for the SPC;
+
+<p>- first time (first chunk you transmit): move constant #$cc into 2140
+
+<p>- loop: poke each byte that you want to be transmitted into 2140
+<br>(word)
+<br>&nbsp; the higher 7-15 bits of your accu-word contain the number of
+bytes
+<br>already
+<br>&nbsp; moved (e.g. 00 on the start)
+
+<p>- cmp $2140 with this number of bytes already moved (lower 8 bits of
+<br>this
+<br>&nbsp; number only!) and wait if its not equal.
+
+<p>- until the loop is over.
+
+<p>- for the next chunk header this is repeated, but not #$cc is moved
+<br>into
+<br>&nbsp; 2140 but &quot;nn&quot; (lobyte of number of bytes moved) +3 or +6 if
+it was
+<br>00 when
+<br>&nbsp; +3 was used.
+
+<p>EXAMPLE:
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; move #$0400 to 2142 /word
+access
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; move #$01 to 2141
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; move #$cc to 2140
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; move &quot;gg00&quot; to 2140 where
+&quot;gg&quot; is the first real code/data
+<br>byte for
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+the SPC
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wait till 2140 is #$00
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; move hh01 to 2140 where &quot;hh&quot;
+is the second byte of code or
+<br>data for SPC
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wait till 2140 is #$01
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; move ii02 to 2140 where &quot;ii&quot;
+is the 3rd byte of data for the
+<br>SPC....
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wait till 2140 is #$02
+<br>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lets say &quot;ii&quot; was the last byte.
+Now we add #$04 (3+carry) to
+<br>#$02
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (#$02 being the number-1 of how
+many bytes we moved to the
+<br>SPC), we
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; will push it onto the stack),
+now :
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fetch the next header , poke target
+RAM address into $2142
+<br>(word)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; poke 00 or 01 into 2141 depending
+of how many bytes to send,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; poke #$06 into 2140 (06 : number
+of bytes sent from last chunk-
+<br>1 + 3 )
+<br>
+
+<p>I think I got this scheme pretty much right this time. Now, is PLEASE
+<br>someone
+<br>going to donate their home-brewed SPC dis/assemblers to me? Oh pretty
+<br>please,
+<br>I hate silent SNES's !&nbsp; :)
+<br>
+
+<p>Source code follows, reassembled from a PAN/Baseline demo &quot;xmas wish
+<br>92/93&quot;:
+<br>----------------------------------------------------------------------
+<br>------
+<br>
+
+<p>; entry to the code starts here
+<br>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SEP
+#$30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; x y a set to 8 bit length
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$FF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; ff into audio0w (write)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2140
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+REP #$10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; x,y: 16 bit length
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDX #$7FFF
+<br>l0DB5B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LDA $018000,X&nbsp; ; move rom
+music data to ram at $7f0000
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $7F0000,X
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA $028000,X&nbsp; ; move rom music data to ram at $7f0000
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $7F8000,X
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+DEX
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BPL l0DB5B
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$80&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; screen on , probably not
+important at all
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2100
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; 00fd/00fe/00ff point to
+the data that is
+<br>now
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $00FD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; in ram at $7f0000
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$00
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $00FE
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$7F
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $00FF
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STZ $4200&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; disable nmi and timer h/v count
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SEI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;
+disable irq
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JSR
+l0DBCD&nbsp;&nbsp;&nbsp;&nbsp; ; unknown sub routine, labeled &quot;RESTART&quot;
+<br>by PAN/ATX
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SEP
+#$30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; all regs 8 bit
+<br>l0DB8B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LDA $2140&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; wait for reply from sound chip ?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BNE l0DB8B
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$E0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; audio3w ?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2143
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$FF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; send data to sound chip
+?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2142&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; $ffe0 this could be an address
+within the
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; sound chip ROM between $ffc0 and $ffff
+<br>in the
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; ROM mask.......
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; send data to sound chip
+?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2141
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; send data to sound chip
+?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2140
+
+<p>l0DBA4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LDA $2140&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; wait for reply from sound chip ?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CMP #$01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; what a fuck of a protocol
+.... :(
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BNE l0DBA4
+
+<p>l0DBAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LDA $2140&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; wait again for reply from soundchip ?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CMP #$55
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BNE l0DBAB
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LDA
+$0207&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; aha ... move $0207 to sound
+chip ?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2141&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; probably sound number selector
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$07
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2140&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; send data to sound chip
+<br>l0DBBD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LDA $2140&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; wait until sound chip accepted data?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CMP #$07
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BNE l0DBBD
+<br>l0DBC4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LDA $2140&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; wait for reply ?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CMP #$55
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BNE l0DBC4
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CLI
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+RTS
+
+<p>l0DBCD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; labeled &quot;RESTART&quot; by pan/ATX
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+JSR l0DBD8&nbsp;&nbsp;&nbsp;&nbsp; ;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+PLP
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; 00 into audio0w
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2140
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+RTS
+
+<p>l0DBD8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHP
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+REP #$30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; a,x,y 16 bit regs
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDY #$0000&nbsp;&nbsp;&nbsp;&nbsp; ; needed first time at lda [$fd],y :
+<br>pointer to ram
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$BBAA
+<br>l0DBE1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CMP $2140&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; wait for sound chip $2140/2141 ?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BNE l0DBE1
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SEP #$20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; akku&nbsp; 8 bit
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$CC
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BRA l0DC12&nbsp;&nbsp;&nbsp; ;&nbsp; oh well, another mystery&nbsp; :-)
+<br>
+
+<p>; jump here if overflow is set&nbsp; e.g. if more than $0100 data to
+move
+<br>l0DBEC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LDA [$FD],Y&nbsp;&nbsp; ; get
+data from ram pointer
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+INY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; the accumulator
+is about to get &quot;xx00&quot;
+<br>where
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+XBA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;&nbsp;&nbsp;&nbsp;
+/&quot;xx&quot; is the byte from [fd],y (first
+<br>data byte)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA #$00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;&nbsp;&nbsp;&nbsp; /and resides
+into bit 15-7 of accu,
+<br>and 00 is
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BRA l0DBFF&nbsp;&nbsp;&nbsp; ;&nbsp;&nbsp;&nbsp; /#$00 (8bit number of
+bytes already
+<br>sent)
+<br>
+
+<p>l0DBF4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; XBA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; accu is now &quot;nn??&quot; ?? is old data from
+<br>last loop
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA [$FD],Y&nbsp;&nbsp; ; accu is now &quot;nnxx&quot; with xx the newest
+<br>data byte
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+INY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/for
+<br>the SPC!
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+XBA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; accu
+is now &quot;xxnn&quot;
+<br>l0DBF9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CMP $2140&nbsp;&nbsp;&nbsp;&nbsp;
+; wait for sound chip to reply with &quot;nn&quot; !!
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BNE l0DBF9
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+INC A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; increment number
+of bytes that were
+<br>sent...
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; accu is now &quot;xxnn&quot; with newest val for
+<br>nn:=nn+1
+
+<p>l0DBFF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REP #$20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; akku 16 bit
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2140&nbsp;&nbsp;&nbsp;&nbsp; ; poke &quot;xxnn&quot; to soundchip. xx is actual
+<br>data,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SEP #$20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; akku 8 bit&nbsp; ! nn is the 8-bit
+cutted
+<br>number of bytes
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+DEX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+! which were already sent!!
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BNE l0DBF4&nbsp;&nbsp;&nbsp; ; as many times as xreg says...
+<br>
+
+<p>l0DC09&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CMP $2140&nbsp;&nbsp;&nbsp;&nbsp;
+; byte &quot;nn&quot; will be replied from the SPC if
+<br>data
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BNE l0DC09&nbsp;&nbsp;&nbsp; ; received correctly!
+<br>l0DC0E&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ADC #$03&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; compare accu with #$fb&nbsp; ADC WILL ADD #$04
+<br>COZ
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; CARRY IS ALWAYS SET AFTER THE CMP!!!
+<br>ATTENTION!
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BEQ l0DC0E&nbsp;&nbsp;&nbsp; ; if accu was $fb then accu := $03 . (what
+<br>for?)
+
+<p>l0DC12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; push value accu+$04 to stack (or
+<br>beginning: #$cc)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+REP #$20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; accu = 16 bit
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA [$FD],Y&nbsp;&nbsp; ; get ram data 2 bytes
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+INY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; point
+to next word
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+INY
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+TAX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; x:=a
+: number of bytes to transmit
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+LDA [$FD],Y&nbsp;&nbsp; ; get ram data
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+INY
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+INY
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2142&nbsp;&nbsp;&nbsp;&nbsp; ; audio2w&nbsp; : possibly the dest.
+area in the
+<br>spc700
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SEP #$20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; accu 8 bit
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CPX #$0100&nbsp;&nbsp;&nbsp; ; set carry if first ram data was &gt;= 0100
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+lda #$00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ROL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2141&nbsp;&nbsp;&nbsp;&nbsp; ; if ram data &gt;= 0100, poke &quot;1&quot; into
+reg 1
+<br>otherw 0
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ADC #$7F&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; SET OVERFLOW FLAG IF X&gt;=$0100
+!!!! (nice
+<br>trick!)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+PLA
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2140&nbsp;&nbsp;&nbsp;&nbsp; ; $cc in the first case , nn+4 on all
+later
+<br>cases
+
+<p>l0DC32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CMP $2140&nbsp;&nbsp;&nbsp; ; wait
+for snd chip reply
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BNE l0DC32
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BVS l0DBEC&nbsp;&nbsp; ; if there were more than $0100 data for the
+<br>spc's RAM
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+; move them where they R supposed to belong
+<br>to!
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+PLP
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+RTS
+<br>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PLA
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+STA $2140&nbsp;&nbsp;&nbsp; ; same shit, never been jumped into
+<br>l0DC3F&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CMP $2140
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BNE l0DC3F
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BVS l0DBF9
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+PLP
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+RTS
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<p>; also lets look at 7f0000: the first few bytes at 7f0000 are:
+
+<p>7f0000: b7 0e 00 04 20 cd cf bd e8 00 5d af c8 f0 d0 fb 5d d5 00 01
+<br>d5 00 02
+
+<p>b7 0e should be number of bytes to transmit, 0400 the destination
+<br>inside the
+<br>spc....
+<br>at this point I really need an SPC dis/assembler.....&nbsp; :(((
+
+<p>Okay well my first source was incompetent, sure thing. But I think I
+<br>could
+<br>solve a lot of questions meanwhile.
+<br>
+<!--mstheme--></font></body>
+
+<!-- Mirrored from www.classicgaming.com/epr/super/s8.htm by HTTrack Website Copier/3.x [XR&CO'2002], Sun, 19 May 2002 08:29:21 GMT -->
+</html>
+<br clear="all"><center><font size="1">This Web Space provided by <a href="http://www.inreach.com/">InReach Internet Communications</a><br>InReach is not responsible for material contained on this page.<br> Last Modified:  15-May-97 06:52<p></center></font>
+<!-- Mirrored from www.classicgaming.com/epr/super/s8.htm by HTTrack Website Copier/3.x [XR&CO'2002], Sun, 19 May 2002 08:29:21 GMT -->
+</html>

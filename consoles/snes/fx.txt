@@ -1,0 +1,33 @@
+
+Chip FX by esnes
+----------------
+
+ - RISC
+ - 16 bits
+ - 10.74 Mhz
+ - 512 bytes Cache
+ - Realiza :
+    Crea texturas, sombreado, deformacion,rotacion,
+    zooms tridimensionales.
+
+   (**** Argonaut Software ( by Jez San ) ****)
+
+Some registers used :
+--------------------
+
+RWD2   | Registers |          Description
+-----------------------------------------------------------
+ w 2   | 301E      | ?? 
+r      | 3030      | ??
+ w     | 3034      | ??
+ w     | 3038      | ??
+ w     | 303A      | ??
+
+Some of code :
+-------------
+
+STA $303A  # M = 1 and X = 0
+STX $301E   
+LDA $3030
+AND #20    # xxAxxxxx A = ??
+BNE F9   

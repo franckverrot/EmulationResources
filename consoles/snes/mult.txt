@@ -1,0 +1,48 @@
+From:     vic@physci.psu.edu (Vic Ricker)
+To:       "Super Famicom Development Group" <famidev@busop.cit.wayne.edu>
+Subject:  Re: Multiplying/Dividing?
+Date:     Sun, 26 Dec 93 16:29:09 EST
+
+Take a look at this:
+
+
+    Address: $4202/$4203
+       Name: WRMPYA/WRMPYB
+Description: Multiplier and multiplicand
+
+
+  D7   D6   D5   D4   D3   D2   D1   D0
+
+|           MULTIPLICAND-A              |       $4202
+|_______________________________________|
+
+  D7   D6   D5   D4   D3   D2   D1   D0
+
+|            MULTIPLIER-B               |       $4203
+|_______________________________________|
+
+
+These registers perform absolute multiplication by multiplying
+multiplicand A by multiplier B and return product C which can be read
+from $4216/$4217 RDMPY.
+
+Set register A, then B.  After the B register is set, it will take 8
+machine cycles for the multiplication to be completed.
+
+* The A register will not be destroyed by the multiplication process.
+^^^ does not refer to the accumulator. it means the multiplicand
+
+Also, there is 8/16 multiply that shares the mode 7 matrix registers:
+set 16 bit multiplier to $211b and 8 bit multiplicand to $211c the 24
+bit product will be placed in $2134-$2136.
+
+The shift-add routine is a great way to multiply.  I'm suprised that
+so many so-called assembly programmers don't know how to do it.
+Regardless of how fast it is, the hardware stuff blows it away.
+
+There is also a hardware divide:
+
+$4204/4205 is the 16 bit dividend, $4206 is the 8bit divisor, the
+quotient will be put in $4214, and the remainder in $4216/4217.
+
+ANy questions, lemme know.

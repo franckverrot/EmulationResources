@@ -1,0 +1,1751 @@
+
+;	Commodore 128 RAM Memory Map
+;	V1.3b	18 Nov 1994
+
+
+  C128 Memory Map
+
+  This is as complete as possible compilation of two separate memory maps,
+  and a few random sources which naturally do differ from each other.
+
+
+  C128 RAM
+
+All Banks
+
+0000		I/O direction register
+0001		I/O port, similar to C64
+0002		Token 'SEARCH' looks for, Bank Number, Jump to SYS Address
+0003-0004	SYS address, MLM register PC
+0005-0009	SYS and MLM register save (SR, A, X, Y, SP)
+0005		SR Temp
+0006		AC Temp
+0007		XR Temp
+0008		YR Temp
+0009		SP Temp, Integer
+000a		Scan-quotes flag
+000b		TAB column save
+000c		Flag: 0 = LOAD, 1 = VERIFY
+000d		Input buffer pointer / number of subscripts
+000e		Default DIM flag
+000f		Data Type: FF = string, 00 = numeric
+0010		Data Type: 80 = integer, 00 = floating point
+0011		DATA scan / LIST quote / memory flag
+0012		Subscript / FNxx flag
+0013		Flag: 0 = INPUT, $40 = GET, $98 = READ
+0014		ATN sign / Comparison evaluation flag
+0015		Current I/O prompt flag
+0016-0017	Integer value
+0018		Pointer: temporary string stack
+0019-0023	Stack for temporary strings
+0024-0027	Utility pointer area
+0028-002c	Product area for multiplication
+002d-002e	Pointer: Start-of-BASIC (bank 0) [1C01]
+002f-0030	Pointer: Start-of-variables (bank 1) [0400]
+0031-0032	Pointer: Start-of-arrays
+0033-0034	Pointer: End-of-arrays
+0035-0036	Pointer string-storage (moving down)
+0037-0038	Utility string pointer
+0039-003a	Pointer: Limit-of-memory (bank 1) [FF00]
+003b-003c	Current BASIC line number
+003d-003e	Textpointer: BASIC work point (chrget)
+003f-0040	Utility Pointer
+0041-0042	Current DATA line number
+0043-0044	Current DATA address
+0045-0046	Input vector
+0047-0048	Current variable name
+0049-004a	Current variable address
+004b-004c	Variable pointer for FOR/NEXT
+004d-004e	Y-save, op-save, BASIC pointer save
+004f		Comparison symbol accumulator
+0050-0055	Miscellaneous work area, pointers, and so on
+
+0056-0058	Jump vector for functions
+0059-0062	Miscellaneous numeric work area
+0060-0062	MLM Address 0
+0063-0065	MLM Address 1
+0066-0068	MLM Address 2
+0063		Accum #1 exponent
+0064-0067	Accum #1 mantissa
+0068		Accum #1 sign
+0069		Series evaluation constant pointer
+006a-006f	Accum #2 exponent, and so on
+0070		Sign comparison Acc #1 versus #2
+0071		Accum #1 lo-order (rounding)
+0072-0073	Cassette buffer len / Series pointer
+0074-0075	Auto line number increment
+0076		Graphics flag: FF = Graphics allocated, 00 = Not allocated
+0077		Color source number
+0078-0079	Temporary counters
+007a-007c	DS$ descriptor
+007d-007e	BASIC pseudo-stack pointer
+007f		Flag: 0 = direct mode
+0080-0081	DOS, USING work flags
+0082		Stack pointer save for errors
+0083		Graphic color source
+0084		Multicolor 1 (1)
+0085		Multicolor 2 (2)
+0086		Graphic foreground color (13)
+0087-008a	Graphic scale factors, X & Y
+008b-008f	Graphic work values
+0090		Status word ST
+0091		Keyswitch 1A: STOP and RVS flags
+		 7	STOP
+		 6	Q
+		 5	C=
+		 4	Space
+		 3	2
+		 2	CTRL
+		 1	<-
+		 0	1
+
+0092		Timing constant for tape ($80)
+0093		Work value, monitor, LOAD / SAVE: 0 = LOAD, 1 = VERIFY
+0094		Serial output, deferred character flag
+0095		Serial deferred character
+0096		Cassette work value
+0097		Register save
+0098		How many open files
+0099		Input device, normally 0
+009a		Output CMD device, normally 3
+009b-009c	Tape parity, output-received flag
+009d		I/O messages: 192 = all, 128 = commands, 64 = errors, 0 = nil
+009e-009f	Tape error pointers
+00a0-00a2	Jiffy clock HML
+00a3-00a4	Temp data area
+00a5-00a6	I/O work bytes (tape)
+00a7-00ab	RS-232C Receive, Misc Work Values
+00a7		RS-232 Input Bit Storage, Cassette Short Count
+00a8		RS-232 Bit Count In, Cassette Read Error
+00a9		RS-232 Flag For Start Bit Check, Cassette Reading Zeroes
+00aa		RS-232 Byte Buffer, Cassette Read Mode
+00ab		RS-232 Parity Storage, Cassette Short Cnt
+
+00ac-00ad	Pointer for tape buffer and screen scrolling
+00ae-00af	Tape end address / End of program
+00b0-00b1	Tape timing constants
+00b2-00b3	Pointer: Start of tape buffer
+00b4-00b6	RS-232 Send, Misc work values
+00b4		RS-232 Bit Count
+00b5		RS-232 Next Bit To Be Sent
+00b6		RS-232 Byte Buffer
+00b7		Number of characters in file name
+00b8		Current logical file
+00b9		Current secondary address
+00ba		Current device
+00bb-00bc	Pointer to file name
+00bd		RS-232 TRNS Parity Buffer
+00be		Cassette Read Block Count
+00bf		Serial Word Buffer
+00c0		Cassette Manual/Cntrolled Switch (Updated during IRQ)
+00c1-00c2	I/O Start Address
+00c3-00c4	Cassette LOAD Temps (2 bytes)
+00c5		Tape Read/Write Data
+
+00c6-00c7	BANKS: I/O data, filename
+00c8-00c9	RS-232 input buffer addresses  [0c00]
+00ca-00cb	RS-232 output buffer addresses [0d00]
+00cc-00cd	Keyboard decode pointer (bank 15) [fa80]
+00ce-00cf	Print string work pointer
+00d0		Number of characters in keyboard buffer
+00d1		Number of programmed chars waiting
+00d2		Programmed key character index
+00d3		Key shift flag:
+		 0	No shift
+		 1	Shift
+		 2	C=
+		 4	Control
+		 8	Alt
+		15	Caps Lock
+
+00d4		Current key code: 88 = no key
+00d5		Previous key code: 88 = no key
+00d6		Input from screen / from keyboard
+00d7		40 / 80 columns: 0 = 40 column screen
+00d8		Graphics mode code
+		 000	0	Graphic 0
+		 001	1		1
+		 011	2		2
+		 101	3		3
+		 111	4		4
+
+00d9		Character base: 0 = ROM, 4 = RAM
+00da-00df	Misc Editor work area
+
+00e0-00e1	Pointer to screen line / cursor
+00e2-00e3	Color line pointer
+00e4		Current screen bottom margin
+00e5		Current screen top margin
+00e6		Current screen left margin
+00e7		Current screen right margin
+00e8-00e9	Input cursor log (row, column)
+00ea		End-of-line for input pointer
+00eb		Row where cursor lives
+00ec		Position of cursor on screen line
+00ed		Maximum screen lines (24)
+00ee		Maximum screen columns (39)
+00ef		Current I/O character
+00f0		Previous character printed
+00f1		Character color
+00f2		Temporary color save
+00f3		Screen reverse flag
+00f4		Quotes flag (Editor)
+;		0 = direct cursor, else programmed
+00f5		Number of INSERTs outstanding
+00f6		255 = Auto Insert enabled
+00f7		Text mode lockout (SHFT-C=): 0 = enabled, 128 = disabled
+00f8		Scrolling: 0 = enabled, 128 = disabled
+00f9		Bell (CTRL-G):  0= enable, 128 = disable
+00fa-00fe	Not used
+00ff		Basic Scratch
+
+0100-01ff	Processor Stack Area
+0100-013e	Tape error log
+0100-0124	DOS work area
+
+0100		Tape Read Errors, Area to build filename in (16 bytes)
+0110		DOS Loop Counter
+0111		DOS Filename 1 Len
+0112		DOS Disk Drive 1
+0113		DOS Filename 2 Len
+0114		DOS Disk Drive 2
+0115		DOS Filename 2 Addr
+0117		BLOAD/BSAVE Starting Address
+0119		BLOAD/BSAVE Ending Address
+011B		DOS Logical Addr [00]
+011C		DOS Phys Addr [08]
+011D		DOS Sec. Addr [6F]
+011E		DOS Record Length
+
+0120		DOS Disk ID
+0122		DOS DSK ID FLG SPACE Used by PRINT USING
+0123		Pointer to Begin. NO.
+0124		Pointer to End NO.
+
+0125-0138	PRINT / USING work area
+
+0125		Dollar Flag
+0126		Comma Flag, PLAY: VOXTUM flag
+0127		Counter
+0128		Sign Exponent
+0129		Pointer to Exponent
+012A		# Of Digits Before Decimal Point
+012B		Justify Flag
+012C		# Of Pos Before Decimal Point (Field)
+012D		# Of Pos After Decimal Point (Field)
+012E		+/- Flag (Field)
+012F		Exponent Flag (Field)
+0130		Switch
+0131		Char Counter (Field)
+0132		Sign No
+0133		Blank/Star Flag
+0134		Pointer to Begin of Field
+0135		Length of Format
+0136		Pointer to End Of Field
+0137		System Stack ($0137-$01FF)
+
+
+0200-03ff	Vectors, buffers, Kernal RAM
+
+0200-02a1	BASIC & Monitor input buffer
+
+
+02a2-02ae	674-686	Kernal RAM
+
+02a2-02ae	Bank Peek Subroutine
+02af-02bd	Bank Poke Subroutine
+02be-02cc	Bank Compare Subroutine
+02cd-02e2	JSR to Another Bank
+02e3-02fb	JMP to Another Bank
+02fc-02fd	Function Execute Hook	[4c78]
+
+0300-0301	Error Message Link	[4D3F]
+0302-0303	BASIC Warm Start Link	[4DC6]
+0304-0305	Crunch BASIC Tokens Link [430D]
+0306-0307	Print Tokens Link	[5151]
+0308-0309	Start New BASIC Code Link [4AA2]
+030a-030b	Get Arithmetic Element Link [78DA]
+030c-030d	Crunch FE Hook		[4321]
+030e-030f	List FE Hook		[51CD]
+0310-0311	Execute FE Hook 	[4BA9]
+0312-0313	Unused
+
+0314-0315	IRQ Vector		[FA65]
+0316-0317	Break Interrupt Vector	[B003]
+0318-0319	NMI Interrupt Vector	[FA40]
+031a-031b	OPEN Vector		[EFBD]
+031c-031d	CLOSE Vector		[F188]
+031e-031f	Set Input Vector	[F106]
+0320-0321	Set Output Vector	[F14C]
+0322-0323	Restore I/O Vector	[F226]
+0324-0325	Input Vector		[EF06]
+0326-0327	Output Vector		[EF79]
+0328-0329	Test STOP Key		[F66E]
+032a-03ab	GET Vector		[EEEB]
+032c-032d	Abort I/O Vector	[F222]
+
+032e-032f	Machine Lang Monitor Link [B006]
+0330-0331	LOAD Link		[F26C]
+0332-0333	SAVE Link		[F54E]
+
+;	I/O Vectors
+
+0334-0335	Print Control Code Link [C7B9]
+0336-0337	Print High ASCII Code Link [C805]
+0338-0339	Print ESC Sequence Link [C9C1]
+033a-033b	Keyscan Link		[C5E1]
+033c-033d	Store Key		[C6AD]
+
+033e-033f	Pointer to KBD Decoding Table: Unshifted [FA80 / FD29]
+0340-0341	Pointer to KBD Decoding Table: Shifted   [FAD9 / FD82]
+0342-0343	Pointer to KBD Decoding Table: Commodore [FB32 / FDDB]
+0344-0345	Pointer to KBD Decoding Table: Control   [FB8B / FE34]  1)
+0346-0347	Pointer to KBD Decoding Table: Alt       [FA80 / FD29]
+0348-0349	Pointer to KBD Decoding Table: Ascii/DIN [FB4E / FD29]
+
+    1) The value FE34 is used in German version, it doesn't change in others.
+
+034a-0353	IRQ Keyboard Buffer (10 Bytes)  FF = No key
+0354-035d	Bitmap Of TAB Stops (10 Bytes)
+035e-0361	Bitmap Of Line Wraps
+0362-036b	Logical File Number Table
+036c-0375	Device Number Table
+0376-037f	Secondary Addresse Table
+0380-039e	CHRGET Subroutine
+0386		CHRGOT Entry
+
+039f-03aa	Fetch From RAM Bank 0
+03ab-03b6	Fetch From RAM Bank 1
+03b7-03bf	Index1 Indirect Fetch From RAM Bank 1
+03c0-03c8	Index2 Indirect Fetch From RAM Bank 0
+03c9-03d1	Txtptr Fetch From RAM Bank 0
+03d2-03d4	Numeric Constant For BASIC
+03d5		Current Bank For SYS, POKE, PEEK
+03d6-03d9	INSTR Work Values
+03da		Bank Pointer For String/Number CONVERT RTN
+03db-03dd	Sprite: Work bytes for SSHAPE
+03df		FAC#1 Overflow
+03e0-03e1	Sprite: Work bytes for SPRSAV
+03e2		Graphic Foreground/ Background Color Nybbles
+03e3		Graphic Foreground/ Multicolor 1 Color Nybbles
+03f0-03f6	DMA Link Code
+
+ff00		MMU Configuration Register
+ff01		MMU LCR: Bank 0
+ff02		MMU LCR: Bank 1
+ff03		MMU LCR: Bank 14
+ff04		MMU LCR: Bank 14 Over RAM 1
+
+	Page Four & Higher Declarations (Beginning Of Bankable RAM)
+
+
+Bank 0
+
+0400-07e7	VIC 40-Column Text Screen
+07e8-07ff	Sprite Identity Pointers For Text Mode
+0800-09ff	BASIC Pseudo Stack (gosub and loop addresses and commands)
+
+0a00-0a01	Vector to Restart System (BASIC Warm) [4003]
+0a02		KERNAL Warm/Cold Init'n Status Byte
+0a03		PAL/NTSC System Flag
+0a04		Flags RESET vs. NMI Status for init'n rtns
+0a05-0a06	Ptr to Bottom of Avail. Memory in System Bank
+0a07-0a08	Ptr to Top of Available Memory in System Bank
+0a09		Tape Handler preserves IRQ Indirect here
+0a0b		TOD Sense during tape operations
+0a0c		CIA 1 Interrupt Log
+0a0d		CIA 1 Timer Enabled
+
+0a0f-0a17	RS-232 Work Values
+
+0a0f		RS-232 Enables
+0a10		RS-232 Control Register
+0a11		RS-232 Command Register
+0a12		RS-232 User Baud Rate
+0a14		RS-232 Status Register
+0a15		RS-232 Number of Bits To Send
+0a16		RS-232 Baud Rate Full Bit Time (Created by OPEN)
+
+0a18		RS-232 Receive Pointer
+0a19		RS-232 Input Pointer
+0a1a		RS-232 Transmit Pointer
+0a1b		RS-232 Send Pointer
+0a1d-0a1f	Sleep Countdown, FFFF = disable
+0a20		Keyboard Buffer Size (10)
+0a21		Screen Freeze Flag
+0a22		Key Repeat: 128 = all, 64 = none
+0a23		Key Repeat Timing
+0a24		Key Repeat Pause
+0a25		Graphics / Text Toggle Latch
+0a26		40-Col Cursor Mode
+0a27-0a2a	40-Col Blink Values
+0a2b		80-Col Cursor Mode
+0a2c		40-Col Video $D018 Image
+0a2d		VIC Bit-Map Base Pointer
+0a2e-0a2f	80-Col Pages-Screen, Color
+0a40-0a5a	40/80 Pointer Swap (to E0-FA)
+
+0a60-0a6d	40/80 Data Swap (0354-0361)
+
+0a80    	Compare Buffer (32 bytes)
+0aa0-0aa1	MLM
+0aab		ASM/DIS
+0aac		For Assembler
+0aaf		Byte Temp used all over
+0ab0		Byte Temp used all over
+0ab1		Byte Temp for Assembler
+0ab2		Save .X here during Indirect Subroutine Calls
+0ab3		Direction Indicator For 'TRANSFER'
+0ab4		Parse Number Conversion
+0ab5		Parse Number Conversion
+0ab7		Parse Number Conversion
+
+0ac0		PAT Counter
+0ac1-0ac4	ROM Physical Address Table
+
+0ac5		Flag: KBD
+
+0b00-0bbf	Cassette Buffer
+0bc0-0bff	?
+0c00-0dff	RS-232 Input, Output Buffers
+0e00-0fff	System Sprites (56-63)
+1000-1009	Programmed Key Lenghts
+100a-10ff	Programmed Key Definitions
+1100-1130	DOS Command Staging Area
+
+1131-116e	Graphics Work Area
+
+1131		Current X Position
+1133		Current Y Position
+1135		X-Coordinate Destination
+1137		Y-Coordinate Destination
+1139		Line Drawing Variables
+1149		Sign Of Angle
+114a		Sine Of Value Of Angle
+114c		Cosine of Value of Angle
+114e		Temps For Angle Distance Routines
+1150		CIRCLE Center, X Coordinate, BOX POINT 1 X-Coord.
+1152		CIRCLE Center, Y Coordinate, BOX POINT 1 Y-Coord.
+1154		X Radius, BOX Rotation Angle
+1156		Y Radius
+1158		CIRCLE Rotation Angle
+115a		BOX: Length of a side
+115c		Arc Angle Start
+115e		Arc Angle End, Char's Col. Counter
+1160		X Radius * COS(Rotation Angle)
+1162		Y Radius * SIN(Rotation Angle)
+1164		X Radius * SIN(Rotation Angle)
+1166		Y Radius * COS(Rotation Angle)
+1168		HIGH BYTE: ADDR OF CHARROM For 'CHAR' CMD.
+1169		Temp For GSHAPE
+116a		SCALE Mode Flag
+116b		Double Width Flag
+116c		Box Fill Flag
+116d		Temp For Bit Mask
+
+116f		Trace Mode: FF = on
+1170-1173	Renumbering Pointers
+1174-1177	Directory Work Pointers
+1178-1197	Graphics Index
+117a-117b	Float-fixed Vector [849F]
+117c-117d	Fixed-float Vector [793C]
+117e-11d5	Sprite Motion Tables (8 x 11 bytes)
+11d6-11e5	Sprite X/Y Positions
+11e6		Sprite X-High Positions
+11e7-11e8	Sprite Bumb Masks (sprite - backgnd)
+11e9-11ea	Light Pen Values, X and Y
+11eb		CHRGEN ROM Page, Text Mode [D8]
+11ec		CHRGEN ROM Page, Graphics Mode [D0]
+11ed		Secondary Address For RECORD
+11ee-11ff	Unused
+
+1200-1201	Previous BASIC Line
+1202-1203	Pointer: BASIC Statement for CONTINUE
+
+1204		PRINT USING Fill Symbol
+1205		PRINT USING Comma Symbol
+1206		PRINT USING D.P. Symbol
+1207		Print Using Monetary Symbol
+
+1208		Used by Error Trapping Routine - Last Err No
+1209-120a	Line # of Last Error. FFFF if No Error
+120b-120c	TRAP Address, FFFF = none
+120d		Hold Trap # of Tempor.
+
+1210-1211	End of Basic, Bank 0
+1212-1213	Basic Program Limit [FF00]
+1214-1217	DO Work Pointers
+1218-121a	USR Program Jump [7D28]
+121b-121f	RND Seed Value
+
+1220		Degrees Per CIRCLE Segment
+1221		'Cold' or 'Warm' Reset Status
+
+1222		Sound Tempo
+1223-1224	Remaining Note Length LO/HI, Voice 1
+1225-1226	Remaining Note Length LO/HI, Voice 2
+1227-1228	Remaining Note Length LO/HI, Voice 3
+1229-122a	Note Length LO/HI
+
+122b		Octave
+122c		Flag: 01 = Sharp, FF = Flat
+122d-122e	Pitch
+122f		Music Sequencer (Voice Number)
+1230		Wave
+1233		Flag: Play Dotted Note
+1234-1237	Note Image
+
+1239-123e	Current Envelope Pattern
+123f-1270	Envelope Tables
+123f-1248	AD(SR) Pattern
+1249-1252	(AD)SR Pattern
+1253-125c	Waveform Pattern
+125d-1266	Pulse Width Lo Pattern
+1267-1270	Pulse Width Hi Pattern
+1271-1274	Note: xx, xx, volume
+1275		Previous Volume Image
+
+1276-1278	Collision IRQ Task Table
+1279-127e	Collision IRQ Address Tables
+127f		Collision Mask
+1280		Collision Work Value
+
+1281		SOUND Voice
+1282		SOUND Time LO
+1285-1287	SOUND Time HI
+1288-128a	SOUND Max LO
+128b		SOUND Max HI
+128e		SOUND Min LO
+1291		SOUND Min HI
+ 
+1294		SOUND Direction
+1297		SOUND Step LO
+129a		SOUND Step HI
+129d		SOUND Freq LO
+12a0		SOUND Freq HI
+12a3		Temp Time LO
+12a4		Temp Time HI
+12a5		Temp Max LO
+12a6		Temp Max HI
+ 
+12a7		Temp Min LO
+12a8		Temp Min HI
+12a9		Temp Direction
+12aa		Temp Step LO
+12ab		Temp Step HI
+ 
+12ac		Temp Freq LO
+ 
+12ad		Temp Freq HI
+12ae		Temp Pulse LO
+12af		Temp Pulse HI
+12b0		Temp Waveform
+
+
+12b1-12b2	PEN/POT Work Values
+12b7		Used BY SPRDEF & SAVSPR
+12fa		Used BY SPRDEF & SAVSPR
+12fb		Used BY SPRDEF & SAVSPR
+12fc		Sprite Number. Used BY SPRDEF & SAVSPR
+12fd		Used by BASIC IRQ to block all but one IRQ call
+
+12ff		?
+1300-17ff	Unused
+1800-1bff	Reserved for Key Functions
+1c00-fbff	BASIC RAM Memory (Text)
+1c00-1ff7	Video Color Matrix For Graphics Mode
+1ff8-1fff	Sprite Identity Pointers For Graphics Mode
+2000-3fff	Screen Memory For Graphics Mode
+4000-fbff	BASIC RAM Memory (with graphics enabled)
+
+
+Bank 1
+
+0400-fbff	BASIC Variables, Arrays, And Strings
+
+
+Bank 14
+The same as Bank 15, except:
+
+d000-dfff	Character Generator ROM
+
+
+Bank 15
+
+4000-cfff	BASIC ROM
+d000-d030	VIC, 40 Col Video Chip 8564 (NTSC) or 8566 (PAL)
+d400-d41c	SID Sound Chip 6581
+d500-d50b	MMU, Memory Management Unit 8722
+d600-d601	VDC, 80 Col Video Controller 8563
+d800-d8e7	Color Nybbles For VIC Text Screen
+dc00-dc0f	CIA 1 (IRQ), 6526
+dd00-dd0f	CIA 2 (NMI), 6526
+df00-df0a	DMA Slot
+e000-ffff	KERNAL ROM
+ff00-ff04	MMU
+ff05-ffff	Transfer, Jump Table
+
+
+	*****
+
+502 COMMODORE 128
+
+This chapter provides the memory maps for both C128 and C64 modes. A memory
+map tells you exactly how memory is laid out internally in both RAM and ROM.
+It tells you exactly what resides in each memory location. The memory map
+directs you in finding address vectors for routines and entry points and provi-
+des information about the general layout of the computer. The memory map is
+probably the most vital programming tool.
+
+Refer to the memory map whenever you need directions throughout the memory of 
+your Commodore 128. Addresses listed with more than one address label are used
+for more than one purpose. To BASIC, the variable has one purpose; to the Mac-
+hine Language Monitor, it may have another.
+
+The conventions used for the memory maps are as follows:
+
+Column 1	Column 2	Column3		Column 4
+MEMORY
+ADDRESS		HEXADECIMAL	DECIMAL
+LABEL		ADDRESS		ADDRESS		DESCRIPTION
+
+	See Appendix K for the Z80 memory map for CP/M on the Commodore 128.
+
+
+		C128 MEMORY MAP
+
+MEMORY ADDRESS	  ADDRESS
+LABEL		HEX	DEC	DESCRIPTION
+
+D6510		0000	0	6510 Data Direction Register
+R6S10		0001	1	6510 Data Register
+BANK		0002	2	Token 'SEARCH' looks for, or Bank #
+PC_HI		0003	3	Address for BASIC SYS command or MONITOR and
+				LONG CALL/JUMP Routines
+PC_LO		0004	4	Address
+S_REG		0005	5	STATUS REG Temp
+A_REG		0006	6	.A REG Temp
+X_REG		0007	7	.X REG Temp
+Y_REG		0008	8	.Y REG Temp
+STKPTR		0009	9	Stack Pointer Temp
+
+
+		BASIC ZERO PAGE STORAGE
+
+INTEGR		0009	9
+CHARAC				Search Character
+ENDCHR		000A	10	Flag: Scan For Quote at End Of String
+TRMPOS		000B	11	Screen Column from Last Tab
+VERCIC		000C	12	Flag: 0 = LOAD, 1 = VERIFY
+
+COUNT		000D	13	Input Buf.ptr / # of Subscripts
+
+DIMFLG		000E	14	Flag: Default Array Dimension
+VALTYP		000F	15	DATA Type: $FF=String, $00 = Numeric
+INTFLG		0010	16	DATA Type: $00=Float.Pt, $80 = Integer
+GARBFL		0011	17	Flag: DATA Scan/ LIST Quote/ Garbage Collection
+
+DORES
+SUBFLG		0012	18	Flag: Subscript Ref. / User Func. Call
+
+INPFLG		0013	19	Flag: $00=INPUT, $40=GET, $98 = READ
+
+DOMASK		0014	20
+TANSGN				Flag: TAN Sign / Comparison Result
+
+CHANNL		0015	21
+POKER		0016	22
+LINNUM				Temp Integer Value
+TEMPPT		0018	24	Pointer: Temp String Stack
+LASTPT		0019	25	Last Temp String Address
+TEMPST		001B	27	Stack For Temp Strings
+INDEX		0024	36	Utility Pointer Area
+INDEX1
+INDEX2		0026	38
+RESHO		0028	40	Floating Pt. Product of Multiply
+RESMOH		0029	41
+ADDEND		002A	42
+RESMO
+RESLO		002B	43
+TXTTAB		002D	45	Pointer: Start Of BASIC Text
+VARTAB		002F	47	Pointer: Start Of BASIC Variables
+
+ARYTAB		0031	49	Pointer: Start Of BASIC Arrays
+STREND		0033	51	Pointer: End Of BASIC Arrays + 1
+
+FRETOP		0035	53	Pointer: Bottom of String Storage
+FRESPC		0037	55	Utility String Pointer
+MAX_MEM_1	0039	57	Top of String/Variable Bank (Bank 1)
+
+CURLIN		003B	59	Current BASIC Line Number
+TXTPTR		003D	61	Pointer to BASIC Text used by CHRGET,etc.
+FORM		003F	63	Used by PRINT USING
+FNDPNT				Pointer to Item Found By Search
+
+DATLIN		0041	65	Current DATA Line Number
+DATPTR		0043	67	Current DATA Item Address
+INPPTR		0045	69	Vector: INPUT Routine
+VARNAM		0047	71	Current BASIC Variable Name
+FDECPT		0049	73
+VARPNT				Pointer: Current BASIC Variable DATA
+
+LSTPNT		004B	75
+FORPNT				Pointer: Index Variable For FOR/NEXT
+
+ANDMSK
+EORMSK		004C	76
+VARTXT		004D	77
+OPPTR
+OPMASK		004F	79
+GRBPNT		0050	80
+TEMPF3
+DEFPNT
+DSCPNT		0052	82
+		0054	84
+
+HELPER		0055	85	Flags 'HELP' or 'LIST'
+JMPER		0056	86
+		0057	87
+OLDOV		0058	88
+TEMPF1		0059	89
+PTARG1				Multiply defined for INSTR
+PTARG2		005B	91
+STRl		005D	93
+STR2		0060	96
+POSITN		0063	99
+MATCH		0064	100
+
+ARYPNT		005A	90
+HIGHDS
+HIGHTR		005C	92
+TEMPF2		005E	94
+DECCNT		005F	95	Number of Digits after the Decimal Point
+TENEXP		0060	96
+T0				ML MONITOR Z.P. Storage in FAC
+
+GRBTOP		0061	97
+DPTFLG				Decimal Point Flag
+LOWTR
+EXPSGN		0062	98
+FAC		0063	99
+
+DSCTMP
+LEFT_FLAG			Paint-Left Flag
+FACEXP				FAC#1 Exponent
+Tl				MONITOR Z.P. Storage in FAC
+RIGHT_FLAG	0064	100	Paint-Right Flag
+FACHO				FAC#1 Mantissa
+FACMOH		0065	101
+INDICE		0066	102
+FACMO
+T2				MONITOR Z.P. Storage in FAC
+FACLO		0067	103
+FACSGN		0068	104	FAC#1 Sign
+DEGREE		0069	105
+SGNFLG				Pointer: Series-Eval. Constant
+ARGEXP		006A	106	FAC#2 Exponent
+ARGHO		006B	107	FAC#2 Mantissa
+ARGMOH		006C	108
+INIT_AS_0			Just a count for INIT
+
+ARGMO		006D	109
+ARGLO		006E	110
+ARGSGN		006F	111	FAC#2 Sign
+STRNGI		0070	112
+ARISGN				Sign Comparison Result: FAC#1 vs #2
+
+FACOV		0071	113	FAC#1 Low-Order (Rounding)
+STRNG2		0072	114
+POLYPT
+CURTOL
+FBUFPT				Pointer: Cassette Buffer
+AUTINC		0074	116	Inc. Val for AUTO (0 = Off)
+MVDFLG		0076	118	Flag If 10K HIRES Allocated
+Z_P_TEMP_1	0077	119	PRINT USING's Leading Zero Counter
+				MOVSPR & Sprite Temporary
+				MID$ Temporary
+
+HULP		0078	120	Counter
+KEYSIZ
+SYNTMP		0079	121	Used as Temp For Indirect
+DSDESC		007A	122	Descriptor for DS$
+TXTPTR				MONITOR Z.P. Storage
+TOS		007D	125	Top of Run Time Stack
+RUNMOD		007F	127	Flags Run/Direct Mode
+PARSTS		0080	128	DOS Parser Status Word
+POINT				USING's Pointer to Dec.Pt
+
+PARSTX		0081	129
+OLDSTK		0082	130
+
+
+		BASIC Z-P STORAGE FOR GRAPHIC COMMANDS
+
+COLSEL		0083	131	Current COLOR Selected
+
+MULTICOLOR	0084	132
+MULTICOLOR_2	0085	133
+FOREGROUND	0086	134
+SCALE_X		0087	135	Scale Factor In X
+SCALE_Y		0089	137	Scale Factor In Y
+STOPNB		008B	139	Stoppaint if not Background/Not same color
+GRAPNT		008C	140
+VTEMPI		008E	142
+VTEMP2		008F	143
+
+
+		KERNAL/EDITOR STORAGE
+
+STATUS		0090	144	I/O Operation Status Byte
+STKEY		0091	145	STOP KEY Flag
+SVXT		0092	146	Tape Temporary
+VERCK		0093	147	LOAD or VERIFY Flag
+C3P0		0094	148	Serial Buffered Char Flag
+BSOUR		0095	149	Char Buffer For Serial
+SYNO		0096	150	Cassette Sync #
+XSAV		0097	151	Temp For BASIN
+LDTND		0098	152	Index to Logical File
+DFLTN		0099	153	Default Input Device #
+DFLTO		009A	154	Default Output Device #
+PRTY		009B	155	Cassette Parity
+DPSW		009C	156	Cassette Dipole Switch
+MSGFLG		009D	157	OS Message Flag
+PTR1		009E	158	Cassette Error Pass1
+T1				Temporary 1
+PTR2		009F	159	Cassette Error Pass2
+T2				Temporary 2
+TIME		00A0	160	24 Hour Clock In 1/60th Seconds
+R2D2		00A3	163	Serial Bus Usage
+
+PCNTR				Cassette
+BSOUR1		00A4	164	Temp used by Serial Routine
+FIRT
+COUNT		00A5	165	Temp used by Serial Routine
+CNTDN				Cassette Sync Countdown
+BUFPT		00A6	166	Cassette Buffer Pointer
+
+INBIT		00A7	167	RS-232 RCVR Input Bit Storage
+SHCNL				Cassette Short Count
+BITCI		00A8	168	RS-232 RCVR Bit Count In
+RER				Cassette Read Error
+RINONE		00A9	169	RS-232 RCVR Flag For Start Bit Check
+REZ				Cassette Reading Zeroes
+RIDATA		00AA	170	RS-232 RCVR Byte Buffer
+RDFLG				Cassette Read Mode
+RIPRTY		00AB	171	RS-232 RCVR Parity Storage
+SHCNH				Cassette Short Cnt
+SAL		00AC	172	Pointer: Tape Buffer / Screen Scrolling
+SAH		00AD	173
+EAL		00AE	174	Tape End Addresses / End of Program
+EAH		00AF	175
+CMP0		00B0	176	Tape Timing Constants
+TEMP		00B1	177
+TAPE1		00B2	178	Address of Tape Buffer
+BITTS		00B4	180	RS-232 TRNS Bit Count
+SNSW1
+NXTBIT		00B5	181	RS-232 TRNS Next Bit To Be Sent
+DIFF
+RODATA		00B6	182	RS-232 TRNS Byte Buffer
+PRP
+FNLEN		00B7	183	LENGTH Current File N Str
+LA		00B8	184	Current File Logical Addr
+SA		00B9	185	Current File 2nd Addr
+FA		00BA	186	Current File Primary Addr
+FNADR		00BB	187	Addr Current File Name Str
+ROPRTY		00BD	189	RS-232 TRNS Parity Buffer
+OCHAR
+FSBLK		00BE	190	Cassette Read Block Count
+DRIVE		00BF	191
+MYCH				Serial Word Buffer
+CAS1		00C0	192	Cassette Manual/Cntrled Switch (Updated during IRQ)
+TRACK		00C1	193
+STAL				I/O Start Address (LO)
+SECTOR		00C2	194
+STAH				I/O Start Address (HI)
+MEMUSS		00C3	195	Cassette LOAD Temps (2 bytes)
+DATA		00C5	197	Tape Read/Write Data
+
+BA		00C6	198	Bank For Current LOAD/SAVE/VERIFY Operation
+FNBANK		00C7	199	Bank Where Current FN is found (at 'FNADR')
+RIBUF		00C8	200	RS-232 Input Buffer Pointer
+ROBUF		00CA	202	RS-232 Output Buffer Pointer
+
+
+		GLOBAL SCREEN EDITOR VARIABLES
+
+KEYTAB		00CC	204	Keyscan Table Pointer
+IMPARM		00CE	206	PRIMM Utility String Pointer
+NDX		00D0	208	Index to Keyboard Queue
+KYNDX		00D1	209	Pending Function Key Flag
+KEYIDX		00D2	210	Index Into Pending Function Key String
+SHFLAG		00D3	211	Keyscan Shift Key Status
+SFDX		00D4	212	Keyscan Current Key Index
+LSTX		00D5	213	Keyscan Last Key Index
+CRSW		00D6	214	<CR> Input Flag	
+MODE		00D7	215	40/80 Column Mode Flag
+GRAPHM		00D8	216	Text/Graphic Mode Flag
+CHAREN		00D9	217	RAM/ROM VIC Character Fetch Flag (Bit-2)
+
+
+	THE FOLLOWING LOCATIONS ARE SHARED BY SEVERAL EDITOR ROUTINES.
+
+SEDSAL		00DA	218	Pointers For MOVLIN
+BITMSK		00DA	218	Temporary For TAB & LINE WRAP Routines
+SAVER		00DB	219	Another Temporary Place To Save A Reg.
+SEDEAL		00DC	220
+SEDT1		00DE	222	SAVPOS
+SEDT2		00DF	223
+KEYSIZ		00DA	218	Programmable Key Variables
+KEYLEN		00DB	219
+KEYNUM		00DC	220
+KEYNXT		00DD	221
+KEYBNK		00DE	222
+KEYTMP		00DF	223
+
+
+		LOCAL SCREEN EDITOR VARIABLES.
+	These are swapped out to $0a40 when screen (40/80) mode changes.
+
+PNT		00E0	224	Pointer to Current Line (Text)
+USER		00E2	226	Pointer to Current Line (Attribute)
+
+SCBOT		00E4	228	Window Lower Limit
+SCTOP		00E5	229	Window Upper Limit
+SCLF		00E6	230	Window Left Margin
+SCRT		00E7	231	Window Right Margin
+LSXP		00E8	232	Current Input Column Start
+LSTP		00E9	233	Current Input Line Start
+INDX		00EA	234	Current Input Line End
+TBLX		00EB	235	Current Cursor Line
+PNTR		00EC	236	Current Cursor Column
+LINES		00ED	237	Maximum Number of Screen Lines
+COLUMNS		00EE	238	Maximum Number of Screen Columns
+DATAX		00EF	239	Current Character to Print
+LSTCHR		00F0	240	Previous Char Printed (For <ESC> Test)
+COLOR		00F1	241	Curr Attribute to Print (Default FGND Color)
+TCOLOR		00F2	242	Saved Attrib to Print ('INSERT' & 'DELETE')
+
+RVS		00F3	243	Reverse Mode Flag
+QTSW		00F4	244	Quote Mode Flag
+INSRT		00F5	245	Insert Mode Flag
+INSFLG		00F6	246	Auto-Insert Mode Flag
+LOCKS		00F7	247	Disables <Shift><C*>, <CTRL> S
+SCROLL		00F8	248	Disables Screen Scroll, Line Linker
+BEEPER		00F9	249	Disables <CTRL> G
+
+FREKZP		00FA	250	Free Zero Page reserved for applications
+				software ($FA-$FE)
+LOFBUF		00FF	255
+
+
+		BASIC/DOS INTERFACE VARS
+
+BAD		0100	256	Tape Read Errors
+FBUFFR				Area to build filename in (16 bytes)
+XCNT		0110	272	DOS Loop Counter
+
+DOSF1L		0111	273	DOS Filename 1 Len
+DOSDS1		0112	274	DOS Disk Drive 1
+DOSF2L		0113	275	DOS Filename 2 Len
+DOSDS2		0114	276	DOS Disk Drive 2
+DOSF2A		0115	277	DOS Filename 2 Addr
+DOSOFL		0117	279	BLOAD/BSAVE Starting Address
+DOSOFH		0119	281	....	and Ending Address
+DOSLA		011B	283	DOS Logical Addr
+DOSFA		011C	284	DOS Phys Addr
+DOSSA		011D	285	DOS Sec. Addr
+DOSRCL		011E	286	DOS Record Length
+DOSBNK		011F	287
+DOSDID		0120	288	DOS Disk ID
+DIDCHK		0122	290	DOS DSK ID FLG SPACE Used by PRINT USING
+BNR		0123	291	Pointer to Begin. NO.
+ENR		0124	292	Pointer to End NO.
+DOLR		0125	293	Dollar Flag
+FLAG		0126	294	Comma Flag
+SWE		0127	295	Counter
+USGN		0128	296	Sign Exponent
+UEXP		0129	297	Pointer to Exponent
+VN		012A	298	# Of Digits Before Decimal Point
+CHSN		012B	299	Justify Flag
+VF		012C	300	# Of Pos Before Decimal Point (Field)
+NF		012D	301	# Of Pos After Decimal Point (Field)
+POSP		012E	302	+/- Flag (Field)
+FESP		012F	303	Exponent Flag (Field)
+ETOF		0130	304	Switch
+CFORM		0131	305	Char Counter (Field)
+SNO		0132	306	Sign No
+BLFD		0133	307	Blank/Star Flag
+BEGFD		0134	308	Pointer to Begin of Field
+LFOR		0135	309	Length of Format
+ENDFD		0136	310	Pointer to End Of Field
+SYSTK		0137	311	System Stack ($0137-$01FF)
+BUF		0200	512	Input Buffer: BASIC & MONITOR
+FETCH		02A2	674	LDA(-),Y From Any Bank
+FETCHVEC	02AA	682
+STASH		02AF	687	STA(-),Y to Any Bank
+STAVEC		02B9	697
+CMPARE		02C8	702	CMP(-),Y to Any Bank
+CMPVEC		02C8	712
+JSRFAR		02CD	716	JSR XXXX to Any Bank & Return
+JMPFAR		02E3	739	JMP XXXX to Any Bank
+
+
+		VECTORS
+
+ESC_FN_VEC	02FC	764	Vector For Additional Function Routines
+K EC		02FE	766	Vector For Function Cart.
+IERROR		0300		Users
+		0302		(ERR IN .X)
+ICRNCH		0304	772	Vector to Crunch
+			774	Vector to List BASIC Text
+			776	Vector to Gone (BASIC Char
+			778	Vector to BASIC Token
+			780	Vector to Escape-Token
+		030E	782	LIST
+IESCEX		0310	784	... And Execute.
+IIRO		0314	788	IRQ RAM Vector
+IBRK		0316	790	BRK INSTR RAM Vector
+INMI		0318	792	NMI Vector
+IOPEN		031A	794	KERNAL OPEN Routine Vector
+
+			796	KERNAL CLOSE Routine Vector
+
+			798	KERNAL CHKIN Routine Vector
+			800	KERNAL CHKOUT Routine
+
+CLRCH		0322	Vector
+VECTOR
+
+IBASIN		0324	804	KERNAL CHRIN Routine Vector
+IBSOUT		0326	806	KERNAL CHROUT Routine Vector
+ISTOP		0328	808	KERNAL STOP Routine Vector
+IGETIN		032A	810	KERNAL GETIN Routine Vector
+ICLALL		032C	812	KERNAL CLALL Routine Vector
+EXMON		032E	814	Monitor Command Vector
+ILOAD		0330	816	KERNAL LOAD Routine Vector
+ISAVE		0332	818	KERNAL SAVE Routine Vector
+
+
+	EDITOR INDIRECT VECTORS
+
+CTLVEC		0334	820	Editor: PRINT 'CONTRL' Indirect
+SHFVEC		0336	822	Editor: PRINT 'SHIFTD' Indirect
+ESCVEC		0338	824	Editor: PRINT 'ESCAPE' Indirect
+KEYVEC		033A	826	Editor: Keyscan Logic Indirect
+KEYCHK		033C	828	Editor: Store Key Indirect
+DECODE		033E	830	Vectors to Keyboard Matrix Decode Tables
+KEYD		034A	842	IRQ Keyboard Buffer (10 Bytes)
+
+TABMAP		0354	852	Bitmap Of TAB Stops (10 Bytes, $0354-D)
+BITABL		035E	862	Bitmap Of Line Wraps
+
+				TABMAP and BITABL get swapped to $0A60 when
+				screen 40/80 mode is changed.
+
+LAT		0362	866	Logical File Numbers
+FAT		036C	876	Primary Device Numbers
+SAT		0376	886	Secondary Addresses
+CHRGET		0380	896
+CHRGOT		0386	902
+QNUM		0390	912
+
+
+	INDIRECT LOAD SUBROUTINE AREA
+
+INDSUB_RAM0	039F	927	Shared ROM Fetch Sub
+INDSUB_RAM1	03AB	939	Shared ROM Fetch Sub
+INDIN1_RAM1	03B7	950	Index1 Indirect Fetch
+INDIN2		03C0	959	Index2 Indirect Fetch
+INDIXT		03C9	968	Txtptr
+
+ZERO		03D2	977	Numeric Constant For BASIC
+CURRENT_BANK	03D5	979	Context For SYS,POKE,PEEK From Bank Cmmd
+TMPDES		03D6	980	Temp For INSTR
+FIN_BANK	03DA	984	Bank Pointer For String/Number CONVERT RTN
+SAVSIZ		03DB	985	Temp Work Locations for SSHAPE
+BITS		03DF	989	FAC#1 OVERFLOW DIGIT
+SPRTMP_1	03E0	990	Temp For SPRSAV
+SPRTMP_2	03E1	991
+FG_BG		03E2	992	Packed Foreground/ Background Color Nybbles
+FG_MC1		03E3	993	Packed Foreground/ Multicolor 1 Color Nybbles
+
+
+	Page Four & Higher Declarations (Beginning Of Bankable RAM)
+
+VICSCN		0400	1024	VIDEO MATRIX #1: VIC 40-Column Text Screen
+				$0400-$07FF
+
+		0800	2048	BASIC RUN-TIME STACK (512 BYTES)
+				$0800-$09FF
+
+
+	ABSOLUTE KERNAL VARIABLES
+
+SYSTEM_VECTOR	0A00	2560	Vector to Restart System (BASIC Warm)
+DEJAVU		0A02	2562	KERNAL Warm/Cold Init'n Status Byte
+PALNTS		0A03	2563	PAL/NTSC System Flag
+INIT_STATUS	0A04	2564	Flags RESET vs. NMI Status for init'n rtns
+MEMSTR		0A05	2565	Ptr to Bottom of Avail. Memory in System Bank
+MEMSIZ		0A07	2567	Ptr to Top of Available Memory in System Bank
+IRQTMP		0A09	2569	Tape Handler preserves IRQ Indirect here
+CASTON		0AOB	2571	TOD Sense during tape operations
+KIKA26		0AOC	2572	Tape Read Temporary
+STUPID		0AOD	2573	Tape Read D1IRQ Indicator
+TIMOUT		0AOE	2574	Fast Serial Timeout Flag
+ENABL		0A0F	2575	RS-232 Enables
+
+M51CTR		0A10	2576	RS-232 Control Register
+MSICDR		0A11	2577	RS-232 Command Register
+MSIAJB		0A12	2578	RS-232 User Baud Rate
+RSSTAT		0A14	2580	RS-232 Status Register
+BITNUM		0A15	2581	RS-232 Number of Bits To Send
+BAUDOF		0A16	2582	RS-232 Baud Rate Full Bit Time (Created by OPEN)
+RIDBE		0A18	2584	RS-232 Input Buffer Index to End
+RIDBS		0A19	2585	RS-232 Input Buffer Index to Start
+RODBS		0A1A	2586	RS-232 Output Buffer Index to Start
+RODBE		0A1B	2587	RS-232 Output Buffer Index to End
+SERIAL		0A1C	2588	Fast Serial Internal/External Flag
+TIMER		0A1D	2589	Decrementing Jiffie Register
+
+
+	GLOBAL ABSOLUTE SCREEN EDITOR DECLARATIONS
+
+XMAX		0A20	2592	Keyboard Queue Maximum Size
+PAUSE		0A21	2593	CTRL-S Flag
+RPTFLG		0A22	2594	Enable Key Repeats
+KOUNT		0A23	2595	Delay Between Key Repeats
+DELAY		0A24	2596	Delay Before a Key Starts Repeating
+LSTSHF		0A25	2597	Delay Between <C=><SHFT> Toggles
+BLNON		0A26	2598	VIC Cursor Mode (Blinking, Solid)
+BLNSW		0A27	2599	VIC Cursor Disable
+BLNCT		0A28	2600	VIC Cursor Blink Counter
+GDBLN		0A29	2601	VIC Cursor Character Before Blink
+GDCOL		0A2A	2602	VIC Cursor Color Before Blink
+CURMOD		0A2B	2603	VDC Cursor Mode (when enabled)
+VM1		0A2C	2604	VIC Text Screen/Character Base Pointer
+VM2		0A2D	2605	VIC Bit-Map Base Pointer
+VM3		0A2E	2606	VDC Text Screen Base
+VM4		0A2F	2607	VDC Attribute Base
+LINTMP		0A30	2608	Temporary Pointer to Last Line For LOOP4
+SAV80A		0A31	2609	Temporary For 80-Col Routines
+SAV80B		0A32	2610	Temporary For 80-Col Routines
+CURCOL		0A33	2611	VDC Cursor Color Before Blink
+SPLIT		0A34	2612	VIC Split Screen Raster Value
+FNADRX		0A35	2613	Save .X During Bank Operations
+PALCNT		0A36	2614	Counter for PAL Systems (Jiffie adjustment)
+SPEED		0A37	2615	Save System Speed During Tape and Serial Ops
+SPRITES		0A38	2616	Save Sprite Enables During Tape and Serial Ops
+BLANKING	0A39	2617	Save Blanking Status During Tape Ops
+HOLD_OFF	0A3A	2618	Flag set by user to resrv full control of VIC
+LDTBI_SA	0A3B	2619	Hi byte:SA Of VIC Scrn (Use W/VMI to move scrn)
+CLR_EA_LO	0A3C	2620	8563 Block Fill
+CLR_EA_HI	0A3D	2621	8563 Block Fill
+		0A40	2624	$0A40-$0A7F Reserved Swap Area For Screen
+				Variables When (40/80) Mode Changes
+				MONITOR's domain
+
+XCNT		0A80	2688	Compare Buffer (32 bytes)
+HULP		0AA0	2720
+FORMAT		0AAA	2730
+LENGTH		0AAB	2731	ASM/DIS
+MSAL		0AAC	2732	For Assembler
+SXREG		0AAF	2735	1 Byte Temp used all over
+SYREG		0AB0	2736	1 Byte Temp used all over
+WRAP		0AB1	2737	1 Byte Temp for Assembler
+XSAVE		0AB2	2738	Save .X here during Indirect Subroutine Calls
+DIRECTION	0AB3	2739	Direction Indicator For 'TRANSFER'
+COUNT		0AB4	2740	Parse Number Conversion
+NUMBER		0AB5	2741	Parse Number Conversion
+TEMPS		0AB7	2743	Parse Number Conversion
+
+
+	FUNCTION KEY ROM CARD TABLES
+
+CURBNK		0AC0	2752	Current Function Key ROM Bank Being Polled
+
+PAT		0AC1	2753	Physical Address Table (IDS OF LOGGED-IN CARDS)
+
+DK_FLAG		0AC5	2757	Reserved For Foreign Screen Editors
+		0AC6	2758	$0AC6-$0AFF Reserved For System
+
+TBUFFR		0B00	2810	Cassette Buffer (192 BYTES)
+				$0B00-$0BC0, This page also used as a buffer
+				for the disk auto-boot.
+
+RS232I		0C00	3072	RS-232 Input Buffer
+
+RS2320		0D00	3328	RS-232 Output Buffer
+		0E00	3584	Sprite Definition Area (Must be below $1000)
+				$0E00-$0FFF, 512 Bytes
+
+PKYBUF		1000	4096	Programmable Function Key Lengths Table For
+				10 Keys (F1-F8, <SHIFT RUN>, HELP)
+
+PKYDEF		100A	4106	Programmable Function Key Strings
+
+
+	DOS/VSP AREA
+
+
+DOSSTR		1100	4352	DOS OUTPUT STR. BUF
+				48 Bytes to Build DOS String
+
+VWORK		1131	4401	Graphics Vars
+
+XYPOS		1131	4401
+XPOS		1131	4401	Current X Position
+YPOS		1133	4403	Current Y Position
+XDEST		1135	4405	X-Coordinate Destination
+YDEST		1137	4407	Y-Coordinate Destination
+XYABS		1139	4409	Line Drawing Variables
+XABS		1139	4409
+YABS		113B	4411
+XYSGN		113D	4413
+XSGN		113D	4413
+YSGN		113F	4415
+FCT		1141	4417
+ERRVAL		1145	4421
+LESSER		1147	4423
+GREATR		1148	4424
+
+
+	ANGLE ROUTINE VARIABLES
+
+ANGSGN		1149	4425	Sign Of Angle
+SINVAL		114A	4426	Sine Of Value Of Angle
+
+
+	DOS/VSP AREA
+
+COSVAL		114C	4428	Cosine of Value of Angle
+ANGCNT		114E	4430	Temps For Angle Distance Routines
+
+
+		BASIC GRAPHIC VARIABLES.
+	The following 24 bytes are multiply defined.
+
+	CIRCLE DRAWING VARIABLES
+
+XCIRCL		1150	4432	CIRCLE Center, X Coordinate
+YCIRCL		1152	4434	CIRCLE Center, Y Coordinate
+XRADUS		1154	4436	X Radius
+YRADUS		1156	4438	Y Radius
+ROTANG		1158	4440	Rotation Angle
+ANGBEG		115C	4444	Arc Angle Start
+ANGEND		115E	4446	Arc Angle End
+XRCOS		1160	4448	X Radius * COS(Rotation Angle)
+YRSIN		1162	4450	Y Radius * SIN(Rotation Angle)
+XRSIN		1164	4452	X Radius * SIN(Rotation Angle)
+YRCOS		1166	4454	Y Radius * COS(Rotation Angle)
+
+	BASIC GENERAL USE PARAMETERS
+
+XCENTR		1150	4432
+YCENTR		1152	4434
+XDIST1		1154	4436
+YDIST1		1156	4438
+XDIST2		1158	4440
+YDIST2		115A	4442
+DISEEND		115C	4444	Placeholder
+COLCNT		115E	4446	Char's Col. Counter
+ROWCNT		115F	4447
+STRCNT		1160	4448
+
+	BOX-DRAWING VARIABLES
+
+XCORD1		1150	4432	POINT 1 X-Coord.
+YCORD1		1152	4434	POINT 1 Y-Coord.
+BOXANG		1154	4436	Rotation Angle
+XCOUNT		1156	4438
+YCOUNT		1158	4440
+BXLENG		115A	4442	Length of a side
+XCORD2		115C	4444
+YCORD2		115E	4446
+
+	SHAPE AND MOVE-SHAPE VARIABLES
+
+KEYLEN		1151	4433
+KEYNXT		1152	4434
+STRSZ		1153	4435	String Len
+
+GETTYP		1154	4436	Replace Shape Mode
+STRPTR		1155	4437	String Pos'n Counter
+OLDBYT		1156	4438	Old Bit Map byte
+NEWBYT		1157	4439	New String or Bit Map Byte
+		1158	4440	Placeholder
+
+XSIZE		1159	4441	SHAPE Column Length
+YSIZE		115B	4443	SHAPE Row Length
+XSAVE		115D	4445	Temp For Column Length
+STRADR		115F	4447	Save SHAPE String Descriptor
+BITIDX		1161	4449	Bit Index Into Byte
+
+
+	BASIC GRAPHIC VARIABLES
+
+CHRPAG		1168	4456	HIGH BYTE: ADDR OF CHARROM For 'CHAR' CMD.
+
+BITCNT		1169	4457	Temp For GSHAPE
+SCALEM		116A	4458	SCALE Mode Flag
+WIDTH		116B	4459	Double Width Flag
+FILFLG		116C	4460	Box Fill Flag
+BITMSK		116D	4461	Temp For Bit Mask
+NUMCNT		116E	4462
+TRCFLG		116F	4463	Flags Trace Mode
+RENUM_TMP_1	1170	4464	A Temp For Renumber
+RENUM_TMP_2	1172	4466	A Temp For Renumber
+T3		1174	4468
+T4		1175	4469
+
+VTEMP3		1177	4471	Graphic Temp Storage
+VTEMP4		1178	4472
+VTEMP5		1179	4473
+ADRAY1		117A	4474	Ptr to routine: Convert Float -> Integer
+ADRAY2		117C	4476	Ptr to routine: Convert Integer -> FLOAT
+SPRITE_DATA	117E	4478	Sprite Speed/Direction Tables ($117E-D5)
+
+VIC_SAVE	11D6	4566	Copy of VIC Reg's, Used to update chip during
+				retrace (21 bytes, $11D6-EA)
+
+UPPER_LOWER	11EB	4587	Pointer to Upper/Lower Char Set for CHAR
+UPPER_GRAPHIC	11EC	4588	Ptr. to Upper/Graphic Char Set
+DOSSA		11ED	4589	Temp storage for file SA during RECORD cmd
+
+
+	BASIC GENERAL NON-ZP STORAGE
+
+OLDTXT		1200	4608	Previous BASIC Line
+		1202	4610	Pointer: BASIC Statement for CONTINUE
+
+
+	PRINT USING DECLARATIONS
+
+PUCHRS		1204	4612
+PUFILL		1204	4612	PRINT USING Fill Symbol
+PUCOMA		1205	4613	PRINT USING Comma Symbol
+PUDOT		1206	4614	PRINT USING D.P. Symbol
+PUMONY		1207	4614	Print Using Monetary Symbol
+ERRNUM		1208	4616	Used by Error Trapping Routine - Last Err No
+ERRLIN		1209	4617	Line # of Last Error. $FFFF if No Error
+
+TRAPNO		120B	4619	Line to go to on error - $FFFF if none set
+
+TMPTRP		120D	4621	Hold Trap # of Tempor.
+ERRTXT		120E	4622
+TEXT_TOP	1210	4624	Top of Text Pointer
+MAX_MEM_0	1212	4626	Highest Address Available to BASIC in RAM 0
+
+TMPTXT		1214	4628	Used by DO-LOOP. Could be Mult. Assigned
+TMPLIN		1216	4630
+USRPOK		1218	4632
+RNDX		121B	4635
+CIRCLE_SEGMENT	1220	4640	Degrees Per CIRCLE 51:6MENT
+DEJAVU		1221	4641	'Cold' or 'Warm' Reset Status
+
+
+	BASIC STORAGE FOR MUSIC VECTORS
+
+TEMPO_RATE	1222	4642
+VOICES		1223	4643
+NTIME		1229	4649
+OCTAVE		122B	4651
+SHARP		122C	4652
+PITCH		122D	4653
+VOICE		122F	4655
+WAVE0		1230	4656
+DNOTE		1233	4659
+FLTSAV		1234	4660
+FLTFLG		1238	4664
+NIBBLE		1239	4665
+TONNUM		123A	4666
+
+TONVAL		123B	4667
+PARCNT		123E	4668
+ATKTAB		123F	4669
+SUSTAB		1249	4681
+WAVTAB		1253	4691
+PULSLW		125D	4701
+PULSHI		1267	4711
+FILTERS		1271	4721
+
+
+	INTERRUPT VECTORS
+
+INT_TRIP_FLAG	1276	4726
+INT_ADR_LO	1279	4729
+INT_ADR_HI	127C	4732
+INTVAL		127F	4735
+COLTYP		1280	4736
+
+
+	BASIC SOUND COMMAND VARS
+
+SOUND_VOICE	1281	4737
+SOUND_TIME_LO	1282	4738
+SOUND_TIME_HI	1285	4741
+SOUND_MAX_LO	1288	4744
+SOUND_MAX_HI	128B	4747
+SOUND_MIN_LO	128E	4750
+SOUND_MIN_HI	1291	4753
+
+SOUND_DIRECTION	1294	4756
+SOUND_STEP_LO	1297	4759
+SOUND_STEP_HI	129A	4762
+SOUND_FREQ_LO	129D	4765
+SOUND_FREQ_HI	12A0	4768
+TEMP_TIME_LO	12A3	4771
+TEMP_TIME_HI	12A4	4772
+TEMP_MAX_LO	12A5	4773
+TEMP_MAX_HI	12A6	4774
+
+TEMP_MIN_LO	12A7	4775
+TEMP_MIN_HI	12A8	4776
+TEMP_DIRECTION	12A9	4777
+TEMP_STEP_LO	12AA	4778
+TEMP_STEP_HI	12AB	4779
+
+TEMP_FREQ_LO	12AC	4780
+
+TEMP_FREQ_HI	12AD	4781
+TEMP_PULSE_LO	12AE	4782
+TEMP_PULSE_HI	12AF	4783
+TEMP_WAVEFORM	12B0	4784
+POT_TEMP_1	12B1	4785	Temporaries for 'POT' Function
+POT_TEMP_2	12B2	4786
+WINDOW_TEMP	12B3	4787
+SAVRAM		12B7	4791	Used BY SPRDEF & SAVSPR
+DEFMOD		12FA	4858	Used BY SPRDEF & SAVSPR
+LINCNT		12FB	4859	Used BY SPRDEF & SAVSPR
+SPRITE_NUMBER	12FC	4860	Used BY SPRDEF & SAVSPR
+IRQ_WRAP_FLAG	12FD	4861	Used BY BASIC IRQ to BLOCK
+				All BUT ONE IRQ CALL
+
+		1300	4864	Application Program Area $1300-$1BFF
+
+RAMBOT		1C00	7168	Start Of Basic Text $1C00-$EFFF
+				(KERNAL sets MEMBOT here)
+
+		1C00	7168	Video Matrix #2 (1KB of colors for
+				Bitmap, if allocated) $1C00-$1FFF
+
+		2000	8192	VIC BITMAP (8KB, if allocated)
+				$2000-$3FFF
+
+
+	BEGINNING OF ROM OVER RAM
+
+		4000	16384	C128 BASIC LO ROM
+
+				Start of BASIC Text if Bit Map
+				is allocated (RAM) $4000-$EFFF
+
+		8000	32768	C128 BASIC Hl ROM (or Function ROM) $8000-$BFFF
+
+
+
+	BASIC JUMP TABLE
+
+
+		BASIC ENTRY
+
+JMP HARD_RESET	4000	16384	COLD ENTRY
+JMP SOFT_RESET	4003	16387	WARM ENTRY
+JMP BASIC_IRQ	4006	16390	IRQ ENTRY
+
+
+		FORMAT CONVERSIONS
+
+JMP AYINT	AF00	44800	Convert F.P. to Integer
+JMP GIVAYF	AF03	44803	Convert Integer to F.P.
+
+JMP FOUT	AF06	44806	Convert F.P. to ASCII String
+JMP VAL_l	AF09	44809	Convert ASCII String to F.P.
+JMP GETADR	AF0C	44812	Convert F.P. to an Address
+JMP FLOATC	AF0F	44815	Convert Address to F.P.
+
+
+		MATH FUNCTIONS
+
+JMP FSUB	AF12	44818	MEM - FACC
+JMP FSUBT	AF15	44821	ARG - FACC
+JMP FADD	AF18	44824	MEM + FACC
+JMP FADDT	AF1B	44827	ARG - FACC
+JMP FMULT	AF1E	44830	MEM * FACC
+JMP FMULTT	AF21	44833	ARG * FACC
+JMP FDIV	AF24	44836	MEM / FACC
+JMP FDIVT	AF27	44839	ARG / FACC
+JMP LOG		AF2A	44842	Compute Natural LOG Of FACC
+JMP INT		AF2D	44845	Perform BASIC INT On FACC
+JMP SQR		AF30	44848	Compute Square Root OF FACC
+JMP NEGOP	AF33	44851	Negate FACC
+JMP FPWR	AF36	44854	Raise ARG to The Mem Power
+JMP FPWRT	AF39	44857	Raise ARG to The FACC Power
+JMP EXP		AF3C	44860	Compute EXP Of FACC
+
+JMP COS		AF3F	44863	Compute COS Of FACC
+JMP SIN		AF42	44866	Compute SIN Of FACC
+JMP TAN		AF45	44869	Compute TAN Of FACC
+JMP ATN		AF48	44872	Compute ATN Of FACC
+JMP ROUND	AF4B	44875	Round FACC
+JMP ABS		AF4E	44878	Absolute Value Of FACC
+JMP SIGN	AF51	44881	Test Sign Of FACC
+JMP FCOMP	AF54	44884	Compare FACC With Memory
+JMP RND 0	AF57	44887	Generate Random F.P. Number
+
+
+		MOVEMENT
+
+JMP CONUPK	AF5A	44890	Move RAM MEM to ARG
+JMP ROMUPK	AF5D	44893	Move ROM MEM to ARG
+JMP MOVFRM	AF60	44896	Move RAM MEM to FACC
+JMP MOVFM	AF63	44899	Move ROM MEM to FACC
+JMP MOVMF	AF66	44902	Move FACC to MEM
+JMP MOVFA	AF69	44905	Move ARG to FACC
+JMP MOVAF	AF6C	44908	Move FACC to ARG
+
+
+		OTHER BASIC ROUTINES
+
+JMP OPTAB	AF6F	44911
+JMP DRAWLN	AF72	44914
+
+
+MEMORY
+ADDRESS		HEXADECIMAL DECIMAL
+LABEL		ADDRESS ADDRESS DESCRIPTION
+
+		OTHER BASIC ROUTINES
+
+JMP GPLOT	AF75	44917
+JMP CIRSUB	AF78	44920
+JMP RUN		AF7B	44923
+JMP RUNC	AF7E	44926
+JMP CLEAR	AF81	44929
+JMP NEW		AF84	44932
+JMP LNKPRG	AF87	44935
+JMP CRUNCH	AF8A	44938
+
+JMP FNDLIN	AF8D	44941
+JMP NEWSTT	AF90	44944
+JMP EVAL	AF93	44947
+JMP FRMEVL	AF96	44950
+JMP RUN_A_PROGRAM
+		AF99	44953
+
+JMP SETEXC	AF9C	44956
+JMP LINGET	AF9F	44959
+JMP GARBA2	AFA2	44962
+JMP EXECUTE_A_LINE
+		AFA5	44965
+
+
+		MONITOR ENTRY
+
+JMP CALL	B000	45056	MONITOR Call Entry
+
+JMP BREAK	B003	45059	MONITOR Break Entry
+JMP MONCMD	B006	45062	MONITOR Command Parser Entry
+		C000	49152	KERNAL (or Function) ROM $C000-$FFFF
+
+
+		EDITOR JUMP TABLE
+
+JMP CINT	C000	491S2	Initialize Editor & Screen
+JMP DISPLY	C003	49155	Display Charac in .A, Color
+
+JMP LP2		C006	49158	Get Key From IRQ Buffer
+
+JMP LOOP5	C009		Into A
+
+JMP PRINT	C00C	49164	Print Character In .A
+JMP SCRORG	C00F	49167	Get # of Scrn Rows, Cols Into X & Y
+
+JMP SCNKEY	C012	49170	Scan Keyboard Subroutine
+JMP REPEAT	C015	49173	Handle Repeat Key & Store Decoded Key
+JMP PLOT	C018	49176	Read Or Set CRSR Position In X, Y
+JMP CURSOR	C01B	49179	Move 8563 Cursor Subroutine
+JMP ESCAPE	C01E	49182	Execute ESC Function using chr in .A
+JMP KEYSET	C021	49185	Redefine A Programmable Func'n Key
+JMP IRQ		C024	49188	IRQ Entry
+JMP INIT80	C027	49191	Initialize 80-Column Character Set
+JMP SWAPPER	C02A	49194	Swap Editor Locals (in 40/80 change)
+JMP WINDOW	C02D	49197	Set Top-Left or Bot-Right of Window
+		D000	53248	VIC Character ROM ($D000-$DFFF)
+
+
+		VIC CHIP REGISTERS
+
+VICREG0		D000	53248	Sprite 0, X-Location
+VICREG1		D001	53249	Sprite 0, Y-Location
+VICREG2		D002	53250	Sprite 1, X-Location
+VICREG3		D003	53251	Sprite 1, Y-Location
+VICREG4		D004	53252	Sprite 2, X-Location
+VICREG5		D005	53253	Sprite 2, Y-Location
+VICREG6		D006	53254	Sprite 3, X-Location
+VICREG7		D007	53255	Sprite 3, Y-Location
+VICREG8		D008	53256	Sprite 4, X-Location
+VICREG9		D009	53257	Sprite 4, Y-Location
+VICREG10	D00A	53258	Sprite 5, X-Location
+VICREG11	D00B	53259	Sprite 5, Y-Location
+VICREG12	D00C	53260	Sprite 6, X-Location
+VICREG13	D00D	53261	Sprite 6, Y-Location
+VICREG14	D00E	53262	Sprite 7, X-Location
+VICREG15	D00F	53263	Sprite 7, Y-Location
+VICREG16	D010	53264	M.S. Bit of X-Location for Sprites 0 - 7
+
+
+
+	THE COMMODORE 128 AND COMMODORE 64 MEMORY MAPS
+
+
+		KERNAL JUMP TABLE
+		New Entries For C128
+
+JMP SPIN SPOUT	FF47		65351	Set up Fast Serial Port for I/O
+JMP CLOSE ALL	FF4A		65354	Close All Logical Files for a device
+JMP C64MODE	FF4D		65357	Reconfigure System as a C64 (no return)
+JMP DMA CALL	FF50		65360	Initiate DMA Request to External RAM
+					Expansion, Send command to DMA Device
+
+JMP BOOT CALL	FF53		65363	Boot Load Program From Disk
+JMP PHOENIX	FF56		65366	Call All Function Cards' Cold Start
+					Routines, Initialize
+
+JMP LKUPLA	FF59		65369	Search Tables For Given LA
+JMP LKUPSA	FF5C		65372	Search Tables For Given SA
+JMP SWAPPER	FF5F		65375	Switch Between 40 and 80 Columns (Editor)
+JMP DLCHR	FF62		65378	Init 80-Col Character RAM (Editor)
+JMP PFKEY	FF65		65381	Program Function Key (Editor)
+JMP SETBNK	FF68		65384	SET Bank For I/O Operations
+JMP GETCFG	FF6B		65387	Lookup MMU Data For Given Bank
+JMP JSRFAR	FF6E		65390	JSR to Any Bank, RTS to Calling Bank
+JMP JMPFAR	FF71		65393	JMP to Any Bank
+JMP INDFET	FF74		65396	LDA (FETVEC),Y FROM Any Bank
+JMP INDSTA	FF77		65499	STA (STAVEC),Y to Any Bank
+JMP INDCMP	FF7A		65402	CMP (CMPVEC),Y to Any Bank
+JMP PRIMM	FF7D		65405	Print Immediate Utility
+					(Always JSR to this routine)
+
+
+		STANDARD KERNAL JUMP TABLE
+
+		FF80		65408	Release Number Of KERNAL
+JMP CINT	FF81		65409	Init Editor & Display
+JMP IOINIT	FF84		65412	Init I/O Devices (ports, timers, etc.)
+JMP RAMTAS	FF87		6S415	Initialize RAM And Buffers For System
+JMP RESTOR	FF8A		65418	Restore Vectors to Initial System
+JMP VECTOR	FF8D		65421	Change Vectors For USER
+JMP SETMSG	FF90		65424	Control O.S. Message
+JMP SECND	FF93		65427	Send SA After LISTEN
+JMP TKSA	FF96		65430	Send SA After TALK
+JMP MEMTOP	FF99		65433	Set/Read Top Of System RAM
+JMP MEMBOT	FF9C		65436	Set/Read Bottom Of System RAM
+JMP KEY		FF9F		65439	Scan Keyboard (Editor)
+JMP SETTMO	FFA2		65442	Set Timeout In IEEE (reserved)
+JMP ACPTR	FFA5		65445	Handshake Serial Byte In
+JMP CIOUT	FFA8		65448	Handshake Serial Byte Out
+JMP UNTLK	FFAB		65451	Send UNTALK Out Serial
+JMP UNLSN	FFAE		65454	Send UNLISTEN Out Serial
+JMP LISTN	FFB1		65457	Send LISTEN Out Serial
+JMP TALK	FFB4		65460	Send TALK Out Serial
+JMP READSS	FFB7		65463	Return I/O Status Byte
+JMP SETLFS	FFBA		65460	Set LA, FA, SA
+JMP SETNAM	FFBD		65469	Set Length And File Name Address
+JMP (IOPEN)	FFC0	OPEN	65472	OPEN Logical File
+JMP (ICLOSE)	FFC3	CLOSE	65475	CLOSE Logical File
+JMP (ICHKIN)	FFC6	CHKIN	65478	Set Channel In
+JMP (ICKOUT)	FFC9	CKOUT	65481	Set Channel Out
+JMP (ICLRCH)	FFCC	CLRCH	65484	Restore Default I/O Channel
+JMP (IBASIN)	FFCF	BASIN	65487	INPUT From Channel
+JMP (IBSOUT)	FFD2	BSOUT	65490	OUTPUT To Channel
+JMP LOADSP	FFD5		65493	LOAD From File
+JMP SAVESP	FFD8		65496	SAVE to File
+JMP SETTIM	FFDB		65599	Set Internal Clock
+JMP RDTIM	FFDE		65502	Read Internal Clock
+JMP (ISTOP)	FFE1	STOP	65505	Scan STOP Key
+JMP (IGETIN)	FFE4	GETIN	65508	Read Buffered Data
+JMP (ICLALL)	FFE7	CLALL	65511	Close All Files And Channels
+JMP UDTIM	FFEA	CLOCK	65514	Increment Internal Clock
+JMP SCRORG	FFED		65517	Return Screen Window Size (Editor)
+JMP PLOT	FFF0		65520	Read/Set X,Y Cursor Coord (Editor)
+JMP IOBASE	FFF3		65523	Return I/O Base
+SYSTEM		FFF8		65528	Operating System Vector (RAM1)
+NMI		FFFA		65530	Processor NMI Vector
+RESET		FFFC		65532	Processor RESET Vector
+IRQ		FFFE		65534	Processor IRQ/BRK Vector
+
+
+
+		KERNAL/EDITOR FLAGS AND SHADOW REGISTERS
+
+The following symbols are used by the C128 Editor. Note that the Editor IRQ
+VIC screen handler depends upon them. In most cases the contents of these
+locations will be placed directly into the appropriate register and should be
+used instead of the actual register. For example, to change the location of the
+character set used by VIC, use VM1 ($0A2C) instead of VIC register 24 ($D018).
+VM1 will be used by the editor to update VIC register 24.
+
+
+ADDRESS NAME	EXPLANATION
+
+$00D8/GRAPHM	See below. IF = $FF THEN EDITOR LEAVES VIC ALONE.
+$00D9/CHAREN	MASK For 8502 /CHAREN BIT.
+$0A2C/VM1	VIC Text Mode Video Matrix & Character Base Pointer.
+$0A2D/VM2	VIC Graphic Mode Video Matrix & Bit Map Pointer.
+$0A2E/VM3	8563 TEXT DISPLAY BASE Address.
+$0A2F/VM4	8S63 ATTRIBUTE BASE Address.
+$0A34/SPLIT	IN SPLIT SCREEN MODE, CONTAINS VALUE For MIDDLE RASTER IRQ.
+$0A2B/CURMOD	8563 CURSQR Mode.
+$0A21/PAUSE	CONTROL S Flag (In effect = $13)
+
+
+
+540 COMMODORE 128
+
+
+	EXPLANATION OF VARIOUS KERNAL/EDITOR FLAG BYTES, ETC.
+
+ADDRESS SYMBOL			DESCRIPTION
+
+		7	6	5	4	3	2	1	0
+
+
+0000	D6510	-	(IN)	(OUT)	(IN)	(OUT)	(OUT)	(OUT)	(OUT)
+0001	R6510	-	CAPKEY	CASMTR	CASSEN	CASWRT	CHAREN	HIRAM	LORAM
+
+00F7	LOCKS	CASE	CTL S	-	-	-	-	-	-
+
+00F8	SCROLL	OFF	LINKER
+
+00D3	SHFLAG	-	-	-	ALT	ALPHA	CTRL		SHIFT
+
+OA22	RPTFLG	ALL	NONE	-	-	-	-	-	-
+
+OA26	BLNON	ON	BLNK	-	-	-	-	-	-
+
+00F9	BEEPER	ON	-	-	-	-	-	-	-
+
+00D8	GRAPHM	MCM	SPLIT	BMM	-	-	-	-	-
+
+00D7	MODE	40/80	-	-	-	-	-	-	-
+
+OA04	INIT_	CHRSET	CINT	-	-	-	-	-	BASIC
+	STATUS
+
+
+
+Notes on Kernal Symbols:
+
+Init_Status. See also above. Lets system know what has been initialized and
+what hasn't. Set to $00 by a reset but untouched by NMI.
+
+System_Vector. Where the Kernal goes when it has to go somewhere. It's set
+to BASIC cold at reset. BASIC itself sets it to BASIC warm after it has
+initialized. The monitor respects it too.
+
+System. Vector in RAM1 at $FFF8. Set at power-up to C128MODE, user may redirect
+it to his code. Taken at reset always providing user with control (protection)
+from reset.
+
+
+<end>

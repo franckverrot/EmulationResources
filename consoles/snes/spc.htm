@@ -1,0 +1,627 @@
+<html>
+<title>SPC-700 Programming Information</title>
+<meta name="Microsoft Theme" content="sumipntg 011, default"><body background="../_themes/sumipntg/sumtextb.jpg" bgcolor="#FFFFFF" text="#808080" link="#3333CC" vlink="#666699" alink="#990099"><!--mstheme--><font face="verdana">
+
+<!-- Mirrored from www.classicgaming.com/epr/super/spc.htm by HTTrack Website Copier/3.x [XR&CO'2002], Sun, 19 May 2002 08:29:21 GMT -->
+<head>
+<!--msthemeseparator--><p align="center"><img src="../_themes/sumipntg/sumhorsa.gif" width="300" height="10"></p>
+<center><h1><!--mstheme--><font color="#003366">
+          SPC 700 Documentation<!--mstheme--></font></h1>
+<br>
+                   Written by Gau of the Veldt<br>
+                For the general Famidev community<br>
+</center>
+<br><!--msthemeseparator--><p align="center"><img src="../_themes/sumipntg/sumhorsa.gif" width="300" height="10"></p>
+</head>
+<h2><!--mstheme--><font color="#003366">
+     OVERVIEW<!--mstheme--></font></h2>
+
+     Uwaoo!  Hi.  I'm Gau.  Me have a shiny thing.  Very shiny...
+     shiny... shiny...  A little *shiny* box inside my SNES.  It's
+     called an SPC-700.  This little shiny thing makes noise when
+     told to do so by code inside the SNES.  This little gizmo
+     is the key to making any sound whatsoever with your SNES
+     program.<p>
+<h2><!--mstheme--><font color="#003366">
+     WHAT IS THE SPC<!--mstheme--></font></h2>
+
+     The SPC-700 is a co-processor.  This means it is a separate
+     CPU inside the SNES with its own memory and instruction set.
+     The SNES communicates with the SPC through four 8-bit I/O
+     ports.  When the appropriate information is sent on the I/O
+     ports, the program in the SPC will recognize the signals and
+     perform some action (it might be nothing at all).<p>
+
+     The SPC has its own memory, instruction set, etc.  You cannot
+     put a program into the SPC simply by storing it into RAM.  The
+     SPC must be sent the program via it's I/O locations.  When you
+     first turn on the SNES, the SPC has an internal kernal of sorts
+     that gives it the ability to bootstrap to a program sent over
+     the I/O port.  Provided you have such a program, you can send
+     it to the SPC.  When the SPC recieves your code it will jump to
+     the execution address in  its memory that you specify (it's not
+     required to be the start of code).  This is where your program
+     gets control of the SPC, DSP and I/O ports.<p>
+
+     The memory on the SPC is 64K (kilobytes that is, not kilobits)
+     in size.  The DSP is 16-bit and supports eight stereo channels,
+     each independantly pannable Left to Right.  Samples sent into
+     the DSP aren't the normal raw smapling used on an Amiga or PC.
+     The samples in the SPC are encoded in a compressed format (I
+     will get more to that later).  The designers only placed 32K
+     of RAM into the SPC however, so the upper 32K is unusable.<p>
+<h2><!--mstheme--><font color="#003366">
+     GETTING A PROGRAM INTO THE SPC<!--mstheme--></font></h2>
+
+     When the SPC starts, it waits for a startup value to appear
+     in location 2141,  This is hexadecimal $CC.  However, you must
+     do this last or else the kernal will get incorrect location
+     and size information.  Before I go too much further with this,
+     I should indicate the block structure the SPC recognizes as
+     part of the transfer protocol:<p>
+<!--mstheme--></font><pre>
+     WORD  Length
+     WORD  Location
+     BYTES Data
+</pre><!--mstheme--><font face="verdana">
+     The SPC kernal will let you send any number of these blocks (ie:
+     a MIDI implementation might use this to load appropriate patches
+     for a song about to be played and then send the song).<p>
+
+     When you've sent all blocks and want to start running code
+     in the SPC, you send a zero-length block.  There won't be
+     any data.  This block which contains only a 0 for length and
+     a location will tell the kernal in the SPC that you're done
+     sending and that it should jump to the program you just sent.
+     The section below refers to this as the terminator block.<p>
+<h2><!--mstheme--><font color="#003366">
+    SENDING THE BLOCKS<!--mstheme--></font></h2>
+
+     The transfer protocol is fairly straightforward.
+<ol>
+<li>    Get the length and place it into a counter
+<li>    Get the location and store it to $2142-3 (a 16-bit
+        operation will work fine).
+<li>    If this is the first chunk, place $CC into $2140 and start
+        an 8-bit sent-count at zero.
+<li>    Send $01 to $2140 unless this is the terminator block,
+        in which case you store a zero here.
+<li>    You send the rest of the block one byte at a time.  Store
+        the byte into $2140.
+<li>    To tell the SPC you've sent it the next value, you tell it
+        the curent location.  The SPC will set it to one less than
+        the number of the curent byte sent (SPC starts this location
+        at $FF and will wait for this location to go zero).  Use the
+        8-bit sent-count.  Store the sent-count to $2141
+<li>    Wait for $2140 to mimic the value you just put into $2141.
+        Please compare this with your counter and NOT the I/O port.
+<li>    Bump the sent-count
+<li>    Go back to step 5 until all bytes are sent.
+<li>    Add 3 to your sent-count
+<li>    If this makes the count 0, add 3 again.
+<li>    If this wasn't a terminator block, go back to
+        step 4 to continue sending blocks.
+<li>    You are done and the SPC should now be doing your code.
+</ul>
+     Final notes:
+<!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+<!--msthemelist--><tr><td valign="baseline" width="42"><img src="../_themes/sumipntg/sumbul1a.gif" width="20" height="20" hspace="11"></td><td valign="top" width="100%"><!--mstheme--><font face="verdana">         If speed is important, you'll want to move your
+             blocks into RAM before sending.
+<!--msthemelist--><tr><td valign="baseline" width="42"><img src="../_themes/sumipntg/sumbul1a.gif" width="20" height="20" hspace="11"></td><td valign="top" width="100%"><!--mstheme--><font face="verdana">         To enusre reliability during tranfers, disable the
+             NMI while transferring blocks to the SPC.
+<!--msthemelist--></table><h2><!--mstheme--><font color="#003366">
+     ONCE YOUR PROGRAM IS IN<!--mstheme--></font></h2>
+
+     Okay, so you've got an SPC program in the SPC, now what?
+     First your program should have some means of accepting input
+     from the SNES when it wants to change game music or play a sound
+     effect.  To do this, you need to be able to read or write values
+     from or onto the I/O port from the SPC.  On the SNES 65816 side,
+     the I/O ports $2140-$2143.  Inside the SPC, they're zero page
+     locations $f4-$f7.  Location $f4 is $2140, $f5 is $2141, etc.<p>
+
+     Your code will want to check these ports.  Your SPC program should
+     detect values by writing a sentinel value to the port and wait for
+     it to change.  Then call the appropriate routine or effect the
+     appropriate change.  The reciever should have the task of
+     using the sentinel to detect a change.  If all the values are
+     important, use two ports, send the byte out both ports and wait
+     for the exclusive-or complement of the value sent to show up at
+     one of the ports.  This will be the reciever telling you it has
+     recieved the next byte ok.  The reciever should wait for both
+     locations to become equivalent before attempting to get the next
+     byte.  This will ensure the reciever that the sender has placed
+     a value onto the port.<p>
+
+     Next, your program will want to make some noise to tell the
+     world (and you) that it's there.  To do this, you need to
+     know about the SPC's samples and registers.  I'll start with
+     the registers, then talk about the samples.<p>
+<h2><!--mstheme--><font color="#003366">
+     THE SPC-700 REGISTERS<!--mstheme--></font></h2>
+
+     These registers are directly accessible from your SPC code.
+     They are the zeropage locations $f1-$ff.
+<!--mstheme--></font><pre>
+     $F1       SPCCON1   bits 0-2 timer enables (1=on), bits 4-5
+                         are I/O port clear bits (11=clear all)
+
+     $F2       SPCDRGA   DSP Register Address latch.  Write a value
+                         here to select a DSP register to read or
+                         modify.  This register itself is write-
+                         only.
+
+     $F3       SPCDDAT   DSP Register Data register.  Read or write
+                         this register to read/write the DSP register
+                         currently referred to in SPCDRGA.
+
+     $FA-$FC   SPCTMLT   Timer latches - place a value into the
+                         registers.  The timer counts up to your
+                         time from 0.  When it hits, the associated
+                         SPCTMCT register will advance.
+
+     $FD-$FF   SPCTMCT   4-bit counters count timer hits on each
+                         timer respectively
+
+     Note: Timer 2 ($FC,$FF) counts at 64 kHz while the other two
+	   count at 8 kHz.
+
+</pre><!--mstheme--><font face="verdana"><h2><!--mstheme--><font color="#003366">
+     THE SPC-700 DSP REGISTERS<!--mstheme--></font></h2>
+
+     To store a DSP setting, you set $F2 to the DSP register address to
+     modify and then set $F3 to the value this register is to recieve.<p>
+
+     These registers repeat for each voice (00v0), where v is a voice
+     number from 0 to 7.<p>
+<!--mstheme--></font><pre>     
+     0000            Volume left
+     0001            Volume right
+     0002            Pitch low
+     0003            Pitch high         (The total 14 bits of pitch 
+                                        height)
+     0004            SRCN               Designates source number from 0-
+                                        255 (sample number)
+     0005            ADSR 1
+     0006            ADSR 2
+     0007            GAIN               Envelope can be freely designated by 
+                                        your code ($1f here: ignore ADSR
+                                        and just output using the volume
+                                        settings)
+
+     000F            FILTER             Filter deisgnation for this voice
+</pre><!--mstheme--><font face="verdana">
+     The remaining registers affect everything:
+<!--mstheme--></font><pre>
+     0008            ENVX               Present val of envelope with DSP 
+                                        rewrites
+     0009            VALX               Present wave height val
+
+     000C            MASTVOLL           Master volume ($7f is maximum),
+                                        left channel
+
+     000D            ECHO               Echo feedback bits (1 for each
+                                        voice)
+
+     001C            MASTVOLR           Master volume ($7f is maximum),
+                                        right channel
+
+     002C            ECHOVOLL           Echo volume, left
+
+     002D            PTCHMOD            Pitch modulation enable bits
+
+     003C            ECHOVOLR           Echo volume, right
+
+     003D            NOISEN             Noise enable bits
+
+     004C            KEYON              Key-on (enable voice) bits
+
+     004D            ECHOEN             Echo enable bits
+
+     005C            KEYOFF             Key-off (mute voice) bits
+
+     005D            SAMLOC             Hi-byte of mem address for the
+                                        sample directory table (contains
+                                        start-address and loop-start
+                                        offset)
+
+     006C            VOXCON             Misc voice control
+                                           Bit 7: Reset (0=off)
+                                           Bit 6: Mute  (0=off)
+                                           Bit 5: Echo  (1=off)
+
+     006D            ECHOLOC            Echo waveform directory location
+                                        (Same as $5d)
+
+     007D            ECHODLY            Echo delay enable bits
+</pre><!--mstheme--><font face="verdana"><h2><!--mstheme--><font color="#003366">
+     SPC-700 SAMPLES<!--mstheme--></font></h2>
+
+     The samples for the SPC are stored in a compressed format known as
+     BRR.  Unlike raw samples, the SPC samples are divided into 9-byte
+     blocks.  Each block encodes the equivalent of 16 raw 16-bit samples.
+     The block format is as follows:<p>
+<!--mstheme--></font><pre>
+     rrrrffle 01 23 45 67 89 ab cd ef
+
+          rrrr - granularity (known in SPC dox as &quot;range&quot;), 0-12
+            ff - filter designation
+</pre><!--mstheme--><font face="verdana">
+             These are normally zero but have significance on the
+             LAST block:
+<!--mstheme--></font><pre>
+             l - loop flagbit
+             e - last chunk of sample
+</pre><!--mstheme--><font face="verdana">
+     To convert a raw sample, it must first be padded to a multple of 16
+     and converted to a 16-bit signed waveform.<p>
+
+     The granularity indicates the quantization level used for this block.
+     Higher granularity values indicate SMALLER shifts in amplitude for
+     the BRR nybbles in this block.  Since a nybble only has a dynamic
+     range from -8 to 7, the granularity is used to expand this:<p>
+<!--mstheme--></font><pre>
+<!--msthemeseparator--><p align="center"><img src="../_themes/sumipntg/sumhorsa.gif" width="300" height="10"></p>     Granulirity          Nybbles produce dynamic range:
+<!--msthemeseparator--><p align="center"><img src="../_themes/sumipntg/sumhorsa.gif" width="300" height="10"></p>        00                -00008 to 00007, in steps of 0001
+        01                -00016 to 00014, in steps of 0002
+        02                -00032 to 00028, in steps of 0004
+        03                -00064 to 00056, in steps of 0008
+        04                -00128 to 00112, in steps of 0016
+        05                -00256 to 00224, in steps of 0032
+        06                -00512 to 00448, in steps of 0064
+        07                -01024 to 00896, in steps of 0128
+        08                -02048 to 01792, in steos of 0256
+        09                -04096 to 03584, in steps of 0512
+        10                -08192 to 07168, in steps of 1024
+        11                -16384 to 14336, in steps of 2048
+        12                -32768 to 28672, in steps of 4096<!--msthemeseparator--><p align="center"><img src="../_themes/sumipntg/sumhorsa.gif" width="300" height="10"></p></pre><!--mstheme--><font face="verdana">
+     As you can see, the SPC uses 16-bit waveforms.  There is enough
+     space in 32K to store 58,240 samples using this compression method
+     about 4 seconds at 14.4 KHz (sorry, there's not quite enough space
+     to do a real good CD quality sound track), ah, but then there's
+     always the cartridge memory (24 MBits would hold 5.5 million
+     samples - since the transfer gets a speed faster than playback
+     you could double buffer and send stuff this way - this would give
+     you about 6.5 minutes of digitized sound at CD quality in monaural
+     recording.  Stereo would halve these times).<p>
+
+     To convert you look at the raw sample 16 samples at a time.  For all
+     waveform points in this sample you find a range (above) that fits
+     in all the points.  This is your granularity.  You then use the step
+     value to quantize each point down to one nybble.  Then string these
+     nybbles together, left to right.  When this is done, you just create
+     the header byte and append the eight additional bytes from the nybbles
+     you just obtained.  This has just converted 16 bytes of your sample
+     to BRR format (Yay hoo!).  Repeat the above procedure for the rest
+     of the raw sample.<p>
+
+     When recording for music, keep the recording rate at about 30 Khz to
+     ensure that using the pitch value will give you a broad tonal range
+     when using that sample as an instrument.  You can forgo (skip) this
+     rule if you're using multiple patching of the instrument to counter
+     envelope and timbre distortion (but you still have to keep this in
+     mind however) [BTW: multiple patching means recording the instrument
+     several times, playing the instrument at different octaves for each
+     recording] you then match the right patch to the playback octave when
+     performing music (ie: on the SPC).<p>
+
+     A higher recording rate gives better results after BRR conversion, 
+     as does using 16-bit samples as opposed to 8-bit samples.<p>
+<h2><!--mstheme--><font color="#003366">
+     SPC-700 CODING<!--mstheme--></font></h2>
+
+     The SPC-700 is a processor.  That means that, just like the 68000,
+     the SPC follows a program placed in its memory.  This means to do
+     music, you must either use a predefined routine from someone else or
+     learn SPC-700 machine code.  The latter isn't all that bad (the SPC
+     instructions set kicks butt over the 65816's).  There are functions
+     for testing individual bits, changing individual bits, doing 16-bit
+     BCD, multiplying and dividing.  Additionally, there are also 16-bit
+     instructions and the accumulator and Y register combine to form a
+     16-bit register (much like H and L on the Z80).<p>
+
+     The easiest way to do SPC700 coding is with an assembler.  However,
+     there is a distinct lack of SPC-700 assemblers (as compared to 65816
+     assemblers which are all over the place).  However the Famidev site
+     has one good shareware assembler called TASM which is a table-based
+     assembler (you can change the instruction set it assembles for).
+     If you place my instruction set (called TASM07.TAB) into TASM, you
+     can assemble SPC-700 code.  The list follows.  It is beyond the scope
+     of this overview to go into detail about the SPC 700 assembly.  Maybe
+     in another document I will do exactly that.<p>
+
+     Anyhoo, here's the SPC-700 TASM table:<p>
+<!--mstheme--></font><pre>
+=== &quot;TASM07.TAB&quot; === Cut me here ==============================================
+&quot;TASM SPC-700 Assembler, &quot;
+/*
+/* Defines the SNES's SPC-700 Instruction set
+/* Created by Gau of the Veldt
+/*
+/* There are no special instruction classes
+/*
+/* INSTR,ARGS,OPCODE,BYTES,MOD,CLASS,SHIFT,OR
+/*
+ADC     A,(X)   86 1 NOP 1
+ADC     A,[*+X] 87 2 NOP 1
+ADC     A,#*    88 2 NOP 1
+ADC     A,*+X   95 3 NOP 1
+ADCZ    A,*+X   94 2 NOP 1
+ADC     A,*+Y   96 3 NOP 1
+ADC     A,[*]+Y 97 2 NOP 1
+ADC     A,*     85 3 NOP 1
+ADCZ    A,*     84 2 NOP 1
+ADC     *,#*    98 3 CSWAP 1
+ADC     *,*     89 3 CSWAP 1
+
+AND     A,(X)   26 1 NOP 1
+AND     A,[*+X] 27 2 NOP 1
+AND     A,#*    28 2 NOP 1
+AND     A,*+X   35 3 NOP 1
+ANDZ    A,*+X   34 2 NOP 1
+AND     A,*+Y   36 3 NOP 1
+AND     A,[*]+Y 37 2 NOP 1
+AND     A,*     25 3 NOP 1
+ANDZ    A,*     24 2 NOP 1
+AND     (X),(Y) 39 1 NOP 1
+AND     *,#*    38 3 CSWAP 1
+AND     *,*     29 3 CSWAP 1
+
+AND1    C,*     4A 3 NOP 1
+AND1    C,/*    6A 3 NOP 1
+
+ASL     A       1C 1 NOP 1
+ASL     *,X     1B 2 NOP 1
+ASL     *       0C 3 NOP 1
+ASLZ    *       0B 2 NOP 1
+
+LSR     A       5C 1 NOP 1
+LSR     *,X     5B 2 NOP 1
+LSR     *       4C 3 NOP 1
+LSRZ    *       4B 2 NOP 1
+
+ROL     A       3C 1 NOP 1
+ROL     *,X     3B 2 NOP 1
+ROL     *       2C 3 NOP 1
+ROLZ    *       2B 2 NOP 1
+
+ROR     A       7C 1 NOP 1
+ROR     *,X     7B 2 NOP 1
+ROR     *       6C 3 NOP 1
+RORZ    *       6B 2 NOP 1
+
+BBC0    *,*     13 3 CREL 1
+BBC1    *,*     33 3 CREL 1
+BBC2    *,*     53 3 CREL 1
+BBC3    *,*     73 3 CREL 1
+BBC4    *,*     93 3 CREL 1
+BBC5    *,*     B3 3 CREL 1
+BBC6    *,*     D3 3 CREL 1
+BBC7    *,*     F3 3 CREL 1
+
+BBS0    *,*     03 3 CREL 1
+BBS1    *,*     23 3 CREL 1
+BBS2    *,*     43 3 CREL 1
+BBS3    *,*     63 3 CREL 1
+BBS4    *,*     83 3 CREL 1
+BBS5    *,*     A3 3 CREL 1
+BBS6    *,*     C3 3 CREL 1
+BBS7    *,*     E3 3 CREL 1
+
+BPL     *       10 2 R1 1
+BRA     *       2F 2 R1 1
+BMI     *       30 2 R1 1
+BVC     *       50 2 R1 1
+BVS     *       70 2 R1 1
+BCC     *       90 2 R1 1
+BCS     *       B0 2 R1 1
+BNE     *       D0 2 R1 1
+BEQ     *       F0 2 R1 1
+
+CLR0    *       02 2 NOP 1
+CLR1    *       22 2 NOP 1
+CLR2    *       42 2 NOP 1
+CLR3    *       62 2 NOP 1
+CLR4    *       82 2 NOP 1
+CLR5    *       A2 2 NOP 1
+CLR6    *       C2 2 NOP 1
+CLR7    *       E2 2 NOP 1
+
+SET0    *       12 2 NOP 1
+SET1    *       32 2 NOP 1
+SET2    *       52 2 NOP 1
+SET3    *       72 2 NOP 1
+SET4    *       92 2 NOP 1
+SET5    *       B2 2 NOP 1
+SET6    *       D2 2 NOP 1
+SET7    *       F2 2 NOP 1
+
+CMP     A,(X)   66 1 NOP 1
+CMP     A,[*+X] 67 2 NOP 1
+CMP     A,#*    68 2 NOP 1
+CMP     A,*+X   75 3 NOP 1
+CMPZ    A,*+X   74 2 NOP 1
+CMP     A,*+Y   76 3 NOP 1
+CMP     A,[*]+Y 77 2 NOP 1
+CMP     A,*     65 3 NOP 1
+CMPZ    A,*     64 2 NOP 1
+CMP     X,#*    C8 2 NOP 1
+CMP     X,*     1E 3 NOP 1
+CMP     X,*     3E 2 NOP 1
+CMP     Y,#*    AD 2 NOP 1
+CMP     Y,*     5E 3 NOP 1
+CMP     Y,*     7E 2 NOP 1
+CMP     (X),(Y) 79 1 NOP 1
+CMP     *,#*    78 3 CSWAP 1
+CMP     *,*     69 3 CSWAP 1
+
+CBNE    *+X,*   DE 3 CREL 1
+CBNE    *,*     2E 3 CREL 1
+DBNZ    Y,*     FE 2 R1 1
+DBNZ    *,*     6E 3 CREL 1
+DAA     YA      DF 1 NOP 1
+DAS     YA      BE 1 NOP 1
+NOT1    *       EA 3 NOP 1
+XCN     A       9F 1 NOP 1
+MOV1    C,*     AA 3 NOP 1
+MOV1    *,C     CA 3 NOP 1
+
+DECW    *       1A 2 NOP 1
+INCW    *       3A 2 NOP 1
+CLRW    *       5A 2 NOP 1
+ADDW    YA,*    7A 2 NOP 1
+SUBW    YA,*    9A 2 NOP 1
+MOVW    YA,*    BA 2 NOP 1
+MOVW    *,YA    DA 2 NOP 1
+MUL     YA      CF 1 NOP 1
+DIV     YA,X    9E 1 NOP 1
+
+EOR     A,(X)   46 1 NOP 1
+EOR     A,[*+X] 47 2 NOP 1
+EOR     A,#*    48 2 NOP 1
+EOR     A,*+X   55 3 NOP 1
+EORZ    A,*+X   54 2 NOP 1
+EOR     A,*+Y   56 3 NOP 1
+EOR     A,[*]+Y 57 2 NOP 1
+EOR     A,*     45 3 NOP 1
+EORZ    A,*     44 2 NOP 1
+EOR     (X),(Y) 59 1 NOP 1
+EOR     *,#*    58 3 CSWAP 1
+EOR     *,*     49 3 CSWAP 1
+
+EOR1    C,*     8A 3 NOP 1
+
+DEC     A       9C 1 NOP 1
+DEC     X       1D 1 NOP 1
+DEC     Y       DC 1 NOP 1
+DEC     *,X     9B 2 NOP 1
+DEC     *       8C 3 NOP 1
+DECZ    *       8B 2 NOP 1
+
+INC     A       BC 1 NOP 1
+INC     X       3D 1 NOP 1
+INC     Y       FC 1 NOP 1
+INC     *,X     BB 2 NOP 1
+INC     *       AC 3 NOP 1
+INCZ    *       AB 2 NOP 1
+
+MOV     X,A     5D 1 NOP 1
+MOV     A,X     7D 1 NOP 1
+MOV     X,SP    9D 1 NOP 1
+MOV     SP,X    BD 1 NOP 1
+MOV     A,Y     DD 1 NOP 1
+MOV     Y,A     FD 1 NOP 1
+MOV     (X),(Y) 99 1 NOP 1
+MOV     (X)+,A  AF 1 NOP 1
+MOV     A,(X)+  BF 1 NOP 1
+MOV     (X),A   C6 1 NOP 1
+MOV     A,(X)   E6 1 NOP 1
+MOV     Y,#*    8D 2 NOP 1
+MOV     X,#*    CD 2 NOP 1
+MOV     A,#*    E8 2 NOP 1
+MOV     [*+X],A C7 2 NOP 1
+MOV     [*]+Y,A D7 2 NOP 1
+MOV     A,[*+X] E7 2 NOP 1
+MOV     A,[*]+Y F7 2 NOP 1
+MOV     *+X,A   D5 3 NOP 1
+MOVZ    *+X,A   D4 2 NOP 1
+MOV     *+Y,A   D6 3 NOP 1
+MOV     *+Y,X   D9 2 NOP 1
+MOV     *+X,Y   DB 2 NOP 1
+MOV     X,*+Y   F9 2 NOP 1
+MOV     Y,*+X   FB 2 NOP 1
+MOV     A,*+X   F5 3 NOP 1
+MOVZ    A,*+X   F4 2 NOP 1
+MOV     A,*+Y   F6 3 NOP 1
+MOV     *,A     C5 3 NOP 1
+MOVZ    *,A     C4 2 NOP 1
+MOV     *,X     C9 3 NOP 1
+MOV     *,X     D8 2 NOP 1
+MOV     *,Y     CC 3 NOP 1
+MOV     *,Y     CB 2 NOP 1
+MOV     A,*     E5 3 NOP 1
+MOVZ    A,*     E4 2 NOP 1
+MOV     X,*     E9 3 NOP 1
+MOV     X,*     F8 2 NOP 1
+MOV     Y,*     EC 3 NOP 1
+MOV     Y,*     EB 2 NOP 1
+MOV     *,#*    8F 3 CSWAP 1
+MOV     *,*     FA 3 CSWAP 1
+
+OR      A,(X)   06 1 NOP 1
+OR      A,[*+X] 07 2 NOP 1
+OR      A,#*    08 2 NOP 1
+OR      A,*+X   15 3 NOP 1
+ORZ     A,*+X   14 2 NOP 1
+OR      A,*+Y   16 3 NOP 1
+OR      A,[*]+Y 17 2 NOP 1
+OR      A,*     05 3 NOP 1
+ORZ     A,*     04 2 NOP 1
+OR      (X),(Y) 19 1 NOP 1
+OR      *,#*    18 3 CSWAP 1
+OR      *,*     09 3 CSWAP 1
+
+OR1     C,*     0A 3 NOP 1
+OR1     C,/*    2A 3 NOP 1
+
+SBC     A,(X)   A6 1 NOP 1
+SBC     A,[*+X] A7 2 NOP 1
+SBC     A,#*    A8 2 NOP 1
+SBC     A,*+X   B5 3 NOP 1
+SBCZ    A,*+X   B4 2 NOP 1
+SBC     A,*+Y   B6 3 NOP 1
+SBC     A,[*]+Y B7 2 NOP 1
+SBC     A,*     A5 3 NOP 1
+SBCZ    A,*     A4 2 NOP 1
+SBC     (X),(Y) B9 1 NOP 1
+SBC     *,#*    B8 3 CSWAP 1
+SBC     *,*     A9 3 CSWAP 1
+
+TCALL   *       01 1 T1 1 4 F0
+TSET1   *       0E 3 NOP 1
+TCLR1   *       4E 3 NOP 1
+
+CALL    *       3F 3 NOP 1
+PCALL   *       4F 2 NOP 1
+JMP     [*+X]   1F 3 NOP 1
+JMP     *       5F 3 NOP 1
+
+PUSH    PSW     0D 1 NOP 1
+PUSH    A       2D 1 NOP 1
+PUSH    X       4D 1 NOP 1
+PUSH    Y       6D 1 NOP 1
+
+POP     PSW     8E 1 NOP 1
+POP     A       AE 1 NOP 1
+POP     X       CE 1 NOP 1
+POP     Y       EE 1 NOP 1
+
+NOP     &quot;&quot;      00 1 NOP 1
+BRK     &quot;&quot;      0F 1 NOP 1
+RET     &quot;&quot;      6F 1 NOP 1
+RETI    &quot;&quot;      7F 1 NOP 1
+CLRP    &quot;&quot;      20 1 NOP 1
+SETP    &quot;&quot;      40 1 NOP 1
+CLRC    &quot;&quot;      60 1 NOP 1
+SETC    &quot;&quot;      80 1 NOP 1
+EI      &quot;&quot;      A0 1 NOP 1
+DI      &quot;&quot;      C0 1 NOP 1
+CLRV    &quot;&quot;      E0 1 NOP 1
+NOTC    &quot;&quot;      ED 1 NOP 1
+SLEEP   &quot;&quot;      EF 1 NOP 1
+STOP    &quot;&quot;      FF 1 NOP 1
+=== &quot;TASM07.TAB&quot; === Cut me here ==============================================
+</pre><!--mstheme--><font face="verdana">
+     Anyways, enjoy this SPC-700 doc.  It's been fun.
+     If you want help or more info, you can either mail me via
+     the Famidev (famidev@webcom.com) mailing list, or at my email
+     location (gau@netbistro.com), or additionally through my mail
+     gateway from my WWW page (http://www.netbistro.com/~gau).
+<!--msthemeseparator--><p align="center"><img src="../_themes/sumipntg/sumhorsa.gif" width="300" height="10"></p><br>
+<a href="snes.html_Back%20to%20SNES%20Programming%20Page_/A__BR__BR__img%20align=left%20hspace=8%20src=.html" gau.gif><a href="index.html">Back to Gau's Home Page</a><br><br><!--msthemeseparator--><p align="center"><img src="../_themes/sumipntg/sumhorsa.gif" width="300" height="10"></p>
+<address>E-Mail: gau@netbistro.com<br>
+WWW: http://www.netbistro.com/~gau<br>
+
+
+<!-- Mirrored from www.classicgaming.com/epr/super/spc.htm by HTTrack Website Copier/3.x [XR&CO'2002], Sun, 19 May 2002 08:29:42 GMT -->
+</html>

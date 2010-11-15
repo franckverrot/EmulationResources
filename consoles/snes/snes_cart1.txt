@@ -1,0 +1,335 @@
+------------------------------------- -  -   -    -
+SNES CART HACKING INFO #1 BY SIUDYM
+---------------------------------------- -  -   -    -     -
+
+01. Cartridge Connector LoROM Pinout
+02. Cartridge Connector HiROM Pinout
+03. Mask ROM Pinout
+04. SRAM (2KB) 6216 Pinout
+05. SRAM (8KB) 6264 Pinout
+06. Address Decoder MAD-1 Pinout (ILLUSION OF TIME 2MB HiROM)
+07. Address Decoder MAD-1 Pinout (NBA LIVE 95 1,5MB LoROM)
+08. Address Decoder 74LS00 Pinout (SOCCER SHOOTOUT 1,5MB LoROM)
+09. Address Decoder 74LS00 Pinout (JUSTICE LEAGUE TASK FORCE 3MB LoROM)
+10. Address Decoder 74LS00 Pinout (EARTHWORM JIM 2 - PIRATE 3MB HiROM)
+11. Address Decoder 74LS139 Pinout (SUPER MARIO WORLD 0,5MB LoROM)
+12. Address Decoder 74LS139 Pinout (MORTAL KOMBAT 2 - PIRATE 3MB HiROM (FIRST 2MB FOR MK2, LAST 1MB FOR KILLER INSTINCT DEMO)
+13. Address Decoder 74LS00 Spec.
+14. Address Decoder 74LS139 Spec.
+
+
+-----------------------------------------------------------------------
+01. Cartridge Connector LoROM:
+
+                         ---+---
+                    GND |05 | 36| GND
+                    A11 |06 | 37| A12
+                    A10 |07 | 38| A13
+                     A9 |08 | 39| A14
+                     A8 |09 | 40| NC
+                     A7 |10 | 41| A15
+                     A6 |11 | 42| A16
+                     A5 |12 | 43| A17
+                     A4 |13 | 44| A18
+                     A3 |14 | 45| A19
+                     A2 |15 | 46| A20 
+                     A1 |16 | 47| A21
+                     A0 |17 | 48| A22
+                   /IRQ |18 | 49| /OE
+                     D0 |19 | 50| D4
+                     D1 |20 | 51| D5
+                     D2 |21 | 52| D6
+                     D3 |22 | 53| D7
+                    /CE |23 | 54| /WE
+             Pin 1 D413 |24 | 55| Pin 2 D413
+             Pin 7 D413 |25 | 56| Pin 6 D413
+                 RAM /E |26 | 57| NC
+                    VCC |27 | 58| VCC
+                         ---+---
+
+Pin #23 -> ROM /CE and RAM /OE (connected together)
+Pin #49 -> ROM /OE
+Pin #54 -> RAM /WE
+
+
+
+-----------------------------------------------------------------------
+02. Cartridge Connector HiROM:
+
+                         ---+---
+                    GND |05 | 36| GND
+                    A11 |06 | 37| A12
+                    A10 |07 | 38| A13
+                     A9 |08 | 39| A14
+                     A8 |09 | 40| A15
+                     A7 |10 | 41| A16
+                     A6 |11 | 42| A17
+                     A5 |12 | 43| A18
+                     A4 |13 | 44| A19
+                     A3 |14 | 45| A20
+                     A2 |15 | 46| A21 
+                     A1 |16 | 47| A22
+                     A0 |17 | 48| A23
+                   /IRQ |18 | 49| /OE
+                     D0 |19 | 50| D4
+                     D1 |20 | 51| D5
+                     D2 |21 | 52| D6
+                     D3 |22 | 53| D7
+                    /CE |23 | 54| /WE
+             Pin 1 D413 |24 | 55| Pin 2 D413
+             Pin 7 D413 |25 | 56| Pin 6 D413
+                 RAM /E |26 | 57| NC
+                    VCC |27 | 58| VCC
+                         ---+---
+
+
+Pin #23 -> ROM /CE and RAM /OE (connected together)
+Pin #49 -> ROM /OE
+Pin #54 -> RAM /WE
+
+
+
+-----------------------------------------------------------------------
+03. Mask ROM Pinout:
+
+                        __  __
+                   A20 |  \/  | +5V
+                   A21 |__  __| A22
+                   A17 |01\/32| +5V
+                   A18 |02  31| /OE
+                   A15 |03  30| A19
+                   A12 |04  29| A14
+                    A7 |05  28| A13
+                    A6 |06  27| A8
+                    A5 |07  26| A9
+                    A4 |08  25| A11
+                    A3 |09  24| A16
+                    A2 |10  23| A10
+                    A1 |11  22| /CE
+                    A0 |12  21| D7
+                    D0 |13  20| D6
+                    D1 |14  19| D5
+                    D2 |15  18| D4
+                   GND |16  17| D3
+                        ------
+
+/CE connected to SNES pin #23
+/OE connected to SNES pin #49 or Address Decoder
+
+
+
+-----------------------------------------------------------------------
+04. SRAM (2KB) 6216 Pinout:
+
+                        __  __
+                    A7 |01\/24| +5V
+                    A6 |02  23| A8
+                    A5 |03  22| A9
+                    A4 |04  21| /WE
+                    A3 |05  20| /OE
+                    A2 |06  19| A10
+                    A1 |07  18| /CE
+                    A0 |08  17| D7
+                    D0 |09  16| D6
+                    D1 |10  15| D5
+                    D2 |11  14| D4
+                   GND |12  13| D3
+                        ------
+
+/CE connected to Address Decoder
+/OE connected to /CE in ROM
+/WE connected to SNES pin #54
+
+
+
+-----------------------------------------------------------------------
+05. SRAM (8KB) 6264 Pinout:
+
+                        __  __
+                   +5V |01\/28| +5V
+                   A12 |02  27| /WE
+                    A7 |03  26| NC
+                    A6 |04  25| A8
+                    A5 |05  24| A9
+                    A4 |06  23| A11
+                    A3 |07  22| /OE
+                    A2 |08  21| A10
+                    A1 |09  20| /CE
+                    A0 |10  19| D7
+                    D0 |11  18| D6
+                    D1 |12  17| D5
+                    D2 |13  16| D4
+                   GND |14  15| D3
+                        ------
+
+/CE connected to Address Decoder
+/OE connected to /CE in ROM
+/WE connected to SNES pin #54
+#26 connected to SNES pin #26 (RESET)
+
+
+
+-----------------------------------------------------------------------
+06. Address Decoder MAD-1 Pinout (ILLUSION OF TIME)
+
+                            __  __
+                        NC |01\/16| NC
+                   RAM /CE |02  15| A13
+                        NC |03  14| A14
+                   ROM /OE |04  13| A21
+                       +5V |05  12| A22
+                       +5V |06  11| SNES #49
+                       +5V |07  10| GND
+                       GND |08  09| SNES #26 and RAM #26 (only in 6264)
+                            ------
+
+
+
+-----------------------------------------------------------------------
+07. Address Decoder MAD-1 Pinout (NBA LIVE 95)
+
+                            __  __
+                  ROM2 /OE |01\/16| ROM1 /OE
+                   RAM /CE |02  15| SNES #40
+                        NC |03  14| A19
+                        NC |04  13| A20
+                       +5V |05  12| A21
+                       +5V |06  11| SNES #49
+                       +5V |07  10| GND
+                       GND |08  09| SNES #26 and RAM #26 (only in 6264)
+                            ------
+
+
+
+-----------------------------------------------------------------------
+08. Address Decoder 74LS00 Pinout (SOCCER SHOOTOUT)
+ 
+                        __  __
+                   +5V |01\/14| +5V
+              SNES #49 |02  13| A20
+                    NC |03  12| +5V
+                    NC |04  11| NC
+                   A20 |05  10| NC
+              ROM2 /OE |06  09| NC
+                   GND |07  08| ROM1 /OE
+                        ------
+
+
+Pins #03, #04, #09 connected together (NC)
+Pins #05, #13 connected together (A20)
+Pins #11, #10 connected together (NC)
+
+
+
+-----------------------------------------------------------------------
+09. Address Decoder 74LS00 Pinout (JUSTICE LEAGUE TASK FORCE)
+
+                        __  __
+                   +5V |01\/14| +5V
+              SNES #49 |02  13| A21
+                    NC |03  12| NC
+                   +5V |04  11| ROM2 /OE
+                   A21 |05  10| NC
+                    NC |06  09| NC
+                   GND |07  08| ROM1 /OE
+                        ------
+
+
+Pins #03, #12, #10 connected together (NC)
+Pins #05, #13 connected together (A21)
+Pins #06, #09 connected together (NC)
+
+
+
+-----------------------------------------------------------------------
+10. Address Decoder 74LS00 Pinout (EARTHWORM JIM 2 - PIRATE)
+
+                        __  __
+              SNES #49 |01\/14| +5V
+              SNES #49 |02  13| A21
+                    NC |03  12| NC
+                   A21 |04  11| ROM2 /OE
+                   A21 |05  10| NC
+                    NC |06  09| NC
+                   GND |07  08| ROM1 /OE
+                        ------
+
+
+Pins #03, #12, #10 connected together (NC)
+Pins #04, #05, #12 connected together (A21)
+Pins #06, #09 connected together (NC)
+Pins #01, #02 connected together (#49)
+
+
+
+-----------------------------------------------------------------------
+11. Address Decoder 74LS139 Pinout (SUPER MARIO WORLD)
+
+                            __  __
+                  SNES #49 |01\/16| +5V
+                       A21 |02  15| NC
+                       A20 |03  14| A19
+                   ROM /OE |04  13| NC
+                        NC |05  12| NC
+                        NC |06  11| NC
+                        NC |07  10| NC
+                       GND |08  09| RAM /CE
+                            ------
+
+
+Pins #07, #15 connected together (NC)
+
+
+
+-----------------------------------------------------------------------
+12. Address Decoder 74LS139 Pinout (MORTAL KOMBAT 2 - PIRATE 3MB VERSION)
+
+                            __  __
+                  SNES #23 |01\/16| +5V
+                       A21 |02  15| NC
+                       GND |03  14| NC
+           ROM1 /OE or /CE |04  13| NC
+           ROM2 /OE or /CE |05  12| NC
+                        NC |06  11| NC
+                        NC |07  10| NC
+                       GND |08  09| NC
+                            ------
+
+
+
+-----------------------------------------------------------------------
+13. Address Decoder 74LS00 Spec.
+
+                        __  __
+                    1A |01\/14| +5V
+                    1B |02  13| 4B
+                    1Y |03  12| 4A
+                    2A |04  11| 4Y
+                    2B |05  10| 3B
+                    2Y |06  09| 3A
+                   GND |07  08| 3Y
+                        ------
+
+
+
+-----------------------------------------------------------------------
+14. Address Decoder 74LS139 Spec.
+
+                            __  __
+                        1E |01\/16| +5V
+                       1A0 |02  15| 2E
+                       1A1 |03  14| 2A0
+                       1Y0 |04  13| 2A1
+                       1Y1 |05  12| 2Y0
+                       1Y2 |06  11| 2Y1
+                       1Y3 |07  10| 2Y2
+                       GND |08  09| 2Y3
+                            ------
+
+
+
+-----------------------------------------------------------------------
+      2001 siudym@pf.pl
+
+
+

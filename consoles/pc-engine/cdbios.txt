@@ -1,0 +1,105 @@
+
+
+CD-ROM BIOS Functions (8)
+Last Update:  14 April 1997
+
+Label:  CD_BOOT		Addr:  $E000
+function:  Boot the CD-ROM BIOS
+IN:  N/A
+OUT: N/A
+
+Brings you to the familiar CD-ROM startup screen.
+
+
+Label:  CD_FADE		Addr:  $E02D
+function:  Begin or cancel linear PCM or ADPCM fade out
+IN:  reg A = mode
+	$00:  Cancel fade out
+	$08:  PCM fade out (6.0 secs)
+	$0A:  ADPCM fade out (6.0 secs)
+	$0C:  PCM fade out (2.5 secs)
+	$0E:  ADPCM fade out (2.5 secs)
+OUT:  N/A
+
+
+Label:  AD_RESET	Addr:  $E030
+function:  Reset the ADPCM controller
+IN:  N/A
+OUT: N/A
+
+
+Label:  AD_READ		Addr:  $E036
+function:  Read data from ADPCM to memory
+IN:  	_CX:  ADPCM buffer address
+     	_DH:  Destination data address type
+	      $00:  Local	$FF:  VRAM	$02-$06: MPR #
+     	_BL:  addr low bits	low bits	Bank # ($80-$87)
+	_BH:  addr high bits	high bits	Not Used
+	_AX:  data size to be read (in bytes)
+
+OUT:  reg A = error status
+     	$00:  operation success
+	other: error
+
+Notes:  When reading into VRAM, $2272 (VDTIN_FLG) becomes 1.
+
+
+Label:  AD_WRITE	Addr:  $E039
+function:  Write to ADPCM buffer from memory
+IN:	_CX:  ADPCM buffer address
+	_DH:  Source data address type
+	      $00:  Local	$FF:  VRAM	$02-$06:  MPR #	
+	_BL:  addr low bits	low bits	Bank # ($80-$87)
+	_BH:  addr high bits	high bits	Not Used
+	_AX:  data size in bytes
+
+OUT:  reg A = error status
+	$00:  no error
+	other: error
+
+Notes:  When reading from VRAM, $2272 (VDTIN_FLG) becomes 1.
+
+
+Label:  AD_PLAY		Addr:  $E03C
+function:  Playback a section of data from ADPCM buffer
+IN:	_BX:  ADPCM buffer playback start address (START)
+	_AX:  Size of data to playback in bytes (LENGTH)
+	_DH:  Sampling rate (range:  $00-$0E) (RATE)
+	      Khz = 32 / (16 - _DH)
+	_DL:  Mode
+	      bit 0:  Counter Mode
+		      0:  Set START, LENGTH, and RATE
+		      1:  Playback using previous START, LENGTH, and RATE
+	      bit 7:  Play Mode
+		      0:  Auto Stop
+		      1:  Repeat
+
+OUT:	reg A = error status
+	$00:  no error
+	other: error
+
+Notes:  An error will occur if AD_PLAY is called during playback of ADPCM.
+	Before executing, call AD_STOP to halt the current playback followed
+	by AD_STAT to confirm that playback has stopped.
+
+
+Label:  AD_STOP		Addr:  $E042
+function:  Stop playback of ADPCM buffer data
+IN:	N/A
+OUT:	N/A
+
+
+Label:  AD_STAT		Addr:  $E045
+function:  Read the state of the ADPCM controller
+IN:	N/A
+OUT:	reg A:  State of ADPCM controller
+		$00:  ADPCM not busy (end or not playing)
+		other:  ADPCM busy
+
+	reg X:	ADPCM buffer and playback state
+		$00:  Playback in progress and more than half
+		      of the buffer data is remaining.
+		$01:  Playback halted
+		$04:  Playback in progrss and less than half
+		      of the buffer data is remaining.
+	       

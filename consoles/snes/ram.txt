@@ -1,0 +1,74 @@
+From:     vic@physci.psu.edu (Vic Ricker)
+To:       "Super Famicom Development Group" <famidev@busop.cit.wayne.edu>
+Subject:  Re:  some programming questions
+Date:     Tue, 9 Nov 93 20:20:35 EST
+
+>Hi Folks.
+
+>I need help with a few SNES programming questions... 
+
+>(1) Can anyone tell me how to make noises come out of my SNES?
+
+Insert your favorite cart, power up the TV, switch the snes power to
+ON.. :-)
+
+>(3) Is the sprite position table held in RAM or VRAM? And how
+>    do the 5 address bits in $2101 relate to this location?
+
+The sprite images are stored in VRAM.  The palettes for the sprites
+are stored in CGRAM.  The coordinates and char attributes are stored
+in OAM.
+
+The format of each OBJ is:
+
+OBJ H position: 8 bits
+OBJ V position: 8 bits
+V flip: 1 bit
+H flip: 1 bit
+OBJ priority: 2 bits
+color palette: 3 bits
+character name: 9 bits
+
+there are 128 of these in sequence making 512 bytes then 32 bytes
+follow in the format:
+size: 1 bit
+x msb: 1 bit
+
+there are 128 of these (one for every OBJ) making 32 more bytes.
+
+$2101 is OBJSEL
+
+it chooses the size of sprites to use and also sets the address of the
+images in VRAM.  the top 3 bits chose the size:
+
+000 means 8x8 and 16x16 sprites
+001 8x8 and 32x32
+010 8x8 and 64x64
+011 16x16 and 32x32
+100 16x16 and 64x64
+101 32x32 and 64x64
+
+the other bits are the address in vram of the sprite images.
+
+
+$2102-$2103 is OAMADDL/H
+the lower 9 bits are the address for accessing the OAM. (like $2116
+for VRAM)
+the high bit (15) enables priority rotation (causes OBJ's to change
+priority as to keep them from disappearing totally when time out and range
+over occur.)
+
+$2104 is OAMDATA
+
+it is the write register for the OAM. (like $2118-$2119 for VRAM)
+
+
+$2138 is *OAMDATA
+
+it is the read register for the OAM.
+
+
+Hope this gives you enough to play with.  Most is from memory, I hope
+its all correct. :-)
+
+Lemme know if you have questions.

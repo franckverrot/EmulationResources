@@ -1,0 +1,177 @@
+
+
+
+int CdGetToc(CdlLOC *loc)
+{
+	return CdGetToc2(1 , loc);
+}
+
+int CdGetToc2(int n , CdlLOC *loc)
+{
+	char l;			/* $sp + 0x10 */
+	char t[4];		/* $sp + 0x18 */
+	long track1 , track2;	/* register */
+	CdlLOC *p;		/* register */
+	CdlCB OldCB;		/* sregister */
+
+	l = 1;
+	OldCB = CdSyncCallback(NULL);
+	if (CdControlB(CdlGetTN , 0 , &t)) {
+		track1 = ((t[1] / 16) * 10) + (t[1] & 15)
+		track2 = ((t[2] / 16) * 10) + (t[2] & 15);
+		if (CD_debug >= 2) {
+			printf("track=%d,%d\n" , track1 , track2);
+		}
+		l = 0;
+		if (CdControlB(CdlGetTD , &l , &t)) {
+			loc->minute = t[1];
+			loc->sector = 0;
+			loc->second = t[2];
+			if (track2 >= track1) {
+				CdControlB(CdlGetTD , 
+			/* got to finish this part, its a weird loop */
+		}
+		s1 = s2 - 1;
+		for (s2 = 0 ; s1 >= s2 ; p++ , s2++) {
+			printf("CdGetToc2: %02x:%02x:00\n" ,
+				p->minute , p->second );
+		}
+		CdSyncCallback(OldCB);
+		return s1;
+	}
+	if (CD_debug) {
+		printf("CdGetToc2: error\n");
+	}
+	CdSyncCallback(OldCB);
+	return 0;
+}
+
+int CdStatus(void)
+{
+	return CD_status;
+}
+
+int CdMode(void)
+{
+	return CD_mode;
+}
+
+int CdLastCom(void)
+{
+	return CD_com;
+}
+
+CdlLOC *CdLastPos(void)
+{
+	return CD_pos;
+}
+
+int CdReset(int mode)
+{
+	if (mode == 2) {
+		CD_initaddr();
+		return 1;
+	}
+	if (CD_init()) return 0;
+	if (mode == 1) {
+		if (CD_initvol()) return 0;
+	}
+	return 1;
+}
+
+void CdFlush(void)
+{
+	CD_flush();
+}
+
+int CdSetDebug(int mode)
+{
+	int OldMode;
+
+	OldMode = CD_debug;
+	CD_debug = mode;
+	return OldMode;
+}
+
+char *CdComStr(u_char com)
+{
+	if (com < 28) {
+		return CD_comstr[com];
+	} else {
+		return NONE;
+	}
+}
+
+char *CdIntStr(u_char intr)
+{
+	if (com < 7) {
+		return CD_intstr[intr];
+	} else {
+		return NONE;
+	}
+}
+
+int CdSync(int mode , u_char *result)
+{
+	return CD_sync(mode , result);
+}
+
+int CdReady(int mode , u_char *result)
+{
+	return CD_ready(mode , result);
+}
+
+CdlCB CdSyncCallback(CdlCB func)
+{
+	CdlCB OldCB;
+
+	OldCB = CD_cbsync;
+	CD_cbsync = func;
+	return OldCB;
+}
+
+CdlCB CdReadyCallback(CdlCB func)
+{
+	CdlCB OldCB;
+
+	OldCB = CD_cbready;
+	CD_cbready = func;
+	return OldCB;
+}
+
+int CdMix(CdlATV *vol)
+{
+	CD_vol(vol);
+	return 1;
+}
+
+int CdGetSector(void *madr , u_char *param)
+{
+	return (CD_getsector(madr , param) == 1);
+}
+
+void (*CdDataCallback(void (*func)()))
+{
+	return DMACallback(3 , func);
+}
+
+int CdDataSync(int mode)
+{
+	return CD_dataSync(mode);
+}
+
+int CdRead2(long mode)
+{
+        int Mode;
+
+        Mode = mode;
+        CdControl(CdlSetmode , &Mode , 0);
+        if (mode & CdlModeStream) {
+                CdDataCallback(_data_callback);
+                CdReadyCallback(_ready_Callback);
+        }
+        CdControl(CdlReadS , 0 , 0);
+}
+
+
+si17911@ci.uminho.pt

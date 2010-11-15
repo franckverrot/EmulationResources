@@ -1,0 +1,112 @@
+FLAVIO'S HOMEMADE DEVCARTS, CHAPTER ONE: THE SMS
+------------------------------------------------
+
+(License notice: All schematics and the doc itself are freely distributable.
+If you want to make them available for download on your site, go ahead, you
+have my blessing.)
+
+
+THE QUICK AND THE DIRTY: EPROM CARTS
+------------------------------------
+
+Those are undoubtedly the easiest to build, as long as the user already
+owns an EPROM programmer and eraser. 27256's don't have any commercial
+value anymore, and can be obtained in large amounts for next to nothing.
+I very often forget a bunch of them lying on the ground, and then step
+on them bare-footedly, with rather painful results. :o)
+Just like with every minimal design, actual usage of those devices isn't
+optimal at all, i. e. constantly erasing and programming an EPROM are
+time-consuming tasks, and will slow down your research. (Although I've
+been told that's how Ocean, the British software house, made their NES
+games. NES and EPROM programming. Gross. Poor kids.)
+Anyway, it may be a good start for rookie hardware h4X0rZ. I've uploaded
+the schematic for one of those thingies to my Geocities account.
+(Editor: http://www.geocities.com/SiliconValley/Code/7067/SMSCART.ZIP)
+It's "sort-of-GNU" hardware, so if you ever derive any work from it, you're
+demanded to distribute the "source".  We already have enough undisclosed
+proprietary hardware, thankyouverymuch. :/  The editor/viewer for those PCB
+files is also there.
+(Editor: http://www.geocities.com/SiliconValley/Code/7067/EASYTRAX.ZIP)
+(This ain't a site plug 'cuz I don't even mantain a site,
+mind you.)  Oh yeah, sell any of those things for profit and I'll rip your nads
+off with a rusty monkey wrench. On the other hand, if you can build and
+deliver these things to emu authors and console programmers for prices
+below USD30 (no profit... see above), please do ASAP. I'm afraid I won't be
+able to fulfill the demand.  Besides, it ain't easy (or cheap) to get things
+built and shipped abroad, in Brazil. ~:(
+
+Beware of local regulations: The SMS may be classified as "military
+supercomputer" on some countries. Yes, this is meant to be offensive. >:)
+
+
+A BIT LESS LAME: 28F010 FLASH ROMS
+----------------------------------
+
+Flash ROMs slightly reduce the pain on one's rear end by not requiring
+twenty interminable minutes under ultraviolet light. It still needs
+the ever-so-popular EPROM programmer though.
+
+This schematic
+(Editor: http://www.geocities.com/SiliconValley/Code/7067/SMSCART2.ZIP)
+can be used both with 27010/27C010 EPROMs and 28F010 Flash ROMs.
+
+
+SILICON AMNESIA: 62256 SRAMS
+----------------------------
+
+Very nice in theory, SRAMs have one shortcoming: An otherwise undetectable
+bus glitch happens and presto, your program is history. There are two
+ways to work around this limitation:
+
+1) Battery-backup control ICs
+
+There is a number of "please don't let the SRAM kill my data" integrated
+circuits. I've fiddled with a bunch of Dallas components, but none of them
+managed to defend the cart against more intense glitches without human
+interaction (i. e. a switch on the cart.)  This model requires an SMS dumper
+(otherwise, how would you write anything to it?)  Schematics haven't reached
+a final form yet. (In other words, the carts still suck.) I'll publish them as
+soon as they're ready for public consumption.
+
+2) Devcart managed by console itself.
+
+This is the concept behind some of the truckload of different Genesis
+devcarts I've designed. Unfortunately, it would take lots of components
+to do this on an SMS. Pity... It's real simple on Gennies. :(
+
+
+I'M SURE DRAMS WILL DO... OR WILL THEY?
+---------------------------------------
+
+DRAMs are tools of Satan. Smash them to tiny bits with a lump hammer.
+Then set the debris afire. Then pee on the ashes. You guessed right, I
+hate them.
+
+
+BUT I WANT TO USE IT ON THE GAME GEAR!
+--------------------------------------
+
+No problemo, modify a Master Gear adapter so it grounds /GG (pin 42.)
+(That's what I've done, and it works fine. All I need now is to purchase
+a GG, but that's way off topic.)
+
+
+'ERE, GUV'NOR, 32KB STINK, 'OW 'BOUT DA BLOODY BANKIN', EH?
+-----------------------------------------------------------
+
+Indeed, 32KB are as wide and agreeable as a public restroom. But I'll
+tell you the truth: Unless you employ some sort of programmable device
+like a FPGA, a homemade SMS devcart with built-in banker will wind up being
+two feet tall. Conversely, most FPGAs will bleed your batteries dry, if you
+use the cart on a GG.
+I'm attempting to minimize its size as we speak. I believe an EPROM (being
+used as programmable gate array), along with a 74138, a couple of
+74374's, and a 29F040 will do. Then again, maybe not. :/
+
+And that's all for now, folks.
+... I wonder if leaving the 0-16KB range unpageable would actually break game
+compatibility? Oh well. I'll let you know as soon as I get anything working.
+
+
+Cheers,
+F. 

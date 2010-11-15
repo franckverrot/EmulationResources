@@ -1,0 +1,1191 @@
+
+
+From: bcantin@aol.com (BCantin)
+Newsgroups: rec.games.video.sega
+Subject: Sega CD FAQ 1.0 (1/3)
+Date: 13 Jun 1996 13:39:16 -0400
+
+Sega CD FAQ 1.0
+June 1996
+Barry W. Cantin  (BCantin@aol.com)
+
+Note: This document may be FREELY distributed in its original form. 
+Nochanges or modifications are to be made without the author's permission.
+
+Contents
+
+O.   Introduction
+I.   Description
+II.  History
+III. System Specs
+IV.  The Sega CD line of machines
+V.   Software
+VI.  Conversion - US/Japanese/Europe
+VII. Leftovers
+
+
+O.  Introduction
+
+Why?
+
+This project began some months ago when I simply wanted to compile a
+list of Sega CDs.  I got my Sega CD unit (the original one) as part of a
+trade in May 1995 and very quickly began collecting the games.  They
+have been heavily discounted nearly everywhere as places are rushing to
+unload their Sega CD stock.  I've seen various titles sell for as low as
+$2 apiece, new.
+
+The collector bug bit me and I started to amass these things.  %^)  So I
+decided to make a list to track my collection.  That list then grew to
+include a few imports I acquired in a trade, then some info from
+magazines looked good, then I dug up some old Japanese magazines for
+info, and so on... before I knew it, I had enough information for a
+bona-fide FAQ!  The information here is not exactly presented in FAQ form
+- true, there
+ARE a few FAQs inside this document - but it's more like a GUIDE.  My
+object here is to answer the questions before they're asked.
+
+Please do not hesitate to contact me if you have any questions not
+answered here, or ANY comments in general related to the Sega CD.  I
+will be updating this FAQ/guide periodically, and I'm only too happy to
+give credit where credit is due.  There are still several gaps here and
+there, and I don't plan on version 1.0 of this FAQ being the last.
+
+Speaking of credit, this FAQ would be a lot smaller without the valuable
+contributions from the following individuals:
+
+Clint Dyer (clint_dyer@prodigy.com)
+   Clint's help has been unspeakably important in getting this done, and
+for verifying a lot of the FAQ content.
+Thien Tran (darkflt@cyberg8t.com)
+   "Sonic" has supplied me with nearly 20k of text that has really added
+   to the depth of the information in this FAQ.  He's put a LOT of time
+   into compiling it all for the FAQ and it shows...
+Steve Wargo (swargo@phoenixat.com)
+   Steve has been maintaining a great Sega CD cheats list, get it from
+   http://www.phoenixat.com/~swargo/
+Nathan Stehle (stehle@aries.scs.uiuc.edu)
+   Nathan has given Usenet readers great advance info on RPGs,
+   particularly Working Designs titles (how do I get on that WD preview
+   list anyway?)
+Larry Brackney (zeiram@mail.hsonline.net)
+   Larry's responsible, ultimately, for all this -- he traded his Sega
+   CD to me and got me started!  [and a monster was created...]  %^)
+Andy Wei Wu (no E-mail address... yet!)
+   Wei is my video game "broker" (well more like a buyer's agent!) and
+   source for much of this information
+Vic Ireland and the rest of the Working Designs staff
+   For bringing over those wonderful RPGs that made me want a SEGA CD in
+   the first place
+And to Bt Garner, Juan Gonzalez, Jon Folkers, and also the folks who
+   frequent rgv.sega who still discuss the Sega CD... thanks!
+
+Please address any comments, changes, additions, updates, yadda yadda
+yadda, to me at BCantin@aol.com and I'll put your name in lights.  %^)
+
+
+I.  Description
+
+The Sega CD is an add-on peripheral for the Sega Genesis that allows the
+use of CD-ROM games specially written for the Sega CD system.  It can
+also be used as a regular CD player (the sound comes through the
+television) and has CD+G capability.
+
+The Genesis is connected to the Sega CD unit via the interface slot, and
+a/v hookups are made through the Sega CD unit instead of the Genesis.
+The advantage of this is that games can take advantage of the sound
+provided directly by the compact disc in addition to sound effects from
+the Genesis unit itself.
+
+There are currently (as of 5/96) 147 Sega CD titles in the U.S.
+
+The Sega CD was released first in Japan as the "Mega CD", and was also
+released in Europe as the Mega CD.  Most Japanese and European games can
+be played on the U.S. Sega CD unit via a converter cartridge (See
+section VI) but without the cart, the Japanese and American systems are
+not compatible.
+
+Q: What does the Sega CD do to improve the system?
+
+A: Here's what it adds to the Genesis:
+   - 10 extra sound channels to complement the sound from the Genny's
+     Z80 sound processor
+   - sprite enhancement features such as scaling and rotation, similar
+     to that of the SNES Mode 7
+   What it did NOT improve was color.  The games still used 64 out of
+   the total 512 colors possible (maybe more if you really knew how to
+   tweak the system).  Why no color improvement?  Supposedly, cost.
+   Sega's engineers reportedly wanted to include a new chip that would
+   add to this, but it would have been an extra $5 part... which would
+   more than likely translate to an extra $50 added to the cost of the
+   machine.  Full sprite scaling and rotation were helpful, bringing new
+   levels of excitement which weren't fully utilized (except perhaps in
+   a few games from Core Development, Ltd.). The Sega CD also allowed
+   the Genesis to play FMV ("full-motion video").  The FMV was
+   originally about 1/4 screen (Sewer Shark) but later expanded to that
+   of Tomcat Alley (FULL screen).
+
+Advantages of CD games: better sound, much more information can be
+stored on a CD than a cart (CD=650 MB, cart typically around 1 to 4 MB,
+currently as high as 32 MB).  CDs also theoretically have an infinite
+lifespan.
+
+Disadvantages of CD games: loading time can be a pain, CDs scratch
+easily.
+
+Q: Are the Sega CD and Saturn compatible?
+
+A: Not at all.  They are two COMPLETELY different machines.
+   There were some rumors circulating back in '94/'95 that Sega would
+   make an adapter that would allow you to play Sega CDs on a Saturn...
+   but evidently due to cost constraints of developing and manufacturing
+   such a "Power Base"-type converter, it was determined to be not
+   feasible for sale in the retail market.
+
+Q: Is the Sega 32X compatible with the Sega CD?
+
+A: Yes.  When the 32X is mounted on top of the Genesis (attached to the
+   Sega CD) there is absolutely NO interference to regular Sega CD
+   games.  There were also six CD titles designed for use with the 32X
+   (see Titles section) but all are just Sega CD titles ported over to
+   take advantage of the 32X hardware.  The difference is a noticeably
+   clearer, crisper FMV and generally a larger screen.  These titles
+   were also sold in yellow-stripe boxes (Digital Pictures titles),
+   consistent with 32X cartridge packaging.  "Fahrenheit" (Sega) was
+   sold as a combo pack, you got both the Sega CD version and the
+   32X CD version in one package.  NOTE:  All Sega 32X CD titles are
+   FMV-based games.
+
+Q: Is the Sega CD compatible with the TurboGrafx-CD/PC Engine
+   CD/TurboDuo CD?
+
+A: No, these are two entirely different game machines.  However,
+   original Mega CD players COULD recognize a PC Engine CD (CD-ROM2),
+   but could not play them.  A message appeared, informing you that a PC
+   Engine CD was inserted in the unit.
+
+
+II.  History
+
+Development of the Sega CD was top secret.  Programmers did not know
+what was being designed until the system was unveiled at the Tokyo Toy
+Show in Japan.  Upon release, companies were told to start with "high
+memory"-based cartridge games and work from there (add cinemas, CD-
+music, FMV, etc., later).  The Sega CD was designed to take on the PC
+Engine (TurboGrafx-16) CD unit, and NOT the SNES.  The key factor to the
+Sega CD's design was that engineers based it somewhat on the PCE-CD, but
+with MORE memory and a slightly faster drive (6 Mbits and 150k transfer
+rate at 0.8 access time).
+
+The original Mega-CD was released in Japan in (June 1991?), and was
+developed to compete with NEC's PC Engine CD-ROM drive (equivalent to
+the TurboGrafx-CD in the U.S.).  The machine was released with the
+following titles in Japan:  Earnest Evans, Woodstock Funky Horror Rock
+Band, ... etc.  The system was initially a hit in Japan, due to the CD
+based RPGs (!) and the inherent advantages of CD-based titles (lots of
+text, pics, animation, CD-based music, etc.).  Lunar: Silver Star was
+one of these and helped sell the system during slow sales periods.
+
+The Mega Drive (Genesis) is mounted to the Mega CD (Sega CD) unit
+through the interface slot on the right side, and rested on top of it.
+This is the front-loading model.  The drawer is opened by hitting the
+<RESET> button, and closed by either hitting the pause button on
+controller #1 or via the CD system software CLOSE command.
+
+The Sega CD was released in November 1992 in the U.S. and looked very
+much like the Japanese Mega CD counterpart.  Several pack-in titles were
+included: the Sega Classics 4-in-1 CD (Shinobi, Columns, Streets of
+Rage, and Golden Axe), Sherlock Holmes I, Sol Feace, and two CD+G/music
+CD samplers.  The original selling price was $299.  (The second U.S.
+production run after the initial 50,000 units had the Sega Classics
+5-game CD instead of the four-game CD above - see CDX)
+
+These were the Sega CD titles available at the time of launch:
+
+   Cobra Command
+   Night Trap
+   Black Hole Assault
+   Sewer Shark
+   Chuck Rock
+   INXS Make Your Own Music Video
+   Marky Mark Make Your Own Music Video
+
+Initial hype resulted in incredible sales.  There were 50,000 units
+originally allotted in early November for the US launch.  ALL the units
+were sold by the third week (prior to Thanksgiving).  The second run
+began arriving in stores December 1992, approximately three days before
+Christmas.
+
+In (1994) Sega released a new, smaller Genesis and had a Sega CD II to
+go with it.  This model connected to the Genny and sat (somewhat) side
+by side with it.  Discs are loaded into the top of the unit, through a
+manually-opened door.
+
+Several third-party developers had signed on to do Sega, including Sony
+Imagesoft, Vic Tokai, Konami, Data East, EA Sports, Psygnosis, Working
+Designs, and many others.  All in all, 148 titles were produced for the
+U.S. market.
+
+The early Sega CD titles were packaged inside a cardboard box with the
+instructions, and CD in a regular jewel case inside.  (Examples include
+WonderDog, Jaguar, all the "Make My Video" titles except C+C Music
+Factory)  In 1993, Sega of America began packaging them in large plastic
+jewel cases, about 8-1/4" by 5-3/4" and about 3/4" thick.  These are the
+same jewel cases used by Saturn games and some Playstation titles today.
+
+Note that Sega of Japan continued to use regular-sized jewel cases for
+all Mega CD games, with small instructions to fit inside, just like a
+music CD.
+   * Production runs for the Sega CD (original model) ended in 1993
+   * Production runs for the Sega CD2 ended in December 1995, in order
+     to increase the production of the Saturn
+
+   * Total number produced: officially - ???
+     - Unofficial estimate: 2.5 million, U.S., 2 - 3 million, Japan, 1
+       million, Europe
+
+
+III.  System Specs
+
+The Sega CD adds graphics and sound capabilities to the standard Genesis
+console.  Graphically, it provides superior scaling and rotation.  Most
+of the sound for Sega CDs comes right off the disk, in addition to game
+sound effects which can be provided by the Genesis.
+
+System specs:
+
+Main CPU: Motorola 68000 @ 12.5 MHz
+   * Same as the Genesis... runs in parallel with it... except the Genny
+     CPU runs at the slower clock speed 7.9 MHz
+
+Graphics Processor: Custom ASIC
+
+RAM:
+   * 6 Mbit Main RAM
+     - Program
+     - Picture
+   * 512 Kbit PCM Waveform Memory
+     - Wavefile memory
+   * 128 Kbit CD-ROM data cache memory
+   * 64 Kbit Internal Backup RAM
+
+Colors:
+   * Originally 64, same as Genesis
+   * Using programming tricks, can get 128 colors via HAM ("Hold and
+     Modify")
+     - Originally developed on the Commodore Amiga to boost color
+       capabilities
+     - Basically a graphic over a graphic = a double-color
+   * Using Cinepak and TruVideo:
+     - 128 to 256 colors
+     - Increase screen size from 1/4 to full
+     - Advanced compression scheme, used in Win 95
+     - Software-based upgrade
+   * Eternal Champions CD uses 256 colors simultaneously (only game to
+     do so)
+
+Storage capability of a Sega CD
+   * Approximately 500 MB of data (62 min of audio data equivalent)
+   * 1/4 screen B/W footage video: 1.5 to 4 hours
+   * 1/4 screen color footage: 45 minutes
+   * Above specs are prior to compression
+
+Transfer rate of Sega CD: 150 kbytes/sec (Single Speed)
+
+Boot ROM:
+   * 1 Mbit, contains:
+     - CD Game Bios
+     - CD Player Software
+     - CD+G Software
+
+Bios versions:
+   * When you start the Sega CD, the title screen displays the Bios
+     version in the upper-right corner of the screen.  This helps
+     identify what machine version you are using and in a way the
+     security capabilities.  (Startup music and startup screen of the
+     Sega CD is different for each Bios)
+
+   Bios Version     Machine
+       1.00         Original Mega CD
+       1.10         Original Sega CD, Motorized Drive
+       2.00         Mega CD2
+       2.05         Sega CD2
+       2.10         Sega CD2
+
+CD Access time: 800 ms
+
+Sound Circuitry:
+   * PCM Sound Source
+     - Stereo, 8 channels
+   * 32 KHz Maximum sampling wavelength
+   * 16 Bit D/A converter
+   * 8X internal over-sampling digital filter
+
+Audio characteristics:
+   * Frequency Range: 20Hz - 20 KHz
+   * Signal-to-Noise Ratio: >900dB@1K
+   * Channel Separation: >900dB
+
+Output: RCA Pin Jack x2 (L/R)
+
+Dimensions: 301mm (w) x 212.5 (d) x 112.5 (h)
+
+Weight (Sega CD1): 3.1 lbs / 1.4 kg
+
+
+IV.  The Sega CD line of machines
+
+The Sega CD exists in many forms.
+
+     Sega CD I  (Mega CD I in Japan)
+     Sega CD II (Mega CD II in Japan)
+     JVC X'Eye  (Wondermega in Japan)
+     Sega CDX   (Sega CDX in Japan)
+     LaserActive (by Pioneer) Sega CD module
+
+[Sega CD I]
+
+The Sega CD I was the original unit.  It features a front-loading CD
+tray and lights to indicate power to CD unit (green) and CD access
+(red).  The Genesis attaches to it via the slot located on the right
+side of the Genesis console..  This was the production run for Japan
+(Mega CD) and the initial 50,000 units for the U.S market.  SCD 1.5 was
+the second US production run, beginning after brisk sales of the first
+run.
+
+Since the original Genesis has a built-in audio output (with volume
+control), the Sega CD requires this output as part of the connection.
+Besides the interface connection on the side of the Genesis (which sits
+on TOP of the Sega CD unit), an audio cable is used from the headphone
+output of the Genesis to the "Mixing" input of the Sega CD.  This allows
+you to change the volume of the Genesis while the Sega CD volume is kept
+constant.
+
+[Sega CD II]
+
+The Sega CD II was released to match the newer-style Genesis II.  The
+machine is 100% compatible with the first unit - i.e., all Sega CDs play
+on both machines.  There are several differences between the newer model
+and the first one: the never model has a top-loading tray, the power and
+access lights are small red LEDs on the top of the unit, and the
+construction seems to be less sturdy than the first model.  The
+Sega CD II unit had several pack-in configurations, the most popular
+being Sewer Shark.  Other pack-in configurations include:
+
+SCD2b: Sonic CD
+SCD2c: Sonic CD, Power Rangers, and Sewer Shark
+SCD2d: Joe Montana Football (Sports Pack)
+SCD2e: Tomcat Alley (Current and FINAL run)
+
+Some older games like Lunar: The Silver Star and Dark Wizard
+occasionally lock up on the Sega CD2.  It does have, however, slightly
+shorter access times with games such as Lunar: Eternal Blue.
+
+     Q:  Can I use my Sega CD II unit with my older-model Genesis?
+     A:  Yes.  It attaches like the original model Genesis (I) to the CD
+         Unit.  A special plastic extender plate adds on to the left
+         side of SCD2 to hold the original Genesis.
+
+     Q:  How about using a Sega CD I (older) unit with the newer model
+         Genesis?
+     A:  "Officially", no.  However, a special cable CAN be made to
+         attach it as such.  It will not be as sturdy, and it's unsure
+         how reliable this would be.  The hookups don't match for sound
+         and you'll have to use the RF box unless you patch everything.
+         Also, you cannot use the connector plate.
+
+[JVC X'Eye]
+
+The JVC X'Eye is an all-in-one unit, as it contains a Genesis-compatible
+and a Sega CD-compatible in one housing. (3) The X'Eye includes the
+pack-in titles "Compton's Interactive Encyclopedia" and "Prize Fighter",
+both in cardboard sleeves.
+
+In Japan, the X'Eye is known as the "Wondermega".  There were two
+versions:
+
+   * Original
+     - Larger than the current model (Approx. size of SCD2 and SG2 in
+       width)
+     - Capable of handling oversized CDs (> 5"), which was the original
+       concept behind CD movies in Japan... the format was NOT adopted
+     - MIDI connection (music keyboard compatible)
+     - Specialized MIDI/Keyboard development kit/program available in
+       Japan ONLY.
+   * Current version
+     - Same as US X'Eye
+     - Slimmer than Wondermega I
+     - Lack extra features of the original
+
+All Wondermegas were built by JVC Musical Industries of Japan.
+
+[Sega CDX]
+
+The Sega CDX is similar to the X'Eye in that it plays standard Genesis
+carts as well as most Sega CDs.  Its advantage is the size -- about the
+size of a portable CD player.  This unit is portable (there's even a
+carrying case for it) but still requires a television or monitor to
+play.  There were three CDs included as pack-ins: Sega Classics V
+(Streets of Rage, Shinobi, Golden Axe, Columns, and Super Monaco GP),
+Sonic CD, and Ecco the Dolphin CD.
+
+There are a few Sega-CD titles that are not compatible with the CDX:
+
+   Jurassic Park
+   Radical Rex
+   Terminator
+   Who Shot Johnny Rock?
+
+     Q:  Can I use my Sega CDX with the Sega Channel?
+     A:  Yes - they are compatible.  Of course, only for cart-based
+         games.
+
+     Q:  Can I use a 32X add-on with my CDX?
+     A:  Yes.  Although it's not officially endorsed by Sega, it *is*
+         possible.  There may be a problem with spacing the 32X device
+         over the unit, though.
+
+[LaserActive]
+
+The LaserActive system by Pioneer was a noble attempt at an all-in-one
+unit.  It is essentially a Laser Disc player with available add-on
+"modules" for Sega CD/Genesis and TurboGrafx-16/CD/PC Engine games.  The
+machine also has its own library of 7 or 8 (?) LaserActive game titles.
+The LaserActive was expensive ($800?) and each add-on module cost nearly
+as much as the machine it was emulating ($200?), so cost was a
+prohibitive factor in large volume sales of the unit.
+
+
+V.  Software
+
+This list of Sega CD titles was the very first part of the FAQ.  Once I
+completed it I had amassed enough information for an entire FAQ, and it
+just kept growing, and growing, and growing...
+
+Numbers in parentheses () refer to notes at the bottom.
+
+Guide to nomenclature:
+
+   1st person shooter - a non-overhead, non-side-scrolling shooting game
+      which takes place from the point of view of the player's
+      ship/character/etc.  These games usually take advantage of the
+      Sega CD's additional hardware and have much better effects than a
+      comparable Genesis shooter.
+   Action - arcade action, includes flying, and games with multiple
+      elements (driving, shooting, platform, etc.)
+   FMV - "Full Motion Video".  This is a type of game which uses
+      digitized video or digitized animation for its graphics and
+      gameplay is usually limited to pressing buttons at certain times.
+      "Dragon's Lair" in the arcade is a very early (the first?) example
+      of this, in which you had to time the main character's actions
+      precisely, or else he was toast.
+   Platform - Run and jump type of game, side-scrolling, in which the
+      character can explore a landscape while running, jumping, and
+      attacking with various types of weapons.  The word platform comes
+      from early platform titles (e.g. Super Mario Brothers) in which
+      the character actually jumped on various platforms.
+   RPG - "Role Playing Game".  The first person RPGs refer to those
+      games in which your view is a 3-D character's view of the dungeon,
+      and you "see what your characters see".
+
+There are 148 titles available in the U.S.
+
+Name                                            Type
+------------------------------------------------------------------------
+The Adventures of Batman and Robin              Driving
+   (different from cart)
+Afterburner 3                                   Action
+AH-3 Thunderstrike                              Flying sim
+Amazing Spiderman vs. Kingpin                   Action/Platform
+Android Assault                                 Shooter
+The Animals! (San Diego Zoo)                    Educational/Reference
+AX-101                                          FMV Shooter (1st person)
+
+B.C. Racers                                     Driving
+Batman Returns                                  Action (driving)
+Battlecorps                                     Shooter (1st person)
+Bill Walsh College Football                     Sports
+Black Hole Assault                              Fighting
+Bouncers                                        Action/sports-like
+Brutal - Paws of Fury                           Fighting
+
+Cadillacs and Dinosaurs                         Driving/shooting
+Championship Soccer '94                         Sports
+Chuck Rock                                      Platform
+Chuck Rock II - Son of Chuck                    Platform
+Cliffhanger                                     Action/platform
+Cobra Command                                   FMV shooter
+Colors of Modern Rock (8)                       Music Video
+Compton's Interactive Encyclopedia (4)          Educational/Reference
+Corpse Killer                                   FMV shooter (6)
+Crime Patrol                                    FMV shooter (uses gun,6)
+
+Dark Wizard                                     RPG/strategy
+Demolition Man                                  Platform
+Double Switch                                   FMV action
+Dracula                                         Action (minor FMV parts)
+Dracula Unleashed (2CDs)                        FMV action
+Dragon's Lair                                   FMV action
+Dune                                            Action/platform
+Dungeon Explorer                                RPG/arcade
+Dungeon Master 2: Skullkeep                     RPG/1st person
+
+Earthworm Jim CD (Special Edition)              Platform
+Ecco the Dolphin CD                             Action/platform
+Echo the Dolphin 2: The Tides of Time CD        Action/platform
+ESPN Baseball Tonight                           Sports
+ESPN National Hockey Night                      Sports
+ESPN NBA Hangtime '95                           Sports
+ESPN Sunday Night NFL                           Sports
+Eternal Champions CD                            Fighting
+Eye of the Beholder                             RPG/1st person
+
+Fahrenheit (packaged with 32X version)          FMV action
+Fatal Fury Special                              Fighting
+FIFA Soccer                                     Sports
+Final Fight                                     Fighting
+Flashback CD                                    Platform
+Flink                                           Platform
+Formula 1 World Championship                    Driving
+Frankenstein/Dracula (combo)                    FMV action/FMV action
+
+Ground Zero Texas (2 CDs)                       FMV shooter
+
+Heart of the Alien                              Platform
+Heimdall                                        Puzzle/RPG
+Hook                                            Platform
+
+INXS: Make My Video                             FMV music
+Iron Helix                                      action/puzzle/sci-fi
+
+Jaguar XJ220                                    Driving
+Jeopardy                                        Quiz
+Joe Montana NFL Football                        Sports
+Jurassic Park (5)                               Action/1st Person/Puzzle
+
+Keio's Flying Squadron                          Shooter (side-scrolling)
+Kids on Site                                    FMV educational
+Kris Kross                                      FMV music
+
+Lawnmower Man                                   1st person action/puzzle
+Lethal Enforcers (with gun)                     Shooting (uses gun) (6)
+Lethal Enforcers 2: Gunfighters                 Shooting (uses gun) (6)
+Links: The Challenge of Golf                    Sports
+Loadstar                                        FMV action
+Lords of Thunder                                Shooter (side scrolling)
+Lunar: The Silver Star                          RPG
+Lunar: Eternal Blue                             RPG
+
+Mad Dog McCree                                  Shooting (uses gun) (6)
+Mad Dog McCree 2: Lost Gold                     Shooting (uses gun) (6)
+Mansion of Hidden Souls                         Action/puzzle
+Marky Mark                                      FMV music
+Masked Rider (Kamen Rider ZO)                   FMV action
+Mega Race                                       1st person action
+Mickey Mania                                    Platform
+Microcosm                                       1st person action
+Midnight Raiders                                FMV action/shooter
+Mighty Morphin Power Rangers                    FMV action
+Mortal Kombat CD                                Fighting
+My Paint                                        Educational
+
+NBA Jam CD                                      Sports
+NFL Trivia                                      Quiz/sports
+NFL Greatest Teams                              Sports Trivia
+NHL '94                                         Sports
+Night Trap (2CDs) (see note (1) below)          FMV action
+Nova Storm                                      1st person shooter
+
+Panic!                                          puzzle/humor
+Pitfall CD                                      Platform
+Popful Mail                                     Platform/RPG
+Power Factory                                   FMV music
+Power Monger                                    Strategy/sim
+Prince of Persia                                Platform
+Prize Fighter (Video Boxing) (2 CDs)  (4)       FMV action
+Puggsy                                          Platform
+
+Racing Aces                                     Flying sim/action
+Radical Rex (5)                                 Platform
+RDF Global Conflict                             1st person shooter
+Revenge of the Ninja                            Fighting
+Revengers of Vengeance                          Fighting
+Rise of the Dragon (See note 2 below)           Mystery
+Road Avenger                                    FMV action
+Road Rash                                       Driving
+Robo Aleste                                     Shooter (side scrolling)
+
+Samurai Shodown CD                              Fighting
+Secret of Monkey Island                         Mystery/puzzle
+Sega Classics 4-in-1 CD (1)                     Misc. arcade/puzzle
+Sega CDX Classics 5-in-1 CD (3)                 Misc.
+arcade/puzzle/driving
+Sewer Shark (2)                                 FMV action
+Shadow of the Beast II                          Platform
+Sherlock Holmes (1)                             Mystery/puzzle
+Sherlock Holmes II                              Mystery/puzzle
+Shining Force CD                                RPG/strategy
+Silpheed                                        1st person shooter
+Slam City with Scottie Pippen (4 CDs)           FMV action
+Snatcher                                        Mystery/gun (6)
+Sol Feace (1)                                   Shooter (side-scrolling)
+Sonic CD                                        Platform
+Soulstar                                        1st person shooter
+Space Ace                                       FMV action
+Space Adventure                                 Mystery/Digital Comic Book
+Starblade                                       1st person shooter
+Star Wars Chess                                 strategy
+Star Wars Rebel Assault                         FMV action
+Stellar Fire                                    1st person shooter
+Supreme Warrior (2 CDs)                         FMV action (fighting)
+Surgical Strike (9)                             FMV action (shooter)
+
+3 Ninjas/ Hook (2 CDs)                          Platform/platform
+Terminator (5)                                  Platform
+Third World War                                 Strategy/sim
+Time Gal                                        FMV action
+Tomcat Alley                                    FMV action
+Trivial Pursuit                                 Quiz
+
+Ultraverse Prime/Microcosm                      Platform/1st person
+shooter
+
+Vay                                             RPG
+
+Wheel of Fortune                                Quiz
+Who Shot Johnny Rock (5)                        Shooting (uses gun) (6)
+Wild Woody                                      Platform
+Willy Beamish                                   Action/adventure
+Wing Commander                                  Action
+Wirehead                                        FMV action
+Wolfchild                                       Platform
+Wonderdog                                       Platform
+World Cup USA 94                                Sports
+WWF Rage in the Cage                            Sports
+
+32X versions of the following CDs were also released:
+
+   Corpse Killer     (Digital Pictures)
+   Fahrenheit (packaged with Sega CD version)  (Sega)
+   Night Trap        (Digital Pictures)
+   Slam City         (Digital Pictures)
+   Supreme Warrior   (Digital Pictures)
+
+
+Notes:
+(1)    Sega CD 1 pack-in item.  Complete Pack-ins for Sega CD 1 (5 items):
+          Sega Classics 4-in-1 CD (Shinobi, Streets of Rage, Columns,
+             Golden Axe)
+          Sherlock Holmes
+          Sol Feace CD
+          CD+G Sampler
+          R&R Music sampler
+(2)    Sega CD 2 Pack-in item.  (no box included, as well as smaller
+       manual)
+(3)    Sega CDX Pack-in item.  Contains Same four games as 4-in-1 plus
+       Super Monaco GP.
+(4)    JVC X'eye Pack-in item.  Compton's and Prize Fighter are in
+       cardboard boxes/sleeves.
+(5)    Does not work with Sega CDX system.
+(6)    There were two types of light guns produced for Sega CD games.
+       The first is the "Justifier", by Konami, which is included with
+       Lethal Enforcers.  It can be used to play these titles: "Lethal
+       Enforcers", "Lethal Enforcers 2", and "Snatcher".  The other
+       light gun is by American Laser Games.  It isn't included with any
+       of their Sega CD titles, but can be purchased separately.  A
+       second gun (for player 2) was also made but is currently
+       hard-to-find.  (Note: The Sega "Menacer" can also be used for
+       these games, but unlike the American Laser Games guns, the
+       Menacer requires batteries.)  These guns can be used with the
+       following games:  "Crime Patrol", "Mad Dog McCree", "Mad Dog
+       McCree II: The Lost Gold", and "Who Shot Johnny Rock".  Also,
+       "Corpse Killer" (Digital Pictures) can be used with the Menacer.
+(7)    All American Laser Games are FMV shooters
+       All Digital Pictures games are FMV-based
+(8)    "Colors of Modern Rock" is a promo-only CD by Sega and Digital
+       Pictures.  It's a CD with six music videos produced in
+       conjunction with Warner Custom Music.  You can play the videos as
+       in a normal VCR tape.  The screen is approximately 1/3,
+       combination of color and black-and-white.  It allows for play,
+       stop, search, skip, freeze, and storage of 9 frames (based on
+       available backup RAM space).  @1993 Sega, product code:
+       WCM-9302-00 (in case anyone's interested).
+       Featured bands (and song titles):
+          Too Much Joy         Donna Everywhere
+          T-Ride               Back Door Romeo
+          The Belltower        Outshine the Sun
+          Xtra Large           Hooker
+          Mr. Big              To Be With You
+          Dramarama            Haven't Got a Clue
+(9)    Surgical Strike was never released for the 32X, despite the offer
+       for an upgrade.  The original offer (noted on the cover of the
+       instruction booklet as well) was to send Sega the card from the
+       instruction booklet along with $3.75 for P&H, and Sega would send
+       you an upgraded Surgical Strike CD for the 32X.  In early 1996,
+       the 32X version was cancelled.  As of this writing (5/96) Sega
+       has not decided what to do for the buyers of Surgical Strike who
+       sent in the cards and money for the upgrade, but likely it will
+       be an offer for another (possibly multiple) titles.
+
+Here is a partial list of some Japanese titles (please send info on
+others to BCantin@aol.com):
+
+   A-Rank Thunder (RPG)
+   Aisle Lord (RPG)
+   AlShark (RPG/Adventure)
+   Annet Again (Platform Fighting Adventure game - sequel to El Viento)
+   Arcus 1 2 3
+   Burai (RPG)
+   Burning Fists (Fighting)
+   Cosmic Fantasy Stories (RPG - Cosmic Fantasy parts 1/2)
+   Cyborg 009
+   Death Bringer (RPG)
+   Detonator Organ (RPG)
+   Devastator (Side scrolling shooter)
+   Dynamic Country Golf (Sports)
+   Earnest Evans
+   F-1 Circus CD (racing)
+   Fhey Area (RPG)  (note - also spelled "FAERIA" on other platforms)
+   Funky Horror Band (RPG)
+   Heavy Nova (fighter)
+   Kelo Yugskitai
+   Mega Schwarzchild (sim)
+   Might & Magic 3 (RPG)
+   Ninja Warriors (Action Arcade)
+   Phantom City
+   Power League Baseball (sports)
+   Ranma 1/2 (anime puzzle?/fighting?)
+   Side Story of Armageddon (RPG)
+   Silky Lip (anime adventure/detective)
+   Super League CD (Baseball)
+   Tenkafubu (ancient Japan military strategy?)
+   Tokyo Mah-Jongg (tile game)
+   Wonder Mega Collection (WonderMega pack-in)
+
+***equivalents to U.S. titles***
+
+   Bari Arm = Android Assault
+   Heavenly Symphony = Formula One: Beyond the Limit
+   Ninja Haygate = Revenge of the Ninja
+   Switch = Panic!
+   ThunderStorm = Cobra Command
+   Yumeni Mystery Mansion = Mansion of Hidden Souls
+
+
+*** also released in U.S., same names ***
+   Afterburner 3
+   Black Hole Assault
+   Final Fight CD
+   Lunar
+   Popful Mail
+   Prince of Persia
+   Shadow of the Beast 2
+   Shining Force CD
+   Silpheed
+   Sol-Feace
+   Sonic CD (music is different)
+   Starblade
+   Third World War
+
+Here is a list of some European games, from a European game mag:
+
+   Afterburner 3
+   Another World  (AKA "Heart of the Alien")
+   Batman
+   BC Racers
+   Black Hole Assault
+   Cannon Fodder
+   Chuck Rock
+   Cobra Space Adventure
+   Corpse Killer
+   Cosmic Fantasy Stories
+   Demolition Man
+   Dracula Unleashed
+   Dungeon Explorer
+   Dungeon Master 2
+   Earnest Evans
+   Earthworm Jim
+   Ecco the Dolphin
+   Ecco 2
+   Eternal Champions
+   Eye of the Beholder
+   Fahrenheit
+   Fatal Fury Special
+   FIFA Soccer
+   Final Fight
+   Heavy Nova
+   Heimdall
+   Jaguar XJ220
+   Keio's Flying Machine
+   Lethal Enforcers
+   Lethal Enforcers 2
+   Links Golf
+   Lords of Thunder
+   Marko's Magic Football
+   Mega Race
+   Midnight Raiders
+   Myst
+   Night Trap
+   Nostalgia 1907
+   Power Monger
+   Power Rangers
+   Prince of Persia
+   Puggsy
+   Road Avenger
+   Samurai Shodown
+   Sensible Soccer
+   Sewer Shark
+   Shining Force
+   Silpheed
+   Slam City
+   Snatcher
+   Sol-Feace
+   Sonic CD
+   Soul Star
+   Starblade
+   Supreme Warrior
+   Surgical Strike
+   Syndicate
+   Theme Park
+   Thunderhawk
+   Thunderstorm-FX
+   Time Gal
+   Tomcat Alley
+   Wolfchild
+   Wonderdog
+   World Cup Golf
+   Yumeni Mystery Mansion (aka "Mansion of the Hidden Souls")
+
+There were also some demo CDs that were occasionally included with UK
+magazines, such as "Sega Pro" and "Mega Power".  These typically
+included partial versions (demos!) of Sega CD games about to be
+released.
+
+
+
+Q:  I thought (GAME X) was released.  I've seen it listed for sale in
+    various magazines.  What happened to it?
+
+A:  This happens all the time.  A video game retailer (new or used, they
+    all seem to do it) gets wind of a game under development, and
+    they'll list it for sale - even if it hasn't been released yet.  Of
+    course, when you call in to order it, it's not available - but will
+    be as of [...some date, a few months in the future].  They devise
+    their sale lists to reflect changes to accommodate new releases.
+    What happens sometimes is that a title will be canceled before it's
+    complete, yet it's still listed for sale all over the place.  This
+    is not the developers' fault, but the fault of the video game
+    retailers that include unreleased titles on their sale lists.
+    Sometimes a game will be reviewed in a magazine, fooling some people
+    into believing that it's been released.  In these cases, the
+    reviewers nearly always get demo versions or early copies of games,
+    that are occasionally canceled prior to release.  Meanwhile, there's
+    a review of it out there somewhere, getting people ready for it.
+    Sad, but true.  (Good example currently is "Penn & Teller's Smoke
+    and Mirrors", which has probably been reviewed by every major gaming
+    rag... yet at this time has not been released, nor does it appear
+    that it will be).
+
+Q:  What are some of those titles that have never been released, that
+    will probably NEVER see the light of day?
+
+A:  NOTE: SOme titles change before release also, which may account for
+    this.  I'll be sure to let you know if I find any such examples.
+
+    This list is naturally subject to change... but it doesn't look like
+    it will.  I haven't gone through ALL the ads I've seen, these are a
+    few of the more prevalent ones (I've seen ads for most of these, a
+    few reviews too... and no, they're not out yet).  If I included all
+    the unreleased titles from the many sale lists I've looked at from
+    1993-present, there would probably be 30-40 more titles on it...
+    Work has been done (in some cases to near-completion) on each of
+    these titles below.
+
+     UNRELEASED SEGA CD TITLES THAT WE THOUGHT WOULD BE (and still can!):
+     -------------------------------------------------------------------
+        Battle Frenzy (Core)  (WAS released as "Battlecorps")
+        Braindead 13 (Readysoft)
+        Citizen X (Digital Pictures)
+        Clue
+        Crime Patrol 2: Drug Wars (American Laser Games)
+        Dai Bing
+        Dark Seed (Vic Tokai)
+        Dragon's Lair 2 (Readysoft)
+        Exterminators (Sony Imagesoft)
+        Flying Nightmares (Domark)
+        Myst (Broderbund)
+        No Escape (Sony Imagesoft)
+        Penn & Teller's Smoke and Mirrors (Accolade)
+        Power Drift
+        Prince VVCR (Sega) ("Prince", as in "SymbolMan")
+        Side Pocket (Data East)
+        Space Pirates (American Laser Games)
+        Young Indiana Jones (Sega)
+
+
+VI.  Conversion
+
+   Q:  Is it possible to play foreign CDs on my Sega CD/Mega CD?
+   A:  Yes, but...
+
+If you insert a foreign CD into your Sega CD (remember, there are three
+nationalities of Sega CDs here: European, Japanese, and U.S.), you will
+not be able to load it.  The reason for this is that a "nationality"
+lockout code is on each Sega CD and Mega CD unit.  This assures (without
+outside help) that a particular CD will only be playable on its
+particular system.
+   There is a way around this lock-out code.  There are cartridges
+available that plug directly into the Genesis slot that allow foreign
+CDs to be used by any system.
+
+[The Lockout Chip]
+
+The Sega CD unit had a specially designed BIOS chip/security program
+that prevented the unit from reading CD games intended for other markets
+(US, Japanese, European), such as Japanese or European CDs on a U.S.
+machine, and vice-versa.  This Lockout chip or BIOS information
+instructed the CD unit to read the CD and look for a certain
+file/security identifier that indicated that the CD was authorized for
+use on the system.
+
+To work around this, the folks at Datel designed the Pro CD-X and
+Pro CD-X Plus.
+
+Pro CD-X (and Pro CD-X Plus)
+
+This is a special cartridge that plugs into the Genesis in the cart slot
+and overrides the security commands of the Sega CD.  This allows you to
+play any Sega CD or Mega CD title on any Sega CD or Mega CD system of a
+different origin.  However, it wasn't 100% effective - not all games
+were compatible with this unit, making its appeal very limited.
+
+During Sega's redesign of the Genesis and CD system, they improved the
+Bios to prevent this cartridge from working.
+
+CD+Plus
+
+   This cartridge looks like a regular Genesis cartridge and has better
+success with compatibility than its predecessors.  When the Sega CD is
+powered up with this cart in place, it's possible to run the Sega CD via
+the options screen (select "CD-ROM").  The reset button does NOT open
+the Sega CD tray (first model), you have to do that via the options
+screen as well.
+
+CD+PLUS does not work with the 32X installed.
+
+   Japanese CDs known to work successfully with CD+PLUS:
+           AlShark
+           Burai
+           F-1 Circus CD
+           Final Fight CD
+           Heavenly Symphony
+           Lunar
+           Prince of Persia
+           Sega Classics Arcade Collection (4-in-1)
+           Silky Lip
+           Silpheed
+           Sol Feace
+           Super League CD
+           Tenkafubu
+           Thunder Storm
+
+   Known NOT to work with CD+PLUS:
+           Black Hole Assault
+           Heavy Nova
+
+   Known NOT to work with Pro CD-X:
+           Ranma 1/2
+
+Secondary security lockout Bypass -
+   This is the option to using one of the above carts.  It is possible
+   to build your own switch onto the back of the Sega CD.  It requires
+   rewiring two transistors, indicating US or Japan (no idea how
+   European Sega CDs would work with this).  No details are available in
+   this FAQ.
+
+
+VII.  Sega CD Backup RAM Cart
+
+This is an ordinary-looking Genesis cart which allows you to copy
+individual files to and from the Sega CD internal RAM.  It allows 16
+times the storage of the Sega CD's internal RAM.  One nice advantage is
+that many games (particularly the memory-hogging RPGs) will allow you to
+play directly from the backup RAM cart.
+
+The cart allows you to copy individual files or the entire directory to
+it from the RAM, and allows individual files to be copied over (space
+permitting) to the Sega CD Internal RAM.
+
+It behaves very much like a floppy disk, in that it must be formatted
+before use, then files can be copied to/from it.  Individual files can
+also be deleted.  Known shelf life is probably on the order of several
+years, maybe longer.
+
+The RAM cart has capacity for 1 Mbit of data storage (which translates
+to 2000 blocks), or sixteen times the storage capacity of the internal
+Sega CD RAM (125 blocks).
+
+It is also required to perform certain things, such as access the third
+"hidden" battle stages in Shining Force CD.  Since each Shining Force CD
+saved game takes up almost all the internal Sega CD RAM and you have to
+have saved games from both parts 1 and 2, you must have at least one of
+them stored on the RAM cart.  Also, some games such as "Shining Force
+CD", "Third World War", and "Eye of the Beholder" take up all 125 blocks
+with a save game, so if you want to save anything else (or have multiple
+saves) the backup RAM cart is essential.
+
+One note: the External RAM cart instructions do not mention how long the
+cart will keep the files but more than likely will keep them
+approximately 3-5 years, assuming that the player occasionally plugs it
+into the Sega Genesis WITH the Sega CD attached to recharge it and keep
+power at optimum levels.  Later versions of the FAQ will have an index
+of the savegame filenames.  This way, you will know what those "mystery
+files" are that have been there for a long time...
+
+The RAM cart retails for $59.99, although they have been on sale at Toys
+R Us for $29.99.  Highly recommended for RPGs. (No, I don't work for Toys
+R Us...)
+
+
+VIII.  Miscellaneous Frequently Asked Questions
+
+Q:  Do any Sega CD titles use the "Mega Mouse"?
+
+A:  Yes, they are:
+       Eye of the Beholder
+       Mansion of the Hidden Souls
+       My Paint
+    These titles are MUCH easier to use with the Mega Mouse instead of
+    a standard joypad.
+
+Q:  Is there an emulator that will let me play Sega CDs on my Mac/PC?
+
+A:  No.  There has been extensive discussion on the Internet over such
+    an emulator but no evidence of one has been brought forward.  It has
+    been rumored that such an emulator did exist for the Macintosh since
+    the Genesis and Mac are both 68000-based machines, and that the
+    "emulator" was based on the development kit used by programmers to
+    make Sega CD-based games.  With the appearance of NES, ColecoVision,
+    and other game system emulators within the last couple years,
+    chances are that a Sega CD emulator for Mac/PC/Unix might appear
+    someday.
+
+Q:  Is there a Game Genie for the Sega CD system?
+
+A:  No.  There never was a "game enhancing" device for the Sega CD.
+    Neither Galoob nor Datel ever brought one on the market.  At one
+    point in time, approximately mid-1993 when the Sega CD was in its
+    heyday, Galoob announced that they were working on a Game Genie for
+    the Sega CD.  Based on comments from Galoob officials, the device
+    would fit between the Genesis and the Sega CD.  However, due to
+    market conditions (i.e. the system wasn't a booming success) and the
+    inherent change invoked by Sega from the original Sega CD style to
+    the newer Sega CD2 style made it not feasible for Galoob to develop
+    such a device and thus it was shelved.  Reasons for this being, the
+    change in system design by Sega made it harder for Galoob to make a
+    "universal" style adapter that would work with both units (Sega CD 1
+    and CD2) along with relatively few games and wavering public 
+    support.  (Side note: on review of the design of the original and
+    newer Genesis and Sega CD systems, it is theoretically possible to
+    have made it work.  It might have looked a little weird, but it was
+    possible.)
+
+Q:  What is the advantage of a CD title over the equivalent cart title
+    (Example: Pitfall)?
+
+A:  The CD version usually has better music (and more of it) since it
+    comes directly from the CD.  Ecco the Dolphin is a good example of
+    this.  In some titles, as in the case with Pitfall CD and Earthworm
+    Jim CD, extra levels, sports teams, etc. are included.  Some titles
+    also have FMV cinemas between levels.  Also, in some cases (such as
+    Jurassic Park) it's an entirely different game.
+
+Q:  Where can I find a list of cheats for Sega CD games?
+
+A:  There are two places on the net you can look.  First, try the Sega
+    Sages' page:
+       http://www.nebula.net/sega
+    This site is a veritable encyclopedia of gaming info, from the NES
+    to the Saturn.  There's a great section in there on the Sega CD, too.
+
+    Also, Steve Wargo has a cheats list that is as complete as any I've
+    seen (also includes some strategies).  Check here:
+
+        http://www.phoenixat.com/~swargo/         - OR -
+        http://athos.phoenixat.com:80/~swargo
+
+    Steve's database has been very well kept-up and includes hints as
+    well as codes.
+
+    Off the net, you can look for a book called "Sega CD Official Game
+    Secrets", by Rusel DeMaria and Tom Stratton Jr.  (Prima Publishing,
+    1994).  It's got EXCELLENT tips and walkthroughs on 27 Sega CD
+    titles, including a few cheats here and there.  Very highly
+    recommended for the library if you collect Sega CDs.
+
+    The magazine "Tips and Tricks" also keeps a list of Sega CD cheats
+    and Easter eggs.
+
+Q:  Are there any other sources on the Internet for Sega CD information?
+
+A:  The Usenet newsgroup rec.games.video.sega is a good place to look.
+    Another newsgroup to check, although it's less busy, is
+    alt.sega.genesis.  Generally, if you have a Sega CD-related
+    question, post it there and someone will probably post an answer.
+    Unfortunately, the Sega of America webpage:
+       http://www.segaoa.com
+    no longer carries information about the Sega CD system or its games.
+
+Q:  What is "QSound"?
+
+A:  From the Sonic CD manual: "QSound Virtual Audio is a revolutionary,
+    multi-dimensional sound placement technology.  If your Sega CD is
+    connected to stereo sound, you can submerge yourself in the magic of
+    state-of-the-art QSound.  This amazing sound technology gives you
+    180 degrees of audio in a greatly expanded sound field.  You'll be
+    surrounded in waved of 3-D sound!"  Sega CD titles which utilize
+    QSound include:
+
+       Spiderman vs. Kingpin
+       Sonic CD
+
+Q:  What are the RPGs available for the Sega CD?
+
+A:  First, there's the Working Designs games:
+       Dark Wizard (hex-grid battle-sim RPG)
+       Lunar: The Silver Star  (most popular)
+       Lunar: Eternal Blue
+       Popful Mail (more of a platformer but lots of RPG-type elements
+          to it)
+       Shining Force CD (completely different stories from the cart-
+          based games, and the stories here are VERY linear (ie no town
+          exploration, just battle after battle)
+       Vay (very good)
+
+    There are a few others, which are ports from computer games:
+       Eye of the Beholder
+       Dungeon Master II
+       Heimdall (more like a puzzle game)
+    And then the misc. RPG-like category
+       Dungeon Explorer II  (a Gauntlet clone, it's based on the Dungeon
+          Explorer games for the TurboGrafx-16/Duo/PC Engine, although
+          it's different from those two titles)
+
+NOTE: There are more available for the Mega-CD (Japanese) and generally
+   require the player to read Japanese in order to play them.  See the
+   List (Section V) above for specific titles.
+
+Miscellaneous tidbits...
+
+   * Majority of Sega CD/CD2 design based on JVC CD technology
+   * All original Sega CD game CD-ROMs were pressed by JVC for Sega
+   * Many games can be reset with the joypad by simultaneously pressing
+     A,B,C, then <start>
+   * Mega CD (Japanese) version of Sonic CD has different music than the
+     US version and features a rap-based intro (!)
+   * The most popular renter of Sega CD units and games was Blockbuster
+     Video.  They were discontinued from most stores 1995-1996.
+
+
+
+

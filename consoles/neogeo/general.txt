@@ -1,0 +1,25 @@
+*************************************************
+*						*
+*      GENERAL INFO ABOUT NEO GEO CARTRITGE     *
+*						*
+*	     By KAN (kan@arrakis.es)		*
+*						*
+*************************************************
+
+I write this doc because I think one maybe be
+interesting. Well, here I put the names of the
+files of the roms of neo geo and its function,
+after I read the neocart.txt of Juan Carlos.
+No all the files have to exist.
+
+Neo Geo Cartritge: General
+Size Mbit: XXX
+Size Mbytes: XXX/8
+
+NXXX001?.0??    Main 68k Code
+NXXX001?.1??    Sound ADPCM
+NXXX001?.2??    Sound ADPCM
+NXXX001?.3??    Fix
+NXXX001?.4??    Z80 Code
+NXXX001?.5??    GFX [Planes 1 and 2]
+NXXX001?.6??    GFX [Planes 3 and 4]

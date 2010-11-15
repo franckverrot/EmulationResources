@@ -1,0 +1,160 @@
+From:     LAY@uk.tele.nokia.fi
+To:       "Super Famicom Development Group" <famidev@busop.cit.wayne.edu>
+Subject:  RE: Assorted questions...
+
+>> 2) I asked a question before about HDMA, and I got replies saying that
+>>    it has something to do with the horizontal interrupt or horizontal
+>>    blank time (I forget which).  Later on I saw people talking about
+>>    HDMA "channels".  Could someone please tell me what the "channels"
+>>    are used for, or are they another name for a register or a memory
+>>    storage location?
+
+It's probably best to start by explaning "normal" DMA. The SNES
+supports 8 DMA channels which allow data to be copied to VRAM
+extremely quickly, bypassing the 65c816 processor. Each channel
+consists of the following registers.
+
+    Byte    $43?0    DMA channel ? control register
+    Byte    $43?1    DMA channel ? destination
+    Word    $43?2    DMA channel ? source address offset
+    Byte    $43?4    DMA channel ? source address bank
+    Word    $43?5    DMA channel ? transfer bytes
+
+    where ? is 0..7
+
+A value of $01 written to the DMA channel control register at
+$43?0 indicates that we're using "normal" DMA. The graphics
+register destination is formed by using $21 as the high byte
+of the address and using the byte specified at $43?1 as the
+low byte. Hence you can DMA to any of the graphics registers
+between $2100..$21FF.
+
+There is also a DMA control register.
+
+    Byte    $420B    DMA control register
+
+Here bit 0 enables channel 0, bit 1 enables channel 1 etc...
+
+For example, suppose I wanted to copy a 32 x 32 character
+screen map (ie. $800 bytes) from location $18000 in ROM into
+location $0000 of VRAM. I could do this using DMA channel 0
+with the following code (A is 8-bits, X & Y are 16-bits).
+
+    ldx.w #$0000    ; set VRAM pointer to $0000
+    stx $2116
+    lda #$01        ; control value for "normal" DMA
+    sta $4300
+    lda #$18        ; dma to $2118
+    sta $4301
+    ldx.w #$8000    ; source offset
+    stx $4302
+    lda #$01        ; source bank
+    sta $4304
+    ldx.w #$0800    ; number of bytes
+    stx $4305
+    lda #$01        ; enable DMA channel 0
+    sta $420B
+
+And that's all there is to it. After completion of the last
+instruction "sta $420B" the $800 bytes at $18000 will have
+been copied into VRAM at location $0000.
+
+HDMA allows you to use any combination of these DMA channels
+to modify graphics registers just before the start of every
+horizontal scan line.
+
+To use HDMA you have to write a value of $00 or $02 to the
+DMA channel control register at $43?0 to indicate "horizontal"
+DMA. Writing $00 indicates a byte is to be DMA'd each scan
+line, writing $02 indicates a word. The DMA channel destination
+at $43?1 works just as before with "normal" DMA. The source
+address offset and bank registers at $43?2 & $43?4 will point
+to a HDMA table. The transfer bytes register at $43?5 is not
+used.
+
+The format of the HDMA table depends on the value you have
+written to the DMA channel control register. If you have
+written $00 then a byte will be written to the selected
+graphics register each scan line. The table should have the
+following format.
+
+hdma_table
+    Byte n ; number of bytes that follow (7-bit value 0..127)
+    Byte value_1, value_2, value_3 ... value_n
+    Byte n ; number of bytes that follow (7-bit value 0..127)
+    Byte value_1, value_2, value_3 ... value_n
+    .
+    etc
+    .
+    Byte 0 ; ends list
+
+The table is made up of a number of entries. The first byte
+in each entry is a count on the number of bytes that follow.
+The table is terminated by a 0 entry.
+
+If you have written $02 to the DMA channel control register
+then a word will be written to the selected graphics register
+each scan line. The table should have the following format.
+
+hdma_table
+    Byte n ; # times to repeat next word (7-bit value 0..127)
+    Word value
+    Byte n ; # times to repeat next word (7-bit value 0..127)
+    Word value
+    .
+    etc
+    .
+    Byte 0 ; ends list
+
+The table is made up of a number of entries. The first byte of
+each entry indicates the number of times the following word is
+to be repeated. The table is terminated by a 0 entry.
+
+The only other thing you'll need to know is that there is a
+HDMA control register.
+
+    Byte    $420C    HDMA control register
+
+This is the same format as the DMA control register at $420B,
+ie. bit 0 enables HDMA channel 0, bit 1 enables channel 1 etc...
+
+For example, suppose halfway down the screen I want to scroll
+graphics plane 0 left by 128 pixels.
+
+    lda #$02        ; word format HDMA (count, word)
+    sta $4300
+    lda #$0D        ; plane 0 x-scroll at $210D
+    sta $4301
+    ldx.w #hdma_table&$FFFF ; hdma table offset
+    stx $4302
+    lda #hdma_table/$10000 ; hdma table bank
+    sta $4304
+    lda #$01        ; enable HDMA channel 0
+    sta $420c
+
+    .
+    .
+    .
+
+hdma_table
+    dc.b 112       ; for first 112 scan lines
+    dc.w 0         ; set plane 0 x-scroll to 0
+    dc.b 1         ; on next scan line
+    dc.w 128       ; set plane 0 x-scroll to 128
+    dc.b 0
+
+You can use HDMA channels in combination, ie. you could use HDMA
+channel 0 to select a colour register and HDMA channel 1 to write
+the RGB data for that colour register.
+
+I don't have access to any of the official Nintendo documentation 
+so I may not have entirely understood everything about HDMA but 
+this is a much as I've been able to work out. Maybe there are other
+(H)DMA modes too?
+
+I'll should have put a simple HDMA demo with source code on the
+busop.cit.wayne.edu ftp site (in pub/famidev/incoming/hdmademo.zip).
+
+Hope that helps.
+
+Paul.

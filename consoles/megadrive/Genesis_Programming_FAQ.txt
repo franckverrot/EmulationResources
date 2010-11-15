@@ -1,0 +1,853 @@
+
+Sega Programming FAQ
+
+
+Sega Programming FAQ September 14, 1994, Sixth Edition
+Modified May 23, 1996 (to reflect changes) by cdoty@host.yab.com
+
+(If you have the Seventh Edition please send it to me 
+cdoty@host.yab.com)
+
+
+ 
+This FAQ (Frequently Asked Questions) is about how to program
+the Sega Genesis and Mega Drive Video Games Systems.
+ 
+This file IS Public Domain, and can be used by all.
+You may copy and post this file elsewhere. Share and enjoy.
+ 
+If you want to add anything, especially game code or
+information on the hardware please E-mail me. My E-mail
+and real address are below and at the end of this FAQ.
+ 
+Disclaimer : In no way I am endorsing any products, systems,
+etc. What I am doing is providing the information that I
+have found throughout internet and other network systems and
+reporting them here, with out reverse engineering. All
+information is reported as is- I will not accept any
+responsibility if you fry your system trying something out.
+ 
+All copyrights are owned by their respective owners, no
+infringements intended.
+ 
+Henry Rieke
+
+ 
+US Mail:
+ 
+Henry Rieke
+Attn: Sega FAQ
+161 Poplar Dr
+Morgantown, Wv 26505-2340
+ 
+Modified by:
+
+Charles Doty
+
+ 
+0.1 Changes, Updates and Coming Soon
+ 
+1) Graphic, Video, and processor maps have been added. Major stuff here.
+In fact, enough to being programming your own games.
+ 
+2) Coding for the four player tap from Electonic Arts has been added.
+Does anyone have the code for the multi-tap from Sega, and how it works?
+ 
+3) I am now beginning to work on a topic header on languages that
+you can program in for the Sega and Sega CD ROM. If you have any
+direct information (compiler, how to compile, etc) let me know so
+I can include it.
+ 
+4) I've (Charles Doty) written a Sega Assembler, Disassembler. Included with
+   this is some source code. Currently the source only puts a text message
+   to the screen. I've got a working sprite but haven't released the code yet.
+   It's available at http://www.yab.com/~cdoty/Console.html
+
+
+ 
+1.0 Questions
+ 
+Q) What are the differences between Mega Drive and Genesis?
+   What are the differences between Mega CD and Sega CD?
+ 
+A) Physically, on the outside, the only difference is the
+   plastic case, the cartridge shape is slightly different on
+   the American version, smaller in size. On the inside there
+   are four jumpers labeled J1 though J4. J1 and J2 is the
+   language switch, between English and Japanese, J3 and J4
+   select the output between PAL and NTSC. You can build a
+   switch that can allow you to select between these options.
+   The diagram is included in this document (Chapter 5.0,
+   called "Language Switch"). The reason for the language
+   switch is to keep people from getting the game before it
+   is officially released elsewhere in the world. The newer
+   Sega Machines do not have the jumpers, and hence you can
+   not build a switch (as of yet).
+ 
+   The difference between Mega CD and Sega CD are internal.
+   In side the machine there is a ROM BIOS chip which is changed
+   for different markets. Sega has a version of the BIOS which
+   will play any system's games, but this is for Game developing
+   and testing. There is a device called Pro-CDX which will allow
+   you to by-pass the lockout and play any country's games.
+ 
+Q) Where to find files on the Sega Genesis/Mega Drive
+   hardware?
+ 
+A) You can find the files on the Sega hardware from one of
+   the following FTP sites. A brief section describing memory
+   and cartridge ROMs are included in this FAQ. The author
+   Rick McTeague, is from Louisville and the most current copy
+   can be found there first.
+ 
+FTP ftp.spd.louisville.edu
+    /pub/sega/hardware.txt
+ 
+FTP sunsite.unc.edu
+    /pub/micro/games/sega/faqs/incoming\hardware.txt
+    It's in there. I'm not sure of the exact location.
+ 
+Q) What does it take to program the Genesis?
+ 
+A) Development kits can be bought from many companies, a list
+   is included in the section called "Companies". These kits
+   require an IBM or Amiga computer to compile the code,
+   which is usually assembly, but can be in C as long as it
+   can be compiled into 68000 binary. SEGA's own kit is extremely
+   expensive and they are rumored to have slow response time
+   to answer questions. The price of the kits cost from $1000
+   to $4000.
+ 
+Q) Is IBM or Amiga the only two platforms for game
+   development?
+ 
+A) No. The Apple Macintosh does have a system, which does allow
+   you to compile games, but it is a do-it yourself job (See below
+   for the whole scope). There also is a system for the Apple IIgs,
+   called Sluggo from Parsons Engineering. As for the Mac, if you
+   know, please pass it on. It is rumored that Electronic Arts uses
+   a priority system on the Macintosh for porting the games.
+ 
+-- This information comes from Landon Dyer ,
+ 
+-- You can generate 68K code for the Sega "trivially" with the
+   C compiler and assembler in the Macintosh programmer's workshop
+   (MPW). You'll need to hack up some transfer utilities, but this
+   is not really hard. You can wire-wrap a ROMulator, or buy one;
+   there are a bunch on the market that should work just fine.
+   I had a ROMulator and a debugger up and running in about a
+   week, working evenings. (Ed note: ROMular information can be found
+   at the FTP sites)
+ 
+Q) How do I program the SEGA CD Rom?
+ 
+A) I am beginning to understand how to program this device,
+   but more information is needed, so if you have any, please
+   pass it along to me so I can include it in the next update.
+   Look under Hardware 2.1, Sega CD for more information about
+   the unit.
+ 
+Q) What is Saturn, and how do I program that?
+ 
+A) Saturn is Sega's next generation game machine, which
+   is based on Sega's S-1 /S-2 arcade Machine's motherboard.
+   Rumor has it that it will allow programming in C as
+   well as Assembly, and porting of arcade games that are
+   based on the S-1 and S-2 boards will take only a week.
+   There is good news and bad news as well.
+   Good news, Microsoft will be writing the OS.
+   Bad new, Microsoft will be writing the OS.
+ 
+Q) What else is there on Internet?
+ 
+A) Http://www.yab.com/~cdoty/Console.html contains a Sega assembler,
+   disassembler and some simple source code.
+ 
+   There is also Rec.Games.Video.Sega where you can ask your questions.
+ 
+   There are also files on how to use the old SEGA 3D glasses
+   with your IBM compatible computer which can be found all
+   over the place (including the above FTP sites).
+
+
+
+ 
+2.0 Hardware : This is the inner workings of the Sega system
+ROM and Memory. For a better understanding Sega Hardware I
+suggest reading Hardware.txt. An up-to-date version of this
+file can be gotten by anonymous ftp from Ftp.spd.louisville.edu,
+in the file "Pub/sega/Hardware.txt".
+ 
+Genesis - this information comes from Rick McTeague.
+ 
+Sega Genesis Hardware Internals - Revised: 04/07/1993
+ 
+Please send corrections or comments to:
+ 
+   Rick McTeague
+   Sysrick@starbase.spd.louisville.edu
+ 
+Disclaimers:
+ 
+The following information was extracted without the use of
+official information from Sega Enterprises, Ltd. I therefore
+offer no warranty on the correctness of this information.
+Use it at your own risk.
+ 
+This information was gathered as a personal project, and is
+not the responsibility of my employer.
+ 
+Different versions of the Genesis exist, so I won't suggest
+that any of this information is right for anybody's Genesis
+but my own.
+ 
+Sega, Genesis, Sonic the Hedgehog, and Ecco the Dolphin are
+trademarks of Sega Enterprises, Ltd. Other trademarks are the
+property of their respective companies.
+ 
+ 
+The Cartridge ROM
+-----------------
+ 
+As others on the net have observed, a standard Genesis
+cartridge is nothing more than a small printed circuit board
+with a ROM on it. There are some cartridges which have
+battery-backed RAM for saving high scores, configurations,
+etc., but I haven't seen these, so I don't know about them.
+If you know of a particular cartridge that has RAM, let me
+know so I can go rent one and take it apart (shhhh!) to see
+what's in it.
+ 
+A cartridge contains a word-wide (16 bit) ROM with up to 2
+Meg words (4 Mbytes). This is based on the signal !C_CE, which
+is used as the cartridge ROM's chip enable on the cartridges
+I've looked at, and which is active at addresses $000000-$3fffff.
+ 
+It may be possible to have more than 4 Mbyte cartridges; if
+so, either they ignore the !C_CE line and do their own
+address decoding, or there's a register somewhere in the
+Genesis which changes the default address decoding scheme for
+!_CE.
+ 
+Note that cartridges are advertised as being "8 Meg"; as far
+as I know, is 8 Meg _bits_, not bytes. 1 Mbyte is still
+pretty impressive for a game machine.
+ 
+SONIC uses a 40-pin 256Kx16 (512Kx8) ROM in word mode.
+ 
+Ecco the Dolphin uses a 42-pin 512Kx16 (1024Kx8) ROM in word
+mode. This one confused me because I'd never seen a 42-pin
+DIP before, so I thought it was 40 pins. No wonder the
+signals didn't look right...
+ 
+Putting together a little bit of information from a Sharp
+data sheet for a 512 Kword ROM with a bit of conjecture based
+on the Sonic and Ecco cartridges, this is what I can come up
+with for pinouts:
+ 
+         Sonic                              Ecco
+      (256 Kword)                       (512 Kword)
+ 
+                                          ----u----
+         ----u----               A18    1=|       |=42   VCC?
+A17    1=|       |=40   A 8      A17    2=|       |=41   A 8
+A 7    2=|       |=39   A 9      A 7    3=|       |=40   A 9
+A 6    3=|       |=38   A10      A 6    4=|       |=39   A10
+A 5    4=|       |=37   A11      A 5    5=|       |=38   A11
+A 4    5=|       |=36   A12      A 4    6=|       |=37   A12
+A 3    6=|       |=35   A13      A 3    7=|       |=36   A13
+A 2    7=|       |=34   A14      A 2    8=|       |=35   A14
+A 1    8=|       |=33   A15      A 1    9=|       |=34   A15
+A 0    9=|       |=32   A16      A 0   10=|       |=33   A16
+!CE   10=|       |=31   !BYTE    !CE   11=|       |=32   !BYTE
+GND   11=|       |=30   GND      GND   12=|       |=31   GND
+!OE   12=|       |=29   D15      !OE   13=|       |=30   D15
+D 0   13=|       |=28   D 7      D 0   14=|       |=29   D 7
+D 8   14=|       |=27   D14      D 8   15=|       |=28   D14
+D 1   15=|       |=26   D 6      D 1   16=|       |=27   D 6
+D 9   16=|       |=25   D13      D 9   17=|       |=26   D13
+D 2   17=|       |=24   D 5      D 2   18=|       |=25   D 5
+D10   18=|       |=23   D12      D10   19=|       |=24   D12
+D 3   19=|       |=22   D 4      D 3   20=|       |=23   D 4
+D11   20=|       |=21   VCC      D11   21=|       |=22   VCC
+         ---------                        ---------
+ 
+Note that the address line numbering is different than that
+of the 68000; line A0 of the ROM is really connected to the
+68000's A1. This is because of the way the 68000 handles
+even/odd byte addressing using !UDS and !LDS.
+ 
+The !BYTE line is held high. This puts the ROM chip into
+"word" mode, where data is accessed 16 bits at a time.
+ 
+The convenient correspondence between ROM and 68000 data and
+address lines (ROM D0 = 68K D0, ROM D1 = 68K D1, etc..., and
+ROM A0 = 68K A1,  ROM A1 = 68K A2, etc...) may not exist in
+all cartridge designs. This is sometimes difficult to
+visualize, but keep in mind that the ROM doesn't care whether
+its D0 is really D0, or if its A3 is really A3, etc. As long
+as each data line is used as the same D## line for both
+programming and reading, and each address line is used as the
+same A## for both programming and reading, the ROM will
+function properly and the 68000 will see the right
+instructions. Think about it...
+ 
+Why bring this up? If you remove the ROM from the cartridge
+PCB and try to read it with a EPROM programmer, there may be
+situations where you won't see valid 68000 instructions, or
+things won't be in the right place... Assuming your
+programmer isn't messed up, this would be because the address
+and data lines on the ROM aren't assigned the way you'd
+expect.
+ 
+Why would someone make a cartridge like this? To make your
+life difficult, if you're wanting to hack their ROMs, or to
+make their life easy, by making the cartridge PCB easier to
+design.
+ 
+The easiest way to avoid this potential problem is to build
+an adapter from your programmer's EPROM socket to an edge
+card connector into which you plug the cartridge. This is a
+bit safer, too, so you don't have to remove the ROM from the
+cartridge (or even open it up).
+ 
+The Memory Map
+--------------
+ 
+$000000 $3fffff Cartridge ROM, when enabled by cartridge
+control register and !CART_IN.
+ 
+$000000 $0007ff Internal OS ROM, when enabled by cartridge
+control register and !CART_IN.
+ 
+$ff0000 $ffffff 64Kbytes scratchpad RAM
+Partially decoded; RAM actually appears repeated between
+$e00000 through $ffffff.
+ 
+$a14101 cartridge control register
+bit 0 = 0: cartridge disabled, OS ROM enabled
+bit 0 = 1: cartridge enabled, OS ROM disabled
+ 
+$a00000 $a????? Unknown. Audio? Controller I/O?
+ 
+$c00000 $c????? Video display controller registers
+ 
+The OS puts the top of its stack at $ffff00, and defines a
+"user stack pointer" at $000000 (building down through the
+top of RAM memory).
+ 
+The Z80 processor is used for sound and has 8Kbytes of RAM.
+I don't know anything about how the Z80 does its work, as I
+haven't looked.
+ 
+Acknowledgements
+----------------
+Thanks to:
+ 
+dt93tn@pt.hk-r.se (Tore Nestenius) for info on older Genesis
+systems.
+ 
+lewism@rpi.edu (Michael Lewis) for info on the Sony CXA1145
+and Samsung KM6264 chips.
+ 
+crs@crs-sys.uucp (Chris Gregors) for posting a version of the
+Genesis cartridge port pinouts.
+ 
+merlyn@digibd.com (Brian Westley) for Game Genie information
+and decoder program.
+
+
+ 
+Brief technical description of the Genesis:
+ 
+---
+The genesis graphics hardware consists of 2 scrollable planes.
+Each plane is made up of tiles. Each tile is an 8x8 pixel square
+with 4 bits per pixel. Each pixel can thus have 16 colors. Each
+tile can use 1 of 4 color tables, so on screen you can get 64
+colors at once, but only 16 in any specific tile. Tiles require
+32 bytes. There is 64K of graphics memory. This would allow
+for 2048 unique tiles if memory were used for nothing else.
+ 
+Each plane can be scrolled independently in various ways.
+Planes consist of tables of words, where each word describes a
+tile. The word contains 11 bits for describing which tile, 2 bits
+for flip x and flip y, 2 bits for the selection of the color table,
+and 1 bit for a depth selector. Sprites are composed of tiles also.
+A sprite can be up to 4 tiles wide by four tiles high. Since each
+tile is 8x8, this means sprites can be anywhere from 8x8 pixels to
+32x32 pixels. There can be 80 sprites on screen at one time. On a
+scan line you can have 10 32 pixel wide sprites or 20 16 pixel wide
+sprites. Each sprite can only have 16 colors but they are out of the
+4 different color tables. Color 0=transparent.
+ 
+Colors are 3 bits for each gun, so 512 colors are possible.
+ 
+There is a memory copier that is in hardware. This does fast copies from
+the 68000 ram into the graphics ram.
+ 
+The 68000 runs at about 8 mhz. It has 64K of memory devoted to it. The
+ROM cartridge appears at 0.
+ 
+The Z80 has 8K of ram. The 68000 can download programs to the z80 and
+let them go. The z80 can access the graphics chips or the sound synth
+chips but usually those things are controlled by the 68000.
+ 
+The sound chips consist of a Yamaha synthesis chip and a TI programmable
+sound generator. The PSG has 3 square wave tones and 1 white noise tone.
+Each tone/noise channel can have its own frequency and volume.
+ 
+The Yamaha chips are based on FM synthesis. There are 6 voices with 4
+operators each. The chips are similiar to those used in the Yamaha
+DX27 and DX100 synthesizers. By setting up registers a rich variety of
+sounds can be created.
+
+
+
+ 
+2.1 Sega CD Rom. The following information came from
+Leyland@island.COM (Robert Leyland), who was a programmer for the
+most excellent Sega CD Rom game - Flying Aces. (Plug!Plug!
+Plug!Plug!Plug!Plug!)
+ 
+-- The Sega CD is ISO 9660 format, with proprietary start-up code
+that must be licensed from SEGA in order to work. For programming
+you use two PC's, one connected to a debugging system and the other
+emulated an CD-ROM drive.
+The trickiest part of programming the Sega CD/Genesis combo is
+keeping the two CPU's synchronized. For some reason the single
+hardest thing to do with any computer is get it to talk reliably
+with another computer.
+
+
+ 
+2.2 Joystick - 3 button version - Could some please post a 6
+button version?
+ 
+By: nhowland@matt.ksu.ksu.edu (Neal Howland) for information
+on the Joystick port.
+ 
+First some background info:  The chip inside the controller
+is a 74HC157.  This is a high-speed cmos quad 2-line to
+1-line multiplexer. Basically how this works is there are two
+inputs ( A and B ) for every output ( Y ).  There are four
+groups like this.  There is one select signal for the whole
+chip.  When the select signal is low, the output ( Y ) is the
+same as input A.  When the select signal is high, the output
+Y is the same as input B.  The pinout for the chip is as
+follows:
+ 
+   Pin 1 - SelectPin 16 - Vcc (+5V)
+   Pin 2 - 1APin 15 - G (? must be low)
+   Pin 3 - 1BPin 14 - 4A
+   Pin 4 - 1YPin 13 - 4B
+   Pin 5 - 2APin 12 - 4Y
+   Pin 6 - 2BPin 11 - 3A
+   Pin 7 - 2YPin 10 - 3B
+   Pin 8 - GndPin 9 - 3Y
+ 
+ 
+All the controls are done with switches.  Up is a switch,
+Down is a switch, etc. Now, I will be referring to the output
+of these switches later on. What I mean is that the output is
+usually high, that is when the switch isn't pressed.
+ 
+When the button is pushed, the output goes low.  This is
+accomplished by connecting the output to +5V through a 10k
+resistor. The button is then attached between the output and
+ground. It looks like this:
+ 
+     +5V -----/\/\/------+--------- Output
+               10k       |
+                         |
+                /        |
+   Ground -----/  -------+
+              button
+              (normally open)
+ 
+For all of those who could actually decipher the above
+schematic, congratulations!
+ 
+ 
+I will now run down what lines from the plug are connected to
+what. The line numbers are determined as follows, looking
+straight at the plug on the front of the Genesis the numbers
+are:
+ 
+   1 2 3 4 5
+    6 7 8 9
+ 
+  (For those of you who buy a joystick cable from radio shack
+the pin #'s to wire colors are as follows: 1-white 2-blue
+3-green 4-brown 5-yellow 6-orange 7-red 8-black 9-gray )
+ 
+anyway, line connections:
+ 
+Line 1 - Up output      These are the only two direct
+Line 2 - Down output             connections
+ 
+Line 3 - Pin 4 of the chip output 1Y
+Line 4 - Pin 7 of the chip output 2Y
+ 
+Line 5 - This line carries in +5V. It is connected to the
+         +5V bus line.
+ 
+Line 6 - Pin 9 of the chip output 3Y
+line 7 - Pin 1 of the chip this carries in a select signal
+         from the Genesis. This is a signal which varies
+         rapidly and controls which input goes through the
+         output.
+ 
+Line 8 - Ground  This is connected to the Ground bus line.
+Line 9 - Pin 12 of the chip output 4Y
+ 
+Now for the chips pin connections:
+ 
+Pin 1 - Line 7    (select)
+Pin 2 - Ground    (1A)  Don't ask me why they do this. Maybe
+Pin 3 - Left      (1B)  future expansion
+Pin 4 - Line 3    (1Y)
+Pin 5 - Ground    (2A)  Again, possibly future expansion
+Pin 6 - Right     (2B)
+Pin 7 - Line 4    (2Y)
+Pin 8 - Ground    (GND)
+Pin 9 - Line 6    (3Y)
+Pin 10 - Button B (3B)
+Pin 11 - Button A (3A)
+Pin 12 - Line 9   (4Y)
+Pin 13 - Button C (4B)
+Pin 14 - Start    (4A)
+Pin 15 - Ground   (G)   This must be connected to ground
+Pin 16 - +5V      (Vcc) Power source for the chip
+ 
+Anyway that's all the info needed to build your own joystick.
+ 
+Now as an added bonus, additional information!
+ 
+A simple source for a joystick cable is the Radio Shack
+joystick extension cable. It is around $5 and is 10 ft. long.
+Just snip off the connector that won't plug into the Genesis,
+strip the wires back, and use the color pinout list I gave
+above.
+ 
+I went to my local arcade game repair company today and
+purchased the supplies I needed.  They were much cheaper than
+I expected.  Things you would need to buy from them would be:
+ 
+   an 8-way joystick     this ran me $15
+        3 buttons             $2.50 apiece
+ 
+I only bought three buttons because I am going to use a Radio
+Shack push button switch for my start button. You can purchase
+4 arcade game buttons if you wish.
+ 
+Interesting ideas for extras on the joystick:
+ 
+1.  Autofire can be achieved with a simple 555 timer circuit.
+ 
+    For anyone wanting a challenge it should be possible to
+build a digital autofire using a divide-by-n counter with the
+select signal as clock input.
+ 
+2.  Slow down mode is just autofire for the start button.
+
+
+
+ 
+3.0 Companies - these companies produce the hardware that is
+required to write games for the Genesis. The original
+document came from: Scott Golby 
+ 
+   Hi Everyone,
+ 
+   Here is the current list of info I have about the Sega.
+ 
+   I have had about 10 replies so far asking to pass my
+info on.  If people want I will pass their EMail address on
+to everyone else so we can work as a group.  Drop me a line
+if you want to be added to the 'group' list.
+ 
+*****    <----- Five astrict like this means info from
+different people
+ 
+   Sega Genesis Developer Resources
+ 
+   Dan Chang April 18, 1993
+ 
+Sega of America Inc
+Consumer Products Division
+125 Shoreway Road
+San Carlos, California, 94070
+Tel : (415) 802-4400
+Fax : (415) 802-4458
+ 
+Stuart Kosoy is the person to contact at Sega of America
+at (415)802-4407.
+ 
+Products : Detailed SEGA Genesis technical information.  GEMS
+SEGA music development package.
+Solution : Music and Sound effects package for the Sega. SOA
+can provide detailed information on programming the Genesis;
+however they will want to know more about your company first.
+ 
+Western Technologies, Inc.
+12057 Jefferson Blvd
+Culver City, California, 90230
+Tel : (310) 821-7880
+Fax : (310) 306-1739
+ 
+Products : SegaDev Card. PC-Hosted Genesis development
+hardware, which includes SEGADEV.EXE, a Windows-hosted
+source-level debugger, and SEGALOAD.EXE, a PC_hosted 68000
+object code downloader.
+Solutions : SEGA Genesis Hardware, WT recommends Sierra
+Systems 68000 Assembler.
+ 
+ 
+Sierra Systems
+6728 Evergreen Ave
+Oakland California 94611
+Tel : (510) 339-8200  or (800) 776 4888
+Fax : (510) 339 3844
+ 
+Products : PC-hosted Sierra C cross-compiler, which included
+68000 C compiler, assembler, linker.
+ 
+Contact person at Sierra Systems is Larry Rosenthal
+E-Mail Sierra@netcom.com
+ 
+ 
+Motorola, Literature Dist
+ 
+This entry basically has a list of 68000 reference and
+programming books.
+ 
+ 
+Echidna
+1101 W Stevens Ave, Suite 232
+Santa Ana California 92707
+Tel : (714) 545-2662
+Fax : (714) 545-3705
+ 
+Products : tUME - the Universal Map Editor. PC-Hosted tool to
+edit tile-maps.
+Solutions : Saves time in designing game maps and placing
+level information. Downloads maps to Western Techs SegaDev
+card.
+ 
+ 
+Cross Products Limited
+23 The Calls
+Leeds LS2 7EH, England
+Tel 0532 429814
+Fax 0532 426163   (dial 011 44 532 426163 from USA)
+ 
+Product : SNASM68K : PC-Hosted SEGA Genesis development
+system, which includes a 68000 assembler, linker, debugger.
+ 
+ 
+Parsons Engineering
+Imhurst Ave
+Covina California 91724
+Tel (818) 966 5538
+ 
+Products : PC/Apple IIgs hosted Sluggo Genesis development
+hardware.
+ 
+ 
+Advantech
+1333 E.9400 South, Suite 160
+Sandy Utah, 84092
+Tel : (801) 572-5410
+Fax : (810) 572-5674
+ 
+Products : blank SEGA Genesis cartridge PC boards, blank
+EPROMS.
+ 
+*****
+Genesis Development System Frequently Asked Questions
+ 
+Q:What is the Genesis Development System?
+ 
+A:The GDS is a cross development system that lets you develop games and other
+  software to run on the Sega Genesis. The system consists of a 4 inch by 8
+  inch printed circuit board that plugs in the cartridge slot of the Genesis,
+  and has a cable going to the parallel port of the host computer. A complete
+  software set is included consisting of an integrated editor/assembler, a
+  stand alone assembler, a symbolic debugger, a music and sound effect editor,
+  a utility to break standard 16 color IFF images into tiles to be downloaded
+  to the Sega, a utility to capture screen graphics on the Genesis, a
+  utility to send an LBM image to the Genesis for preview, a linker for
+  joining multiple object modules, and several example files.
+ 
+Q:Does it come with any source files?
+ 
+A:You get source to the music editor, source to a Z80 program to run on the
+  genesis to interpret the music files, source to a demo program that plays
+  music and has sprites bouncing around behind the Sega logo, source to the
+  download utilities. Complete source is provided on communicating between
+  the host machine and the Genesis.
+ 
+Q:How much memory does it have on the board?
+ 
+A:It comes with 2.25 or 4.25 megabytes of memory. Older versions had 1.25
+  megabytes. 256K is reserved for use by the debugger for variable
+  storage and symbols.
+ 
+Q:Can you program CD games with it?
+ 
+A:It is not specifically designed for a CD. You could program as if you're
+  creating a cartridge then modify the code later to make it work on the
+  CD. I provide no information on the Genesis CDROM drive. I don't own one
+  myself. The Genesis CDROM market is perhaps 10% of the cartridge market.
+ 
+Q:Does it include technical specifications for the Genesis?
+ 
+A:Yes, it comes with descriptions of the memory map, graphics registers, the
+  Z80's functions, reading the joysticks, sprites, scrolling, tiles, the
+  DMA copier, the audio chips-in short everything required to program the
+  genesis. Also provided are several working demos with source.
+ 
+Q:Is this proprietary information stolen from Sega?
+ 
+A:No, the information on the Genesis came from reverse engineering it,
+  completely independent of Sega. There are no copyright violations in the
+  purchase or sale of this development system, nor is there anything illegal
+  about any use of it.
+ 
+Q:How does it work?
+ 
+A:The board has ROMs on it which contain the monitor and debugger that runs
+  on the Genesis. When the Genesis is reset, the ROMs take over and wait for
+  commands to come from the host machine-commands like download bytes, send
+  bytes back, set up registers, define a symbol, or enter the interactive
+  debugger. When in the interactive debugger the host machine acts as a
+  terminal, and characters are sent over the cable. Full 68000 debugging
+  is possible, including disassembly, single step, register view and modify,
+  breakpoints, expression evaluation, memory view, modify, search and copy,
+  symbol definition, memory compare. There is also a z80 disassembler built
+  in.
+ 
+Q:What about the assembler?
+ 
+A:The assembler is a full macro 68000 assembler, and includes the full 8080
+  and parts of the Z80 instruction set. It generates symbol table information
+  that can be downloaded to the Genesis to allow for symbolic debugging.
+  On a 66 Mhz DX2 the assembler is about 550,000 lines/minute. There is also
+  a linker which combines multiple object files.
+ 
+Q:Can I program in C?
+ 
+A:There is no C compiler included in the package. In the future there
+  may be.
+ 
+Q:How do I make artwork? Is there a sprite editor?
+ 
+A:Originally I planned on including a simple graphic editor, but I found that
+  no one used it-instead they used Dpaint. The best way is to use dpaint to
+  create graphics in lo-res 16 color mode, then to use the utility I provide
+  to convert them to raw data to be sent to the Sega. Animation can be done
+  within Dpaint. Unfortunately there is no editor for manipulating giant
+  figures made out of sprites, but in principle it would be possible to do. So
+  probably you will use dpaint or some other painting program to create the
+  artwork.
+ 
+A:Can you backup existing cartridges like the game backup systems?
+ 
+Q:The system is intended for game development. However if you were able
+  to obtain ROM images, they can be downloaded just like original code.
+  When running a ROM under the system, you can tinker with memory, modify
+  gameplay, add lives, etc. You can do all the normal debugging functions,
+  like single step, breakpoints, etc, to see how the program is working.
+  In the future (Mid March, 1994) a reader will be available for $100 which
+  will let you read out the contents of your cartridges.
+ 
+Q:How fast are downloads?
+ 
+A:The current board has transfer rates of up to 105K bytes per second. Older
+  versions of the board had a 49K bytes per second transfer rate.
+ 
+Q:What host machines is this available on?
+ 
+A:Currently the complete system is available on the IBM PC. There is also
+  an Amiga version but it has fewer features than the PC version.
+ 
+Q:Why should I buy your system and not go through Sega?
+ 
+A:My system is better and cheaper than those provided by Sega. I sell to
+  anyone. Sega sells only to large companies. I require no non-disclosure
+  statements to be signed. Sega requires you to sign extensive non-disclosure
+  statements, and you essentially have to be subservient to them forever.
+  If you buy my system you immediately have the ability to create software
+  for the Genesis. If you create a game, you can then sell it outrifht or
+  attempt to publish it yourself. You wouldn't have to pay Sega any of their
+  rediculous royalties on each unit, regardless of how well your program
+  sells.
+ 
+Q:How long has this system been available?
+ 
+A:It first became available in April 1991. The 2 and 4 megabyte versions
+  first became available in February, 1994.
+ 
+Q:How many have already been sold?
+ 
+A:I've sold around 30 units so far.
+ 
+Q:How much does it cost?
+ 
+A:For the 4 megabyte version the cost is $1600. For the 2 megabyte version
+  the cost is $1500. For the duration of March, 1994 there is a special
+  introductory price of $1000 for the 2 megabyte version and $1100 for the
+  4 megabyte version. After March, 1994 the price will be raised by $500.
+ 
+Q:Will it be ported to other platforms?
+ 
+A:There are no plans to port the software to any other platforms.
+ 
+Q:What about technical support? How about software upgrades?
+ 
+A:You can send me email and I will answer questions and help solve your
+  problems. If I'm home you can call me. Concerning software support: I want
+  you to be happy with this. If you want some program written, and it seems
+  like a good idea, chances are I'll do it for free and include it with the
+  system. Currently if the software seems sparse it's because no one has
+  complained so I guess I include enough. There's no point in writing
+  software if it isn't going to be used. In any case software upgrades are
+  free unless it's some major upgrade like including a C compiler-I don't
+  believe in selling something for hundreds of dollars then nickel and diming
+  you on upgrades. EPROM upgrades are free if you send back your originals.
+ 
+Q:Do we need to pay you any royalty on games developed with the system?
+ 
+A:No. Once you bought the system you can do anything you want with it-except
+  copy it and sell it yourself...
+ 
+Q:How can I contact you?
+ 
+A:Send me mail, email or call.
+  818-584-0357
+  INTERNET: dash@netcom.com
+  David Ashley
+  395 Sierra Madre Villa
+  Pasadena, CA 91107
+  USA
+
+
+
+4.0 Code samples. The following code was graciously given to
+me by David Ashley, inventor of the GDS. We all owe him a big
+Thanks!
+ 
+Here's sample code for reading the joystick:
+------------
+jsinit must be called to set up the joystick, otherwise
+reading back will have errors. This need only be called
+once.
+jsinit:     moveq #$40,d0
+      move.b      d0,$a10009
+      move.b      d0,$a1000b
+      move.b      d0,$a1000d
+      rts
+The following two routines can be used for reading from the
+oystick
+port

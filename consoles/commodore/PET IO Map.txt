@@ -1,0 +1,398 @@
+From: rhialto@mbfys.kun.nl (Olaf Seibert)
+Subject: PIA and VIA info (PET)
+Organization: University of Nijmegen, The Netherlands
+Date: Tue, 13 Dec 1994 11:13:11 GMT
+
+
+PIA 6520 and VIA 6522
+---------------------
+
+Summarised by Olaf Seibert, from "Programming the PET/CBM" (by Raeto Collin
+West) chapter 14 and The Transactor, Volume 4 Issue 05.
+
+In the PET, you find the two PIAs at E810 and E820, and the VIA at E840.
+
+The PIA
+-------
+The PIA has two 8-bit I/O ports, A and B, which are mostly identical in
+function.  All 8 bits can be set to input (1 in the DDR) or output (0 in
+the DDR) independently. Bit 2 in CRx determines whether the DDRx or Px are
+accessed.  Each port has 2 control lines: CA1, CA2, CB1, CB2. The Cx1 are
+input only, the Cx2 can be input or output.
+
+PIAs have two interrupt lines: IRQA and IRQB. They may go low on a change
+on the inputs of the Cxy lines. These interrupts may be enabled on either
+an 1->0 or an 0->1 transition. The selected transition is called the
+"active" transition. The flags which register that an active transition has
+occurred are reset by reading the appropriate PORT register.
+
+Register map:
+
+E810  PORT A or DDR A: Data Direction Register A
+E811  CRA: Control Register A 
+E812  PORT B or DDR B: Data Direction Register B
+E813  CRB: Control Register B 
+
+Control registers:
+
+CRA:
+
+bit   meaning
+---   -------
+ 7    CA1 active transition flag. 1= 0->1, 0= 1->0
+ 6    CA2 active transition flag. 1= 0->1, 0= 1->0
+ 5    CA2 direction           1 = out        | 0 = in
+ 4    CA2 control   Handshake=0 | Manual=1   | Active: High=1 Low=0
+ 3    CA2 control   On Read=0   | CA2 High=1 | IRQ on=1, IRQ off=0
+                    Pulse  =1   | CA2 Low=0  |
+ 2    Port A control: DDRA = 0, IORA = 1
+ 1    CA1 control: Active High = 1, Low = 0
+ 0    CA1 control: IRQ on=1, off = 0
+
+CRB works identical for CB1 and CB2, except for the differences in
+handshaking.
+
+The Cx2 handshake is not identical between ports. For port A, the handshake
+is on reading the PORT A register, for CB2 the handshake is sent on writing
+the PORT B register.
+
+On the listening side:
+
+BIT 3 LOW with CA2: CA2 is now controlled by two events:
+    (i) CA1 active transition sets it high ("Data Valid")
+    (ii) a READ operation sets it low ("Data Accepted").
+
+On the talking side:
+
+BIT 3 LOW with CB2: CB2 is now controlled by two events:
+    (i) CB1 active transition sets it high ("Ready For Data")
+    (ii) a WRITE operation sets it low ("Data Valid").
+
+Bit 2 HIGH: Causes pulse output, CA2 or CB2 going low for one cycle only
+after a read or write operation. This pulse may be too short for some uses.
+
+For operation with a sending and a receiving PIA one would connect
+
+talker      listener
+------      -------- 
+Port B   -> Port A
+CB2      -> CA1 with active = 1->0 (data valid)
+CB1     <-  CA2 with active = 1->0 (data accepted and ready for more)
+
+Use of PIA signals in a PET:
+
+PIA 1
+
+E810	PORT A	7   Diagnostic sense (pin 5 on the user port)
+		6   IEEE EOI in
+		5   Cassette sense #2
+		4   Cassette sense #1
+	        3-0 Keyboard row select (through 4->10 decoder)
+E811	CA2         output to blank the screen (old PETs only)
+	            IEEE EOI out
+	CA1         cassette #1 read line
+E812	PORT B	7-0 Contents of keyboard row 
+	            Usually all or all but one bits set.
+E813	CB2         output to cassette #1 motor: 1=on, 0=off
+	CB1         screen retrace detection in
+
+PIA 2
+
+E820	PORT A      Input buffer for IEEE data lines
+E821	CA2         IEEE NDAC out
+	CA1         IEEE ATN in
+E822	PORT B      Output buffer for IEEE data lines
+E823	CB2         IEEE DAV out
+	CB1         IEEE SRQ in
+
+The VIA
+-------
+The VIA is a superset of the PIA. Many of the principles apply here as
+well, though the organisation is slightly different.
+
+The VIA has two ports, PA and PB, 4 control lines C[AB][12], an 8-bit shift
+register SR and 2 timers TA and TB.
+
+Like the PIA, the Cx1 lines are input only, the Cx2 lines are I or O.
+
+Port A has two registers. One register causes handshaking with CA1 to
+happen, the other doesn't. Port B occurs in memory before port A.
+There are control registers CRA, CRB, ACR, PCR, and interrupt registers IFR
+and IER. The data direction registers DDRA and DDRB have their own
+addresses, unlike the PIA.
+
+I'll only describe the extra or different features.
+
+Timers. The VIA has two 16-bit timers T1 and T2. When written to the timers
+start counting down on each clock cycle, and when reaching 0000 will flag
+and may cause an interrupt or other special action. When the low byte of
+the timer is read, the interrupt flag is cleared. When writing to the high
+byte clears the flag and starts the timer counting.
+
+T1 has a latch register. This is a place to store the timer value before it
+will be used. When T1 reaches 0, the latch value is moved into the timer so
+that the countdown may begin all over again, if so enabled.
+
+Ports. PA and PB may be latched, so that on an active transition of CA1 the
+value in the PA register is retained indefinitely (or until the next active
+transition on that pin), and similarly with CB1 and PB.
+
+The shift register. This 8-bit register is connected to CB2. On command the
+SR performs 8 shifts, moving 8 bits to or from CB2 one at a time. The most
+significant bit is moved first (the register shifts left). The SR can be
+timed by T2 and at the same rate as the 6202, using the phase 2 clock phi2.
+Alternatively an external clock may time it.
+
+It seems there are bugs in the shift register. For instance, when doing
+tape I/O, the CB2 sound, which uses the SR, must be turned off.
+
+The ACR controls the timers, shift register and latch status of PA and PB.
+(T1 has effects on pin PB7, which are not described in the book, but I
+suspect they are similar to the features of the CIA in this respect. -Olaf)
+
+ACR E84B
+
+7-6 Timer 1 control
+    0 = PB7 unused
+    0 0 = one shot
+    0 1 = continuous, i.e. on underflow timer restarts at latch value.
+    (The following 3 lines are guessed, based on the Amiga's CIA description)
+    1 = PB7 used
+    1 0 = T1 underflow toggles PB7
+    1 1 = T1 underflow pulses PB7
+5   Timer 2 control
+    0 = one shot
+    1 = count set no. of PB6 pulses
+4-2 Shift register control
+    000 = shift reg disabled
+    001 = shift in by timer 2
+    010 = shift in by phi2
+    011 = shift in by external clock (PB6?)
+    100 = free run by timer 2 (setting for sound)
+          this means keep shifting the same byte out over and over.
+	  T2 is hereby set to continuous mode.
+    101 = shift out by timer 2
+    110 = shift out by phi2
+    111 = shift out by external clock (PB6?)
+1   Port B latch
+    0 = disabled
+    1 = enabled on CB1 transition (in/out)
+0   Port A latch
+    0 = disabled
+    1 = enabled on CA1 transition (in)
+
+The Periheral Control Register PCR  controls the operating modes of the
+control lines CA1-CB2.
+
+PCR E84C
+
+7-5 CB2 control
+ 7  direction
+    1 = output
+    1 0 = do handshake
+    1 0 0 = on write
+    1 0 1 = pulse?
+    1 1 = manual CB2 control
+    1 1 0 = CB1 low
+    1 1 1 = CB1 high
+    0 = input
+    0 0 x = Active high: 0->1
+    0 1 x = Active low:  1->0
+    0 x 0 = Clear IFR/ORB (don't ask me what this means -Olaf)
+    0 x 1 = Clear IFR
+4   CB1 control
+    0 = active transition High
+    1 = active transition Low
+3-1 CA2 control (similar to CB2 control)
+ 3  direction
+    1 = output
+    1 0 = do handshake
+    1 0 0 = on read
+    1 0 1 = pulse
+    1 1 = manual CA2 control
+    1 1 0 = CA1 low
+    1 1 1 = CA1 high
+    0 = input
+    0 0 x = Active high: 0->1
+    0 1 x = Active low:  1->0
+    0 x 0 = Clear IFR/ORB (don't ask me what this means -Olaf)
+    0 x 1 = Clear IFR
+
+The handshaking is not specifically described in the book, so I presume it
+is identical to that of the PIA.
+
+Interrupt Flag Register IFR and Interrupt Enable Register IER. These
+registers are symmetrical wrt each other. The IER enables specific
+interrupts (i.e., allows an event to trigger an interrupt), and the IFR
+flags if the event took place.
+
+When writing to the IER bit 7 controls the meaning of the 1 bits in the
+data: when set each 1-bit sets the interrupt enable bit, when cleared it
+resets that interrupt enable bit.
+
+IFR E84D
+IER E84E
+
+7   IFR: master flag bit: 1 when any of the other bits are set
+    IER: 0 disables, 1 enables interrupts
+6   Timer 1 underflow
+5   Timer 2 underflow
+4   CB1 active transition
+3   CB2 active transition
+2   Shift register full/empty
+1   CA1 active transition
+0   CA2 active transition
+
+Use of VIA signals in a PET
+---------------------------
+E840	PORT B	7   DAV in
+		6   NRFD in
+		5   Video retrace in
+		4   Tape #2 motor (note 2)
+		3   Tape data out
+		2   ATN out
+		1   NRFD out
+		0   NDAC out
+E841	PORT A	    USER PORT with CA2 handshake (note 1)
+E842	DDRB	7-0 normal bits set to 0 0 0 1 1 1 1 0
+E843	DDRA	7-0 USER PORT data direction register
+E844	Timer 1 LO  
+E845	Timer 1 HI  (set to $FF on system power-on)
+E846	Timer 1 latch LO  
+E847	Timer 1 latch HI  
+E848	Timer 2 LO  
+E849	Timer 2 HI  
+E84A	Shift register
+E84B	ACR	Aux. control register; set to $00 at power on
+		7-6 timer 1 control
+	        5   timer 2 control
+		4-2 shift register control
+	        1   port B latch
+		0   port A latch
+E84C	PCR	Peripheral Control Register; set to $0C or $0E at power on
+		7-5 CB2 control (user port pin M) (note 3)
+		4   CB1 control (note 3)
+		3-1 CA2 control (graphics mode) (note 3)
+		0   CA1 control (note 3)
+E84D	IFR	Intertrupt Flag Register; set to $00 at power on
+		7   IRQ on/off
+		6   T1 interrupt flagged
+		5   T2 interrupt flagged
+		4   CB1 interrupt flagged
+		3   CB2 interrupt flagged
+		2   shift register interrupt flagged
+		1   CA1 interrupt flagged
+		0   CA2 interrupt flagged
+E84E	IER	Interrupt Enable Register; set to $80 at power on
+		7   1=enable, 0=disable
+		6-0 enable interrupts; same bits as in IFR.
+E84F	PORTA	    USER PORT without CA2 handshake
+
+Note 1: E84F is the preferred user port register, since CA2 controls screen
+graphics.
+
+Note 2: The motor is on when this line is low, and off when it is high.
+
+Note 3: CA1 is connected to pin B of the user port. Pins B-L correspond to
+port A, which is invaiably E84E. CB2 (connected to the shift register) also
+connects to pin M of the user port; square wave tones (see chapter 9 of
+"Programming the PET/CBM") use these facts. CB1 signals input from cassette
+#2. CA2 controls screen graphics: it is configured for output, and, when
+low, gives lower case characters and others. When high, the mode is upper
+case and graphics.
+
+
+IEEE Port Pinouts
+-----------------
+
+This info taken from Transactor Volume 4, Issue 05.
+
+rear view for IEEE and User port:
+
+	   1   2   3   4   5   6   7   8   9   10  11  12
+	  --- --- --- --- --- --- --- --- --- --- --- ---
+	===================================================
+	  --- --- --- --- --- --- --- --- --- --- --- ---
+	   A   B   C   D   E   F   H   J   K   L   M   N
+
+The User port is the second port from the left, the IEEE-488 port is
+the third port.
+
+PET   IEEE
+Pin#  Pin# Mnemonic Definition
+-----------------------------------
+ 1     1   DIO1	    Data Input/Output Line #1
+ 2     2   DIO2	    Data Input/Output Line #2
+ 3     3   DIO3	    Data Input/Output Line #3
+ 4     4   DIO4	    Data Input/Output Line #4
+ 5     5   EOI      End Or Identify (PIA1 PA6 in, PIA1 CA2 out)
+ 6     6   DAV      Data Valid
+ 7     7   NRFD     Not Ready For Data
+ 8     8   NDAC     Not Data Accepted
+ 9     9   IFC      Interface Clear
+10    10   SRQ      Service Request (PIA2 CB1)
+11    11   ATN      Attention (VIA PB2 out, PIA2 CB1)
+12    12   GND      Chassis Ground (IEEE cable shield)
+ A    13   DIO5     Data Input/Output Line #5
+ B    14   DIO6     Data Input/Output Line #6
+ C    15   DIO7     Data Input/Output Line #7
+ D    16   DIO8     Data Input/Output Line #8
+ E    17   REN      Remote Enable
+ F    18   GND      DAV Ground
+ H    19   GND      NRFD Ground
+ J    20   GND      NDAC Ground
+ K    21   GND      IFC Ground
+ L    22   GND      SRQ Ground
+ M    23   GND      ATN Ground
+ N    24   GND      Data Ground (DIO1-8)
+
+Pin# Function Description
+-------------------------
+ 1   Ground   System Ground
+ 2   TV Video Video Out for external displays
+ 3   SRQ      Connected to IEEE-488 SRQ (PIA2 CB1)
+ 4   EOI      Connected to IEEE-488 EOI (PIA1 PA6 in, PIA1 CA2 out)
+ 5   Diagnostic Sense (PIA1 PA7)
+              Held low causes power up to diagnostic routines or monitor
+ 6   Read 1   Connected to cassette #1 read line (PIA1 CA1)
+ 7   Read 2   Connected to cassette #2 read line (VIA CB1)
+ 8   Write    Diagnostic tape write verify
+ 9   Vert     TV Vertical for external displays
+10   Horiz    TV Horizontal for external displays
+11   GND
+12   GND
+ A   GND
+ B   CA1      Edge sensitive input for 6522 VIA
+ C   PB0      PB0-7 are independently programmable
+ D   PB1      for Input or Output
+ E   PB2
+ F   PB3
+ H   PB4
+ J   PB5
+ K   PB6
+ L   PB7
+ M   CB2      Special IO pin of VIA, connected to shift register
+ N   GND      Digital ground
+
+Cassette port
+-------------
+	   1   2   3   4   5   6
+	  --- --- --- --- --- ---
+	==========================
+	  --- --- --- --- --- ---
+	   A   B   C   D   E   F
+
+Pin# Name  Description
+----------------------
+A-1  GND   Digital Ground
+B-2  +5V   +5 Volts to operate cassette circuitry only
+C-3  Motor Computer controlled +6V for cassette motor
+D-4  Read  Read line from cassette
+E-5  Write Write line to cassette
+F-6  Sense Monitors closure of any locking type cassette switch
+
+-Olaf.
+--
+___ Olaf 'Rhialto' Seibert    rhialto@mbfys.kun.nl     Ooey-Gooey-Fluffy-Barfie
+\X/ I'm not weird, I'm differently perceived. D787B44DFC896063 4CBB95A5BD1DAA96
+

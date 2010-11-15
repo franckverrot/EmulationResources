@@ -1,0 +1,63 @@
+               /--------------------------------------------\
+               |   Document about .FIX files from Neo Geo   |
+               A--------------------------------------------'
+               |      Written by por Kan (kan@arrakis.es)   |
+               \--------------------------------------------/
+
+1.- FIX Files
+
+        This document's purpose is to explain how do FIX files work. These
+are usually the .378 files on NeoGeo or .FIX on NeoGeo CD.
+
+	Well, FIX files are made by 8x8 pixel blocks. On a file, each pixel corresponds to 4 bits, that means that if we read the first byte, the first pixel will be composed by the first four bits, while the other four correspond to the second pixel.
+
+	Let's see how the first block is supposed to be painted, so you can see it more clear. We first specify "A-" as the four first bits of the byte, and "-A" as the other four. We'll follow alphabetical order to show which byte we are using (AA means first, AB means second, and so on...)
+  
+	In order to draw the first block, we'll follow the picture:
+
+          0   1   2   3   4   5   6   7
+        UAAAAAAA¨
+      0 3-AQ3AQ-3-AY3AY-3-AA3AA-3-AI3AI-3
+        A'
+      1 3-AR3AR-3-AZ3AZ-3-AB3AB-3-AJ3AJ-3
+        A'
+      2 3-AS3AS-3-BA3BA-3-AC3AC-3-AK3AK-3
+        A'
+      3 3-AT3AT-3-BB3BB-3-AD3AD-3-AL3AL-3
+        A'
+      4 3-AU3AU-3-BC3BC-3-AE3AE-3-AM3AM-3
+        A'
+      5 3-AV3AV-3-BD3BD-3-AF3AF-3-AN3AN-3
+        A'
+      6 3-AW3AW-3-BE3BE-3-AG3AG-3-AO3AO-3
+        A'
+      7 3-AX3AX-3-BF3BF-3-AH3AH-3-AP3AP-3
+        AAAAAAAAU
+
+	And all the other blocks are the same. As all FIX files are 131072 bytes long, they've got 4096n blocks each.
+      
+	I hope this info to be helpful to you, mainly because there are some FIX viewers on the Internet, but their code is considered TOP-SECRET, and they've got no info, nor source.
+    
+2.- My VFIX viewer
+
+	The usage of the viewer is very simple. It requires VESA 2.0 and a mouse. It won't run without a mouse.
+      
+	With mouse buttons you can scroll the file, and to quit you just hve to press a key.
+
+	For example, for Joy Joy Kid, it does like: vfix n022001a.378...and that's all!!!
+
+3.- Credits
+
+	If you want to contact me: kan@arrakis.es
+
+	See you, and remember, if you've got anything about NeoGeo, make everybody know.
+
+4.- Greetings
+
+	First of all, I wanna thank Phobeo(for the translation) and Mario Rodriguez(for his Atlaant emulator).
+
+	I also want to thank Neill Corlett for letting me use his 68000 core in my NeoGeo emulator.
+
+	And of course a greet to all the people of my group TeatreSoft (http:://members.xoom.com/Teatre): EL_POWER, ARGENIS,... Also to all the people at the FIE, like Manogua, Sito, Ramon,etc,etc... And to my dog, of course!!!
+
+	And to finish with it, I want to thank music groups like Helloween, Rage, Dover, and some more that I forget... because without them, programming would be a little bit boring...

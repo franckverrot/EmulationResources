@@ -1,0 +1,133 @@
+
+
+                    Famicom/NES mapper Documnets Vol.1
+                           Version 0.2b (1997/6/12)
+                          Focus on FFE mapper Type I
+                                 FanWen Yang
+
+FFE mapper !! Type I,II   aka "#6" in iNES ..
+=============================================================================
+   I/O ADDR     FUNTION              IN
+    42FC        PG  WE
+    42FD        HV  WE
+    42FE,bit4   PG  SW
+    42FF,bit4   HV  SW
+
+    43FE        8,A,C,E  4M          <-write any byte to it to set this mode
+
+
+===============================================================================
+
+    4500        CONFIG             (42F*) BZ BT
+    4501        IRQ OFF            (43F*)
+    4502        CL
+    4503        CH , COUNTER SW
+
+=========================================================================
+Config the FFE hardware !!!!!!!
+
+
+       4500W        REM
+ 7 6 5 4 3 2 1 0
+ 0 0              LOAD  MODE    <----- famicom disk system  game !!
+ 1 0              CARD  MODE    <----- run the carts on the ffe unit
+ 0 1              EXEC  MODE    <----- exec loaded game .
+     X X          6000 - 7FFF  BANK <-----  SRAM present or Not
+         X        SW PIN
+           X X X  PPU  MODE
+           0 1 0  *MODE (256K)
+           1 0 1  2M , VRAM EXT
+           1 1 1  2M
+
+==============================================================================
+Config the FFE hardware !!!!!!!
+
+  CPU  MODE     BIT             REM
+
+            7 6 5 4 3 2 1 0
+
+  43FE      C C C C C C P P 8,A,C,E (4M) ----+------> F4  series
+
+
+  *MODE      8000W , 43FFW      REM
+--------------------------------------------------------------
+  42FXW      7 6 5 4 3 2 1 0  CPU + PPU
+    20           C C C C P P   2M + 256K <-------- in iNES this is 90% mapper #6
+    40               C C C C   2M + 64K  <-------- in iNES this is mapper #2
+    60           P P C C C C   2M + 256K <-------- in iNES this is 10% mapper #6
+    80           C C     P P   1M + 256K <-------- in iNES this is mapper #8
+                                         F3 series
+
+IRQ :
+     (increasing)
+     when the value of counter exceed $FFFF and will reset counter to $0000
+     something like Namcot mapper 's counter but
+     Namcot one generated IRQ when value of counter = $FFFF and no reset!
+     but FFE one generated IRQ when value of counter =$0000 and reset !
+===============================================================================
+Trainer:
+        either loaded into $7000 (most) or $5D00(few) .totally 512byte !
+        but all FFE rom image are modified :( ...if without trainer mean
+        modified less than with trainer ..
+
+   Trainer Structure
+                 7000 Jump 1 <--- NMI
+                 7003 Jump 2 <--- Seting game (maybe do a check if this is
+                                  FFE unit ,write a address and read from it)
+                 7006 Jump 3 <--- H.V or others
+
+===============================================================================
+
+!! HOW F4 trained work ? !! (aka "4M 8/A/C/E mode" )
+most F4 series are 2M+64K RAM ,2M+256K(type 1 ) ,2M +256 K (type 2)
+
+!!2M + 64 K Ram .it's very easy  <------ mapper #2 in iNES
+8000-9FFF: via 8000
+A000-BFFF: via A000
+C000-DFFF: via C000
+E000-FFFF: via E000
+
+
+$8000,A000,C000,E000
+
+ bit7-bit4|bit3-bit0
+  no used | CPU bank switching
+------------------------------------------------------------------------
+!!2M +256K Ram type 1 (few F4 trained series) <----- 10 % mapper #6 in iNES
+
+$8000,A000,C000,E000
+ bit7-bit6|bit5-bit4|bit3-bit0
+ no used     PPU      CPU
+------------------------------------------------------------------------
+2M +256K Ram type 2   (most F4 trained series) <----- 90 % mapper #6 in iNES
+
+$8000,A000,C000,E000
+ bit7-bit6|bit5-bit2|bit1-bit0
+  no used     CPU      PPU
+-------------------------------------------------------------------------
+what is PPU switch in 2M+256K ?
+FFE has 256 K PPU RAM and spilt to 4 page ...
+4 X 64 K ...they can switch it and choose which one will be on the 0-1FFF !
+
+for example.
+  trainer move date to first page of thoes .. then now .. ready to play
+  when you played level one of game .. maybe those date of first page
+  not enough ..trainer will move all need date to 2nd page of and let page 2 on
+  .and 1st page date are not disapear .. just off of screen ..:P ,now you
+  played 2 level of game ..maybe just need some small change to first page .
+  then trainer switch back to first page and move some data into it ..
+  this is what it works !!!!!!
+
+=============================================================================
+
+This is some info  of FFE mapper ... just part of FFE mapper ...
+FFE unit is so complex ... this will be usefully to improve mapper #6
+If you have any Question of it ,you can mail Me .............
+No more Rom Request .PLZ
+join irc to contact with me interactive !!!!
+#emu,#snes,#emulate  my nickname _FanWen_
+OR email address : yangfanw@ms4.hinet.net
+
+Note : All material is written by Me , so if you want to pull it into public
+       PLZ keep the origianl text .. no modified !!!!!!!
+

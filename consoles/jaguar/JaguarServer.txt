@@ -1,0 +1,169 @@
+----------------------------------------- 960803 --
+- Info about the Jaguar Server Development Kit.   -
+---------------------------------------------------
+- Current Hardware Revision B.                    -
+- BootROM B001, JagOS/Shell Version 1.08          -
+-                                                 -
+- A "|" means new stuff typed since last file...  -
+---------------------------------------------------
+  The Jaguar Server project started out in August '94. The goal
+  was to make a cheap developer kit for anyone that wanted to
+  program for the Jaguar. Atari's own developer kit was $5500 and
+  that was WAY to much if you just wanted to hack and program the
+  Jaguar just for the fun of it.
+  The very first prototype was built around the Mega ST's 'MegaBus'
+  All of it was hand wired together using a total of 21 IC's.
+  I can tell you that this board had VERY little empty space on it..
+  This prototype was soon scraped, as I begun work on the Rev A
+  board, using a different approach this time. It was built for the
+  cartridge port and could then be used on all Atari computers not
+  just the ones having a 'MegaBus'.
+  To keep the cost down, I also decided to use the Jaguar's 2MB
+  main memory and not include any expensive RAM chips in the Jaguar
+  Server hardware.
+  The Rev A board was up and running with very simple software in
+  February '95. As the Rev A board had some small flaws, I made
+  some changes to the layout and came up with the Rev B board.
+  More serious work now begun on the Software - The Shell running
+  on the Atari computer and the JagOS - Running on the Jaguar.
+---------------------------------------------------
+- General Info.                                   -
+---------------------------------------------------
+  * Use the Jaguar Server Kit to develop Jaguar programs !
+  * The Jaguar Server runs on all Atari ST/STE/Falcon/TT computers.
+  * The hardware plugs into your computers cartridge port. From the
+    cartridge hardware goes a 40 pin ribbon cable into the Jaguar.
+  * Uses a slightly modified standard Jaguar. Modificate your own
+    Jaguar or send it to me, and I'll send it back to you.
+  * You can change between 'modified' and 'original' Jaguar by the
+    flick of a switch. A reset button is also installed.
+    ABSOLUTELY _NO_ compatibility problems with Jaguar games.
+  * No programming restrictions apart from a 2Mb main memory limit
+    in the Jaguar. Future software updates will be able to upload
+    data at the command of a running Jaguar program.
+  * You use the Jaguar Server software to upload programs/data to
+    the Jaguar. The software looks best in resolutions over 640*400.
+  * Software updates to JagOS (Jaguar Operating System) are possible
+    without burning a new EPROM chip simply by using newer software.
+  * Upload transfer rate is currently 83 Kbytes per second on a 8 MHz
+    Atari ST and 131 Kbytes per second running at 16 MHz.
+  * Use the Devpac 3 assembler or any other code generator to write
+    programs.
+  * A remote debugger and RISC assembler is under development.
+    The RISCY assembler are available for RISC assembler programming.
+  * Software updates and info are available on Internet World Wide Web
+    at HTTP://www-und.ida.liu.se/~t94patsa/jserver.html
+    and by filerequest with any FidoNet compatible mailer to
+    STacken BBS on FidoNet 2:204/219 under the magic name JSERVER
+  * A Jaguar Server Developer Mailing list are available for
+    programming discussions. NOT open for anyone.
+    E-mail to nat@zumdick.rhein-main.de for more info on how to join.
+  * The Jaguar Server development kit contains this...
+           + Jaguar Server cartridge (hardware)
+           + Jaguar Server Shell & JagOS (software)
+           + Switches, ribbon cable, connectors and everything else
+             that you need to start programming right away.
+           + A few Jaguar (*.JAG) programs, utilities and example source code.
+           + Klaus RISCY assembler.
+           + Nat!´s excellent Underground Jaguar Technical Documentation.
+  * IT DOES _NOT_ CONTAIN THE FOLLOWING... You have to get these
+    things yourself....
+           - No 68000 assembler.
+           - No Atari corp. Jaguar utilitys or RISC assemblers.
+  * 'Hacker' experience and good knowledge of assembler programming
+    is STRONGLY recommended. Programming the Jaguar is done almost in 100%
+    assembler.
+| * The Jaguar Server is NOT licensed/connected to Atari Corp. in ANY way.
+| * The Jaguar Server modification will void all Atari corp. warranty and will
+|   definitely violate your license agreement in the U.S. and probably in every
+|   other country to.
+  * The Jaguar Server Development Kit price is :
+    Jaguar Server Kit, do modification by yourself.
+    1300 SKr, 290 DM, $190, GBP 125
+    Jaguar Server Kit, Send Jaguar to me for modification.
+    1800 SKr, 400 DM, $260, GBP 175
+    Jaguar Server Kit, Including new PAL Jaguar.
+    3200 SKr, 720 DM, $470, GBP 310
+    All prices includes shipping anywhere in the world. (Well, almost!)
+---------------------------------------------------
+- Some technical info.                            -
+---------------------------------------------------
+  A Jaguar (*.JAG) program is built around a header. There are
+  currently seven different headers, each with it's own use
+  and advantages depending on the development environment and
+  programs.
+  For example, one of the headers looks like this (for Devpac 3)
+  *-----------------------------------------------------------------*
+  * Standard JagOS 3 Upload & Run parameters.                       *
+  * ½ Roine 950420                                                  *
+  *-----------------------------------------------------------------*
+    OUTPUT I:\*.JAG           * Output standard Atari Executable.
+  down    EQU $5000           * Download address in Jaguar.
+  start   EQU $5000           * Program start address in Jaguar.
+          OPT   D-            * No debugging info.
+          dc.b 'JAGR'         * Magic to skip Devpac Header.
+          dc.w 3              * JagOS 3 - Receive & Run.
+          dc.l down           * Download address.
+          dc.l c_end-c_start  * Length of Jaguar Code.
+                              * A dc.l 0 are also possible.
+          dc.l start          * Start address.
+          ORG  start          * If position dependent code.
+  *-----------------------------------------------------------------
+  c_start                     * Jaguar code start.....
+          NOP
+          NOP
+          ILLEGAL             * Not much of a program...  Hmm...
+  c_end                       * Jaguar code end.
+  *-----------------------------------------------------------------
+          END
+---------------------------------------------------
+- Jaguar Modification                             -
+---------------------------------------------------------------------
+-  You have to have previous experiance with soldering in order to  -
+-             successfully install it in your Jaguar.               -
+---------------------------------------------------------------------
+- I will take NO responsibility if you for some reason damage your  -
+-        Jaguar in any way when making this modification.           -
+-  If you don't think you can handle it, you can always send your   -
+-                   Jaguar to me for modification.                  -
+---------------------------------------------------------------------
+-        You will get all the things you need, including :          -
+-    Finished curcuit board (tested), switches, wire, resistors,    -
+-              IC-socket and flatcable with connectors.             -
+---------------------------------------------------------------------
+-     This is a breif outline on how to do the modification.        -
+-     More info with pictures are availible at the WWW-site.        -
+-     If you do not have access to WWW, I can fax it to you.        -
+---------------------------------------------------------------------
+Remove four screws from the bottom of the Jaguar. There are one in each
+corner.
+Lift off the plastic lid.
+Bend up the small metal pins and remove the top shield.
+Remove four screws that holds the curcuit board. Two located near the joypad
+and two at the cartridge connector.
+Lift up and separate the bottom shield, curcuit board and plastic bottom.
+Drill two holes in the plastic lid for the switches with a 5 mm drill.
+Remove the plastic 'knob' with the saw. This knob is removed because the
+flatcable will later require this space.
+Remove some more plastic to make space for the flatcable. Use knife and
+saw.
+Remove part of the top sheild to make room for the switches.
+Remove part of the bottom sheild to make an exit for the flatcable.
+Cut and _carefully_ bend up pins 22 and 24 on the Eprom.
+Solder the 32 pin IC-socket on top of the Eprom. Place it high, so you have
+more space to solder resistors.
+Solder the resistors and connect the switches. Don't use longer
+wire then required.
+Solder the resetswitch.
+Plug in the flatcable in the socket.
+Tie up the cables for the switches with the two straps.
+Assemble you Jaguar.
+Test.
+Finished!
+---------------------------------------------------
+- Misc. Info.                                     -
+---------------------------------------------------
+  If you have more specific questions or want to order,
+  write me by E-Mail...
+  isvar@hem.passagen.se (Roine Stenberg)
+

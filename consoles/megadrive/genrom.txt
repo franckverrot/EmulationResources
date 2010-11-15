@@ -1,0 +1,115 @@
+			ROM Cartridge Data
+
+	   100h:
+                 'SEGA MEGA DRIVE '
+           110h:
+                 '(C)SEGA 1988.JUL'
+           120h:
+                 GAME NAME (DOMESTIC)
+           150h:
+                 GAME NAME (OVERSEAS)
+           180h:
+                 'GM XXXXXXX-XX'
+           18Eh:
+                 $XXXX
+           190h:
+                 CONTROL DATA
+           1A0h:
+                 $00000000, $XXXXXXXX
+           1A8h:
+                 $FF000000, $FFFFFFFF
+           1B0h:
+                 EXTERNAL RAM DATA
+           1BCh:
+                 MODEM DATA
+           1C8h:
+                 MEMO
+           1F0h:
+                 Country in which the product can be released.
+
+
+           100h 
+                SEGA system name and TITLE in common with all ROMs
+                note: If SEGA isn't at the location then the game will not run on newer consoles. 
+           110h 
+                Copyright notice and year/month of release
+                Firm name in 4 ASCII characters. 
+           120h 
+                Domestic Game Name 
+           150h 
+                Overseas Game Name 
+           180h 
+                Cartridge Type
+                TYPE
+                      GAME
+                                                          : GM
+                      EDUCATION
+                                                          : A1
+                NO.
+                      PRODUCT NO.
+                VER.
+                      Data varies depending on the type of ROM or software version
+
+           18Eh 
+                Check Sum 
+           190h 
+                I/O use support data
+                Joystick for Master System
+                                      : 0
+                                         Tablet
+                                                       : T
+                Joystick
+                                      : J
+                                         Control Ball
+                                                       : B
+                Keyboard 
+                                      : K
+                                         Paddle Controller
+                                                       : V
+                Serial (RS232C)
+                                      : R
+                                         FDD
+                                                       : F
+                Printer
+                                      : P 
+                                         CDROM
+                                                       : C
+
+           1A0h 
+                ROM capacity Start Address, End Address
+                $00 00 00 00, $XX XX XX XX 
+           1A8h 
+                RAM capacity Start Address, End Address
+                $FF 00 00 00, $FF FF FF FF 
+           1B0h 
+                External RAM Data
+                When no external RAM is mounted, fill the address by a
+                space code and when it is mounted follow the following:
+                1B0h:
+                     dc.b
+                          'RA', %1x1yz000, %00100000
+                1B4h:
+                     dc.l
+                          RAM start address
+                1B8h:
+                     dc.l
+                          RAM end address
+
+                x 1 for BACKUP and 0 If not BACKUP
+                yz 10 if even address only 11 if odd address only 00 if both even and odd address 
+           1BCh 
+                Modem Data
+                If corresponding to MODEM, fill it by space code and
+                if not, follow the following: 
+           1C8h 
+                Memo
+                ASCII scratch area? 
+           1F0h 
+                Release Country
+                JAPAN
+                                                          J
+                USA
+                                                          U
+                EUROPE
+                                                          E
+                Be sure to input a space code in the unoccupied 1 ~ 7, 9 ~ 13 space

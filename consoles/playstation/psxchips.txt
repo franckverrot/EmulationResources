@@ -1,0 +1,116 @@
+start of psxchips.txt
+-----------------------------------------------------------------------------
+Last modified 08/13/97
+Special thanks go out to Dan Boris and Jim Shaw the information they've given
+me.
+-----------------------------------------------------------------------------
+Today at work I took apart a Playstation and made an inventory of all of the
+IC's in it.  I don't know if this is of any use, but anyway, here it is.
+
+Maxon   08/11/97
+gpw0341@omega.uta.edu
+
+Mfg'd by : Sony
+Markings : CXD8561BQ
+Package  : 208 pins.
+Purpose  : either the CPU or GPU.  don't know yet.  need to research.
+Notes    : This is probably an LSI/SGI/MIPS chip Sony has remarked.
+
+Mfg'd by : Sony
+Markings : CXD8606Q
+           L9B0057
+           WJ92537
+           NNI 9722
+Package  : 208 pins.
+Purpose  : either the CPU or GPU.  again, I need to research it.
+Notes    : This is probably an LSI/SGI/MIPS chip Sony has remarked.
+
+Mfg'd by : NEC
+Markings : 424805AL-A60
+           9718NV065
+Package  : 28 pins.
+Purpose  : 512x8 fast page 60ns DRAM.  this is the psx main RAM.
+Notes    : There are four of these in the psx.  Thanks to Jim Shaw for
+           verifying my hunch that these are 60ns memory used in psx.
+
+Mfg'd by : NEC
+Markings : D4818QGF-A12
+           -S
+           9712L9525
+Package  : 100 pins.
+Purpose  : 12ns RAM.  Probably the video memory.
+Notes    : Thanks to Jim Shaw for verifying that this is 12ns RAM.
+
+Mfg'd by : Sony
+Markings : 2030
+Package  : 32 pin DIP.
+Purpose  : the ROM?  it looked like a ROM chip to me.
+
+Mfg'd by : Sony
+Markings : CXD2925Q
+           721R16F
+Package  : 100 pins.
+Purpose  : ?
+
+Mfg'd by : Sony
+Markings : CXD2545Q
+           HW71963X
+Package  : 100 pins.
+Purpose  : ?
+
+Mfg'd by : Sony
+Markings : CXD1815Q
+           722P48E
+Package  : 100 pins.
+Purpose  : ?
+
+Mfg'd by : Motorola
+Markings : MC141658FT
+           JBC97201
+Package  : 64 pins.
+Purpose  : This could be a peripheral driver array.
+Nots     : Thanks to Jim Shaw for the hint on this chip.
+
+Mfg'd by : AKM
+Markings : AK4309AVM
+           1A719N
+Package  : 24 pin DIP.
+Purpose  : 16bit stereo delta sigma DAC for Multimedia (part of the SPU)
+Notes    : Thanks to Jim Shaw for giving me the info on this chip.
+
+Mfg'd by : SEC
+Markings : SEC Korea 719
+           KM62V256CLT6E-10L
+           PWD024XD
+Package  : 22 pin DIP.
+Purpose  : ?
+
+Mfg'd by : Fujitsu
+Markings : 814260-70
+           9720 F42
+           PJ
+Purpose  : 256Kx16 Fast Page DRAM 70ns.  this is the SPU's memory.
+Notes    : Thanks to Dan Boris for setting me straight on this chip.
+
+The following IC's were located on the underside of the main PCB.
+
+Mfg'd by : Sony
+Markings : CXA1645M
+           722K00V
+Purpose  : RGB Encoder-RGB analog to composite.
+Notes    : Thanks to Jim Shaw for setting straight on this one.
+
+Mfg'd by : ?
+Markings : BA6392FP
+           723 121
+Purpose  : probably a something not very important.
+
+Mfg'd by : ?
+Markings : C2030
+           SC430930PB
+           SSA19721A
+Purpose : probably something not very important.
+
+-----------------------------------------------------------------------------
+end of psxchips.txt
+

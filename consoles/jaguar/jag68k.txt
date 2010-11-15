@@ -1,0 +1,314 @@
+
+
+
+# -------------------------------------------------------------------
+# 68K                                   (c) Copyright 1996 Nat! & KKP
+# -------------------------------------------------------------------
+# These are some of the results/guesses that Klaus and Nat! found
+# out about the Jaguar with a few helpful hints by other people, 
+# who'd prefer to remain anonymous. 
+#
+# Since we are not under NDA or anything from Atari we feel free to 
+# give this to you for educational purposes only.
+#
+# Please note, that this is not official documentation from Atari
+# or derived work thereof (both of us have never seen the Atari docs)
+# and Atari isn't connected with this in any way.
+#
+# Please use this informationphile as a starting point for your own
+# exploration and not as a reference. If you find anything inaccurate,
+# missing, needing more explanation etc. by all means please write
+# to us:
+#    nat@zumdick.rhein-main.de
+# or
+#    kkp@gamma.dou.dk
+#
+# If you could do us a small favor, don't use this information for
+# those lame flamewars on r.g.v.a or the mailing list.
+#
+# HTML soon ?
+# -------------------------------------------------------------------
+#  68k.html,v 1.11 1997/03/30 02:27:11 
+# -------------------------------------------------------------------
+
+Preface:
+   There isn't much we need to tell you about the 68K. First you 
+   already know the chip since ten years probably, and secondly 
+   there are enough reference books available in case your memory
+   is failing you. Let's just look at the way the processor is bound
+   into the system and some things to watch out.
+
+
+
+
+
+
+IRQs:
+=-=-=
+
+      IPL         Name           Vector            Control
+   ---------+---------------+---------------+---------------
+       2      VBLANK IRQ         $100         INT1 bit #0 
+       2      GPU IRQ            $100         INT1 bit #1
+       2      HBLANK IRQ         $100         INT1 bit #2
+       2      Timer IRQ          $100         INT1 bit #3
+
+   Note: Both timer interrupts (JPIT && PIT) are on the same INT1 bit.
+         and are therefore indistinguishable.
+
+   A typical way to install a LEVEL2 handler for the 68000 would be 
+   something like this, you gotta supply "last_line" and "handler".
+   Note that the interrupt is auto vectored thru $100 (not $68)
+
+
+   V_AUTO   = $100
+   VI       = $F004E
+   INT1     = $F00E0
+   INT2     = $F00E2
+   
+   IRQS_HANDLED=$909                ;; VBLANK and TIMER
+
+         move.w   #$2700,sr         ;; no IRQs please
+         move.l   #handler,V_AUTO   ;; install our routine
+
+         move.w   #last_line,VI     ;; scanline where IRQ should occur
+                                    ;; should be 'odd' BTW
+         move.w   #IRQS_HANDLE&$FF,INT1  ;; enable VBLANK + TIMER
+         move.w   #$2100,sr         ;; enable IRQs on the 68K
+         ...
+
+handler:
+         move.w   d0,-(a7)
+         move.w   INT1,d0
+         btst.b   #0,d0
+         bne.b    .no_blank
+
+         ...
+
+.no_blank:
+         btst.b   #3,d0
+         beq.b    .no_timer
+      
+         ...
+
+.no_timer:
+         move.w   #IRQS_HANDLED,INT1      ; clear latch, keep IRQ alive
+         move.w   #0,INT2                 ; let GPU run again
+         move.w   (a7)+,d0
+         rte
+
+   As you can see, if you have multiple INT1 interrupts coming in,
+   you need to check the lower byte of INT1, to see which interrupt
+   happened.
+
+
+Superstitions / Things to watch out for:
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+   It looks like word/byte accesses to ROM space don't work. Looking
+   at some code in the Jaguar Server indicates that the MEMCON registers
+   come into play here.
+
+   I have a hunch that RWM cycles (like CLR.W (a0)) on TOM registers
+   aren't 100% safe.
+
+   NEUROMANCER adds:	
+      NEVER do a clr.l (a0) into GPU/DSP memory you must do a 
+      move.l #0,(a0) or a move.l d0,(a0).
+   
+   The special thing about a CLR (on the 68000, fixed in the 68010
+   and onwards I believe) is, that the processor does a source read 
+   before doing a destination write. It could be that this buggy read
+   is done in a slightly incompatible fashion to the other RMW
+   instructions like TAS , BCLR <??>,, ASL 
+   et.c.
+
+   Otherwise you must refrain from using any RMW instruction on
+   GPU/DSP memory.
+
+   If the 68K does not soak up leftover cycles, but does use up valuable
+   bus resources its best to put it to sleep with
+
+         HALT  #2000
+
+   so it will sleep until the next IRQ wakes it up again.
+
+
+
+ADDENDUM:
+=========
+
+
+Timing:
+=-=-=-=
+
+A few timing session got us the following results. Note that the timing
+was done with the video system, the GPU and the DSP shut down. 
+See the addendum for part of the timing routine. [ This could be all 
+bullshit of course ]
+                                       total           instr
+I R W                             min  max  avg   min  max  avg   sus
+------------------------------------------------+----------------------
+1      8x moveq   #0,d0            28  132   81    4   17   10
+1      8x move.w  d0,d0            28  132   81    4   17   10
+1      8x move.l  d0,d0            28  132   81    4   17   10
+2      8x move.w  #$FFF0,d0       108  212  162   14   27   20
+1 1    8x move.w  (a0),d0         172  276  223   22   35   28
+1   1  8x move.w  d0,(a0) (+/-)   188  292  243   24   37   30	   34
+3      8x move.l  #$3FFF0,d0      188  292  243   24   37   30
+2 1    8x move.w  $3FF0,d0        252  356  308   32   45   39
+1 2    8x move.l  (a0),d0         252  356  309   32   45   39		42
+2   1  8x move.w  d0,$3FF0        268  372  324   34   47   41		
+1   2  8x move.l  d0,(a0) (+/-)   284  388  341	  36   49   43		46
+3 1    8x move.w  $3FFF0,d0       332  436  390   42   55   49
+3   1  8x move.w  d0,$3FFF0       348  453  406   44   57   51
+3 2    8x move.l  $3FFF0,d0       412  516  471   52   65   59
+3   2  8x move.l  d0,$3FFF0       444  548  503   56   69   63 
+3 1 1  8x move.w  $1000,$1004     492  596  552   62   75   69
+5 1 1  8x move.w  $30000,$30004   652  756  716   82   95   90
+3 2 2  8x move.l  $1000,$1004     668  772  732   84   97   92
+       8x mulu.w  d1,d0           700  784  754   88   98   94
+5 2 2  8x move.l  $30000,$30004   828  932  894  104  117  112
+
+1 2    4x move.l  (a0),d0         100  204  154   25   51   39
+1 2    8x move.l  (a0),d0         252  356  309   32   45   39
+1 2   32x move.l  (a0),d0        1164 1268 1236   36   40   39	
+
+------------------------------------------------+----------------------
+I:   instruction words
+R:   data words read
+W:   data words written
+
+avg: average  
+min: minimum encountered   
+max: maximum encountered
+sus: approx. sustained average     (doing 16 mio accesses)
+
+cycle times in 26.591 Mhz cycles
+-----------------------------------------------------------------------
+4 cycles for 8x move.l d0,d0 looks weird at first. This result can happen 
+if the 'reference value' was off. The maximum number could happen if the 
+'reference value' is OK and the timing 'value' is off. If one looks 
+closely then the difference between min and max is 104 cycles on a 
+measurement basis, therefore the average value should be about right.
+
+Due to the apparent preference for immediate data, it would appear that 
+the I/O Latch also acts as a small read cache (64 bit probably) for 
+the 68000. Technically though, this sounds like a riscy idea for a multi-
+processor system, because there's no bus snooping to be expected.
+
+Data writes on the average are a bit slower than data reads. This is
+a bit strange, because the timings suggest that for every write of the
+68K an indivisible read modify write cycle is done, effectively using 
+two bus cycles for a write. Of course architecturally this would be 
+very stupid.
+
+It would seem that the memory interface acknowledges to the 68000 only 
+when the data has indeed been written (doesn't buffer). The 2 cycles 
+slower average on the timings suggest that happening. 
+
+
+The sustained measurement was done with a simple C, doing 16 times
+      move  d0,(a0)+    
+or    move  (a0)+,d0
+and this for 1 million iterations. (not very accurate, because the
+loop code was not filtered out)
+
+The results with VIDEO OFF:
+
+         access      time   mio bytes/s   cycles/move
+   ---------------+--------+------------+-------------
+    16 bit writes    20.6s       1.6          34 
+    32 bit writes    27.8s       2.3          46
+    32 bit reads     25.3s       2.5          42
+
+
+The code:
+=-=-=-=-=
+
+;; can't use D6+D7
+      .macro   TESTCODE
+         .rept    8
+            move.l   (a0),d0
+         .endr
+      .endm
+code:
+      movem.l  d1-a6,-(a7)
+
+      lea      $3FFF0,a0
+      moveq    #23,d1
+      moveq    #7,d0
+      moveq    #-1,d5
+.punt:
+      move.w   d5,PITLO
+      move.w   PITLO,d6
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      move.w   PITLO,d7
+      sub.w    d6,d7
+      bcc.b    .ok
+      neg.w    d7
+.ok:
+      move.w   d7,-(a7)       ; reference
+
+      lea      $3FFF0,a0
+      move.w   d5,PITLO
+      move.w   PITLO,d6
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      TESTCODE
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      nop
+      move.w   PITLO,d7
+      sub.w    d6,d7
+      bcc.b    .ok2
+      neg.w    d7
+.ok2:
+      sub.w    (a7)+,d7
+      bcs      .punt
+
+      moveq    #0,d0
+      move.w   d7,d0
+      movem.l  (a7)+,d1-a6
+      rts
+
+
+
+
+
+
+------------------------------------------------------------------------
+Nat! (nat@zumdick.rhein-main.de)
+Klaus (kkp@gamma.dou.dk)
+
+
+
+
+ 1997/03/30 02:27:11 
+

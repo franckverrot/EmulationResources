@@ -1,0 +1,130 @@
+
+
+                                         Sega Saturn 
+
+PERIPHERALS
+
+
+
+
+•Analog Mission Joystick 
+•Arcade Racer Analog Steering Controller 
+•Controller 
+•Memory Backup Cart 
+•Link Cable 
+•Mouse with Pad 
+•Keyboard 
+•NetLink Modem 
+•RFU Adaptor 
+•S-Video Adaptor 
+•Multitap Unit 
+•Analog Pad 
+•MPEG Adapter 
+
+
+CPUs
+
+•Two Hitachi SH2 
+32 bit RISC processor 
+Clock- 28 MHz 
+•One Hitachi SH1 
+
+
+
+CD-ROM DRIVE
+
+•Data Transfer Rate (DMA TO RAM) 
+ 150 KB/sec. (Normal) 
+ 300 KB/sec. (Double speed)
+•Maximum Capacity - 660 Megabytes 
+•Features 
+ Audio CD play with reactive display 
+ CD+G Compatible 
+ CD+EG Compatible 
+ CD Single Compatible 
+ Optional: Photo CD, Video CD and EBook 
+
+
+
+2D GRAPHICAL CAPABILITY
+
+•VDP1 processor handling sprites, polygons and geometry VDP2 processor handling backgrounds
+•5 simultaneous planes with two rotation planes
+•32,000 colors from 24-bit palette
+
+
+NTSC Display Resolution
+
+•352x224 
+•640x224 
+•704x480 
+
+
+
+MEMORY CONFIGURATION
+
+•Main RAM: 2 Megabytes 
+•Video RAM: 1.54 Megabyte 
+•Sound RAM: 540 Kilobytes 
+•CD ROM buffer: 512 Kilobytes 
+
+
+
+SOUND PROCESSOR
+
+•16-bit 68EC000 processor operating at 11.3 MHz
+•32 voices
+ FM synthesis
+ two CPU interfaces
+•44.1 KHz sampling frequency
+•16 channel digital mixer •SCSP 128 step DSP @ 22.6MHz
+
+
+
+GEOMETRY ENGINE
+
+Supplied by VDP 1
+
+
+•Texture mapping 
+•Goraud Shading 
+•512K cache for textures 
+•200,000 texture-mapped polygons/second 
+•500,000 flat shaded polygons/second 
+
+
+
+SPRITE GRAPHICS
+
+Supplied by VDP 1
+
+
+•dual 256K frame buffers for rotation and scaling 
+•virtually unlimited number of sprites on a line 
+•virtually unlimited number of sprite images 
+•virtually unlimited number of CLUTs 
+
+
+
+SPRITE SPECIAL EFFECTS
+
+Supplied by VDP 1
+
+
+•Rotation 
+•Scaling up/down 
+•Warping 
+•Vertical and horizontal line scroll 
+
+
+
+BACKGROUND AND SCROLL PLANES
+
+Supplied by VDP 2
+
+
+•background engine 
+•up to five simultaneous scrolling backgrounds 
+•up to two simultaneous rotating playfields 
+•true 24-bit backgrounds 
+•704x480 maximum resolution 

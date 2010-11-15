@@ -1,0 +1,50 @@
+            F A M   2   F o r m a t   I n f o
+
+    http://www.citilink.com/~terhune/emu/fami_us.html
+
+
+FAM files are ROM images of 8-bit Nintendo games, designed
+for version 2 of Seil's Famicom emulator. There is also a
+previous version of the emulator using the FAM extension
+for its ROMs as well, although the two formats are *NOT*
+compatible.
+
+With that, here is the format of FAM images with commentary
+below:
+
+         : Start of File
+0000-000F: Famicom Header   16 bytes
+0010-    : Null            xxx
+    -810C: PRG Data        xxx
+810D-811C: PRG Footer       16
+811D-821E: Null            258
+821F-831E: CHR Header      256
+831D-    : CHR Data        xxx
+         : End of File
+
+FAM Header: 02 00 0D 81 00 01 00 00-00 FF FF 00 00 00 00 00
+PRG Footer: 03 00 12 22 00 00 01 00-00 00 00 00 FF FF FF FF
+CHR Header: String of 01 in the above range.
+
+It's possible that the Famicom header ends after FF FF, it
+just seems logical that it would be 16 bytes long.
+
+What I've found from the file structure is that the problem
+with ROMs bigger than 64K is not in the file size itself,
+but in PRGs larger than 32K. The emulator essentially works
+from the middle, expecting the PRG to end at 810C and the
+CHR to start at 821F. Whatever the PRG size, null bytes are
+entered from the end of the Famicom header to the actual
+start of data. In the case of a 64K PRG the data would have
+to extend past the expected ending location even if it starts
+immediately after the Famicom header.
+
+Theoretically then, the CHR segment could be as big as it
+wanted. Unfortunately, there aren't a whole lot of games
+that have 32K PRGs and 128K CHRs. Right now this means that
+the Famicom emulator doesn't have a lot of potential for
+most games in the current format.
+
+Hopefully I got my hexes right...
+
+ - Zofo

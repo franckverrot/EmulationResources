@@ -1,0 +1,81 @@
+
+SFDG FAQ - Super Famicom Development Group Frequently Asked Questions
+~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+By Carl Mueller: carl@busop.cit.wayne.edu.
+Modified by Charles Doty: cdoty@aloha.net on Nov. 29,1995.
+-----------------------------------------------------------------------------
+Q.  What exactly is the Super Famicom?
+
+A.  The Super Famicom is the Japanese version of the American SNES 
+    (Super Nintendo Entertainment System).  As far as hardware goes,
+    they are generally the same and play the same games (SF games can 
+    be played on the SNES and vice versa).  The Super Famicom however
+    has a different appearance than the SNES, but other than cosmetic
+    differences, they are virtually the same system.
+-----------------------------------------------------------------------------
+Q.  What exactly do people use to develope games on the SNES?
+   
+A.  _Professional_ developers, to my knowledge, use a PC and a special
+    65816 assembler called SNASM which assembles and allows debugging of
+    65816 code, also included is a device which (I believe) plugs into
+    the SNES and you download code from your PC to the SNES through a 
+    SCSI interface.  This developers kit is available through Nintendo,
+    but to my knowledge is *extremely* expensive (say around $5000), and
+    Nintendo won't sell it to you unless you belong to a gaming company.
+-----------------------------------------------------------------------------
+Q.  What about the demos I've seen floating about, how were those made?
+
+A.  There are also console "backup" devices like the Super Magicom (SNES/
+    Super Famicom backup), Super MagicDrive (Sega Genesis backup), and
+    MultiGame Hunter (Genesis and SNES backup) to name a few.  People 
+    download their own code to these devices using 65816 cross assemblers
+    (apparently availabe to most major platforms), and the SNES runs it.
+    You have to have a pretty good knowledge of the SNES hardware, and of
+    course be an expert 65816 assembler.
+-----------------------------------------------------------------------------
+Q.  Where can I get some files which explain the technicial details of
+    the SNES, like memory locations and such?
+
+A.  An limited FTP site is available.  ftp teeri.oulu.fi.  
+    Development files should be located in \pub\console\nintendo.
+    A Console programming WWW page is available at
+    http://www.aloha.net/~cdoty/console.htm.
+    Also, you should be able to find utilities such as assemblers and
+    disassemblers.
+-----------------------------------------------------------------------------
+Q.  What the heck is an 65816 ?
+
+A.  It's a microprocessor made by Western Design which is a basically a 
+    souped up 16-bit version of the 6502 (used in older computers like the 
+    Commodore 64, etc) and is currently (and probably for enternity) only 
+    used in the Apple IIgs system, and of course the SNES/Super Famicom 
+    systems.  It has 16-bit internal registers and an 8-bit bus.
+-----------------------------------------------------------------------------
+Q.  How do I start working for Nintendo, then ?
+
+A.  Probably the best way to land a job programming for the SNES would be
+    to prove yourself an 65816 expert, and send them a demo of a game
+    written perferably on a DIFFERENT platform (say like the Apple IIgs 
+    might be a good computer to show a demo on), Nintendo may not like the
+    fact that you've been coding on their system without any licenses.
+    Or, you can try to get a job at a company that produces SNES games
+    by showing them your game, and getting them to LEGALLY license it.
+----------------------------------------------------------------------------
+Q.  Where do I get a copy of this "Developers Manual" everyone seems to
+    be talking about?
+
+A.  You don't.  Nintendo distributes their developers manual only to 
+    licensed game programmers and is apparently very strict about it
+    being copied or information being let out from it.  Plus, if you 
+    paid $5,000 for a developers kit, would you be so quick to send
+    out copies of the manual?
+
+Well, that's it so far.  I may not be the best person to write this FAQ,
+but so far I'm the only one who has been willing to do it.  If you wish
+to make modifications, let me know.  Your free to make additions/modifcations  
+to this document.  Just send the revised document to my mail box and I will
+replace this one.
+
+carl@busop.cit.wayne.edu
+cdoty@aloha.net

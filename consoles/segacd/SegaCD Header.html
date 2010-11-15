@@ -1,0 +1,311 @@
+<HTML>
+<HEAD>
+<TITLE>Sega Cd Header Information</TITLE>
+<META name="author" content="Franck 'LXS' Verrot">
+<META name="keywords" content="segacd header,megacd header,technical doc,documentation technique">
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080">
+
+<p>
+<center><h2>Documentation sur le Mega CD</h2>
+<br><img src="http://www.dev-fr.com/documentation/consoles/segacd/img5.jpg" width=149 height=19 border=0>
+<br><img src="http://www.dev-fr.com/documentation/consoles/segacd/img1.jpg" width=262 height=184 border=0>
+</center>
+</p>
+
+<p><u>Introduction:</u><br>
+Cette fabuleuse console qu'est le MegaCD n'a pas connu beaucoup de succès lors de son existence.<br>
+De plus une émulation parait assez limitée tant qu'aucune information sur la constitution même d'un ISO<br>
+n'est pas publiée, et c'est ce qu'il se passe pour elle! Après de nombreuses recherches, il n'y a que le<br>
+programme SCDConv de Flavio (à Eidolon's Inn) qui peut manipuler et convertir les ISOs.<br>
+Pourquoi un manque de documentation si important? Aucune idée... :)<br>
+Il en restera que j'aurai pensé mettre beaucoup moins de temps pour récupérer toutes les informations que<br>
+j'ai découvert et que vous allez découvrir, mais le entêtes des jeux MegaCD sont vraiment riches, et preuve<br>
+en est qu'ils sont très aboutis par opposition aux quelques autres consoles qui allaient utiliser le format CD<br>
+un peu plus tard...
+</p>
+<p></p>
+<p><u>Les protections territoriales(contrées: U(USA), E(Europe),J(Japon)):</u><br>
+Ici se trouve la seule et unique protection des jeux MegaCD, nul besoin de puces ou de switchs pour<br>
+lancer un nouveau jeu sur votre console préférée, un "simple" changement dans l'entête de l'exécutable<br>
+suffit à faire croire à la console que le jeu en question appartient bien à la même zone territoriale qu'elle.<br>
+Pis, une copie de sauvegarde d'un CD orginal va pouvoir, une fois gravée, foncionner sur une console(toujours<br>
+non modifée) sans effort...
+</p>
+<p></p>
+<p><u>Les routines des différentes contrées:</u><br>
+Pour permettre à un exécutable de passer la protection territoriale, un code récurrent a été trouvé enfoui<br>
+toujours dans ce fameux entête. Chaque contrée a une routine associée dont la taille et le contenu sont tous<br>
+deux différents... C'est ici grâce à l'aide de Flavio que nous pourrons tirer parti de son travail pour injecter<br>
+les routines spécifiées dans les ISOs MegaCD.
+</p>
+<p></p>
+<p><u>Mais que contient cet entête!!!:</u><br>
+Eheh, c'est en effet la question que tout le monde se pose(du moins ceux qui s'intéressent aux architectures<br>
+de leur console...et nous allons tenter d'y répondre. Si vous avez une documentation *officielle* il serait plus<br>
+que temps d'en parler! Sinon si vous décellez une erreur n'hésitez pas à me le signaler :)
+</p>
+<p><center>
+<table width=640 border=1>
+<tr>
+<td>Offset</td>
+<td>Identifiant</td>
+<td>Taille(octets)</td>
+<td>Description</td>
+</tr>
+<tr>
+<td>0x000</td>
+<td>Boot System</td>
+<td>0x10</td>
+<td>Doit être obligatoirement "SEGADISCSYSTEM "</td>
+</tr>
+<tr>
+<td>0x010</td>
+<td>CD Type</td>
+<td>0xB</td>
+<td>Apparement les développeurs y mettent ce qu'ils veulent</td>
+</tr>
+<tr>
+<td>0x01B</td>
+<td>Réservé</td>
+<td>0x1</td>
+<td></td>
+</tr>
+<tr>
+<td>0x1C</td>
+<td>Volume System</td>
+<td>0x2</td>
+<td></td>
+</tr><tr>
+<td>0x1E</td>
+<td>Volume Type</td>
+<td>0x2</td>
+<td></td>
+</tr>
+<tr>
+<td>0x20</td>
+<td>System Name</td>
+<td>0xB</td>
+<td></td>
+</tr>
+<tr>
+<td>0x2B</td>
+<td>Réservé</td>
+<td>0x1</td>
+<td></td>
+</tr>
+<tr>
+<td>0x2C</td>
+<td>System Version</td>
+<td>0x2</td>
+<td></td>
+</tr>
+<tr>
+<td>0x2E</td>
+<td>Réservé</td>
+<td>0x2</td>
+<td></td>
+</tr>
+<tr>
+<td>0x030</td>
+<td>Initial Pointer Address</td>
+<td>0x4</td>
+<td></td>
+</tr>
+<tr>
+<td>0x034</td>
+<td>Initial Pointer Load Size</td>
+<td>0x4</td>
+<td></td>
+</tr>
+<tr>
+<td>0x038</td>
+<td>Initial Pointer Entry</td>
+<td>0x4</td>
+<td></td>
+</tr>
+<tr>
+<td>0x03C</td>
+<td>Initial Pointer Work Size</td>
+<td>0x4</td>
+<td></td>
+</tr>
+<tr>
+<td>0x040</td>
+<td>System Pointer Address</td>
+<td>0x4</td>
+<td></td>
+</tr>
+<tr>
+<td>0x044</td>
+<td>System Pointer Load Size</td>
+<td>0x4</td>
+<td></td>
+</tr>
+<tr>
+<td>0x048</td>
+<td>System Pointer Entry</td>
+<td>0x4</td>
+<td></td>
+</tr>
+<tr>
+<td>0x04C</td>
+<td>System Pointer Work Size</td>
+<td>0x4</td>
+<td></td>
+</tr>
+<tr>
+<td>0x050</td>
+<td>Réservé</td>
+<td>0xB0</td>
+<td>Uniquement des espaces (0x20 en héxadécimal), il apparaitrait que les développeurs y mettent une date...</td>
+</tr>
+<tr>
+<td>0x100</td>
+<td>Needed System</td>
+<td>0x10</td>
+<td>Console requise, doit ici être "SEGA MEGA DRIVE ", en existe-t-il d'autres?</td>
+</tr>
+<tr>
+<td>0x0110</td>
+<td>Copyright</td>
+<td>0x10</td>
+<td>Année et mois du lancement du jeu</td>
+</tr>
+<tr>
+<td>0x120</td>
+<td>Domestic Name</td>
+<td>0x30</td>
+<td>Nom local du jeu, peut contenir des Kanji</td>
+</tr>
+<tr>
+<td>0x150</td>
+<td>Overseas Name</td>
+<td>0x30</td>
+<td>Nom du jeu distribué dans le monde entier</td>
+</tr>
+<tr>
+<td>0x180</td>
+<td>Game Type</td>
+<td>0x3</td>
+<td>Sa valeur est "GM " pour les jeux...</td>
+</tr>
+<tr>
+<td>0x184</td>
+<td>Reference</td>
+<td>0x7</td>
+<td>Référence du jeu comme sur la couverture</td>
+</tr>
+<tr>
+<td>0x18A</td>
+<td>Version Header</td>
+<td>0x2</td>
+<td>Toujours " -", car va suivre le numéro de version</td>
+</tr>
+<tr>
+<td>0x18C</td>
+<td>Version</td>
+<td>0x2</td>
+<td>Un nombre du type "XX"</td>
+</tr>
+<tr>
+<td>0x18E</td>
+<td>Réservé</td>
+<td>0x2</td>
+<td></td>
+</tr>
+<tr>
+<td>0x190</td>
+<td>IO Data</td>
+<td>0x10</td>
+<td>J pour Joypad<br>
+4 pour MultiTap<br>	
+6 pour Joypad-6<br>		
+0 pour MasterSystem Joypad<br>				
+K pour Keyboard<br>			
+R pour Serial RS232C<br>				
+P pour Printer<br>			
+T pour Tablet<br>			
+B pour TrackBall<br>				
+V pour Paddle Controler<br>			
+F pour Floppy Disk Drive<br>				
+C pour CD Rom<br>			
+L pour Activator<br>				
+M pour Mouse<br>			
+A pour Analog Joystick<br>
+</td>
+</tr>
+<tr>
+<td>0x1A0</td>
+<td>Réservé</td>
+<td>0x50</td>
+<td></td>
+</tr>
+<tr>
+<td>0x1F0</td>
+<td>Country Code</td>
+<td>0x10</td>
+<td>"J" pour Japon<br>"E" pour Europe<br>et naturellement "U" pour USA</td>
+</tr>
+
+</table>
+
+
+</center></p>
+
+
+<p><u>Où se situe ainsi le problème?</u><br>
+<p>
+Nous apercevons très bien une variable de la structure qui se nomme Country,<br>
+et l'on pourrait penser qu'un simple changement de ce caractère pourrait entraîner<br>
+la reconnaissance du jeu dans la contrée voulue, mais il n'en est RIEN.<br>
+La preuve peut se faire par SCDConv, où tout changement de variable n'entraînera<br>
+la reconnaissance du jeu dans son émulateur favori(qui a dit Gens :)), car graver un<br>
+jeu qui ne marche pas n'est pas la meilleure chose à faire...
+</p>
+<p>
+Je n'ai pas essayé de flancer sur ma console un jeu modifié avec une variable de contrée qui<br>
+ne correspond pas(le comportement d'un émulateur ne peut en AUCUN cas nous en lever l'incertitude<br>
+car le fonctionnement peut(et c'est souvent le cas) ne pas correspondre totalement), mais nul<br>
+ne peut savoir s'il n'y a pas aussi ici une vérification.</p>
+<p>
+Ainsi la protection va être sous la forme de routines, typiques à chaque contrées, que nous allons<br>
+emprunter à l'utilitaire de Flavio, tout en regrettant le fait que la conversion Japonaise ne marche<br>
+pas encore entièrement (10% d'après Izlude d'EmuArena)...
+</p>
+<p>(Vous pourrez trouver sur dev-fr.com les routines sous forme de fichier binaire pour l'Europe, les USA et<br>
+le Japon, pour étudier plus tranquillement ces routines.)
+</p>
+</p>
+
+<p><u>Comment les insérer:</u><br>
+<p>En effet cela pose problème car après identification de l'origine de l'ISO, il va falloir remplacer la<br>
+routine locale par celle qui correspond à la contrée voulue. Et que de malchance, les routines ne sont pas<br>
+de la même taille...alors que faire?!
+</p>
+<p>Il semblerait que la solution actuelle soit de remplir l'espace qui pourrait se trouver vide par n'importe<br>
+quelle donnée arbitraire. Les conversions US<->Europe sont relativement simples, il n'y a pas à se soucier de<br>
+l'écart relatif entre les données avant et après conversion(qui est faible), mais pour les conversions de type<br>
+Reste du Monde<->Japon les données doivent être réallouées dans l'entête, car il y a un écart assez fort.</p>
+<p>
+Nous ne nous étondrons pas sur cet étude qui peut s'avérer longue tant la routine Japonaise peut être complexe<br>
+et différente par rapport aux deux autres. La préoccupation dans cet première étude reste de se familiariser avec<br>
+ce format de fichiers pour s'outiller, et pourquoi pas créer un émulateur, un Boot CD (comme pour les jeux Dreamcast)<br>
+et surtout faciliter la programmation amateur.
+</p>
+</p>
+
+<p><u>Et maintenant?</u><br>
+<p>Je me pencherai sur le programme de conversion et distribuerai le résultat une fois les conversions possibles,<br>
+en espérant trouver encore plus de choses intéressantes :)<br>
+Je remercie Izlude d'Emuarena pour son aide et son soutien, ainsi que toutes les personnes présentes sur la scène<br>
+émulation et programmation amateur toutes consoles confondues.<br>
+Merci aussi à vous gentils lecteurs de m'avoir lu et j'espère que ce tutorial s'avère compréhensible(le soir c'est<br>
+assez dur de penser lol).<br>
+<br>
+[EOF]
+</p>
+</p>
+
+</BODY>
+</HTML>

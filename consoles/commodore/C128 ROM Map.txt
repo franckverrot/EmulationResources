@@ -1,0 +1,1269 @@
+;	Commodore 128 ROM Memory Map
+;	with RAM Subroutines
+;
+;	Contains 1986 Basic and VDC patch information.
+;
+;	V1.4	1 Mar 1995
+;
+
+; Data types in headers (for reassembler):
+;
+;	DATA		Misc data
+;	TEXT		String terminated with 00
+;	WORD		Vectors in LO/HI byte pairs
+;	CHIP		I/O Area
+;	EMPTY		ROM containing FF's or AA's
+;
+
+;
+; C128 RAM Subroutines
+;
+
+0002	Bank Number, Jump to SYS address
+0056	Jump vector for functions
+
+02a2	Bank Peek Subroutine
+02af	Bank Poke Subroutine
+02be	Bank Compare Subroutine
+02cd	JSR to another bank
+02e3	JMP to another bank
+0380	CHRGET
+0386	CHRGOT entry
+0390	?
+039f	Fetch From Bank 0
+03ab	Fetch From Bank 1
+03b7	Fetch From Bank 1
+03c0	Fetch From Bank 0
+03c9	Fetch From Bank 0
+03f0	DMA Link Code
+
+;
+; BASIC 7.0 interpreter ROM ($4000 - $AFFF)
+;
+;  BASIC ROM LO
+;
+4000	Basic Entry Jumps
+;4000	Cold Entry
+;4003	Warm Entry
+;4006	IRQ Entry
+
+4009	Basic Restart
+4023	Basic Cold Start
+4045	Set-Up Basic Constants
+4112	Chime
+417a	Set Preconfig Registers
+4189	Registers For $D501		DATA
+418d	Init Sprite Movement Tabs
+419b	Print Startup Message
+41bb	Startup Message			DATA
+4251	Set Basic Links
+4267	Basic Links for $0300		WORD
+4279	Chrget For $0380
+42ce	Get From ($50) Bank1
+42d3	Get From ($3f) Bank1
+42d8	Get From ($52) Bank1
+42dd	Get From ($5c) Bank0
+42e2	Get From ($5c) Bank1
+42e7	Get From ($66) Bank1
+42ec	Get From ($61) Bank0
+42f1	Get From ($70) Bank0
+42f6	Get From ($70) Bank1
+42fb	Get From ($50) Bank1
+4300	Get From ($61) Bank1
+4305	Get From ($24) Bank0
+430a	Crunch Tokens
+43cc	Move Down Input Buffer
+43e2	Check Keyword Match
+4417	Keywords - Non prefixed		DATA
+4609	Keywords - Prefix FE		DATA
+46c9	Keywords - Prefix CE		DATA
+46fc	Action Vectors			WORD
+47d8	Function Vectors		WORD
+4828	Defunct Vectors			DATA
+; Each Defunct Vector is preceded by a priority code.
+
+4846	Unimplemented Commands
+484b	Error Messages			DATA
+4a82	Find Message
+4a9f	Start New Basic Code
+4b34	Update Continue Pointer
+4b3f	Execute/Trace Statement
+4bb5	?
+4bcb	Perform [stop]
+4bcd	Perform [end]
+4bf7	Setup FN Reference
+4c86	Evaluate <or>
+4c89	Evaluate <and>
+4cb6	Evaluate <compare>
+4d2a	Print 'ready'
+4d2d	'ready.'			TEXT
+4d37	Error or Ready
+4d3a	Print 'out of memory'
+4d3c	Error
+4daf	Break Entry
+4dc3	Ready For Basic
+4de2	Handle New Line
+4f4f	Rechain Lines
+4f82	Reset End-of-Basic
+4f93	Receive Input Line
+4faa	Search B-Stack For Match
+4ffe	Move B-Stack Down
+5017	Check Memory Space
+5047	Copy B-Stack Pointer
+5050	Set B-Stack Pointer
+5059	Move B-Stack Up
+5064	Find Basic Line
+50a0	Get Fixed Pt Number
+50e2	Perform [list]
+5123	List Subroutine
+51d6	Perform [new]
+51f3	Set Up Run
+51f8	Perform [clr]
+5238	Clear Stack & Work Area
+5250	Pudef Characters		DATA
+5254	Back Up Text Pointer
+5262	Perform [return]
+528f	Perform [data/bend]
+529d	Perform [rem]
+52a2	Scan To Next Statement
+52a5	Scan To Next Line
+52c5	Perform [if]
+5320	Search/Skip Begin/Bend
+537c	Skip String Constant
+5391	Perform [else]
+53a3	Perform [on]
+53c6	Perform [let]
+54f6	Check String Location
+553a	Perform [print#]
+5540	Perform [cmd]
+555a	Perform [print]
+5600	Print Format Char
+5607	-print '<cursor right>'-
+5604	-print space-
+560a	-print '?'-
+5612	Perform [get]
+5635	Getkey
+5648	Perform [input#]
+5662	Perform [input]
+569c	Prompt & Input
+56a9	Perform [read]
+57f4	Perform [next]
+587b	Perform [dim]
+5885	Perform [sys]
+58b4	Perform [tron]
+58b7	Perform [troff]
+58bd	Perform [rreg]
+5901	Assign <mid$>
+5975	Perform [auto]
+5986	Perform [help]
+59ac	Insert Help Marker
+59cf	Perform [gosub]
+59db	Perform [goto]
+5a15	Undef'd Statement
+5a1d	Put Sub To B-Stack
+5a3d	Perform [go]
+5a60	Perform [cont]
+5a9b	Perform [run]
+5aca	Perform [restore]
+5af0	Keywords To Renumber		DATA
+5af8	Perform [renumber]
+5bae	Renumber-Continued
+5bfb	Renumber Scan
+5d19	Convert Line Number
+5d68	Get Renumber Start
+5d75	Count Off Lines
+5d89	Add Renumber Inc
+5d99	Scan Ahead
+5da7	Set Up Block Move
+5dc6	Block Move Down
+5ddf	Block Move Up
+5dee	Check Block Limit
+5df9	Perform [for]
+5e87	Perform [delete]
+5efb	Get Line Number Range
+5f34	Perform [pudef]
+5f4d	Perform [trap]
+5f62	Perform [resume]
+5fb7	Reinstate Trap Point
+5fd8	Syntax Exit
+5fdb	Print 'can't resume'
+5fe0	Perform [do]
+6039	Perform [exit]
+608a	Perform [loop]
+60b4	Print 'loop not found'
+60b7	Print 'loop without do'
+60db	Eval While/Until Argument
+60e1	Define Programmed Key
+610a	Perform [key]
+619d	'+chr$('			DATA
+61a8	Perform [paint]
+627c	Check Painting Split
+62b7	Perform [box]
+63ed					DATA
+63f5	Authors				DATA
+640b	?
+642b	Perform [sshape]
+658d	Perform [gshape]
+668e	Perform [circle]
+6750	Draw Circle
+6797	Perform [draw]
+67d7	Perform [char]
+68db	?
+6955	Perform [locate]
+6960	Perform [scale]
+69d8	Scale Factor Constants		DATA
+;69d8
+;69dd
+
+69e2	Perform [color]
+6a4c	Color Codes			DATA
+6a5c	Log Current Colors
+6a79	Perform [scnclr]
+6b06	Fill Memory Page
+6b17	Set Screen Color
+6b5a	Perform [graphic]
+6bc9	Perform [bank]
+6bd7	Perform [sleep]
+6c09	Multiply Sleep Time
+6c2d	Perform [wait]
+6c4f	Perform [sprite]
+6c9b	?
+6cb3	Bit Masks			DATA
+6cbb	?
+6cc6	Perform [movspr]
+6d9e	?
+6dc6	?
+6dd9	Sprite Motion Table Offsets	DATA
+6de1	Perform [play]
+6e02	Analyze Play Character
+6e66	-Filter
+6e9d	-Voice
+6ea8	-Octave
+6eb2	Set SID Sound
+6edd	-Volume
+6efd	Play Error
+6f03	Dotted Note
+6f07	Note Length Char
+6f1e	Note A-G
+6f52	...votxum...
+6f69	Sharp
+6f6c	Flat
+6f78	Rest
+6fd7	Perform [tempo]
+6fe4	Voice Times Two			DATA
+6fe7	Length Characters		DATA
+6fec	Command Characters		DATA
+6ff2	Indexes for Note Symbols	DATA
+6ff9	Pitch LO -- NTSC		DATA
+7005	Pitch HI -- NTSC		DATA
+7011	Envelope A/D Patterns		DATA
+702f	Chime Seq			DATA
+7039	SID Voice Offsets		DATA
+703c	SID Volume Scale		DATA
+7046	Perform [filter]
+70c1	Perform [envelope]
+7164	Perform [collision]
+7190	Perform [sprcolor]
+71b6	Perform [width]
+71c5	Perform [vol]
+71ec	Perform [sound]
+72cc	Perform [window]
+7335	Perform [boot]
+7372	Perform [sprdef]
+7452	-Perform [home]
+7497	-Perform [1234]
+74f4	-Perform []
+74fe	-Perform [shift-return]
+7506	-Perform [m]
+751c	-Perform [y]
+751f	-Perform [x]
+7530	-Perform [clr]
+753f	-Perform [right]
+7542	-Perform [left]
+7564	-Perform [up]
+7567	-Perform [down]
+7576	-Perform [a]
+7581	-Perform [return]
+7588	-Perform [c]
+75d1	-?
+7610	-?
+763f	-?
+764a	-?
+7663	?				DATA
+767f	SPRDEF Commands			DATA
+7691	SPRDEF Command Vectors HI/LO	DATA
+76b5	SPRDEF Color Commands		DATA
+76c5	?
+76d4	?
+76ec	Perform [sprsav]
+77b3	Perform [fast]
+77c4	Perform [slow]
+77d7	Type Match Check
+77da	Confirm Numeric
+77dd	Confirm String
+77e7	Print 'type mismatch'
+77ea	Print 'formula too complex'
+77ef	Evaluate Expression
+78d7	Evaluate Item
+78fe	Constant PI			DATA
+7903	Continue Expression
+7930	Evaluate <equal>
+793c	Fixed-Float
+7942	?
+7950	Eval Within Parens
+7956	-Check Right Parenthesis
+7959	-Check Left Parenthesis
+795c	-Check Comma
+796c	Syntax Error
+7978	Search For Variable
+7a85	Unpack RAM1 to FAC#1
+7aaf	Locate Variable
+7b3c	Check Alphabetic
+7b46	Create Variable
+7cab	Set Up Array
+7d25	Print 'bad subscript'
+7d28	Print 'illegal quantity'
+7d2d	?
+7d46	?
+7e3e	Compute Array Size
+7e71	Array Pointer Subroutine
+
+7e82	Reserved For Future Patches
+
+; Patches added in the 1986 release:
+;
+7e82	Set Bank patch for [char]
+7e88	Set Bank patch for Screen Print Link
+7e8e	Patch for Renumber Scan
+7e94	Patch for [delete]
+7ea6	Patch for Note A-G
+7eb9	Pitch LO -- PAL			DATA
+7ec5	Pitch HI -- PAL			DATA
+7ed1	String Stack patch for Error
+7ed9	Unused				EMPTY
+7fc0	Copyright Banner		DATA
+7ffc	Checksum (?)			DATA
+
+
+;
+; BASIC ROM HI
+;
+8000	Evaluate <fre>
+8020	Decrypt Message
+803a	-Free in Bank 1
+804a	Evaluate <val>
+8052	String to Float
+8076	Evaluate <dec>
+80c5	Evaluate <peek>
+80e5	Perform [poke]
+80f6	Evaluate <err$>
+8139	Swap x With y
+8142	Evaluate <hex$>
+816b	Byte to Hex
+8182	Evaluate <rgr>
+818c	Get Graphics Mode
+819b	Evaluate <rclr>
+81f3	CRTC Color Codes		DATA
+8203	Evaluate <joy>
+8242	Joystick Values			DATA
+824d	Evaluate <pot>
+82ae	Evaluate <pen>
+82fa	Evaluate <pointer>
+831e	Evaluate <rsprite>
+835b	VIC Sprite Register Numbers	DATA
+8361	Evaluate <rspcolor>
+837c	Evaluate <bump>
+8397	Evaluate <rspos>
+83e1	Evaluate <xor>
+8407	Evaluate <rwindow>
+8434	Evaluate <rnd>
+8490	Rnd Multiplier			DATA
+849a	Value 32768			DATA
+849f	Float-Fixed Unsigned
+84a7	Evaluate Fixed Number
+84ad	Float-Fixed Signed
+84c9	Float (.y, .a)
+84d0	Evaluate <pos>
+84d4	Byte To Float
+84d9	Check Direct
+84dd	Print 'illegal direct'
+84e0	Print 'undef'd function'
+84e5	Set Up 16 Bit Fix-Float
+84f0	Check Direct
+84f5	Print 'direct mode only'
+84fa	Perform [def]
+8528	Check FN Syntax
+853b	Perform [fn]
+85ae	Evaluate <str$>
+85bf	Evaluate <chr$>
+85d6	Evaluate <left$>
+860a	Evaluate <right$>
+861c	Evaluate <mid$>
+864d	Pull String Parameters
+8668	Evaluate <len>
+866e	Exit String Mode
+8677	Evaluate <asc>
+8688	Calc String Vector
+869a	Set Up String
+874e	Build String to Memory
+877b	Evaluate String
+87e0	Clean Descriptor Stack
+87f1	Input Byte Parameter
+87f4	-Eval Byte Parameter
+8803	Params For Poke/Wait
+880f	Input Next Float/Fixed Value
+8812	-Input Float/Fixed Value
+8815	Float/Fixed
+882e	Subtract From Memory
+8831	Evaluate <subtract>
+8845	Add Memory
+8848	Evaluate <add>
+88d6	Zero Both Accuymulators
+8917	Trim FAC#1 Left
+8926	Negate FAC#1
+894e	Round Up FAC#1
+895d	Print 'overflow'
+8962	?
+899c	Log Series			DATA
+
+;899c	1.00
+;89a1	#03		(counter)
+;89a2	0.434255942
+;89a7	0.57658454
+;89ac	0.961800759
+;89b1	2.885390073
+;89b6	0.707106781	SQR(0.5)
+;89bb	1.41421356	SRQ(2)
+;89c0	-0.5
+;89c5	0.693147181	LOG(2)
+;
+
+89ca	Evaluate <log>
+8a0e	Add 0.5
+8a12	Add Memory At A/Y
+8a18	Subtract Memory At A/Y
+8a1e	Divide By Memory
+8a24	Multiply By Memory
+8a27	Evaluate <multiply>
+8a89	Unpack ROM to FAC#2
+8ab4	Unpack RAM1 to FAC#2
+8aec	Test Both Accumulators
+8b09	Overflow/Underflow
+8b17	Multiply By 10
+8b2e	+10				DATA
+
+8b33	Print 'division by zero'
+8b38	Divide By 10
+8b49	Divide Into Memory
+8b4c	Evaluate <divide>
+8bd4	Unpack ROM to FAC#1
+8bf9	Pack FAC#1 to $5e
+8bfc	Pack FAC#1 to $59
+8c00	Pack FAC#1 to RAM1
+8c28	FAC#2 to FAC#1
+8c38	FAC#1 to FAC#2
+8c47	Round FAC#1
+8c57	Get Sign
+8c65	Evaluate <sgn>
+8c68	Byte Fixed-Float
+8c75	Fixed-Float
+8c84	Evaluate <abs>
+8c87	Compare FAC#1 to Memory
+8cc7	Float-Fixed
+8cfb	Evaluate <int>
+8d22	String to FAC#1
+8db0	Get Ascii Digit
+8e17	String Conversion Constants	DATA
+
+;8e17	  99999999.9
+;8e1c	 999999999
+;8e21	1000000000
+;
+
+8e26	Print 'in...'
+8e32	Print Integer
+8e42	Float to Ascii
+8f76	+0.5				DATA
+8f7b	Decimal Constants		DATA
+; This table contains 4-byte powers of 10
+; used at 8ed2 in converting numeric values to ascii.
+;
+
+8f9f	TI Constants			DATA
+8fb7	Evaluate <sqr>
+8fbe	Raise to Memory Power
+8fc1	Evaluate <power>
+8ffa	Evaluate <negate>
+9005	Exp Series			DATA
+
+;9005	1.44269504	(1/LOG to base 2 e)
+;900a	#07		(counter)
+;900b	2.149875 E-5
+;9010	1.435231 E-4
+;9015	1.342263 E-3
+;901a	9.6414017 E-3
+;901f	5.550513 E-2
+;9024	2.402263 E-4
+;9029	6.931471 E-1
+;902e	1.00
+;
+
+9033	Evaluate <exp>
+90d0	I/O Error Message
+90d8	Basic 'open'
+90df	Basic 'chrout'
+90e5	Basic 'input'
+90eb	Redirect Output
+90fd	Redirect Input
+9112	Perform [save]
+9129	Perform [verify]
+912c	Perform [load]
+918d	Perform [open]
+919a	Perform [close]
+91ae	Get Load/Save Parameters
+91dd	Get Next Byte Value
+91e3	Get Character or Abort
+91eb	Move to Next Parameter
+91f6	Get Open/Close Parameters
+9243	Release I/O String
+9251	Call 'status'
+9257	Call 'setlfs'
+925d	Call 'setnam'
+9263	Call 'getin'
+9269	Call 'chrout'
+926f	Call 'clrchn'
+9275	Call 'close'
+927b	Call 'clall'
+9281	Print Following Text
+9287	Set Load/Save Bank
+928d	Call 'plot'
+9293	Call 'test stop'
+9299	Make Room For String
+92ea	Garbage Collection
+9409	Evaluate <cos>
+9410	Evaluate <sin>
+9459	Evaluate <tan>
+9485	Trig Series			DATA
+
+;9485	1.570796327	pi/2
+;948a	6.28318531	pi*2
+
+948f	0.25				DATA
+
+;
+;9494	#05	(counter)
+;9495	-14.3813907
+;949a	 42.0077971
+;949f	-76.7041703
+;94a4	 81.6052237
+;94a9	-41.3417021
+;94ae	 6.28318531
+;
+
+94b3	Evaluate <atn>
+94e3	ATN Series			DATA
+
+;94e3	#0b	(counter)
+;94e4	-0.000684793912
+;94e9	 0.00485094216
+;94ee	-0.161117018
+;94f3	 0.034209638
+;94f8	-0.0542791328
+;94fd	 0.0724571965
+;9502	-0.0898023954
+;9507	 0.110932413
+;950c	-0.142839808
+;9511	 0.19999912
+;9516	-0.333333316
+;951b	 1.00
+;
+
+9520	Print Using
+96ee	?
+97b9	?
+97fb	?
+981c	?
+98eb	?
+98f2	?
+99c1	Evaluate <instr>
+9a74	?
+9ace	?
+9af3	?
+9b0c	Evaluate <rdot>
+9b30	Draw Line
+9bfb	Plot Pixel
+9c49	Examine Pixel
+9c70	Set Hi-Res Color Cell
+9cca	Video Matrix Lines Hi		DATA
+9ce3	Position Pixel
+9d1c	Bit Masks			DATA
+9d24	Calc Hi-Res Row/Column
+9d4a	?
+9d67	Calculate Graphics Coordinates
+9d6d	Add Graphics Coordinate
+9d7c	Subtract Graphics Coordinate
+9d8f	Read Current X Position to A/Y
+9d99	?
+9dae	?
+9df2	Restore Pixel Cursor
+9e06	Check Optional Float/Fixed Parameter
+9e1c	Input Optional Byte Parameter
+9e1c	-Check Byte Parameter in List
+9e2f	Parse Graphics Command
+9e32	Get Color Source Param
+9f25	Multicolor Pixel Masks		DATA
+9f29	Conv Words Hi			DATA
+9f3d	Conv Words Lo			DATA
+9f4f	Allocate 9K Graphics Area for graphic/sprdef
+a022	Move Basic to $1c01
+a07e	Perform [catalog/directory]
+a11d	Perform [dopen]
+a134	Perform [append]
+a157	Find Spare SA
+a16f	Perform [dclose]
+a18c	Perform [dsave]
+a1a4	Perform [dverify]
+a1a7	Perform [dload]
+a1c8	Perform [bsave]
+a218	Perform [bload]
+a267	Perform [header]
+a2a1	Perform [scratch]
+a2d7	Perform [record]
+a322	Perform [dclear]
+a32f	Perform [collect]
+a346	Perform [copy]
+a362	Perform [concat]
+a36e	Perform [rename]
+a37c	Perform [backup]
+a3b8	Default DOS Disk Unit (U8 D0)	DATA
+
+;a3bc	DOS Logical Address
+;a3bd	DOS Physical Address
+;a3be	DOS Secondary Address
+;
+
+a3bf	Parse DOS Commands
+a4b4	?
+a5e7	Print 'missing file name'
+a5ea	Print 'illegal device number'
+a5ed	Print 'string too long'
+a627	DOS Command Masks		DATA
+a667	Set DOS Parameters
+a6d6	?
+a778	?
+a7e1	Print 'are you sure'
+a7e8	'are you sure?'			TEXT
+a80d	Release String
+a82a	'key 0,'			DATA
+a830	?
+a83b	?
+a845	Set Bank 15
+a84d	IRQ Work
+aa1f	Perform [stash]
+aa24	Perform [fetch]
+aa29	Perform [swap]
+
+aa6e	Reserved For Future Patches
+
+; Patch added in the 1986 release:
+aa6e	Patch for Print Using
+
+;
+
+aa81	Unused				EMPTY
+ae64	Encrypted Message		DATA
+
+af00	Basic Vectors
+
+;af00	JMP $84B4	; Convert F.P. to Integer
+;af03	JMP $793C	; Convert Integer to F.P.
+;af06	JMP $8E42	; Float to Ascii
+;af09	JMP $8052	; String to Float
+;af0c	JMP $8815	; Float/Fixed
+;af0f	JMP $8C75	; Fixed-Float
+
+;af12	JMP $882E	; Subtract From Memory
+;af15	JMP $8831	; Evaluate <subtract>
+;af18	JMP $8845	; Add Memory
+;af1b	JMP $8848	; Evaluate <add>
+;af1e	JMP $8A24	; Multiply By Memory
+;af21	JMP $8A27	; Evaluate <multiply>
+;af24	JMP $8B49	; Divide Into Memory
+;af27	JMP $8B4C	; Evaluate <divide>
+;af2a	JMP $89CA	; Evaluate <log>
+;af2d	JMP $8CFB	; Evaluate <int>
+;af30	JMP $8FB7	; Evaluate <sqr>
+;af33	JMP $8FFA	; Evaluate <negate>
+;af36	JMP $8FBE	; Raise to Memory Power
+;af39	JMP $8FC1	; Evaluate <power>
+;af3c	JMP $9033	; Evaluate <exp>
+;af3f	JMP $9409	; Evaluate <cos>
+;af42	JMP $9410	; Evaluate <sin>
+;af45	JMP $9459	; Evaluate <tan>
+;af48	JMP $94B3	; Evaluate <atn>
+;af4b	JMP $8C47	; Round FAC#1
+;af4e	JMP $8C84	; Evaluate <abs>
+;af51	JMP $8C57	; Get Sign
+;af54	JMP $8C87	; Compare FAC#1 to Memory
+;af57	JMP $8437	; Generate Random F.P. Number
+
+;af5a	JMP $8AB4	; Unpack RAM1 to FAC#2
+;af5d	JMP $8A89	; Unpack ROM to FAC#2
+;af60	JMP $7A85	; Unpack RAM1 to FAC#1
+;af63	JMP $8BD4	; Unpack ROM to FAC#1
+;af66	JMP $8C00	; Pack FAC#1 to RAM1
+;af69	JMP $8C28	; FAC#2 to FAC#1
+;af6c	JMP $8C38	; FAC#1 to FAC#2
+
+;af6f	JMP $4828	; Defunct Vectors
+;af72	JMP $9B30	; Draw Line
+;af75	JMP $9BFB	; Plot Pixel
+;af78	JMP $6750	; Draw Circle
+;af7b	JMP $5A9B	; Perform [run]
+;af7e	JMP $51F3	; Set Up Run
+;af81	JMP $51F8	; Perform [clr]
+;af84	JMP $51D6	; Perform [new]
+;af87	JMP $4F4F	; Rechain Lines
+;af8a	JMP $430A	; Crunch Tokens
+;af8d	JMP $5064	; Find Basic Line
+;af90	JMP $4AF6
+;af93	JMP $78D7	; Evaluate Item
+;af96	JMP $77EF	; Evaluate Expression
+;af99	JMP $5AA6
+;af9c	JMP $5A81
+;af9f	JMP $50A0	; Get Fixed Pt Number
+;afa2	JMP $92EA	; Garbage Collection
+;afa5	JMP $4DCD
+;
+
+afa8	Unused				EMPTY
+
+;
+; C128 Machine Language Monitor
+; B000 - BFFF
+;
+b000	Perform [monitor]
+b009	Break Entry
+b009	Print 'break'
+b00c	'break'				TEXT
+b021	Print 'call' entry
+b03a	Print 'monitor'
+b03d	'monitor'			TEXT
+b050	Perform [r]
+b050	Print '   pc sr ac xr yr sp'
+b053	'   pc sr ac xr yr sp'		TEXT
+b08b	Get Command
+b0bc	Error
+b0bf	'?'				TEXT
+b0e3	Perform [x]
+b0e6	Commands			DATA
+b0fc	Vectors				WORD
+b11a	Read Banked Memory
+b12a	Write Banked Memory
+b13d	Compare Banked Memory
+b152	Perform [m]
+b194	Perform [:]
+b1ab	Perform [>]
+b1c9	Print 'esc-o-up'
+b1cc	'esc-o-up'			TEXT
+b1d6	Perform [g]
+b1df	Perform [j]
+b1e8	Display Memory
+b20b	Print ':<rvs-on>'
+b20e	':<rvs-on>'			TEXT
+b231	Perform [c]
+b234	Perform [t]
+b2c3	Add 1 to Op 3
+b2c6	Do Next Address
+b2ce	Perform [h]
+b337	Perform [lsv]
+b3c4	Print 'error'
+b3db	Perform [f]
+b406	Perform [a]
+b533	Print 'space<esc-q>'
+b57c	Check 2 A-Matches
+b57f	Check A-Match
+b58b	Try Next Op Code
+b599	Perform [d]
+b5ae	Print '<cr><esc-q>'
+b5b1	'<cr><esc-q>'			TEXT
+b5d4	Display Instruction
+b5f2	Print '<3 spaces>'
+b5f5	'<3 spaces>'			TEXT
+b64d	?
+b659	Classify Op Code
+b6a1	Get Mnemonic Char
+b6c3	Mode Tables			DATA
+b715	Mode Characters			DATA
+b721	Compacted Mnemonics		DATA
+b7a5	Input Parameter
+b7ce	Read Value
+b88a	Number Bases			DATA
+b88e	Base Bits			DATA
+b892	Display 5-Digit Address
+b8a5	Display 2-digit Byte
+b8a8	Print Space
+b8ad	Print Cursor-Up
+b8b4	New Line
+b8b9	Blank New Line
+b8c2	Output 2-Digit Byte
+b8d2	Byte to 2 Ascii
+b8e7	Get Input Char
+b8e9	Get Character
+b901	Copy Add0 to Add2
+b90e	Calculate Add2 - Add0
+b922	Subtract Add0
+b93c	Subtract Add1
+b950	Increment Pointer
+b960	Decrement Pointer
+b974	Copy to Register Area
+b983	Calculate Step/Area
+b9b1	Perform [$+&%]
+ba07	Convert to Decimal
+ba47	Transfer Address
+ba5d	Output Address
+ba90	Perform [@]
+
+bb72	Reserved For Future Patches
+
+; Patches added in the 1986 release:
+bb72	Unused				EMPTY
+bfc0	Copyright Banner		DATA
+bffc	Checksum (?)			DATA
+;
+
+
+;
+; C128 KERNEL Rev 1  ROM ($C000 - $FFFF)
+;
+;  Editor
+;
+
+;  Editor Jump Table
+;
+c000	-cint-	Initialize Editor & Screen
+c003	Display Character in .A, Color
+c006	Get from Keyboard
+c009	Screen Input Link
+c00c	Screen Print Link
+c00f	-screen-	Get # of Scrn Rows, Cols Into X & Y
+c012	-scnkey-	Scan Keyboard Subroutine
+c015	Handle Repeat Key & Store Decoded Key
+c018	-plot-	Read Or Set CRSR Position In X, Y
+c01b	Move 8563 Cursor Subroutine
+c01e	Execute ESC Function using chr in .A
+c021	Define FN Key
+c024	IRQ Link
+c027	Upload 80 Col [ce0c]
+c02a	Swap 40/80 Col [cd2e]
+c02d	Set Window
+
+c033	Screen Address Low		DATA
+c04c	Screen Address High		DATA
+c065	I/O Link Vectors		WORD
+c06f	Keyboard Shift Vectors		WORD
+c07b	Initialize Screen
+c142	Reset Window
+c150	Home Cursor
+c156	Goto Left Border
+c15c	Set Up New Line
+c17c	Do Screen Color
+c194	(IRQ) Split Screen
+c234	Get a Key
+c258	Screen Line Editor
+c29b	Input From Screen
+c2bc	Read Screen Char
+c2ff	Check For Quotes
+c30c	Wrap Up Screen Print
+c320	Ascii to Screen Code
+c33e	Check Cursor Range
+c363	Do New Line
+c37c	Insert a Line
+c3a6	Scroll Screen
+c3dc	Delete a Line
+c40d	Move Screen Line
+c4a5	Clear a Line
+c53c	Set 80-Column Counter to 1
+c53e	Set 80-Column Counter
+c55d	Keyboard Scan Subroutine
+c651	Key Pickup & Repeat
+c6dd	Keycodes for Programmed Keys	DATA
+c6e7	Flash 40 Column Cursor
+c72d	Print to Screen
+c77d	Esc-o (escape)
+c78c	Control Characters		DATA
+c79a	Control Character Vectors	WORD
+c7b6	Print Control Char
+c802	Print Hi-Bit Char
+c854	Chr$(29)  Cursor Right
+c85a	Chr$(17)  Cursor Down
+c875	Chr$(157) Cursor Left
+c880	Chr$(14)  Text Mode
+c8a6	Chr$(11)  Lock
+c8ac	Chr$(12)  Unlock
+c8b3	Chr$(19)  Home
+c8bf	Chr$(146) Clear Rvs Mode
+c8c2	Chr$(18)  Reverse
+c8c7	Chr$(2)   Underline On
+c8ce	Chr$(130) Underline Off
+c8d5	Chr$(15)  Flash On
+c8dc	Chr$(143) Flash Off
+c8e3	Open Screen Space
+c91b	Chr$(20)  Delete
+c932	Restore Cursor
+c94f	Chr$(9)  Tab
+c961	Chr$(24) Tab Toggle
+c96c	Find Tab Column
+c980	Esc-z	 Clear All Tabs
+c983	Esc-y	 Set Default Tabs
+c98e	Chr$(7)	 Bell
+c9b1	Chr$(10) Linefeed
+c9be	Analyze Esc Sequence
+c9de	Esc Sequence Vectors		WORD
+ca14	Esc-t	Top
+ca16	Esc-b	Bottom
+ca1b	Set Window Part
+ca24	Exit Window
+ca3d	Esc-i	Insert Line
+ca52	Esc-d	Delete Line
+ca76	Esc-q	Erase End
+ca8b	Esc-p	Erase Begin
+ca9f	Esc-@	Clear Remainder of Screen
+cabc	Esc-v	Scroll Up
+caca	Esc-w	Scroll Down
+cae2	Esc-l	Scroll On
+cae5	Esc-m	Scroll Off
+caea	Esc-c	Cancel Auto Insert
+caed	Esc-a	Auto Insert
+caf2	Esc-s	Block Cursor
+cafe	Esc-u	Underline Cursor
+cb0b	Esc-e	Cursor Non Flash
+cb21	Esc-f	Cursor Flash
+cb37	Esc-g	Bell Enable
+cb3a	Esc-h	Bell Disable
+cb3f	Esc-r	Screen Reverse
+cb48	Esc-n	Screen Normal
+cb52	Esc-k	End-of-Line
+cb58	Get Screen Char/Color
+cb74	Check Screen Line of Location
+cb81	Extend/Trim Screen Line
+cb9f	Set Up Line Masks
+cbb1	Esc-j	Start-of-Line
+cbc3	Find End-of-Line
+cbed	Move Cursor Right
+cc00	Move Cursor Left
+cc1e	Save Cursor
+cc27	Print Space
+cc2f	Print Character
+cc32	Print Fill Color
+cc34	Put Char to Screen
+cc5b	Get Rows/Columns
+cc6a	Read/Set Cursor
+cca2	Define Function Key
+cd2c	Esc-x	Switch 40/80 Col
+cd57	Position 80-col Cursor
+cd6f	Set Screen Color
+cd9f	Turn Cursor On
+cdca	Set CRTC Register 31
+cdcc	Set CRTC Register
+cdd8	Read CRTC Register 31
+cdda	Read CRTC Register
+cde6	Set CRTC to Screen Address
+cdf9	Set CRTC to Color Address
+ce0c	Set Up 80 Column Char Set
+ce4c	Ascii Color Codes		DATA
+ce5c	System Color Codes		DATA
+ce6c	Bit Masks			DATA
+ce74	40-col Init Values ($e0)	DATA
+ce8e	80-col Init Values ($0a40)	DATA
+cea8	Prog Key Lengths		DATA
+ceb2	Prog Key Definitions		DATA
+cef5	Unused				EMPTY
+;
+d000	I/O or Chargen			DATA
+
+;
+; C128 Kernel revision 1
+; E000 - FFFF
+;
+e000	Reset Code
+e04b	MMU Set Up Bytes		DATA
+e056	-restor-
+e05b	-vector-
+e073	Vectors to $0314		WORD
+e093	-ramtas-
+e0cd	Move Code For High RAM Banks
+e105	RAM Bank Masks			DATA
+e109	-init-
+e1dc	Set Up CRTC Registers
+e1f0	Check Special Reset
+e242	Reset to 64/128
+e24b	Switch to 64 Mode
+e263	Code to $02
+e26b	Scan All ROMs
+e2bc	ROM Addresses High		DATA
+e2c0	ROM Banks			DATA
+e2c4	Print 'cbm' Mask		DATA
+e2c7	VIC 8564 Set Up			DATA
+e2f8	CRTC 8563 Set Up Pairs		DATA
+e33b	-talk-
+e33e	-listen-
+e38c	Send Data On Serial Bus
+e43e	-acptr-
+e4d2	-second-
+e4e0	-tksa-
+e503	-ciout-  Print Serial
+e515	-untlk-
+e526	-unlsn-
+e535	Reset ATN
+e545	Set Clock High
+e54e	Set Clock Low
+e557	Set Data High
+e560	Set Data Low
+e569	Read Serial Lines
+e573	Stabilize Timing
+e59f	Restore Timing
+e5bc	Prepare For Response
+e5c3	Fast Disk Off
+e5d6	Fast Disk On
+e5fb	Fast Disk On/Off
+e5ff	(NMI) Transmit RS-232
+e64a	RS-232 Handshake
+e68e	Set RS-232 Bit Count
+e69d	(NMI) RS-232 Receive
+e75f	Send To RS-232
+e795	Connect RS-232 Input
+e7ce	Get From RS-232
+e7ec	Interlock RS-232/Serial
+e805	(NMI) RS-232 Control I/O
+e850	RS-232 Timing Table -- NTSC	DATA
+e864	RS-232 Timing Table -- PAL	DATA
+e878	(NMI) RS-232 Receive Timing
+e8a9	(NMI) RS-232 Transmit Timing
+e8d0	Find Any Tape Header
+e919	Write Tape Header
+e980	Get Buffer Address
+e987	Get Tape Buffer Start & End Addrs
+e99a	Find Specific Header
+e9be	Bump Tape Pointer
+e9c8	Print 'press play on tape'
+e9df	Check Tape Status
+e9e9	Print 'press record ...'
+e9f2	Initiate Tape Read
+ea15	Initiate Tape Write
+ea26	Common Tape Code
+ea7d	Wait For Tape
+ea8f	Check Tape Stop
+eaa1	Set Read Timing
+eaeb	(IRQ) Read Tape Bits
+ec1f	Store Tape Chars
+ed51	Reset Pointer
+ed5a	New Char Set Up
+ed69	Write Transition to Tape
+ed8b	Write Data to Tape
+ed90	(IRQ) Tape Write
+ee2e	(IRQ) Tape Leader
+ee57	Wind Up Tape I/O
+ee9b	Switch IRQ Vector
+eea8	IRQ Vectors			WORD
+eeb0	Kill Tape Motor
+eeb7	Check End Address
+eec1	Bump Address
+eec8	(IRQ) Clear Break
+eed0	Control Tape Motor
+eeeb	-getin-
+ef06	-chrin-
+ef48	Get Char From Tape
+ef79	-chrout-
+efbd	-open-
+f0b0	Set CIA to RS-232
+f0cb	Check Serial Open
+f106	-chkin-
+f14c	-chkout-
+f188	-close-
+f1e4	Delete File
+f202	Search For File
+f212	Set File Parameters
+f222	-clall-
+f226	-clrchn-
+f23d	Clear I/O Path
+f265	-load-
+f27b	Serial Load
+f32a	Tape Load
+f3a1	Disk Load
+f3ea	Burst Load
+f48c	Close Off Serial
+f4ba	Get Serial Byte
+f4c5	Receive Serial Byte
+f503	Toggle Clock Line
+f50c	Print 'u0' Disk Reset		DATA
+f50f	Print 'searching'
+f521	Send File Name
+f533	Print 'loading'
+f53e	-save-
+f5b5	Terminate Serial Input
+f5bc	Print 'saving'
+f5c8	Save to Tape
+f5f8	-udtim-
+f63d	Watch For RUN or Shift
+f65e	-rdtim-
+f665	-settim-
+f66e	-stop-
+f67c	Print 'too many files'
+f67f	Print 'file open'
+f682	Print 'file not open'
+f685	Print 'file not found'
+f688	Print 'device not present'
+f68b	Print 'not input file'
+f68e	Print 'not output file'
+f691	Print 'missing file name'
+f694	Print 'illegal device no'
+f697	Error #0
+f6b0	Messages			DATA
+f71e	Print If Direct
+f722	Print I/O Message
+f731	-setnam-
+f738	-setlfs-
+f73f	Set Load/Save Bank
+f744	-rdst-
+f757	Set Status Bit
+f75c	-setmsg-
+f75f	Set Serial Timeout
+f763	-memtop-
+f772	-membot-
+f781	-iobase-
+f786	Search For SA
+f79d	Search & Set Up File
+f7a5	Trigger DMA
+f7ae	Get Char From Memory
+f7bc	Store Loaded Byte
+f7c9	Read Byte to be Saved
+f7d0	Get Char From Memory Bank
+f7da	Store Char to Memory Bank
+f7e3	Compare Char With Memory Bank
+f7ec	Load Memory Control Mask
+f7f0	MMU Bank Configuration Values	DATA
+f800	Subroutines to $02a2-$02fb
+f85a	DMA Code to $03f0
+f867	Check Auto Start ROM
+f890	Check For Boot Disk
+f908	Print 'booting'
+f92c	Print '...'
+f98b	Wind Up Disk Boot
+f9b3	Read Next Boot Block
+f9fb	To 2-Digit Decimal
+fa08	Block Read Command String	DATA
+fa17	Print a Message
+fa40	NMI Sequence
+fa65	(IRQ) Normal Entry
+fa80	Keyboard Matrix Un-Shifted	DATA
+fad9	Keyboard Matrix Shifted		DATA
+fb32	Keyboard Matrix C-Key		DATA
+fb8b	Keyboard Matrix Control		DATA
+fbe4	Keyboard Matrix Caps-Lock	DATA
+fc40	?
+fc45	?
+fc50	?
+
+; Patch for the C128 D
+fc62	Patch for Set Up CRTC Registers
+
+;
+fc6f	Unused				EMPTY
+fc80	?
+fc87	Init KBD Translation Tables
+; This is patch for Scan Keyboard Subroutine
+; to handle DIN Keyboard.
+
+fcc6	DIN Keyboard patch for Key Pickup
+
+fd29	DIN Keyboard Matrix Un-Shifted	DATA
+fd82	DIN Keyboard Matrix Shifted	DATA
+fddb	DIN Keyboard Matrix C-Key	DATA
+fe34	DIN Keyboard Shift Vectors	DATA
+fe81	?
+fe8c	Unused				EMPTY
+feff	Patch byte			DATA
+
+ff00	MMU Configuration Register	CHIP
+ff01	MMU LCR: Bank 0			CHIP
+ff02	MMU LCR: Bank 1			CHIP
+ff03	MMU LCR: Bank 14		CHIP
+ff04	MMU LCR: Bank 14 Over RAM 1	CHIP
+
+ff05	NMI Transfer Entry
+ff17	IRQ Transfer Entry
+ff33	Return From Interrupt
+ff3d	Reset Transfer Entry
+ff47	Jumbo Jump Table
+;
+; C128 Kernal Jump Table
+;
+ff47	jmp $e5fb	spinspout	(fast serial)
+ff4a	jmp $f23d	close all
+ff4d	jmp $e24b	64mode
+ff50	jmp $f7a5	dma call
+ff53	jmp $f890	boot call
+ff56	jmp $f867	foenix
+ff59	jmp $f79d	lkupla		(logical addr)
+ff5c	jmp $f786	lkupsa		(second addr)
+ff5f	jmp $c02a	swapper		40/80 swap
+ff62	jmp $c027	dlchr		Init 80col charam
+ff65	jmp $c021	pfkey		Prog Function Key
+ff68	jmp $f73f	setbnk
+ff6b	jmp $f7ec	setcfg
+ff6e	jmp $02cd	jsrfar
+ff71	jmp $02e3	jmpfar
+ff74	jmp $f7d0	indfet		Bank LDA (fetchvec),y
+ff77	jmp $f7da	indsta		Bank STA (stavec),y
+ff7a	jmp $f7e3	indcmp		Bank CMP (cmpvec),y
+ff7d	jmp $fa17	primm		Print Immediate
+ff80	[01]				Kernal Version Number		DATA
+ff81	jmp $c000	cint		Init Editor & Video Chips
+ff84	jmp $e109	ioinit		Init I/O Devices, Ports & Timers
+ff87	jmp $e093	ramtas		Init Ram & Buffers
+ff8a	jmp $e056	restor		Restore Vectors
+ff8d	jmp $e05b	vector		Change Vectors For User
+ff90	jmp $f75c	setmsg		Control OS Messages
+ff93	jmp $e4d2	secnd		Send SA After Listen
+ff96	jmp $e4e0	tksa		Send SA After Talk
+ff99	jmp $f763	memtop		Set/Read System RAM Top
+ff9c	jmp $f772	membot		Set/Read System RAM Bottom
+ff9f	jmp $c012	key		Scan Keyboard
+ffa2	jmp $f75f	settmo		Set Timeout In IEEE
+ffa5	jmp $e43e	acptr		Handshake Serial Byte In
+ffa8	jmp $e503	ciout		Handshake Serial Byte Out
+ffab	jmp $e515	untlk		Command Serial Bus UNTALK
+ffae	jmp $e526	unlsn		Command Serial Bus UNLISTEN
+ffb1	jmp $e33e	listn		Command Serial Bus LISTEN
+ffb4	jmp $e33b	talk		Command Serial Bus TALK
+ffb7	jmp $f744	readss		Read I/O Status Word
+ffba	jmp $f738	setlfs		Set Logical File Parameters
+ffbd	jmp $f731	setnam		Set Filename
+ffc0	jmp ($031a)	(iopen)		Open Vector [efbd]
+ffc3	jmp ($031c)	(iclose)	Close Vector [f188]
+ffc6	jmp ($031e)	(ichkin)	Set Input [f106]
+ffc9	jmp ($0320)	(ichkout)	Set Output [f14c]
+ffcc	jmp ($0322)	(iclrch)	Restore I/O Vector [f226]
+ffcf	jmp ($0324)	(ibasin)	Input Vector, chrin [ef06]
+ffd2	jmp ($0326)	(ibsout)	Output Vector, chrout [ef79]
+ffd5	jmp $f265	loadsp		Load RAM From Device
+ffd8	jmp $f53e	savesp		Save RAM To Device
+ffdb	jmp $f665	settim		Set Real-Time Clock
+ffde	jmp $f65e	rdtim		Read Real-Time Clock
+ffe1	jmp ($0328)	(istop)		Test-Stop Vector [f66e]
+ffe4	jmp ($032a)	(igetin)	Get Vector [eeeb]
+ffe7	jmp ($032c)	(iclall)	Close All Channels And Files [f222]
+ffea	jmp $f5f8	udtim		Increment Real-Time Clock
+ffed	jmp $c00f	scrorg		Return Screen Organization
+fff0	jmp $c018	plot		Read / Set Cursor X/Y Position
+fff3	jmp $f781	iobase		Return I/O Base Address
+
+fff6	System Vectors
+fff6	[ffff]					WORD
+fff8	SYSTEM [e224]				WORD
+
+fffa	Transfer Vectors
+fffa	NMI   [ff05]				WORD
+fffc	RESET [ff3d]				WORD
+fffe	IRQ   [ff17]				WORD

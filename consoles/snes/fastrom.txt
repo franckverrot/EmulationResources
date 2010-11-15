@@ -1,0 +1,45 @@
+From:     LAY@uk.tele.nokia.fi
+To:       "Super Famicom Development Group" <FAMIDEV@BUSOP.CIT.WAYNE.EDU>
+Subject:  The need for speed revisited...
+Date:     Wed, 16 Feb 1994 11:00:49 GMT
+
+I unsubscribed from this mailing list after my suggestion that 
+maybe the processor would run faster when executing from RAM 
+brought responses such as "if you want something to run that 
+fast you should use a PC" which quickly turned into a whole
+barrage of "my Amiga is faster than your PC" mails. Just the 
+sort of comments I was hoping to get from this mailing 
+list... )-: However I'm changing jobs and I don't know whether
+I'll have internet access at my new job, so I'd better make
+the most of it...
+
+So, for anyone like myself who wants to get the most out 
+of their SNES I thought I'd let you know that I've managed to
+run the program in FASTROM which has resulted in a 33% speed
+improvement - the 65816 runs at 3.58Mhz rather than 2.68Mhz.
+This is possible because the ROMs have a faster access time
+- hence the reason I thought it may be possible with RAM which
+typically has faster access times than ROM.
+
+So how's it done?
+
+The SNES lets you access ROM through bank $00 onwards and bank 
+$80 onwards such that locations $008000 and $808000, $008001 and
+$808001, $008002 and $808002 etc... all access the same locations.
+When accessing bank $00 onwards the 65816 runs at 2.68Mhz. However,
+when accessing bank $80 onwards the 65816 can run at 2.68Mhz or 
+3.58Mhz depending on how you set bit 0 of $420D.
+
+So all you have to do is assemble your program so that it
+starts at $808000, make sure you set the programming and 
+data banks to $80 (K and D) and set bit 0 of $420D. You'll 
+also need to mask off the bank part of the run/reset vector 
+and vertical blank interrupt locations. 
+
+Paul.
+
+PS. I also see that the source code for an early version of my 
+GIF2SNES program has made it onto the ftp site by a somewhat
+indirect route (UK->NZ->AUS->USA). If someone wanted
+this source code let me know and I'll post the latest fully
+optimising version.

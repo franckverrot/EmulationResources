@@ -1,0 +1,115 @@
+Neo Geo Cartritge: 8 Man
+Size Mbit: 46
+Size bytes: 6.029.339
+
+N046001A 038       524.288	Main 68k Code MGD2 Format
+N046001A 1F8       524.288	Sound ADPCM
+N046001A 1FC       524.288	Sound ADPCM
+N046001A 378       131.072	Fix
+N046001A 4F8       131.072	Z80 Code
+N046001A 538       524.288	GFX Part I  [Planes 1 and 2]
+N046001A 53C       524.288	GFX Part II [Planes 1 and 2]
+N046001A 638       524.288	GFX Part I  [Planes 3 and 4]
+N046001A 63C       524.288	GFX Part II [Planes 3 and 4]
+N046001B 1F8       524.288	Sound ADPCM
+N046001B 1FC       524.288	Sound ADPCM
+N046001B 538       524.288	GFX Part III [Planes 1 and 2]
+N046001B 638       524.288	GFX Part III [Planes 3 and 4]
+
+[Juan Carlos 1997]
+
+NG Cartritge: Alpha Mission II
+Size Mbit: 82
+Size bytes: 10.747.942
+
+N082001A 038       524.288 	Main 68k Program
+N082001A 03C       524.288 	Main 68k Program Part II
+N082001A 178       524.288 	Sound ADPCM
+N082001A 17C       524.288 	Sound ADPCM
+N082001A 278       524.288 	Sound ADPCM
+N082001A 27C       524.288 	Sound ADPCM
+N082001A 378       131.072 	Fix 
+N082001A 478       131.072 	Z80 Code
+N082001A 538       524.288	GFX Part I   [Planes 1 & 2]
+N082001A 53C       524.288  	GFX Part II  [Planes 1 & 2]
+N082001A 638       524.288  	GFX Part I   [Planes 3 & 4]
+N082001A 63C       524.288  	GFX Part II  [Planes 3 & 4]
+N082001B 178       524.288  	Sound ADPCM
+N082001B 17C       524.288  	Sound ADPCM
+N082001B 278       524.288  	Sound ADPCM
+N082001B 27C       524.288  	Sound ADPCM
+N082001B 538       524.288  	GFX Part III [Planes 1 & 2]
+N082001B 638       524.288  	GFX Part III [Planes 3 & 4]
+N082001C 278       524.288  	Sound ADPCM
+N082001C 27C       524.288  	Sound ADPCM
+N082001D 278       524.288  	Sound ADPCM
+N082001D 27C       524.288  	Sound ADPCM
+
+[Juan Carlos 1997]
+NG Cabinet Bios
+Document Rev.0.1
+
+[Juan Carlos 1997]
+
+[ 0 ] Bios Revision
+
+	This bios is from the Cabinet NG Machine [ARCADE]
+
+	Revision of the Bios [Rev. 0]
+
+[ 1 ] What it do?
+
+	The bios is the responsable of initialize the NG.
+
+	and...
+
+	[] Checking hardware status
+	[] Switches
+	[] Maintenance of the time/date
+	[] Backup control
+	[] Warning advertance (don't copy, etc, etc)
+
+[ 2 ] Reading the Bios
+
+	The file was extracted in changed position
+
+	To read the file correctly:
+
+	Original: 01234567... bytes
+
+	Correct:  10325476... etc
+
+	The code of the Bios is totally 68k source
+
+[ 3 ] What more...
+
+	This Bios was the first to be out, and they are three machines.
+	All the machines are the same with a few differencies.
+	One of the differencies is the bios :(
+
+	Cabinet
+	Cartritge
+	CD
+
+	In cartritge and CD machine the bios contain animation and 
+	initializing sound.
+
+[ 4 ] Help Wanted
+
+	The cartritge bios and the CD bios
+	Note: The CD bios contain two modules
+
+[Juan Carlos 1997]
+
+Neo Geo Cartritge: Joy Joy Kid
+Size Mbit: 22
+
+N022001a.038 [512Kb] Main Program 68k CODE
+N022001a.178 [512Kb] Samples in ADPCM Format
+N022001a.278 [512Kb] Samples in ADPCM Format
+N022001a.378 [128Kb] FIX File
+N022001a.478 [128Kb] V.2.0 by Mr.Pac -- Sound data program -- Z80 CODE
+N022001a.538 [512Kb] GFX [Planes 1 and 2]
+N022001a.638 [512Kb] GFX [Planes 3 and 4]
+
+[Juan Carlos 1997]

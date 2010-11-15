@@ -1,0 +1,2791 @@
+Comprehensive NES Mapper Document v0.70 by \Firebug\ (lavos@bellsouth.net)
+Best viewed under DOS EDIT
+Information provided by FanWen, Y0SHi, D, and Jim Geffre
+Free for non-commercial use
+This document is dedicated to Vertigo 2099, the greatest ROM releasing
+group on the net, of which I am a proud member. And Jim Geffre, the author
+of PCNES. Thanks for all the help.
+
+****************************************************************************
+Why did I write this? There just isn't any good widely available
+documentation on the "extended" mappers (16 and above). FanWen's documents
+(on which the extended mapper section is largely based) are an excellent
+source of information, but I discovered several errors in them, and more
+importantly, they are quite hard to obtain. I also wanted to combine the
+several documents I had on MMC1 into one comprehensive document.
+I have little information on MMC5. If you know anything about this that
+I don't, please contact me at lavos@bellsouth.net. You will, of course,
+be given full credit for the information. Any other mapper information
+not given here is also appreciated. I cannot guarantee that this information
+is 100% accurate. What I can guarantee is that I have put in the maximum
+possible amount of effort to get this document as accurate as possible.
+If you notice a mistake, please tell me about it, and I'll give you
+credit for the fix.
+****************************************************************************
+
+ зддддддддд©
+ Ё History Ё
+ юддддддддды
+
+0.70            First public release
+0.68            Sunsoft mapper 4 (AfterBurner ][) added
+0.67            Combined mapper #21 with the other VRC4 type
+0.65            Added sections on Sunsoft FME-7 and VRC4 type B mappers
+0.61            Corrected serious errors in mapper #21 section
+                Added some preliminary MMC5 information
+0.60            Initial release
+
+****************************************************************************
+
+ здддддддддддддддд©
+ Ё Mapper 1: MMC1 Ё
+ юдддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on numerous U.S. and Japanese games, including Ё
+ Ё Legend of Zelda, Metroid, Rad Racer, MegaMan 2, and many others.   Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд© здддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 д $9FFF цд╢ RxxCFHPM                                               Ё
+ Ё (Register 0)  Ё Ё Ё  ЁЁЁЁЁ                                               Ё
+ юддддддддддддддды Ё Ё  ЁЁЁЁюддд Mirroring Flag                             Ё
+                   Ё Ё  ЁЁЁЁ      0 = Horizontal                            Ё
+                   Ё Ё  ЁЁЁЁ      1 = Vertical                              Ё
+                   Ё Ё  ЁЁЁЁ                                                Ё
+                   Ё Ё  ЁЁЁюдддд OneдScreen Mirroring                       Ё
+                   Ё Ё  ЁЁЁ       0 = All pages mirrored from PPU $2000     Ё
+                   Ё Ё  ЁЁЁ       1 = Regular mirroring                     Ё
+                   Ё Ё  ЁЁЁ                                                 Ё
+                   Ё Ё  ЁЁюддддд PRG Switching Area                         Ё
+                   Ё Ё  ЁЁ        0 = Swap ROM bank at $C000                Ё
+                   Ё Ё  ЁЁ        1 = Swap ROM bank at $8000                Ё
+                   Ё Ё  ЁЁ                                                  Ё
+                   Ё Ё  Ёюдддддд PRG Switching Size                         Ё
+                   Ё Ё  Ё         0 = Swap 32K of ROM at $8000              Ё
+                   Ё Ё  Ё         1 = Swap 16K of ROM based on bit 2        Ё
+                   Ё Ё  Ё                                                   Ё
+                   Ё Ё  юддддддд <Carts with VROM>                          Ё
+                   Ё Ё           VROM Switching Size                        Ё
+                   Ё Ё            0 = Swap 8K of VROM at PPU $0000          Ё
+                   Ё Ё            1 = Swap 4K of VROM at PPU $0000 and $1000Ё
+                   Ё Ё           <1024K carts>                              Ё
+                   Ё Ё            0 = Ignore 256K selection register 0      Ё
+                   Ё Ё            1 = Acknowledge 256K selection register 1 Ё
+                   Ё Ё                                                      Ё
+                   Ё юдддддддддд Reset Port                                 Ё
+                   Ё              0 = Do nothing                            Ё
+                   Ё              1 = Reset register 0                      Ё
+                   юдддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд© здддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A000 д $BFFF цд╢ RxxPCCCC                                               Ё
+ Ё (Register 1)  Ё Ё Ё  ЁЁ  Ё                                               Ё
+ юддддддддддддддды Ё Ё  Ёюддадддд Select VROM bank at $0000                 Ё
+                   Ё Ё  Ё         If bit 4 of register 0 is off, then switchЁ
+                   Ё Ё  Ё         a full 8K bank. Otherwise, switch 4K only.Ё
+                   Ё Ё  Ё                                                   Ё
+                   Ё Ё  юдддддддд 256K ROM Selection Register 0             Ё
+                   Ё Ё            <512K carts>                              Ё
+                   Ё Ё            0 = Swap banks from first 256K of PRG     Ё
+                   Ё Ё            1 = Swap banks from second 256K of PRG    Ё
+                   Ё Ё            <1024K carts with bit 4 of register 0 off>Ё
+                   Ё Ё            0 = Swap banks from first 256K of PRG     Ё
+                   Ё Ё            1 = Swap banks from third 256K of PRG     Ё
+                   Ё Ё            <1024K carts with bit 4 of register 0 on> Ё
+                   Ё Ё            Low bit of 256K PRG bank selection        Ё
+                   Ё Ё                                                      Ё
+                   Ё юддддддддддд Reset Port                                Ё
+                   Ё              0 = Do nothing                            Ё
+                   Ё              1 = Reset register 1                      Ё
+                   юдддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд© здддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C000 д $DFFF цд╢ RxxPCCCC                                               Ё
+ Ё (Register 2)  Ё Ё Ё  ЁЁ  Ё                                               Ё
+ юддддддддддддддды Ё Ё  Ёюддадд Select VROM bank at $1000                   Ё
+                   Ё Ё  Ё        If bit 4 of register 0 is on, then switch  Ё
+                   Ё Ё  Ё        a 4K bank at $1000. Otherwise ignore it.   Ё
+                   Ё Ё  Ё                                                   Ё
+                   Ё Ё  юдддддд 256K ROM Selection Register 1               Ё
+                   Ё Ё           <1024K carts with bit 4 of register 0 off> Ё
+                   Ё Ё            Store but ignore this bit (base 256K      Ё
+                   Ё Ё            selection on 256K selection register 0)   Ё
+                   Ё Ё           <1024K carts with bit 4 of register 0 on>  Ё
+                   Ё Ё            High bit of 256K PRG bank selection       Ё
+                   Ё Ё                                                      Ё
+                   Ё юддддддддд Reset Port                                  Ё
+                   Ё             0 = Do nothing                             Ё
+                   Ё             1 = Reset register 2                       Ё
+                   юдддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд© здддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E000 д $FFFF цд╢ RxxxCCCC                                               Ё
+ Ё (Register 3)  Ё Ё Ё   Ё  Ё                                               Ё
+ юддддддддддддддды Ё Ё   юддаддд Select ROM bank                            Ё
+                   Ё Ё           Size is determined by bit 3 of register 0  Ё
+                   Ё Ё           If it's a 32K bank, it will be swapped at  Ё
+                   Ё Ё           $8000. (NOTE: In this case, the value      Ё
+                   Ё Ё           written should be shifted right 1 bit to   Ё
+                   Ё Ё           get the actual value.) If it's a 16K bank, Ё
+                   Ё Ё           it will be selected at $8000 or $C000 basedЁ
+                   Ё Ё           on the value in bit 2 of register 0.       Ё
+                   Ё Ё           Don't forget to also account for the 256K  Ё
+                   Ё Ё           block swapping if the PRG size is 512K or  Ё
+                   Ё Ё           more.                                      Ё
+                   Ё Ё                                                      Ё
+                   Ё юдддддддддд Reset Port                                 Ё
+                   Ё             0 = Do nothing                             Ё
+                   Ё             1 = Reset register 3                       Ё
+                   юдддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the LAST 16K bank into $C000. Normally,
+           the first 16K bank is swapped via register 3 and the last bank
+           remains "hard-wired". However, bit 2 of register 0 can change
+           this. If it's clear, then the first 16K bank is "hard-wired" to
+           bank zero, and the last bank is swapped via register 3. Bit 3
+           of register 0 will override either of these states, and allow
+           the whole 32K to be swapped.
+        - MMC1 ports are only one bit. Therefore, a value will be written
+           into these registers one bit at a time. Values aren't used until
+           the entire 5-bit array is filled. This buffering can be reset
+           by writing bit 7 of the register.
+        - For more information on this mapper, read Matt Richey's excellent
+           MMC1 documents. They're more accurate and detailed than mine.
+
+****************************************************************************
+
+ зддддддддддддддддд©
+ Ё Mapper 2: UNROM Ё
+ юддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on many older U.S. and Japanese games, such as Ё
+ Ё Castlevania, MegaMan, Ghosts & Goblins, and Amagon.                Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©         здддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 д $FFFF цддддддддд╢ PPPPPPPP                                 Ё
+ юддддддддддддддды         Ё юддбддды                                 Ё
+                           Ё    Ё                                     Ё
+                           Ё    Ё                                     Ё
+                           Ё    юддддддд Select 16K ROM bank at $8000 Ё
+                           юдддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the LAST 16K ROM bank is loaded into
+           $C000. This last 16K bank is permanently "hard-wired" to $C000,
+           and it cannot be swapped.
+        - This mapper has no provisions for VROM; therefore, all carts
+           using it have 8K of VRAM at PPU $0000.
+        - Most carts with this mapper are 128K. A few, mostly Japanese
+           carts, such as Final Fantasy 2 and Dragon Quest 3, are 256K.
+        - Overall, this is one of the easiest mappers to implement in
+           a NES emulator.
+
+****************************************************************************
+
+ зддддддддддддддддд©
+ Ё Mapper 3: CNROM Ё
+ юддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on many older U.S. and Japanese games, such as Ё
+ Ё Solomon's Key, Gradius, and Hudson's Adventure Island.             Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 д $FFFF цддд╢ CCCCCCCC                                     Ё
+ юддддддддддддддды   Ё юддбддды                                     Ё
+                     Ё    Ё                                         Ё
+                     Ё    Ё                                         Ё
+                     Ё    юддддддд Select 8K VROM bank at PPU $0000 Ё
+                     юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - The ROM size is either 16K or 32K and is not switchable. It is
+           loaded in the same manner as a NROM game; in other words,
+           it's loaded at $8000 if it's a 32K ROM size, and at $C000 if
+           it's a 16K ROM size. (This is because a 6502 CPU requires
+           several vectors to be at $FFFA д $FFFF, and therefore ROM needs
+           to be there at all times.)
+        - The first 8K VROM bank is swapped into PPU $0000 when the cart
+           is reset.
+        - This is probably the simplest memory mapper and can easily be
+           incorporated into a NES emulator.
+
+****************************************************************************
+
+ здддддддддддддддд©
+ Ё Mapper 4: MMC3 Ё
+ юдддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё A great majority of newer NES games (early 90's) use this mapper,  Ё
+ Ё both U.S. and Japanese. Among the better-known MMC3 titles are     Ё
+ Ё Super Mario Bros. 2 and 3, MegaMan 3, 4, 5, and 6, and Crystalis.  Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 цддд╢ CPxxxNNN                                             Ё
+ юддддддды   Ё ЁЁ   юбы                                             Ё
+             Ё ЁЁ    юддд Command Number                            Ё
+             Ё ЁЁ          0 - Select 2 1K VROM pages at PPU $0000  Ё
+             Ё ЁЁ          1 - Select 2 1K VROM pages at PPU $0800  Ё
+             Ё ЁЁ          2 - Select 1K VROM page at PPU $1000     Ё
+             Ё ЁЁ          3 - Select 1K VROM page at PPU $1400     Ё
+             Ё ЁЁ          4 - Select 1K VROM page at PPU $1800     Ё
+             Ё ЁЁ          5 - Select 1K VROM page at PPU $1C00     Ё
+             Ё ЁЁ          6 - Select first switchable ROM page     Ё
+             Ё ЁЁ          7 - Select second switchable ROM page    Ё
+             Ё ЁЁ                                                   Ё
+             Ё Ёюдддддддд PRG Address Select                        Ё
+             Ё Ё           0 - Enable swapping for $8000 and $A000  Ё
+             Ё Ё           1 - Enable swapping for $A000 and $C000  Ё
+             Ё Ё                                                    Ё
+             Ё юддддддддд CHR Address Select                        Ё
+             Ё             0 - Use normal address for commands 0-5  Ё
+             Ё             1 - XOR command 0-5 address with $1000   Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8001 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Page Number for Command          Ё
+             Ё              Activates the command number    Ё
+             Ё              written to bits 0-2 of $8000    Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A000 цддд╢ xxxxxxxM                                     Ё
+ юддддддды   Ё        Ё                                     Ё
+             Ё        Ё                                     Ё
+             Ё        Ё                                     Ё
+             Ё        юддд Mirroring Select                 Ё
+             Ё              0 - Horizontal mirroring        Ё
+             Ё              1 - Vertical mirroring          Ё
+             Ё NOTE: I don't have any confidence in the     Ё
+             Ё       accuracy of this information.          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A001 цддд╢ Sxxxxxxx                                     Ё
+ юддддддды   Ё Ё                                            Ё
+             Ё Ё                                            Ё
+             Ё Ё                                            Ё
+             Ё юдддддддддд SaveRAM Toggle                   Ё
+             Ё              0 - Disable $6000-$7FFF         Ё
+             Ё              1 - Enable $6000-$7FFF          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C000 цддд╢ IIIIIIII                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд IRQ Counter Register             Ё
+             Ё              The IRQ countdown value is      Ё
+             Ё              stored here.                    Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C001 цддд╢ IIIIIIII                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд IRQ Latch Register               Ё
+             Ё              A temporary value is stored     Ё
+             Ё              here.                           Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E000 цддд╢ xxxxxxxx                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд IRQ Control Register 0           Ё
+             Ё              Any value written here will     Ё
+             Ё              disable IRQ's and copy the      Ё
+             Ё              latch register to the actual    Ё
+             Ё              IRQ counter register.           Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E001 цддд╢ xxxxxxxx                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд IRQ Control Register 1           Ё
+             Ё              Any value written here will     Ё
+             Ё              enable IRQ's.                   Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - Two of the 8K ROM banks in the PRG area are switchable.
+           The other two are "hard-wired" to the last two banks in
+           the cart. The default setting is switchable banks at
+           $8000 and $A000, with banks 0 and 1 being swapped in
+           at reset. Through bit 6 of $8000, the hard-wiring can
+           be made to affect $8000 and $E000 instead of $C000 and
+           $E000. The switchable banks, whatever their addresses,
+           can be swapped through commands 6 and 7.
+        - A cart will first write the command and base select number
+           to $8000, then the value to be used to $8001.
+        - On carts with VROM, the first 8K of VROM is swapped into
+           PPU $0000 on reset. On carts without VROM, as always, there
+           is 8K of VRAM at PPU $0000.
+
+****************************************************************************
+
+ здддддддддддддддд©
+ Ё Mapper 5: MMC5 Ё
+ юдддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper appears in a few newer NES titles, most notably        Ё
+ Ё Castlevania 3. Some other games such as Uncharted Waters and       Ё
+ Ё several Koei titles also use this mapper. Thanks to D for the      Ё
+ Ё information on this mapper.                                        Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $5010 цддд╢ IxxxxxxS                                     Ё
+ юддддддды   Ё Ё      Ё                                     Ё
+             Ё Ё      Ё                                     Ё
+             Ё Ё      Ё                                     Ё
+             Ё Ё      юддд Automatic sound playback         Ё
+             Ё Ё            0 - Disable automatic play      Ё
+             Ё Ё            1 - Enable automatic play       Ё
+             Ё Ё                                            Ё
+             Ё юдддддддддд IRQ on sound sample end          Ё
+             Ё              0 - No IRQ on sample end        Ё
+             Ё              1 - IRQ on sample end           Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $5011 цддд╢ SSSSSSSS                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Sound sample register            Ё
+             Ё              Sends sound data to the sound   Ё
+             Ё              unit (only in manual play mode) Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $5104 цддд╢ EEEEEEEE                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд EXRAM control                    Ё
+             Ё              This controls whether or not    Ё
+             Ё              EXRAM can be written, and if    Ё
+             Ё              the EXRAM color bits are used.  Ё
+             Ё              I am unsure how this register   Ё
+             Ё              works.                          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $5105 цддд╢ xMxxxMxx                                   Ё
+ юддддддды   Ё  Ё   Ё                                     Ё
+             Ё  Ё   Ё                                     Ё
+             Ё  Ё   Ё                                     Ё
+             Ё  Ё   юддд Mirroring control                Ё
+             Ё  Ё         Unsure how this works           Ё
+             Ё  Ё                                         Ё
+             Ё  юддддддд Mirroring control                Ё
+             Ё            Unsure how this works           Ё
+             юдддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $5115 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select two 8K ROM banks at $8000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $5116 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $C000      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - Much of this information is incomplete and possibly inaccurate.
+           The information on sound registers and bank switching is courtesy
+           of D. To learn about MMC5's EXRAM system, read Y0SHi's NESTECH
+           document. There are other MMC5 registers, probably dozens, of
+           which neither D nor I have any idea of the functioning of.
+
+****************************************************************************
+
+ зддддддддддддддддддддд©
+ Ё Mapper 6: FFE F4xxx Ё
+ юддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё Several hacked Japanese titles use this mapper, such as the hacked Ё
+ Ё version of Wai Wai World. The unhacked versions of these games     Ё
+ Ё seem to use a Konami VRC mapper, and it's better to use them if    Ё
+ Ё possible.                                                          Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $42FC цддд╢ xxxPxxxx                                         Ё
+ юддддддды   Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    юддддддддд Unknown                            Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $42FD цддд╢ xxxMxxxx                                         Ё
+ юддддддды   Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    юддддддддд Unknown                            Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $42FE цддд╢ xxxPxxxx                                         Ё
+ юддддддды   Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    юддддддддд Page Select                        Ё
+             Ё                0 - Mirror pages from PPU $2400   Ё
+             Ё                1 - Mirror pages from PPU $2000   Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $42FF цддд╢ xxxMxxxx                                         Ё
+ юддддддды   Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    юддддддддд Mirroring Select                   Ё
+             Ё                0 - Horizontal mirroring          Ё
+             Ё                1 - Vertical mirroring            Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $43FE цддд╢ CCCCCCPP                                      Ё
+ юддддддды   Ё Ё    ЁЁЁ                                      Ё
+             Ё юдддд╢юадддд 512K PRG Select                  Ё
+             Ё      Ё                                        Ё
+             Ё      юдддддд 512K CHR Select                  Ё
+             Ё NOTE: I don't have any confidence in the      Ё
+             Ё       accuracy of this information.           Ё
+             юддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4500 цддд╢ DESSWPPP                                      Ё
+ юддддддды   Ё ЁЁЁЁЁЁ Ё                                      Ё
+             Ё ЁЁю╢Ёюдадддд PPU Mode Select                  Ё
+             Ё ЁЁ ЁЁ         1 - 32K                         Ё
+             Ё ЁЁ ЁЁ         5 - 256K plus EXRAM             Ё
+             Ё ЁЁ ЁЁ         7 - 256K                        Ё
+             Ё ЁЁ ЁЁ                                         Ё
+             Ё ЁЁ Ёюддддддд SW Pin                           Ё
+             Ё ЁЁ Ё          I have no idea what this does.  Ё
+             Ё ЁЁ Ё                                          Ё
+             Ё ЁЁ юдддддддд SaveRAM Toggle                   Ё
+             Ё ЁЁ            0 - No SaveRAM                  Ё
+             Ё ЁЁ            1 - SaveRAM                     Ё
+             Ё ЁЁ                                            Ё
+             Ё Ёюдддддддддд Execution Mode                   Ё
+             Ё Ё             0 - Do nothing                  Ё
+             Ё Ё             1 - Execute game                Ё
+             Ё Ё                                             Ё
+             Ё юддддддддддд Medium                           Ё
+             Ё               0 - Famicom Disk System         Ё
+             Ё               1 - Cartridge                   Ё
+             юддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4501 цддд╢ xxxxxxxx                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд IRQ Control Register 0           Ё
+             Ё              Any value written here will     Ё
+             Ё              disable IRQ's.                  Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4502 цддд╢ IIIIIIII                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Low byte of IRQ counter          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4503 цддд╢ IIIIIIII                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд High byte of IRQ counter and     Ё
+             Ё             IRQ Control Register 1           Ё
+             Ё              Any value written here will     Ё
+             Ё              enable IRQ's.                   Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©    зддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 д $FFFF цдддд╢ xxPPPPCC                                      Ё
+ юддддддддддддддды    Ё   Ё  ЁЁЁ                                      Ё
+                      Ё   юдд╢юадддд Pattern Table Select             Ё
+                      Ё      Ё                                        Ё
+                      Ё      юддддддд Select 16K ROM bank at $8000    Ё
+                      юддддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - The IRQ counter is incremented at each scanline. When it reaches
+           $FFFF, it is reset to zero and an IRQ interrupt is executed.
+        - I am not sure if all my information about this mapper is accurate.
+
+****************************************************************************
+
+ зддддддддддддддддд©
+ Ё Mapper 7: AOROM Ё
+ юддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё Numerous games released by Rare Ltd. use this mapper, such as      Ё
+ Ё Battletoads, Wizards & Warriors, and Solar Jetman.                 Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 д $FFFF цддд╢ xxxSPPPP                                     Ё
+ юддддддддддддддды   Ё    ЁЁ  Ё                                     Ё
+                     Ё    Ёюдд╢                                     Ё
+                     Ё    Ё   Ё                                     Ё
+                     Ё    Ё   юдддд Select 32K ROM bank at $8000    Ё
+                     Ё    Ё                                         Ё
+                     Ё    юддддддд OneдScreen Mirroring             Ё
+                     Ё              0 = Mirror pages from PPU $2000 Ё
+                     Ё              1 = Mirror pages from PPU $2400 Ё
+                     юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - The first 32K ROM bank is swapped into $8000 when the cart is
+           started or reset.
+        - This mapper has no provisions for VROM; therefore, all carts
+           using it have 8K of VRAM at PPU $0000.
+        - Many carts using this mapper need precise NES timing to work
+           properly. If you're writing an emulator, be sure that you have
+           provisions for switching screens during refresh, and be sure the
+           oneдscreen mirroring is emulated properly.
+
+****************************************************************************
+
+ зддддддддддддддддддддд©
+ Ё Mapper 8: FFE F3xxx Ё
+ юддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё Several hacked Japanese titles use this mapper, such as the hacked Ё
+ Ё version of Doraemon.                                               Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©    зддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 д $FFFF цдддд╢ PPPPPCCC                                      Ё
+ юддддддддддддддды    Ё Ё   ЁЁ Ё                                      Ё
+                      Ё юддд╢юдадддд Select 8K VROM bank at PPU $0000 Ё
+                      Ё     Ё                                         Ё
+                      Ё     юддддддд Select 16K ROM bank at $8000     Ё
+                      юддддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the SECOND 16K ROM bank is loaded into
+           $C000. This 16K bank is permanently "hard-wired" to $C000, and it
+           cannot be swapped.
+        - The first 8K VROM bank is swapped into PPU $0000 when the cart is
+           reset.
+        - I do not know if all 5 bits of the PRG switcher are used.
+           Possibly only three or four are used.
+        - Not many games use this mapper, but it's easy to implement, so
+           you might as well add it if you're writing a NES emulator.
+
+****************************************************************************
+
+ здддддддддддддддд©
+ Ё Mapper 9: MMC2 Ё
+ юдддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used only on the U.S. versions of Punch-Out (both   Ё
+ Ё standard and "Mike Tyson" versions.) Thanks to Paul Robson and     Ё
+ Ё Jim Geffre for the mapper information.                             Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©         здддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A000 д $AFFF цддддддддд╢ PPPPPPPP                                 Ё
+ юддддддддддддддды         Ё юддбддды                                 Ё
+                           Ё    Ё                                     Ё
+                           Ё    Ё                                     Ё
+                           Ё    юддддддд Select 8K ROM bank at $8000  Ё
+                           юдддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©         зддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B000 д $CFFF цддддддддд╢ CCCCCCCC                                      Ё
+ юддддддддддддддды         Ё юддбддды                                      Ё
+                           Ё    Ё                                          Ё
+                           Ё    Ё                                          Ё
+                           Ё    юддддддд Select 4K VROM bank at PPU $0000  Ё
+                           юддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©         здддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D000 д $DFFF цддддддддд╢ CCCCCCCC                                       Ё
+ юддддддддддддддды         Ё юддбддды                                       Ё
+                           Ё    Ё                                           Ё
+                           Ё    Ё                                           Ё
+                           Ё    юддддддд Select 4K VROM bank at PPU $1000   Ё
+                           Ё             for use when latch selector is $FD Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©         здддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E000 д $EFFF цддддддддд╢ CCCCCCCC                                       Ё
+ юддддддддддддддды         Ё юддбддды                                       Ё
+                           Ё    Ё                                           Ё
+                           Ё    Ё                                           Ё
+                           Ё    юддддддд Select 4K VROM bank at PPU $1000   Ё
+                           Ё             for use when latch selector is $FE Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $F000 д $FFFF цддд╢ xxxxxxxM                                     Ё
+ юддддддддддддддды   Ё        Ё                                     Ё
+                     Ё        Ё                                     Ё
+                     Ё        Ё                                     Ё
+                     Ё        юддд Mirroring Select                 Ё
+                     Ё              0 - Vertical mirroring          Ё
+                     Ё              1 - Horizontal mirroring        Ё
+                     юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 8K ROM bank in the cart
+           is loaded into $8000, and the LAST 3 8K ROM banks are loaded into
+           $A000. These last 8K banks are permanently "hard-wired" to $A000,
+           and cannot be swapped.
+        - The "latch selector" in question can be swapped by access to PPU
+           memory. If PPU $0FD0-$0FDF or $1FD0-$1FDF is accessed, the latch
+           selector is $FD. If $0FE0-$0FEF or $1FE0-$1FEF is accessed, the
+           latch selector is changed to $FE. These settings take effect
+           immediately. The latch contains $FE on reset.
+
+****************************************************************************
+
+ зддддддддддддддддд©
+ Ё Mapper 10: MMC4 Ё
+ юддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on several Japanese carts such as Fire Emblem  Ё
+ Ё and Family War. Thanks to FanWen and Jim Geffre for the mapper     Ё
+ Ё information.                                                       Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©         здддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A000 д $AFFF цддддддддд╢ PPPPPPPP                                 Ё
+ юддддддддддддддды         Ё юддбддды                                 Ё
+                           Ё    Ё                                     Ё
+                           Ё    Ё                                     Ё
+                           Ё    юддддддд Select 16K ROM bank at $8000 Ё
+                           юдддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©         здддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B000 д $BFFF цддддддддд╢ CCCCCCCC                                       Ё
+ юддддддддддддддды         Ё юддбддды                                       Ё
+                           Ё    Ё                                           Ё
+                           Ё    Ё                                           Ё
+                           Ё    юддддддд Select 4K VROM bank at PPU $0000   Ё
+                           Ё             for use when latch #1 is $FD       Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©         здддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C000 д $CFFF цддддддддд╢ CCCCCCCC                                       Ё
+ юддддддддддддддды         Ё юддбддды                                       Ё
+                           Ё    Ё                                           Ё
+                           Ё    Ё                                           Ё
+                           Ё    юддддддд Select 4K VROM bank at PPU $0000   Ё
+                           Ё             for use when latch #1 is $FE       Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©         здддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D000 д $DFFF цддддддддд╢ CCCCCCCC                                       Ё
+ юддддддддддддддды         Ё юддбддды                                       Ё
+                           Ё    Ё                                           Ё
+                           Ё    Ё                                           Ё
+                           Ё    юддддддд Select 4K VROM bank at PPU $1000   Ё
+                           Ё             for use when latch #2 is $FD       Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©         здддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E000 д $EFFF цддддддддд╢ CCCCCCCC                                       Ё
+ юддддддддддддддды         Ё юддбддды                                       Ё
+                           Ё    Ё                                           Ё
+                           Ё    Ё                                           Ё
+                           Ё    юддддддд Select 4K VROM bank at PPU $1000   Ё
+                           Ё             for use when latch #2 is $FE       Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $F000 д $FFFF цддд╢ xxxxxxxM                                     Ё
+ юддддддддддддддды   Ё        Ё                                     Ё
+                     Ё        Ё                                     Ё
+                     Ё        Ё                                     Ё
+                     Ё        юддд Mirroring Select                 Ё
+                     Ё              0 - Vertical mirroring          Ё
+                     Ё              1 - Horizontal mirroring        Ё
+                     юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the LAST 16K ROM bank is loaded into
+           $C000. This last 16K bank is permanently "hard-wired" to $C000,
+           and cannot be swapped.
+        - The "latches" can be swapped by access to PPU memory. If PPU
+           $0FD0-$0FDF is accessed, latch #1 becomes $FD. If $0FE0-$0FEF
+           is accessed, it becomes $FE. Latch #2 works in the same manner,
+           except the addresses are $1FD0-$1FDF and $1FE0-$1FEF for $FD
+           and $FE respectively. These bank switch settings take effect
+           immediately. Latches contain $FE on reset.
+
+****************************************************************************
+
+ зддддддддддддддддддддддддд©
+ Ё Mapper 11: Color Dreams Ё
+ юддддддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on several unlicensed Color Dreams titles,     Ё
+ Ё including Crystal Mines and Pesterminator. I'm not sure if their   Ё
+ Ё religious ("Wisdom Tree") games use the same mapper or not.        Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©    зддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 д $FFFF цдддд╢ CCCCPPPP                                      Ё
+ юддддддддддддддды    Ё Ё  ЁЁ  Ё                                      Ё
+                      Ё юдд╢юддадддд Select 32K ROM bank at $8000     Ё
+                      Ё    Ё                                          Ё
+                      Ё    юдддддддд Select 8K VROM bank at PPU $0000 Ё
+                      юддддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started or reset, the first 32K ROM bank
+           in the cart is loaded into $8000, and the first 8K VROM bank
+           is swapped into PPU $0000.
+        - Many games using this mapper are somewhat glitchy.
+
+****************************************************************************
+
+ зддддддддддддддддддддд©
+ Ё Mapper 15: 100-in-1 Ё
+ юддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё Several hacked Japanese titles use this mapper, such as the        Ё
+ Ё 100-in-1 pirate cart.                                              Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©    здддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 цдддд╢ SMPPPPPP                                       Ё
+ юддддддды    Ё ЁЁЁ    Ё                                       Ё
+              Ё ЁЁюддддадддд Select 16K ROM bank at $8000      Ё
+              Ё ЁЁ           Select next 16K ROM bank at $C000 Ё
+              Ё ЁЁ                                             Ё
+              Ё Ёюдддддддддд Mirroring Control                 Ё
+              Ё Ё             0 - Vertical Mirroring           Ё
+              Ё Ё             1 - Horizontal Mirroring         Ё
+              Ё Ё                                              Ё
+              Ё юддддддддддд Page Swap                         Ё
+              Ё               0 - Swap 8K pages at $8000/$A000 Ё
+              Ё               1 - Swap 8K pages at $C000/$E000 Ё
+              юдддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©    здддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8001 цдддд╢ SxPPPPPP                                       Ё
+ юддддддды    Ё Ё Ё    Ё                                       Ё
+              Ё Ё юддддадддд Select 16K ROM bank at $C000      Ё
+              Ё Ё                                              Ё
+              Ё юддддддддддд Swap Register                     Ё
+              Ё               Swap 8K at $C000 and $E000       Ё
+              юдддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©    здддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8002 цдддд╢ SxPPPPPP                                       Ё
+ юддддддды    Ё Ё Ё    Ё                                       Ё
+              Ё Ё юддддадддд Select 8K of a 16K segment at     Ё
+              Ё Ё            $8000, $A000, $C000, and $E000.   Ё
+              Ё Ё                                              Ё
+              Ё юддддддддддд Segment Selector                  Ё
+              Ё               0 - Select lower 8K of segment   Ё
+              Ё               1 - Select upper 8K of segment   Ё
+              юдддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©    здддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8003 цдддд╢ SMPPPPPP                                       Ё
+ юддддддды    Ё ЁЁЁ    Ё                                       Ё
+              Ё ЁЁюддддадддд Select 16K ROM bank at $C000      Ё
+              Ё ЁЁ                                             Ё
+              Ё Ёюдддддддддд Mirroring Control                 Ё
+              Ё Ё             0 - Vertical Mirroring           Ё
+              Ё Ё             1 - Horizontal Mirroring         Ё
+              Ё Ё                                              Ё
+              Ё юддддддддддд Swap Register                     Ё
+              Ё               Swap 8K at $C000 and $E000       Ё
+              юдддддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - The first 32K of ROM is loaded into $8000 on reset. There is
+           8K of VRAM at PPU $0000.
+
+****************************************************************************
+
+ зддддддддддддддддддд©
+ Ё Mapper 16: Bandai Ё
+ юддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on several Japanese titles by Bandai, such as  Ё
+ Ё the DragonBall Z series and the SD Gundam Knight series.           Ё
+ Ё As far as I know, it was not used on U.S. games.                   Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $6000, $7FF0, $8000 цддд╢ CCCCCCCC                                     Ё
+ юддддддддддддддддддддды   Ё юддбддды                                     Ё
+                           Ё    Ё                                         Ё
+                           Ё    Ё                                         Ё
+                           Ё    юддддддд Select 1K VROM bank at PPU $0000 Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $6001, $7FF1, $8001 цддд╢ CCCCCCCC                                     Ё
+ юддддддддддддддддддддды   Ё юддбддды                                     Ё
+                           Ё    Ё                                         Ё
+                           Ё    Ё                                         Ё
+                           Ё    юддддддд Select 1K VROM bank at PPU $0400 Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $6002, $7FF2, $8002 цддд╢ CCCCCCCC                                     Ё
+ юддддддддддддддддддддды   Ё юддбддды                                     Ё
+                           Ё    Ё                                         Ё
+                           Ё    Ё                                         Ё
+                           Ё    юддддддд Select 1K VROM bank at PPU $0800 Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $6003, $7FF3, $8003 цддд╢ CCCCCCCC                                     Ё
+ юддддддддддддддддддддды   Ё юддбддды                                     Ё
+                           Ё    Ё                                         Ё
+                           Ё    Ё                                         Ё
+                           Ё    юддддддд Select 1K VROM bank at PPU $0C00 Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $6004, $7FF4, $8004 цддд╢ CCCCCCCC                                     Ё
+ юддддддддддддддддддддды   Ё юддбддды                                     Ё
+                           Ё    Ё                                         Ё
+                           Ё    Ё                                         Ё
+                           Ё    юддддддд Select 1K VROM bank at PPU $1000 Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $6005, $7FF5, $8005 цддд╢ CCCCCCCC                                     Ё
+ юддддддддддддддддддддды   Ё юддбддды                                     Ё
+                           Ё    Ё                                         Ё
+                           Ё    Ё                                         Ё
+                           Ё    юддддддд Select 1K VROM bank at PPU $1400 Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $6006, $7FF6, $8006 цддд╢ CCCCCCCC                                     Ё
+ юддддддддддддддддддддды   Ё юддбддды                                     Ё
+                           Ё    Ё                                         Ё
+                           Ё    Ё                                         Ё
+                           Ё    юддддддд Select 1K VROM bank at PPU $1800 Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $6007, $7FF7, $8007 цддд╢ CCCCCCCC                                     Ё
+ юддддддддддддддддддддды   Ё юддбддды                                     Ё
+                           Ё    Ё                                         Ё
+                           Ё    Ё                                         Ё
+                           Ё    юддддддд Select 1K VROM bank at PPU $1C00 Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $6008, $7FF8, $8008 цддд╢ PPPPPPPP                                     Ё
+ юддддддддддддддддддддды   Ё юддбддды                                     Ё
+                           Ё    Ё                                         Ё
+                           Ё    Ё                                         Ё
+                           Ё    юддддддд Select 16K ROM bank at $8000     Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $6009, $7FF9, $8009 цддд╢ xxxxxxMM                                     Ё
+ юддддддддддддддддддддды   Ё       ЁЁ                                     Ё
+                           Ё       ю╢                                     Ё
+                           Ё        Ё                                     Ё
+                           Ё        юддд Mirroring/Page Select            Ё
+                           Ё              0 - Horizontal mirroring        Ё
+                           Ё              1 - Vertical mirroring          Ё
+                           Ё              2 - Mirror pages from $2000     Ё
+                           Ё              3 - Mirror pages from $2400     Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $600A, $7FFA, $800A цддд╢ xxxxxxxI                                     Ё
+ юддддддддддддддддддддды   Ё        Ё                                     Ё
+                           Ё        Ё                                     Ё
+                           Ё        Ё                                     Ё
+                           Ё        юддд IRQ Control Register             Ё
+                           Ё              0 - Disable IRQ's               Ё
+                           Ё              1 - Enable IRQ's                Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $600B, $7FFB, $800B цддд╢ IIIIIIII                                     Ё
+ юддддддддддддддддддддды   Ё юддбддды                                     Ё
+                           Ё    Ё                                         Ё
+                           Ё    Ё                                         Ё
+                           Ё    юддддддд Low byte of IRQ counter          Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $600C, $7FFC, $800C цддд╢ IIIIIIII                                     Ё
+ юддддддддддддддддддддды   Ё юддбддды                                     Ё
+                           Ё    Ё                                         Ё
+                           Ё    Ё                                         Ё
+                           Ё    юддддддд High byte of IRQ counter         Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $600D, $7FFD, $800D цддд╢ EEEEEEEE                                     Ё
+ юддддддддддддддддддддды   Ё юддбддды                                     Ё
+                           Ё    Ё                                         Ё
+                           Ё    Ё                                         Ё
+                           Ё    юддддддд EPROM I/O Port                   Ё
+                           Ё              I am not sure how this works.   Ё
+                           юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the LAST 16K ROM bank is loaded into
+           $C000. This last 16K bank is permanently "hard-wired" to $C000,
+           and it cannot be swapped.
+        - VROM should NOT be swapped into PPU $0000 when the cartridge is
+           started or reset, in order to avoid graphics corruption.
+        - The IRQ counter is decremented at each scanline if active and set
+           off when it reaches zero. An IRQ interrupt is executed at that
+           point.
+
+****************************************************************************
+
+ здддддддддддддддддддддд©
+ Ё Mapper 17: FFE F8xxx Ё
+ юдддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё Several hacked Japanese titles use this mapper, such as the hacked Ё
+ Ё versions of Parodius and DragonBall Z 3.                           Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $42FC цддд╢ xxxPxxxx                                         Ё
+ юддддддды   Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    юддддддддд Unknown                            Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $42FD цддд╢ xxxMxxxx                                         Ё
+ юддддддды   Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    юддддддддд Unknown                            Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $42FE цддд╢ xxxPxxxx                                         Ё
+ юддддддды   Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    юддддддддд Page Select                        Ё
+             Ё                0 - Mirror pages from PPU $2400   Ё
+             Ё                1 - Mirror pages from PPU $2000   Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $42FF цддд╢ xxxMxxxx                                         Ё
+ юддддддды   Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    Ё                                             Ё
+             Ё    юддддддддд Mirroring Select                   Ё
+             Ё                0 - Horizontal mirroring          Ё
+             Ё                1 - Vertical mirroring            Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4501 цддд╢ xxxxxxxx                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд IRQ Control Register 0           Ё
+             Ё              Any value written here will     Ё
+             Ё              disable IRQ's.                  Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4502 цддд╢ IIIIIIII                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Low byte of IRQ counter          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4503 цддд╢ IIIIIIII                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд High byte of IRQ counter and     Ё
+             Ё             IRQ Control Register 1           Ё
+             Ё              Any value written here will     Ё
+             Ё              enable IRQ's.                   Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4504 цддд╢ PPPPPPPP                                Ё
+ юддддддды   Ё юддбддды                                Ё
+             Ё    Ё                                    Ё
+             Ё    Ё                                    Ё
+             Ё    юддддддд Select 8K ROM bank at $8000 Ё
+             юддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4505 цддд╢ PPPPPPPP                                Ё
+ юддддддды   Ё юддбддды                                Ё
+             Ё    Ё                                    Ё
+             Ё    Ё                                    Ё
+             Ё    юддддддд Select 8K ROM bank at $A000 Ё
+             юддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4506 цддд╢ PPPPPPPP                                Ё
+ юддддддды   Ё юддбддды                                Ё
+             Ё    Ё                                    Ё
+             Ё    Ё                                    Ё
+             Ё    юддддддд Select 8K ROM bank at $C000 Ё
+             юддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4507 цддд╢ PPPPPPPP                                Ё
+ юддддддды   Ё юддбддды                                Ё
+             Ё    Ё                                    Ё
+             Ё    Ё                                    Ё
+             Ё    юддддддд Select 8K ROM bank at $E000 Ё
+             юддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4510 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4511 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0400 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4512 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0800 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4513 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0C00 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4514 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4515 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1400 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4516 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1800 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $4517 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1C00 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the LAST 16K ROM bank is loaded into
+           $C000.
+        - VROM should NOT be swapped into PPU $0000 when the cartridge is
+           started or reset, in order to avoid graphics corruption.
+        - The IRQ counter is incremented at each scanline. When it reaches
+           $FFFF, it is reset to zero and an IRQ interrupt is executed.
+
+****************************************************************************
+
+ здддддддддддддддддддддддддд©
+ Ё Mapper 18: Jaleco SS8806 Ё
+ юдддддддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on several Japanese titles by Jaleco, such as  Ё
+ Ё Baseball 3. As far as I know, it was not used on U.S. games.       Ё            Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 цддд╢ xxxxPPPP                                Ё
+ юддддддды   Ё     юдбы                                Ё
+             Ё       Ё                                 Ё
+             Ё       Ё                                 Ё
+             Ё       юдддд Select 8K ROM bank at $8000 Ё
+             Ё              Low 4 bits                 Ё
+             юддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8001 цддд╢ xxxxPPPP                                Ё
+ юддддддды   Ё     юдбы                                Ё
+             Ё       Ё                                 Ё
+             Ё       Ё                                 Ё
+             Ё       юдддд Select 8K ROM bank at $8000 Ё
+             Ё              High 4 bits                Ё
+             юддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8002 цддд╢ xxxxPPPP                                Ё
+ юддддддды   Ё     юдбы                                Ё
+             Ё       Ё                                 Ё
+             Ё       Ё                                 Ё
+             Ё       юдддд Select 8K ROM bank at $A000 Ё
+             Ё              Low 4 bits                 Ё
+             юддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8003 цддд╢ xxxxPPPP                                Ё
+ юддддддды   Ё     юдбы                                Ё
+             Ё       Ё                                 Ё
+             Ё       Ё                                 Ё
+             Ё       юдддд Select 8K ROM bank at $A000 Ё
+             Ё              High 4 bits                Ё
+             юддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддд©
+ Ё $9000 цддд╢ xxxxPPPP                                Ё
+ юддддддды   Ё     юдбы                                Ё
+             Ё       Ё                                 Ё
+             Ё       Ё                                 Ё
+             Ё       юдддд Select 8K ROM bank at $C000 Ё
+             Ё              Low 4 bits                 Ё
+             юддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддд©
+ Ё $9001 цддд╢ xxxxPPPP                                Ё
+ юддддддды   Ё     юдбы                                Ё
+             Ё       Ё                                 Ё
+             Ё       Ё                                 Ё
+             Ё       юдддд Select 8K ROM bank at $C000 Ё
+             Ё              High 4 bits                Ё
+             юддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A000 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0000 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A001 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0000 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A002 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0400 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A003 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0400 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B000 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0800 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B001 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0800 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B002 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0C00 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B003 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0C00 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C000 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1000 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C001 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1000 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C002 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1400 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C003 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1400 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D000 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1800 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D001 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1800 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D002 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1C00 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D003 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1C00 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E000 цддд╢ IIIIIIII                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Low byte of IRQ counter          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E001 цддд╢ IIIIIIII                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Low byte of IRQ counter          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E002 цддд╢ IIIIIIII                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд High byte of IRQ counter         Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E003 цддд╢ IIIIIIII                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд High byte of IRQ counter         Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $F000 цддд╢ xxxxxxxI                                     Ё
+ юддддддды   Ё        Ё                                     Ё
+             Ё        Ё                                     Ё
+             Ё        Ё                                     Ё
+             Ё        юддд IRQ Control Register 0           Ё
+             Ё              1 - Enable IRQ's                Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $F001 цддд╢ xxxxxxxI                                     Ё
+ юддддддды   Ё        Ё                                     Ё
+             Ё        Ё                                     Ё
+             Ё        Ё                                     Ё
+             Ё        юддд IRQ Control Register 1           Ё
+             Ё              0 - Disable IRQ's               Ё
+             Ё              1 - Enable IRQ's                Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $F002 цддд╢ xxxxxxPM                                     Ё
+ юддддддды   Ё       ЁЁ                                     Ё
+             Ё       ЁЁ                                     Ё
+             Ё       ЁЁ                                     Ё
+             Ё       Ёюддд Mirroring Control                Ё
+             Ё       Ё      0 - Vertical mirroring          Ё
+             Ё       Ё      1 - Horizontal mirroring        Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд One-Screen Mirroring             Ё
+             Ё              0 - Regular mirroring           Ё
+             Ё              1 - Mirror pages from PPU $2000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $F003 цддд╢ EEEEEEEE                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд External I/O Port                Ё
+             Ё              I am not sure how this works.   Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the LAST 16K ROM bank is loaded into
+           $C000.
+        - To use the ROM and VROM switching registers, first write the low
+           4 bits of the intended value into the first register, then the
+           high 4 bits into the second register. For example, to swap 1K
+           VROM bank $B8 to PPU $0400, you'd write $0B into $A003 and $08 to
+           $A002. I think that some cartridges do it the other way around,
+           writing the low nybble first.
+        - VROM should NOT be swapped into PPU $0000 when the cartridge is
+           started or reset, in order to avoid graphics corruption.
+        - The IRQ counter is decremented at each scanline. When it reaches
+           zero, an IRQ interrupt is executed.
+        - This information is untested! I do not have any mapper 18 ROM
+           images, unfortunately.
+
+****************************************************************************
+
+ зддддддддддддддддддддддд©
+ Ё Mapper 19: Namcot 106 Ё
+ юддддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on several Japanese titles by Namcot, such as  Ё
+ Ё Splatterhouse and Family Stadium '90. As far as I know, it was not Ё
+ Ё used on U.S. games.                                                Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $5000 цддд╢ IIIIIIII                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Low byte of IRQ counter          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $5800 цддд╢ CIIIIIII                                     Ё
+ юддддддды   Ё Ёюддбдды                                     Ё
+             Ё Ё   Ё                                        Ё
+             Ё Ё   Ё                                        Ё
+             Ё Ё   юддддддд High bits of IRQ counter        Ё
+             Ё Ё                                            Ё
+             Ё юддддддддддд IRQ Control Register            Ё
+             Ё               0 - Disable IRQ's              Ё
+             Ё               1 - Enable IRQ's               Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8800 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0400 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $9000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0800 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $9800 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0C00 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A800 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1400 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1800 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B800 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1C00 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $2000 Ё
+             Ё              A value of $E0 or above will    Ё
+             Ё              use VRAM instead                Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C800 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $2400 Ё
+             Ё              A value of $E0 or above will    Ё
+             Ё              use VRAM instead                Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $2800 Ё
+             Ё              A value of $E0 or above will    Ё
+             Ё              use VRAM instead                Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D800 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $2C00 Ё
+             Ё              A value of $E0 or above will    Ё
+             Ё              use VRAM instead                Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E000 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $8000      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E800 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $A000      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $F000 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $C000      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the LAST 16K ROM bank is loaded into
+           $C000. The last 8K of ROM is permanently "hard-wired" and cannot
+           be swapped.
+        - The first 8K of VROM is swapped into PPU $0000 on reset, if it
+           is present.
+        - The IRQ counter is incremented at each scanline. When it reaches
+           $FFFF, an IRQ interrupt is executed, but there is no reset.
+           I have not tested this (I am still confused as to whether
+           it's a 15 or 16 bit counter). Splatterhouse doesn't seem to use
+           IRQ's.
+
+****************************************************************************
+
+ здддддддддддддддддддддддд©
+ Ё Mapper 21: Konami VRC4 Ё
+ юдддддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on several Japanese titles by Konami, such as  Ё
+ Ё Wai Wai World 2 and Gradius 2. As far as I know, it was not used   Ё
+ Ё on U.S. games.                                                     Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $8000      Ё
+             Ё             or $C000 (based on bit 1 of      Ё
+             Ё             $9002).                          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $9000 цддд╢ xxxxxxMM                                     Ё
+ юддддддды   Ё       ЁЁ                                     Ё
+             Ё       ю╢                                     Ё
+             Ё        Ё                                     Ё
+             Ё        юддд Mirroring/Page Select            Ё
+             Ё              0 - Vertical mirroring          Ё
+             Ё              1 - Horizontal mirroring        Ё
+             Ё              2 - Mirror pages from $2400     Ё
+             Ё              3 - Mirror pages from $2000     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $9002 цддд╢ xxxxxxPS                                      Ё
+ юддддддды   Ё       ЁЁ                                      Ё
+             Ё       ЁЁ                                      Ё
+             Ё       ЁЁ                                      Ё
+             Ё       Ёюддд SaveRAM Toggle                    Ё
+             Ё       Ё      0 - Disable $6000-$7FFF          Ё
+             Ё       Ё      1 - Enable $6000-$7FFF           Ё
+             Ё       Ё                                       Ё
+             Ё       юдддд $8000 Switching Mode              Ё
+             Ё              0 - Switch $8000-$9FFF via $8000 Ё
+             Ё              1 - Switch $C000-$DFFF via $8000 Ё
+             юддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $9003 цддд╢ EEEEEEEE                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд External I/O Port                Ё
+             Ё              I am not sure how this works.   Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A000 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $A000      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B000 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0000 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B002 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0000 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B001 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0400 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B003 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0400 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B004 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0400 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B006 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0400 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C000 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0800 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C002 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0800 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C001 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0C00 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C003 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0C00 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C004 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0C00 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C006 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0C00 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D000 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1000 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D002 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1000 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D001 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1400 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D003 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1400 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D004 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1400 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D006 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1400 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E000 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1800 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E002 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1800 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E001 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1C00 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E003 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1C00 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E004 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1C00 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E006 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1C00 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $F000 цддд╢ IIIIIIII                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд IRQ Counter Register             Ё
+             Ё              The IRQ countdown value is      Ё
+             Ё              stored here.                    Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $F001 цддд╢ IIIIIIII                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд IRQ Counter Register             Ё
+             Ё              The IRQ countdown value is      Ё
+             Ё              stored here. (Apparently is     Ё
+             Ё              the same register as $F000.)    Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $F002 цддд╢ xxxxxxII                                     Ё
+ юддддддды   Ё       ЁЁ                                     Ё
+             Ё       ю╢                                     Ё
+             Ё        Ё                                     Ё
+             Ё        юддд IRQ Control Register 0           Ё
+             Ё              0 - Disable IRQ's               Ё
+             Ё              2 - Enable IRQ's                Ё
+             Ё              3 - Enable IRQ's                Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $F003 цддд╢ xxxxxxxx                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд IRQ Control Register 1           Ё
+             Ё              Any value written here will     Ё
+             Ё              reset the IRQ counter to zero.  Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the LAST 16K ROM bank is loaded into
+           $C000. The last 8K of ROM is permanently "hard-wired" and cannot
+           be swapped.
+        - VROM should NOT be swapped into PPU $0000 when the cartridge is
+           started or reset, in order to avoid graphics corruption.
+        - To use the VROM switching registers, first write the low
+           4 bits of the intended value into the first register, then the
+           high 4 bits into the second register. For example, to swap 1K
+           VROM bank $B8 to PPU $0800, you'd write $0B into $C002 and $08 to
+           $C000. I think that some cartridges do it the other way around,
+           writing the low nybble first. Note that this is actually two
+           different varieties of mapper combined into one. Gradius 2
+           uses the pairs 0-2 and 1-3. Other games (i.e. Wai Wai World 2)
+           use the pairs 0-2 and 4-6. In the .NES format these two are
+           "shoe-horned" together.
+        - The IRQ counter is incremented each 113.75 cycles, which is
+           equivalent to one scanline. Unlike a real scanline counter, this
+           "scanline-emulated" counter apparently continues to run during
+           VBlank. When the IRQ counter value reaches $FF, IRQ's will be
+           set off, and the counter is reset.
+
+****************************************************************************
+
+ зддддддддддддддддддддддддддддддд©
+ Ё Mapper 22: Konami VRC2 type A Ё
+ юддддддддддддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on the Japanese title TwinBee 3 by Konami.     Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $8000      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $9000 цддд╢ xxxxxxMM                                     Ё
+ юддддддды   Ё       ЁЁ                                     Ё
+             Ё       ю╢                                     Ё
+             Ё        Ё                                     Ё
+             Ё        юддд Mirroring/Page Select            Ё
+             Ё              0 - Vertical mirroring          Ё
+             Ё              1 - Horizontal mirroring        Ё
+             Ё              2 - Mirror pages from $2400     Ё
+             Ё              3 - Mirror pages from $2000     Ё
+             Ё NOTE: I don't have any confidence in the     Ё
+             Ё       accuracy of this information.          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A000 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $A000      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0000 Ё
+             Ё              Shift this value right one bit  Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B001 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0400 Ё
+             Ё              Shift this value right one bit  Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0800 Ё
+             Ё              Shift this value right one bit  Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C001 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0C00 Ё
+             Ё              Shift this value right one bit  Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1000 Ё
+             Ё              Shift this value right one bit  Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D001 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1400 Ё
+             Ё              Shift this value right one bit  Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1800 Ё
+             Ё              Shift this value right one bit  Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E001 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1C00 Ё
+             Ё              Shift this value right one bit  Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the LAST 16K ROM bank is loaded into
+           $C000. The last 16K of ROM is permanently "hard-wired" and cannot
+           be swapped.
+        - On reset, the first 8K of VROM is swapped into PPU $0000./
+
+****************************************************************************
+
+ зддддддддддддддддддддддддддддддд©
+ Ё Mapper 23: Konami VRC2 type B Ё
+ юддддддддддддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on several Japanese titles by Konami, such as  Ё
+ Ё Contra Japanese and Getsufuu Maden. As far as I know, it was not   Ё
+ Ё used on U.S. games.                                                Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $8000      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $9000 цддд╢ xxxxxxMM                                     Ё
+ юддддддды   Ё       ЁЁ                                     Ё
+             Ё       ю╢                                     Ё
+             Ё        Ё                                     Ё
+             Ё        юддд Mirroring/Page Select            Ё
+             Ё              0 - Vertical mirroring          Ё
+             Ё              1 - Horizontal mirroring        Ё
+             Ё              2 - Mirror pages from $2400     Ё
+             Ё              3 - Mirror pages from $2000     Ё
+             Ё NOTE: I don't have any confidence in the     Ё
+             Ё       accuracy of this information.          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A000 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $A000      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B000 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0000 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B001 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0000 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B002 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0400 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B003 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0400 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C000 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0800 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C001 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0800 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C002 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0C00 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C003 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $0C00 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D000 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1000 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D001 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1000 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D002 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1400 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $D003 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1400 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E000 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1800 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E001 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1800 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E002 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1C00 Ё
+             Ё              Low 4 bits                      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E003 цддд╢ xxxxCCCC                                     Ё
+ юддддддды   Ё     юдбы                                     Ё
+             Ё       Ё                                      Ё
+             Ё       Ё                                      Ё
+             Ё       юдддд Select 1K VROM bank at PPU $1C00 Ё
+             Ё              High 4 bits                     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the LAST 16K ROM bank is loaded into
+           $C000. The last 8K of ROM is permanently "hard-wired" and cannot
+           be swapped.
+        - VROM should NOT be swapped into PPU $0000 when the cartridge is
+           started or reset, in order to avoid graphics corruption.
+        - To use the VROM switching registers, first write the low
+           4 bits of the intended value into the first register, then the
+           high 4 bits into the second register. For example, to swap 1K
+           VROM bank $B8 to PPU $0800, you'd write $0B into $C001 and $08 to
+           $C000. I think that some cartridges do it the other way around,
+           writing the low nybble first.
+
+****************************************************************************
+
+ зддддддддддддддддддддддд©
+ Ё Mapper 32: Irem G-101 Ё
+ юддддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on several Japanese titles by Irem, such as    Ё
+ Ё ImageFight 2. As far as I know, it was not used on U.S. games.     Ё                                           Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8FFF цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $8000      Ё
+             Ё             or $C000 (based on bit 1 of      Ё
+             Ё             $9FFF).                          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $9FFF цддд╢ xxxxxxPS                                      Ё
+ юддддддды   Ё       ЁЁ                                      Ё
+             Ё       ЁЁ                                      Ё
+             Ё       ЁЁ                                      Ё
+             Ё       Ёюддд Mirroring Switch                  Ё
+             Ё       Ё      0 - Horizontal mirroring         Ё
+             Ё       Ё      1 - Vertical mirroring           Ё
+             Ё       Ё                                       Ё
+             Ё       юдддд $8FFF Switching Mode              Ё
+             Ё              0 - Switch $8000-$9FFF via $8FFF Ё
+             Ё              1 - Switch $C000-$DFFF via $8FFF Ё
+             юддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $AFFF цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $A000      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $BFF0 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $BFF1 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0400 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $BFF2 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0800 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $BFF3 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $0C00 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $BFF4 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $BFF5 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1400 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $BFF6 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1800 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $BFF7 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1C00 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the LAST 16K ROM bank is loaded into
+           $C000. The last 8K of ROM is permanently "hard-wired" and cannot
+           be swapped.
+        - VROM should NOT be swapped into PPU $0000 when the cartridge is
+           started or reset, in order to avoid graphics corruption.
+
+****************************************************************************
+
+ зддддддддддддддддддддддддд©
+ Ё Mapper 33: Taito TC0190 Ё
+ юддддддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on several Japanese titles by Taito, such as   Ё
+ Ё Pon Poko Pon. As far as I know, it was not used on U.S. games.     Ё                                           Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $8000      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8001 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 8K ROM bank at $A000      Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8002 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 2K VROM bank at PPU $0000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8003 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 2K VROM bank at PPU $0800 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A001 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1400 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A002 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1800 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A003 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 1K VROM bank at PPU $1C00 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C000 цддд╢ UUUUUUUU                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Unknown                          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $C001 цддд╢ UUUUUUUU                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Unknown                          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E000 цддд╢ RRRRRRRR                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Reserved                         Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the LAST 16K ROM bank is loaded into
+           $C000. The last 16K of ROM is permanently "hard-wired" and cannot
+           be swapped.
+        - VROM should NOT be swapped into PPU $0000 when the cartridge is
+           started or reset, in order to avoid graphics corruption.
+
+****************************************************************************
+
+ зддддддддддддддддддд©
+ Ё Mapper 34: Nina-1 Ё
+ юддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё These two mappers were used on two U.S. games: Deadly Towers and   Ё
+ Ё Impossible Mission ][.                                             Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $7FFD цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 32K ROM bank at $8000     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $7FFE цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 4K VROM bank at PPU $0000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $7FFF цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 4K VROM bank at PPU $1000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©         здддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 д $FFFF цддддддддд╢ PPPPPPPP                                 Ё
+ юддддддддддддддды         Ё юддбддды                                 Ё
+                           Ё    Ё                                     Ё
+                           Ё    Ё                                     Ё
+                           Ё    юддддддд Select 32K ROM bank at $8000 Ё
+                           юдддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - The first 32K ROM bank is swapped into $8000 when the cart is
+           started or reset.
+        - Carts without VROM (i.e. Deadly Towers) will have 8K of VRAM
+           at PPU $0000. Carts with VROM (Impossible Mission 2) have the
+           first 8K swapped in at reset. Apparently, this mapper is actually
+           a combination of two actual separate mappers. Deadly Towers uses
+           only the $8000-$FFFF switching, and Impossible Mission 2 uses
+           only the three lower registers.
+        - This mapper is fairly easy to implement in a NES emulator.
+
+****************************************************************************
+
+ здддддддддддддддддддддддддддд©
+ Ё GNROM (No Number Assigned) Ё
+ юдддддддддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on several Japanese titles, such as            Ё
+ Ё DragonBall, and on U.S. titles such as Gumshoe and Dragon Power.   Ё                                           Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддд©    зддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 д $FFFF цдддд╢ xxPPxxCC                                      Ё
+ юддддддддддддддды    Ё   ЁЁ  ЁЁ                                      Ё
+                      Ё   ю╢  юадддд Select 8K VROM bank at PPU $0000 Ё
+                      Ё    Ё                                          Ё
+                      Ё    юдддддддд Select 32K ROM bank at $8000     Ё
+                      юддддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started or reset, the first 32K ROM bank
+           in the cart is loaded into $8000, and the first 8K VROM bank
+           is swapped into PPU $0000.
+        - This mapper is used on the DragonBall (NOT DragonBallZ) NES
+           game. Contrary to popular belief, this mapper is NOT mapper 16!
+
+****************************************************************************
+
+ зддддддддддддддддддддддддддддддддддддддддд©
+ Ё Sunsoft "Mapper 4" (No Number Assigned) Ё
+ юддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on the Japanese title AfterBurner ][ by Sunsoft.Ё
+ юддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 2K VROM bank at PPU $0000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $9000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 2K VROM bank at PPU $0800 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 2K VROM bank at PPU $1000 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $B000 цддд╢ CCCCCCCC                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 2K VROM bank at PPU $1800 Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $E000 цддд╢ xxxxxxMM                                     Ё
+ юддддддды   Ё       ЁЁ                                     Ё
+             Ё       ю╢                                     Ё
+             Ё        Ё                                     Ё
+             Ё        юддд Mirroring/Page Select            Ё
+             Ё              0 - Horizontal mirroring        Ё
+             Ё              1 - Vertical mirroring          Ё
+             Ё              2 - Mirror pages from $2000     Ё
+             Ё              3 - Mirror pages from $2400     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $F000 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Select 16K ROM bank at $8000     Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - When the cart is first started, the first 16K ROM bank in the cart
+           is loaded into $8000, and the LAST 16K ROM bank is loaded into
+           $C000. The last 16K of ROM is permanently "hard-wired" and cannot
+           be swapped.
+
+****************************************************************************
+
+ здддддддддддддддддддддддддддддддддддд©
+ Ё Sunsoft FME-7 (No Number Assigned) Ё
+ юдддддддддддддддддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on several Japanese titles, such as Batman     Ё
+ Ё Japanese, and on the U.S. title Batman: Return of the Joker.       Ё
+ Ё Thanks to D for hacking this mapper.                               Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   зддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 цддд╢ xxxxRRRR                                          Ё
+ юддддддды   Ё     юдбы                                          Ё
+             Ё       юддд Register Number                        Ё
+             Ё             0 - Select 1K VROM page at PPU $0000  Ё
+             Ё             1 - Select 1K VROM page at PPU $0400  Ё
+             Ё             2 - Select 1K VROM page at PPU $0800  Ё
+             Ё             3 - Select 1K VROM page at PPU $0C00  Ё
+             Ё             4 - Select 1K VROM page at PPU $1000  Ё
+             Ё             5 - Select 1K VROM page at PPU $1400  Ё
+             Ё             6 - Select 1K VROM page at PPU $1800  Ё
+             Ё             7 - Select 1K VROM page at PPU $1C00  Ё
+             Ё             8 - Select 8K ROM page at $6000       Ё
+             Ё             9 - Select 8K ROM page at $8000       Ё
+             Ё            10 - Select 8K ROM page at $A000       Ё
+             Ё            11 - Select 8K ROM page at $C000       Ё
+             Ё            12 - Select mirroring                  Ё
+             Ё            13 - IRQ control                       Ё
+             Ё            14 - Low byte of scanline counter      Ё
+             Ё            15 - High byte of scanline counter     Ё
+             Ё                                                   Ё
+             Ё NOTE: I am not sure if the information for        Ё
+             Ё        registers 8, 12, 13, 14, and 15 is correct.Ё
+             Ё                                                   Ё
+             юддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A000 цддд╢ VVVVVVVV                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Register Write                   Ё
+             Ё              Activates the command number    Ё
+             Ё              written to bits 0-3 of $8000    Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - The last 8K ROM page is permanently "hard-wired" to the last 8K
+           ROM page in the cart.
+        - This mapper is deployed in a manner similar to that of MMC3. First
+           a register number is written to $8000 and then the register
+           chosen can be accessed via $A000.
+        - Command #8 works in the following manner. The upper 2 bits select
+           what is swapped into $6000-$7FFF. If bit 6 is 0, it will be
+           ROM, selected from the other bits of the register. If it's 1,
+           then the contents depend on bit 7. In this case, if bit 7 is
+           1, it will be WRAM. If it's 0, it will be pseudo-random numbers
+           (this still hasn't been figured out).
+
+****************************************************************************
+
+ зддддддддддддддддддддддддддддддддддддд©
+ Ё Tengen RAMBO-1 (No Number Assigned) Ё
+ юддддддддддддддддддддддддддддддддддддды
+
+ здддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё This mapper is used on several U.S. unlicensed titles by Tengen.   Ё
+ Ё They include Shinobi, Klax, and Skull & Crossbones. Thanks to D    Ё
+ Ё for hacking this mapper.                                           Ё
+ юдддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8000 цддд╢ CPxxNNNN                                             Ё
+ юддддддды   Ё ЁЁ  юдбы                                             Ё
+             Ё ЁЁ    юддд Command Number                            Ё
+             Ё ЁЁ          0 - Select 2 1K VROM pages at PPU $0000  Ё
+             Ё ЁЁ          1 - Select 2 1K VROM pages at PPU $0800  Ё
+             Ё ЁЁ          2 - Select 1K VROM page at PPU $1000     Ё
+             Ё ЁЁ          3 - Select 1K VROM page at PPU $1400     Ё
+             Ё ЁЁ          4 - Select 1K VROM page at PPU $1800     Ё
+             Ё ЁЁ          5 - Select 1K VROM page at PPU $1C00     Ё
+             Ё ЁЁ          6 - Select first switchable ROM page     Ё
+             Ё ЁЁ          7 - Select second switchable ROM page    Ё
+             Ё ЁЁ          8 - Select 1K VROM page at PPU $0400     Ё
+             Ё ЁЁ          9 - Select 1K VROM page at PPU $0C00     Ё
+             Ё ЁЁ          15 - Select third switchable ROM page    Ё
+             Ё ЁЁ                                                   Ё
+             Ё Ёюдддддддд PRG Address Select        Command Number  Ё
+             Ё Ё                                  -#6-  -#7-  -#15- Ё
+             Ё Ё           0 - Enable swapping at $8000/$A000/$C000 Ё
+             Ё Ё           1 - Enable swapping at $A000/$C000/$8000 Ё
+             Ё Ё                                                    Ё
+             Ё юддддддддд CHR Address Select                        Ё
+             Ё             0 - Use normal address for commands 0-5  Ё
+             Ё             1 - XOR command 0-5 address with $1000   Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $8001 цддд╢ PPPPPPPP                                     Ё
+ юддддддды   Ё юддбддды                                     Ё
+             Ё    Ё                                         Ё
+             Ё    Ё                                         Ё
+             Ё    юддддддд Page Number for Command          Ё
+             Ё              Activates the command number    Ё
+             Ё              written to bits 0-2 of $8000    Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ зддддддд©   здддддддддддддддддддддддддддддддддддддддддддддд©
+ Ё $A000 цддд╢ xxxxxxxM                                     Ё
+ юддддддды   Ё        Ё                                     Ё
+             Ё        Ё                                     Ё
+             Ё        Ё                                     Ё
+             Ё        юддд Mirroring Select                 Ё
+             Ё              0 - Horizontal mirroring        Ё
+             Ё              1 - Vertical mirroring          Ё
+             Ё NOTE: I don't have any confidence in the     Ё
+             Ё       accuracy of this information.          Ё
+             юдддддддддддддддддддддддддддддддддддддддддддддды
+
+ Notes: - Two of the 8K ROM banks in the PRG area are switchable.
+           The last page is "hard-wired" to the last 8K bank in
+           the cart.
+        - At reset, all four 8K banks are set to the last 8K bank
+           in the cart.
+        - A cart will first write the command and base select number
+           to $8000, then the value to be used to $8001.
+        - On carts with VROM, the first 8K of VROM is swapped into
+           PPU $0000 on reset. On carts without VROM, as always, there
+           is 8K of VRAM at PPU $0000.
+
+****************************************************************************
+
+(C) 1997, 1998 Firebug - Cannot be used for commercial gain

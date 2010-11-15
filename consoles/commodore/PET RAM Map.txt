@@ -1,0 +1,272 @@
+Newsgroups: comp.sys.cbm
+From: rhialto@mbfys.kun.nl (Olaf Seibert)
+Subject: PET RAM memory map
+Organization: University of Nijmegen, The Netherlands
+Date: Wed, 14 Dec 1994 19:22:02 GMT
+
+
+This could be improved upon - not all locations have labels.
+I must note I've never seen a PET memory map with labels, so in that
+respect this is a first. I could add the locations for the Basic 1 
+ROMs in a next version. Corrections welcome. Enjoy.
+
+;	Commodore PET RAM Memory Map
+;	for Basic 2 and 4 (40 and 80 columns)
+;	V1.1	13 dec 1994
+;
+;	Note that the labels in this list are matched up against C-64
+;	memory maps. All attempts were made to secure plausibility of
+;	placement.
+;	Locations marked with (64#..) are found by taking the label given
+;	for the C-64 and comparing ROM disassemblies. Many of these
+;	locations have RS-232 specific names.
+
+
+ LABEL	HEX		DECIMAL
+ 	ADDRESS		LOCATION	DESCRIPTION
+
+ USRPOK	0000		0  	USR Function Jump Instr (4C)
+ USRADD	0001-0002	1-2    	USR Address Low	Byte / High Byte
+ CHARAC	0003		3	Search Character
+ ENDCHR	0004		4	Flag: Scan for Quote at End of String
+ COUNT	0005		5	Input Buffer Pointer / No. of Subscripts
+ DIMFLG	0006		6	Flag: Default Array DiMension / array name
+ 				initial / AND, OR flag
+ VAUYP	0007		7	Data Type: $FF = String, $00 = Numeric
+ INTFLG	0008		8	Data Type: $80 = Integer, $00 = Floating
+ GARBFL	0009		9	Flag: DATA scan/LlST quote/Garbage Coll
+ SUBFLG	000A		10	Flag: Subscript Ref / User Function Call
+ INPFLG	000B		11	Flag: $00 = INPUT, $40 = GET, $98 = READ
+ TANSGN	000C		12	Flag TAN sign / Comparison Result
+ 	000D		13	3: Flag to suppress PRINT or PRINT# when -ve
+	000E		14	3: File# of current I/O device (as 0010)
+	000F		15	3: terminal width (unused-carried over from TTY)
+	0010		16	3: width of source (unused - from TTY)
+        000D-000F	13-15	4: Disk Status DS$ descriptor
+ 	0010		16	4: File# of current I/O device (when non-zero
+				suppresses INPUT prompt etc)
+ LINNUM	0011-0012	17-18	Temp: Integer Value
+ TEMPPT	0013		18	Pointer Temporary String
+ LASTPT	0014-0015	19-21	Last Temp String Address
+ TEMPST	0016-001E  	22-30	Stack for Temporary Strings
+ INDEX	001F-0022	31-34	Utility Pointer Area
+ RESHO	0023-0027	35-39	Floating-Point Product of Multiply
+ TXTTAB	0028-0029	40-41	Pointer: Start of BASIC	Text
+ VARTAB	002A-002B	42-43	Pointer: Start of BASIC	Variables
+ ARYTAB	002C-002D	44-45	Pointer: Start of BASIC Arrays
+ STREND	002E-002F	46-47	Pointer End of BASIC Arrays (+1)
+ FRETOP	0030-0031	48-49	Pointer: Bottom of String Storage
+ FRESPC	0032-0033	50-51	Utility String Pointer
+ MEMSIZ	0034-0035	52-53	Pointer: Highest Address Used by BASIC
+ CURLIN	0036-0037	54-55	Current BASIC Line Number
+ OLDLIN	0038-0039	56-67	Previous BASIC Line Number
+ OLDTXT	003A-003B	58-59	Pointer: BASIC Statement for CONT
+ DATLIN	003C-003D	60-61	Current DATA Line Number
+ DATPTR	003E-003F	62-63	Pointer: Current DATA Item Address
+ INPPTR	0040-0041	64-65	Vector: INPUT Routine	
+ VARNAM	0042-0043	66-67	Current BASIC Variable Name
+ VARPNT	0044-0045	68-69	Pointer: Current BASIC Variable Data
+ FORPNT	0046-0047	70-71	Pointer: Index Variable for FOR/NEXT
+ 	0048-0049	72-73	Y-save; op-save; BASIC pointer save
+	004A		74	Comparison symbol accumulator: bits 0,1,2
+				are <, =, >.
+	004B-004C	75-76	Pointer to temp storage in RAM for FN DEF,
+				TAN, &c
+	004D-0050	77-80	Pointer to string, length and garbage
+				collect constant
+
+ TEMPF1	0054-0058		Temporary storage for FLPT value.
+ TEMPF2	0059-005D		Temporary storage for FLPT value.
+
+ FACEXP	005E		94	Floating-Point Accumulator #1: Exponent
+ FACHO	005F-0062	95-98	Floating Accum.	#1: Mantissa
+ FACSGN	0063		99	Floating Accum.	#1: Sign
+ SGNFLG	0064		100	Pointer: Series Evaluation Constant Pointer
+ BITS	0065		101	Floating -accum. #1: Overflow Digit
+ ARGEXP	0066		102	Floating-Point Accumulator #2: Exponent
+ ARGHO	0067-006A	103-106	Floating Accum. #2: Mantissa
+ ARGSGN	006B		107	Floating Accum. #2: Sign
+ ARISGN	006C		108	Sign Comparison Result: Accum. # 1 vs #2
+ FACOV	006D		109	Floating Accum. #1. Low-Order (Rounding)
+ FBUFPT	006E-006F	110-111	Pointer: Cassette Buffer
+ CHRGET	0070-0087	112-135	Subroutine: Get Next Byte of BASIC Text
+ CHRGOT	0076		118	Entry to Get Same Byte of Text Again
+ TXTPTR	0077-0078	119-120	Pointer: Current Byte of BASIC Text
+ 	0070			INC $77
+				BNE $0076
+	0076			LDA $xxxx
+				CMP #$3A
+				BCS $0087
+				CMP #$20
+				BEQ $0070
+				SEC
+				SBC #$30
+				SEC
+				SBC #$D0
+	0087			RTS
+ RNDX	0088-008C	136-140	Floating RND Function Seed Value
+ TIME	008D-008F	141-143	Real-Time Jiffy Clock (approx) 1/60 Sec
+ CINV	0090-0091	144-145	Vector: Hardware Interrupt
+ CBINV	0092-0093	146-147	Vector: BRK Instr. Interrupt	
+ NMINV	0094-0095	148-149	Vector: Non-Maskable Interrupt
+ STATUS	0096		150	Kernal I/O Status Word: ST
+ LSTX	0097		151	Current Key Pressed: 255 = No Key
+ SFDX	0098		   	Flag: Print Shifted Chars.
+        0099-009A               Jiffy clock correction: 623rd 1/60 sec
+	                        does not increment time
+ STKEY	009B		155	Flag: STOP key / RVS key
+ SVXT	009C		156	Timing Constant for Tape
+ VERCK	009D		157	Flag: 0 = Load, 1 = Verify (Kernel)
+ NDX	009E		158	No. of Chars. in Keyboard Buffer (Queue)
+ RVS	009F		159	Flag: Print Reverse Chars. -1=Yes, 0=No Used
+ C3PO	00A0		160	Flag: Serial Bus-Output Char. Buffered
+ INDX	00A1		161	Pointer: End of Logical	Line for INPUT
+        00A2		162	Not Used
+ LXSP	00A3-00A4	163-164	Cursor Y-X Pos. at Start of INPUT
+ BSOUR	00A5		165	Buffered Character for IEEE Bus
+ 	00A6		166	Key Image
+ BLNSW	00A7		167	Cursor Blink enable: 0 = Flash Cursor
+ BLNCT	00A8		168	Timer: Countdown to Toggle Cursor
+ GDBLN	00A9		169	Character Under Cursor
+ BLNON	00AA		170	Flag: Last Cursor Blink	On/Off
+?SYNO	00AB		171	Cassette Sync No. (64#0096)
+?NXTBIT	00AB		171	Tape EOT Flag: EOT received from tape
+ CRSW	00AC		172	Flag: INPUT or GET from	Keyboard
+ 	00AD		173	X save in tape handling (saves cassette #)
+ LDTND	00AE		174	No. of Open Files / Index to File Table
+ DFLTN	00AF		175	Default Input Device (0)
+ DFLTO	00B0		176	Default Output (CMD) Device (3)
+ PRTY	00B1		177	Tape Character Parity
+ DPSW	00B2		178	Flag: Tape Byte-Received
+ PSW=DPSW
+ 	00B3		179	Temporary save eg. logical address or DOS
+				wedge
+
+ 	00B7		183	Temp Data Area (64#00A3)
+
+ 	00B9		185	Temp Data Area (64#00A4)
+
+ BUFPNT	00BB		   	Pointer: Tape I/O Buffer #1
+       	00BC		   	Pointer: Tape I/O Buffer #2
+ INBIT	00BD		189	Cassette Temp (64#00A7)
+ BITCI	00BE		190	Cassette Temp (64#00A8)
+ RINONE	00BF		191	RS-232 Flag: Check for Start Bit (64#00A9)
+ FNMIDX 00C0            192     Index to Cassette File name/Header ID for
+                                Tape write.
+ PTR1	00C0		192	Tape Pass 1 Error Log
+ PTR2	00C1		193	Tape Pass 2 Error Log
+ RIDATA	00C2		194	Cassette Temp (64#00AA) read flags: 0=scan,
+ 				1-15=count, $40=load, $80=end of tape marker
+ RIPRTY	00C3		195	Cassette Short Cnt (64#00AB): counter of seconds
+ 				before tape write / checksum
+ PNT	00C4-00C5	196-197	Pointer: Current Screen	Line Address
+ PNTR	00C6		198	Cursor Column on Current Line
+ SAL	00C7-00C8	199-200	Pointer: Tape Buffer/ Screen Scrolling
+ EAL	00C9-00CA	201-202	Tape End Addresses/End of Program
+ CMP0	00CB-00CC	203-204	Tape Timing Constants
+ QTSW	00CD		205	Flag: Editor in Quote Mode, $00 = NO
+ BITTS	00CE		206	Cassette Temp (64#00B4): Tape read timer flag
+				=IRQ enabled for Timer 1
+	00CF		207	End of tape read
+	00D0		208	Read character error
+ FNLEN	00D1		209	Length of Current File Name
+ LA	00D2		210	Current Logical File Number
+ SA     00D3            211     Current Secondary Address
+ FA	00D4		212	Current Device Number
+ LNMX	00D5		213	Physical Screen Line Length
+	00D5            213     4.80: right side of window
+ TAPE1	00D6-00D7	214-215	Pointer: Start of Tape Buffer
+ TBLX	00D8		216	Current Cursor Physical Line Number
+ DATAX  00D9            217     Current Character to Print
+ FNADR	00DA-00DB	218-219	Pointer: Current File Name
+ INSRT	00DC		220	Flag: Insert Mode, >0 = # INSTs
+?ROPRTY	00DD		121	Cassette Temp
+ FSBLK	00DE		222	Cassette Read / Write Block Count
+ MYCH	00DF		223	Serial Word Buffer
+ LDTB1	00E0-00F8	224-248	3+4.40: Screen Line Link Table / Editor Temps
+ SCTOP  00E0            224     4.80: first line of window
+ SCBOT  00E1            225     4.80: last line of window
+ SCLF   00E2            226     4.80: first column of window
+ XMAX	00E3		227	4.80: Size of Keyboard Buffer
+ XMAX	03EB		1003	4.40
+ RPTFLG	00E4		228	4.80: Flag: REPEAT Key Used, $80 = Repeat
+                                      $40 = disable
+ RPTFLG	03EE		1006	4.40
+ KOUNT	00E5		651	4.80: Repeat Speed Counter
+ KOUNT	03EA		1002	4.40
+ DELAY	00E6	        230	4.80: Repeat Delay Counter
+ DELAY	03E9		1001	4.40
+ 	00E7		231	4.80: Chime Time
+ 	03EC		1004	4.40: Chime Time
+	00E8		232	4.80: Home Count
+	00E9-00EA       233-234	4.80: input from screen vector (from E006)
+	00EB-00EC       235-236	4.80: print to screen vector (from E009)
+	00ED-00F7	237-247	4.80: not used
+	00F8		248	4.80: Counter to speed TI by 6/5
+	03ED		1005	4.40: Counter to speed TI by 6/5
+ CAS1	00F9		249	Tape Motor Interlock #1
+ CAS2	00FA		250	Tape Motor Interlock #2
+ STAL	00FB-00FC	251-252	I/O Start Address
+ MEMUSS	00FD-00FE	253-254	Tape Load Temps
+ 	00FF		255	Not used
+ 	0100-01FF	256-511	Micro-Processor System Stack Area
+ 	0100-010A	256-266	Floating to String Work Area
+ BAD	0100-013E	256-318	Tape Input Error Log
+ BUF	0200-0250	512-592	System INPUT Buffer
+ LAT	0251-025A	593-602	KERNAL Table: Active Logical File No's.
+ FAT	025B-0264	603-612	KERNAL Table: Device No. for Each File
+ SAT	0265-0270	613-623	KERNAL Table: Second Address Each File
+ KEYD	0270-027A	624-633	Keyboard Buffer Queue (FIFO)
+ TBUFFR	027A-0329	634-825	  Tape I/O Buffer #1
+ 	027A			  Type of tape file:
+				  1=program header for SAVE "",1,0
+				  2=data block
+				  3=absolute load SAVE "",1,1 (VIC-20 and later)
+				  4=data file header
+				  5=end of tape block: SAVE "",1,2
+	027B-027C		  Start address for load
+	027D-027E		  End address for load
+	027F-028E		  File name
+ TBUFFR	033A-03F9	826-1017  Tape I/O Buffer #2
+ 	033A			  4: DOS byte parameter in RECORD / char ptr
+	033B			  4: DOS drive 1 number
+	033C			  4: DOS drive 2 number
+	033D			  4: DOS length / write flag
+	033E			  4: DOS 8-bit syntax checking flag
+	033F-0340		  4: DOS diskette ID
+	0341			  4: Length of DOS command string
+	0342-0352		  4: Buffer for filename
+	0353-0380		  4: Full DOS command string buffer
+	03EE-037F		  4.80: Table of 80 bits to set TABs
+ DELAY	03E9		1001	4.40
+ KOUNT	03EA		1002	4.40
+ XMAX	03EB		1003	4.40
+ 	03EC		1004	4.40: Chime Time
+	03ED		1005	4.40: Counter to speed TI by 6/5
+ RPTFLG	03EE		1006	4.40
+	03F0-03F9		  4.40: Table of 80 bits to set TABs
+ 	03FA-03FF	1018-1023	Unused
+ TIMOUT	03FC		1020	4: Flag: Kernal Variable for IEEE Timeout
+        0400-8000	1024-32767      Basic program area
+	0400			0 byte at start of Basic program
+	0401-0402		first link to next Basic line
+	0403-0404		first line number
+	0405-			tokenized basic line, terminated with 00
+				followed by next link
+
+	8000-83E7	32768-33767 40 column screen memory
+	8000-87EF	32768-34767 80 column screen memory
+
+A000-AFFF	free space for 4K EPROM
+B000-BFFF	3: free space for 4K EPROM
+    4         3
+B000-DFFF C000-DFFF	Basic keywords and operators, and general processing
+E000-EFFF E000-EFFF	Mostly screen editor functions
+F000-FFFF F000-FFFF	Kernel: tape processing, IEEE-488, jump table.
+
+
+-Olaf.
+--
+___ Olaf 'Rhialto' Seibert    rhialto@mbfys.kun.nl         What's the use of
+\X/  racism if you can't even see if a person belongs to your abhorred kind?
+

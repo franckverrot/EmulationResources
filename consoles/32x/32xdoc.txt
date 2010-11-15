@@ -1,0 +1,30 @@
+32x- only 27 games exist
+
+PROCESSOR: Twin Hitachi (SH2) 32 bit RISC processors
+                      - clock speed of 23 MHZ
+                      - 40 MIPS
+
+CO-PROCESSOR(s): Genesis 68000, Z80, Genesis 32X VDP
+                    Video processor
+                      - 50,000 texture-mapped polygons/sec
+                      - texture mapping
+                      - hardware scaling and rotation
+
+
+VIDEO: - 32,768 simultaneous colours on screen
+          - Genesis resolution
+          - Overlaying over existing Genesis/SegaCD video
+
+AUDIO: Stereo PCM chip
+              - audio mixing with Genesis sound
+              - additional 2 channels (therefore 14 all together?)
+
+I/O: Same as Genesis
+           - 32X upgradable; can upgrade the 32X
+
+STORAGE: Cartridge                      
+               - compatible with Genesis
+               - can store save game/score information (as with many
+                 Genesis games)
+
+

@@ -1,0 +1,2064 @@
+
+Sega Programming FAQ
+
+
+Sega Programming FAQ September 14, 1994, Sixth Edition
+Modified May 23, 1996 (to reflect changes) by cdoty@host.yab.com
+
+(If you have the Seventh Edition please send it to me 
+cdoty@host.yab.com)
+
+
+ 
+This FAQ (Frequently Asked Questions) is about how to program
+the Sega Genesis and Mega Drive Video Games Systems.
+ 
+This file IS Public Domain, and can be used by all.
+You may copy and post this file elsewhere. Share and enjoy.
+ 
+If you want to add anything, especially game code or
+information on the hardware please E-mail me. My E-mail
+and real address are below and at the end of this FAQ.
+ 
+Disclaimer : In no way I am endorsing any products, systems,
+etc. What I am doing is providing the information that I
+have found throughout internet and other network systems and
+reporting them here, with out reverse engineering. All
+information is reported as is- I will not accept any
+responsibility if you fry your system trying something out.
+ 
+All copyrights are owned by their respective owners, no
+infringements intended.
+ 
+Henry Rieke
+
+ 
+US Mail:
+ 
+Henry Rieke
+Attn: Sega FAQ
+161 Poplar Dr
+Morgantown, Wv 26505-2340
+ 
+Modified by:
+
+Charles Doty
+
+ 
+0.1 Changes, Updates and Coming Soon
+ 
+1) Graphic, Video, and processor maps have been added. Major stuff here.
+In fact, enough to being programming your own games.
+ 
+2) Coding for the four player tap from Electonic Arts has been added.
+Does anyone have the code for the multi-tap from Sega, and how it works?
+ 
+3) I am now beginning to work on a topic header on languages that
+you can program in for the Sega and Sega CD ROM. If you have any
+direct information (compiler, how to compile, etc) let me know so
+I can include it.
+ 
+4) I've (Charles Doty) written a Sega Assembler, Disassembler. Included with
+   this is some source code. Currently the source only puts a text message
+   to the screen. I've got a working sprite but haven't released the code yet.
+   It's available at http://www.yab.com/~cdoty/Console.html
+
+
+ 
+1.0 Questions
+ 
+Q) What are the differences between Mega Drive and Genesis?
+   What are the differences between Mega CD and Sega CD?
+ 
+A) Physically, on the outside, the only difference is the
+   plastic case, the cartridge shape is slightly different on
+   the American version, smaller in size. On the inside there
+   are four jumpers labeled J1 though J4. J1 and J2 is the
+   language switch, between English and Japanese, J3 and J4
+   select the output between PAL and NTSC. You can build a
+   switch that can allow you to select between these options.
+   The diagram is included in this document (Chapter 5.0,
+   called "Language Switch"). The reason for the language
+   switch is to keep people from getting the game before it
+   is officially released elsewhere in the world. The newer
+   Sega Machines do not have the jumpers, and hence you can
+   not build a switch (as of yet).
+ 
+   The difference between Mega CD and Sega CD are internal.
+   In side the machine there is a ROM BIOS chip which is changed
+   for different markets. Sega has a version of the BIOS which
+   will play any system's games, but this is for Game developing
+   and testing. There is a device called Pro-CDX which will allow
+   you to by-pass the lockout and play any country's games.
+ 
+Q) Where to find files on the Sega Genesis/Mega Drive
+   hardware?
+ 
+A) You can find the files on the Sega hardware from one of
+   the following FTP sites. A brief section describing memory
+   and cartridge ROMs are included in this FAQ. The author
+   Rick McTeague, is from Louisville and the most current copy
+   can be found there first.
+ 
+FTP ftp.spd.louisville.edu
+    /pub/sega/hardware.txt
+ 
+FTP sunsite.unc.edu
+    /pub/micro/games/sega/faqs/incoming\hardware.txt
+    It's in there. I'm not sure of the exact location.
+ 
+Q) What does it take to program the Genesis?
+ 
+A) Development kits can be bought from many companies, a list
+   is included in the section called "Companies". These kits
+   require an IBM or Amiga computer to compile the code,
+   which is usually assembly, but can be in C as long as it
+   can be compiled into 68000 binary. SEGA's own kit is extremely
+   expensive and they are rumored to have slow response time
+   to answer questions. The price of the kits cost from $1000
+   to $4000.
+ 
+Q) Is IBM or Amiga the only two platforms for game
+   development?
+ 
+A) No. The Apple Macintosh does have a system, which does allow
+   you to compile games, but it is a do-it yourself job (See below
+   for the whole scope). There also is a system for the Apple IIgs,
+   called Sluggo from Parsons Engineering. As for the Mac, if you
+   know, please pass it on. It is rumored that Electronic Arts uses
+   a priority system on the Macintosh for porting the games.
+ 
+-- This information comes from Landon Dyer ,
+ 
+-- You can generate 68K code for the Sega "trivially" with the
+   C compiler and assembler in the Macintosh programmer's workshop
+   (MPW). You'll need to hack up some transfer utilities, but this
+   is not really hard. You can wire-wrap a ROMulator, or buy one;
+   there are a bunch on the market that should work just fine.
+   I had a ROMulator and a debugger up and running in about a
+   week, working evenings. (Ed note: ROMular information can be found
+   at the FTP sites)
+ 
+Q) How do I program the SEGA CD Rom?
+ 
+A) I am beginning to understand how to program this device,
+   but more information is needed, so if you have any, please
+   pass it along to me so I can include it in the next update.
+   Look under Hardware 2.1, Sega CD for more information about
+   the unit.
+ 
+Q) What is Saturn, and how do I program that?
+ 
+A) Saturn is Sega's next generation game machine, which
+   is based on Sega's S-1 /S-2 arcade Machine's motherboard.
+   Rumor has it that it will allow programming in C as
+   well as Assembly, and porting of arcade games that are
+   based on the S-1 and S-2 boards will take only a week.
+   There is good news and bad news as well.
+   Good news, Microsoft will be writing the OS.
+   Bad new, Microsoft will be writing the OS.
+ 
+Q) What else is there on Internet?
+ 
+A) Http://www.yab.com/~cdoty/Console.html contains a Sega assembler,
+   disassembler and some simple source code.
+ 
+   There is also Rec.Games.Video.Sega where you can ask your questions.
+ 
+   There are also files on how to use the old SEGA 3D glasses
+   with your IBM compatible computer which can be found all
+   over the place (including the above FTP sites).
+
+
+
+ 
+2.0 Hardware : This is the inner workings of the Sega system
+ROM and Memory. For a better understanding Sega Hardware I
+suggest reading Hardware.txt. An up-to-date version of this
+file can be gotten by anonymous ftp from Ftp.spd.louisville.edu,
+in the file "Pub/sega/Hardware.txt".
+ 
+Genesis - this information comes from Rick McTeague.
+ 
+Sega Genesis Hardware Internals - Revised: 04/07/1993
+ 
+Please send corrections or comments to:
+ 
+   Rick McTeague
+   Sysrick@starbase.spd.louisville.edu
+ 
+Disclaimers:
+ 
+The following information was extracted without the use of
+official information from Sega Enterprises, Ltd. I therefore
+offer no warranty on the correctness of this information.
+Use it at your own risk.
+ 
+This information was gathered as a personal project, and is
+not the responsibility of my employer.
+ 
+Different versions of the Genesis exist, so I won't suggest
+that any of this information is right for anybody's Genesis
+but my own.
+ 
+Sega, Genesis, Sonic the Hedgehog, and Ecco the Dolphin are
+trademarks of Sega Enterprises, Ltd. Other trademarks are the
+property of their respective companies.
+ 
+ 
+The Cartridge ROM
+-----------------
+ 
+As others on the net have observed, a standard Genesis
+cartridge is nothing more than a small printed circuit board
+with a ROM on it. There are some cartridges which have
+battery-backed RAM for saving high scores, configurations,
+etc., but I haven't seen these, so I don't know about them.
+If you know of a particular cartridge that has RAM, let me
+know so I can go rent one and take it apart (shhhh!) to see
+what's in it.
+ 
+A cartridge contains a word-wide (16 bit) ROM with up to 2
+Meg words (4 Mbytes). This is based on the signal !C_CE, which
+is used as the cartridge ROM's chip enable on the cartridges
+I've looked at, and which is active at addresses $000000-$3fffff.
+ 
+It may be possible to have more than 4 Mbyte cartridges; if
+so, either they ignore the !C_CE line and do their own
+address decoding, or there's a register somewhere in the
+Genesis which changes the default address decoding scheme for
+!_CE.
+ 
+Note that cartridges are advertised as being "8 Meg"; as far
+as I know, is 8 Meg _bits_, not bytes. 1 Mbyte is still
+pretty impressive for a game machine.
+ 
+SONIC uses a 40-pin 256Kx16 (512Kx8) ROM in word mode.
+ 
+Ecco the Dolphin uses a 42-pin 512Kx16 (1024Kx8) ROM in word
+mode. This one confused me because I'd never seen a 42-pin
+DIP before, so I thought it was 40 pins. No wonder the
+signals didn't look right...
+ 
+Putting together a little bit of information from a Sharp
+data sheet for a 512 Kword ROM with a bit of conjecture based
+on the Sonic and Ecco cartridges, this is what I can come up
+with for pinouts:
+ 
+         Sonic                              Ecco
+      (256 Kword)                       (512 Kword)
+ 
+                                          ----u----
+         ----u----               A18    1=|       |=42   VCC?
+A17    1=|       |=40   A 8      A17    2=|       |=41   A 8
+A 7    2=|       |=39   A 9      A 7    3=|       |=40   A 9
+A 6    3=|       |=38   A10      A 6    4=|       |=39   A10
+A 5    4=|       |=37   A11      A 5    5=|       |=38   A11
+A 4    5=|       |=36   A12      A 4    6=|       |=37   A12
+A 3    6=|       |=35   A13      A 3    7=|       |=36   A13
+A 2    7=|       |=34   A14      A 2    8=|       |=35   A14
+A 1    8=|       |=33   A15      A 1    9=|       |=34   A15
+A 0    9=|       |=32   A16      A 0   10=|       |=33   A16
+!CE   10=|       |=31   !BYTE    !CE   11=|       |=32   !BYTE
+GND   11=|       |=30   GND      GND   12=|       |=31   GND
+!OE   12=|       |=29   D15      !OE   13=|       |=30   D15
+D 0   13=|       |=28   D 7      D 0   14=|       |=29   D 7
+D 8   14=|       |=27   D14      D 8   15=|       |=28   D14
+D 1   15=|       |=26   D 6      D 1   16=|       |=27   D 6
+D 9   16=|       |=25   D13      D 9   17=|       |=26   D13
+D 2   17=|       |=24   D 5      D 2   18=|       |=25   D 5
+D10   18=|       |=23   D12      D10   19=|       |=24   D12
+D 3   19=|       |=22   D 4      D 3   20=|       |=23   D 4
+D11   20=|       |=21   VCC      D11   21=|       |=22   VCC
+         ---------                        ---------
+ 
+Note that the address line numbering is different than that
+of the 68000; line A0 of the ROM is really connected to the
+68000's A1. This is because of the way the 68000 handles
+even/odd byte addressing using !UDS and !LDS.
+ 
+The !BYTE line is held high. This puts the ROM chip into
+"word" mode, where data is accessed 16 bits at a time.
+ 
+The convenient correspondence between ROM and 68000 data and
+address lines (ROM D0 = 68K D0, ROM D1 = 68K D1, etc..., and
+ROM A0 = 68K A1,  ROM A1 = 68K A2, etc...) may not exist in
+all cartridge designs. This is sometimes difficult to
+visualize, but keep in mind that the ROM doesn't care whether
+its D0 is really D0, or if its A3 is really A3, etc. As long
+as each data line is used as the same D## line for both
+programming and reading, and each address line is used as the
+same A## for both programming and reading, the ROM will
+function properly and the 68000 will see the right
+instructions. Think about it...
+ 
+Why bring this up? If you remove the ROM from the cartridge
+PCB and try to read it with a EPROM programmer, there may be
+situations where you won't see valid 68000 instructions, or
+things won't be in the right place... Assuming your
+programmer isn't messed up, this would be because the address
+and data lines on the ROM aren't assigned the way you'd
+expect.
+ 
+Why would someone make a cartridge like this? To make your
+life difficult, if you're wanting to hack their ROMs, or to
+make their life easy, by making the cartridge PCB easier to
+design.
+ 
+The easiest way to avoid this potential problem is to build
+an adapter from your programmer's EPROM socket to an edge
+card connector into which you plug the cartridge. This is a
+bit safer, too, so you don't have to remove the ROM from the
+cartridge (or even open it up).
+ 
+The Memory Map
+--------------
+ 
+$000000 $3fffff Cartridge ROM, when enabled by cartridge
+control register and !CART_IN.
+ 
+$000000 $0007ff Internal OS ROM, when enabled by cartridge
+control register and !CART_IN.
+ 
+$ff0000 $ffffff 64Kbytes scratchpad RAM
+Partially decoded; RAM actually appears repeated between
+$e00000 through $ffffff.
+ 
+$a14101 cartridge control register
+bit 0 = 0: cartridge disabled, OS ROM enabled
+bit 0 = 1: cartridge enabled, OS ROM disabled
+ 
+$a00000 $a????? Unknown. Audio? Controller I/O?
+ 
+$c00000 $c????? Video display controller registers
+ 
+The OS puts the top of its stack at $ffff00, and defines a
+"user stack pointer" at $000000 (building down through the
+top of RAM memory).
+ 
+The Z80 processor is used for sound and has 8Kbytes of RAM.
+I don't know anything about how the Z80 does its work, as I
+haven't looked.
+ 
+Acknowledgements
+----------------
+Thanks to:
+ 
+dt93tn@pt.hk-r.se (Tore Nestenius) for info on older Genesis
+systems.
+ 
+lewism@rpi.edu (Michael Lewis) for info on the Sony CXA1145
+and Samsung KM6264 chips.
+ 
+crs@crs-sys.uucp (Chris Gregors) for posting a version of the
+Genesis cartridge port pinouts.
+ 
+merlyn@digibd.com (Brian Westley) for Game Genie information
+and decoder program.
+
+
+ 
+Brief technical description of the Genesis:
+ 
+---
+The genesis graphics hardware consists of 2 scrollable planes.
+Each plane is made up of tiles. Each tile is an 8x8 pixel square
+with 4 bits per pixel. Each pixel can thus have 16 colors. Each
+tile can use 1 of 4 color tables, so on screen you can get 64
+colors at once, but only 16 in any specific tile. Tiles require
+32 bytes. There is 64K of graphics memory. This would allow
+for 2048 unique tiles if memory were used for nothing else.
+ 
+Each plane can be scrolled independently in various ways.
+Planes consist of tables of words, where each word describes a
+tile. The word contains 11 bits for describing which tile, 2 bits
+for flip x and flip y, 2 bits for the selection of the color table,
+and 1 bit for a depth selector. Sprites are composed of tiles also.
+A sprite can be up to 4 tiles wide by four tiles high. Since each
+tile is 8x8, this means sprites can be anywhere from 8x8 pixels to
+32x32 pixels. There can be 80 sprites on screen at one time. On a
+scan line you can have 10 32 pixel wide sprites or 20 16 pixel wide
+sprites. Each sprite can only have 16 colors but they are out of the
+4 different color tables. Color 0=transparent.
+ 
+Colors are 3 bits for each gun, so 512 colors are possible.
+ 
+There is a memory copier that is in hardware. This does fast copies from
+the 68000 ram into the graphics ram.
+ 
+The 68000 runs at about 8 mhz. It has 64K of memory devoted to it. The
+ROM cartridge appears at 0.
+ 
+The Z80 has 8K of ram. The 68000 can download programs to the z80 and
+let them go. The z80 can access the graphics chips or the sound synth
+chips but usually those things are controlled by the 68000.
+ 
+The sound chips consist of a Yamaha synthesis chip and a TI programmable
+sound generator. The PSG has 3 square wave tones and 1 white noise tone.
+Each tone/noise channel can have its own frequency and volume.
+ 
+The Yamaha chips are based on FM synthesis. There are 6 voices with 4
+operators each. The chips are similiar to those used in the Yamaha
+DX27 and DX100 synthesizers. By setting up registers a rich variety of
+sounds can be created.
+
+
+
+ 
+2.1 Sega CD Rom. The following information came from
+Leyland@island.COM (Robert Leyland), who was a programmer for the
+most excellent Sega CD Rom game - Flying Aces. (Plug!Plug!
+Plug!Plug!Plug!Plug!)
+ 
+-- The Sega CD is ISO 9660 format, with proprietary start-up code
+that must be licensed from SEGA in order to work. For programming
+you use two PC's, one connected to a debugging system and the other
+emulated an CD-ROM drive.
+The trickiest part of programming the Sega CD/Genesis combo is
+keeping the two CPU's synchronized. For some reason the single
+hardest thing to do with any computer is get it to talk reliably
+with another computer.
+
+
+ 
+2.2 Joystick - 3 button version - Could some please post a 6
+button version?
+ 
+By: nhowland@matt.ksu.ksu.edu (Neal Howland) for information
+on the Joystick port.
+ 
+First some background info:  The chip inside the controller
+is a 74HC157.  This is a high-speed cmos quad 2-line to
+1-line multiplexer. Basically how this works is there are two
+inputs ( A and B ) for every output ( Y ).  There are four
+groups like this.  There is one select signal for the whole
+chip.  When the select signal is low, the output ( Y ) is the
+same as input A.  When the select signal is high, the output
+Y is the same as input B.  The pinout for the chip is as
+follows:
+ 
+   Pin 1 - SelectPin 16 - Vcc (+5V)
+   Pin 2 - 1APin 15 - G (? must be low)
+   Pin 3 - 1BPin 14 - 4A
+   Pin 4 - 1YPin 13 - 4B
+   Pin 5 - 2APin 12 - 4Y
+   Pin 6 - 2BPin 11 - 3A
+   Pin 7 - 2YPin 10 - 3B
+   Pin 8 - GndPin 9 - 3Y
+ 
+ 
+All the controls are done with switches.  Up is a switch,
+Down is a switch, etc. Now, I will be referring to the output
+of these switches later on. What I mean is that the output is
+usually high, that is when the switch isn't pressed.
+ 
+When the button is pushed, the output goes low.  This is
+accomplished by connecting the output to +5V through a 10k
+resistor. The button is then attached between the output and
+ground. It looks like this:
+ 
+     +5V -----/\/\/------+--------- Output
+               10k       |
+                         |
+                /        |
+   Ground -----/  -------+
+              button
+              (normally open)
+ 
+For all of those who could actually decipher the above
+schematic, congratulations!
+ 
+ 
+I will now run down what lines from the plug are connected to
+what. The line numbers are determined as follows, looking
+straight at the plug on the front of the Genesis the numbers
+are:
+ 
+   1 2 3 4 5
+    6 7 8 9
+ 
+  (For those of you who buy a joystick cable from radio shack
+the pin #'s to wire colors are as follows: 1-white 2-blue
+3-green 4-brown 5-yellow 6-orange 7-red 8-black 9-gray )
+ 
+anyway, line connections:
+ 
+Line 1 - Up output      These are the only two direct
+Line 2 - Down output             connections
+ 
+Line 3 - Pin 4 of the chip output 1Y
+Line 4 - Pin 7 of the chip output 2Y
+ 
+Line 5 - This line carries in +5V. It is connected to the
+         +5V bus line.
+ 
+Line 6 - Pin 9 of the chip output 3Y
+line 7 - Pin 1 of the chip this carries in a select signal
+         from the Genesis. This is a signal which varies
+         rapidly and controls which input goes through the
+         output.
+ 
+Line 8 - Ground  This is connected to the Ground bus line.
+Line 9 - Pin 12 of the chip output 4Y
+ 
+Now for the chips pin connections:
+ 
+Pin 1 - Line 7    (select)
+Pin 2 - Ground    (1A)  Don't ask me why they do this. Maybe
+Pin 3 - Left      (1B)  future expansion
+Pin 4 - Line 3    (1Y)
+Pin 5 - Ground    (2A)  Again, possibly future expansion
+Pin 6 - Right     (2B)
+Pin 7 - Line 4    (2Y)
+Pin 8 - Ground    (GND)
+Pin 9 - Line 6    (3Y)
+Pin 10 - Button B (3B)
+Pin 11 - Button A (3A)
+Pin 12 - Line 9   (4Y)
+Pin 13 - Button C (4B)
+Pin 14 - Start    (4A)
+Pin 15 - Ground   (G)   This must be connected to ground
+Pin 16 - +5V      (Vcc) Power source for the chip
+ 
+Anyway that's all the info needed to build your own joystick.
+ 
+Now as an added bonus, additional information!
+ 
+A simple source for a joystick cable is the Radio Shack
+joystick extension cable. It is around $5 and is 10 ft. long.
+Just snip off the connector that won't plug into the Genesis,
+strip the wires back, and use the color pinout list I gave
+above.
+ 
+I went to my local arcade game repair company today and
+purchased the supplies I needed.  They were much cheaper than
+I expected.  Things you would need to buy from them would be:
+ 
+   an 8-way joystick     this ran me $15
+        3 buttons             $2.50 apiece
+ 
+I only bought three buttons because I am going to use a Radio
+Shack push button switch for my start button. You can purchase
+4 arcade game buttons if you wish.
+ 
+Interesting ideas for extras on the joystick:
+ 
+1.  Autofire can be achieved with a simple 555 timer circuit.
+ 
+    For anyone wanting a challenge it should be possible to
+build a digital autofire using a divide-by-n counter with the
+select signal as clock input.
+ 
+2.  Slow down mode is just autofire for the start button.
+
+
+
+ 
+3.0 Companies - these companies produce the hardware that is
+required to write games for the Genesis. The original
+document came from: Scott Golby 
+ 
+   Hi Everyone,
+ 
+   Here is the current list of info I have about the Sega.
+ 
+   I have had about 10 replies so far asking to pass my
+info on.  If people want I will pass their EMail address on
+to everyone else so we can work as a group.  Drop me a line
+if you want to be added to the 'group' list.
+ 
+*****    <----- Five astrict like this means info from
+different people
+ 
+   Sega Genesis Developer Resources
+ 
+   Dan Chang April 18, 1993
+ 
+Sega of America Inc
+Consumer Products Division
+125 Shoreway Road
+San Carlos, California, 94070
+Tel : (415) 802-4400
+Fax : (415) 802-4458
+ 
+Stuart Kosoy is the person to contact at Sega of America
+at (415)802-4407.
+ 
+Products : Detailed SEGA Genesis technical information.  GEMS
+SEGA music development package.
+Solution : Music and Sound effects package for the Sega. SOA
+can provide detailed information on programming the Genesis;
+however they will want to know more about your company first.
+ 
+Western Technologies, Inc.
+12057 Jefferson Blvd
+Culver City, California, 90230
+Tel : (310) 821-7880
+Fax : (310) 306-1739
+ 
+Products : SegaDev Card. PC-Hosted Genesis development
+hardware, which includes SEGADEV.EXE, a Windows-hosted
+source-level debugger, and SEGALOAD.EXE, a PC_hosted 68000
+object code downloader.
+Solutions : SEGA Genesis Hardware, WT recommends Sierra
+Systems 68000 Assembler.
+ 
+ 
+Sierra Systems
+6728 Evergreen Ave
+Oakland California 94611
+Tel : (510) 339-8200  or (800) 776 4888
+Fax : (510) 339 3844
+ 
+Products : PC-hosted Sierra C cross-compiler, which included
+68000 C compiler, assembler, linker.
+ 
+Contact person at Sierra Systems is Larry Rosenthal
+E-Mail Sierra@netcom.com
+ 
+ 
+Motorola, Literature Dist
+ 
+This entry basically has a list of 68000 reference and
+programming books.
+ 
+ 
+Echidna
+1101 W Stevens Ave, Suite 232
+Santa Ana California 92707
+Tel : (714) 545-2662
+Fax : (714) 545-3705
+ 
+Products : tUME - the Universal Map Editor. PC-Hosted tool to
+edit tile-maps.
+Solutions : Saves time in designing game maps and placing
+level information. Downloads maps to Western Techs SegaDev
+card.
+ 
+ 
+Cross Products Limited
+23 The Calls
+Leeds LS2 7EH, England
+Tel 0532 429814
+Fax 0532 426163   (dial 011 44 532 426163 from USA)
+ 
+Product : SNASM68K : PC-Hosted SEGA Genesis development
+system, which includes a 68000 assembler, linker, debugger.
+ 
+ 
+Parsons Engineering
+Imhurst Ave
+Covina California 91724
+Tel (818) 966 5538
+ 
+Products : PC/Apple IIgs hosted Sluggo Genesis development
+hardware.
+ 
+ 
+Advantech
+1333 E.9400 South, Suite 160
+Sandy Utah, 84092
+Tel : (801) 572-5410
+Fax : (810) 572-5674
+ 
+Products : blank SEGA Genesis cartridge PC boards, blank
+EPROMS.
+ 
+*****
+Genesis Development System Frequently Asked Questions
+ 
+Q:What is the Genesis Development System?
+ 
+A:The GDS is a cross development system that lets you develop games and other
+  software to run on the Sega Genesis. The system consists of a 4 inch by 8
+  inch printed circuit board that plugs in the cartridge slot of the Genesis,
+  and has a cable going to the parallel port of the host computer. A complete
+  software set is included consisting of an integrated editor/assembler, a
+  stand alone assembler, a symbolic debugger, a music and sound effect editor,
+  a utility to break standard 16 color IFF images into tiles to be downloaded
+  to the Sega, a utility to capture screen graphics on the Genesis, a
+  utility to send an LBM image to the Genesis for preview, a linker for
+  joining multiple object modules, and several example files.
+ 
+Q:Does it come with any source files?
+ 
+A:You get source to the music editor, source to a Z80 program to run on the
+  genesis to interpret the music files, source to a demo program that plays
+  music and has sprites bouncing around behind the Sega logo, source to the
+  download utilities. Complete source is provided on communicating between
+  the host machine and the Genesis.
+ 
+Q:How much memory does it have on the board?
+ 
+A:It comes with 2.25 or 4.25 megabytes of memory. Older versions had 1.25
+  megabytes. 256K is reserved for use by the debugger for variable
+  storage and symbols.
+ 
+Q:Can you program CD games with it?
+ 
+A:It is not specifically designed for a CD. You could program as if you're
+  creating a cartridge then modify the code later to make it work on the
+  CD. I provide no information on the Genesis CDROM drive. I don't own one
+  myself. The Genesis CDROM market is perhaps 10% of the cartridge market.
+ 
+Q:Does it include technical specifications for the Genesis?
+ 
+A:Yes, it comes with descriptions of the memory map, graphics registers, the
+  Z80's functions, reading the joysticks, sprites, scrolling, tiles, the
+  DMA copier, the audio chips-in short everything required to program the
+  genesis. Also provided are several working demos with source.
+ 
+Q:Is this proprietary information stolen from Sega?
+ 
+A:No, the information on the Genesis came from reverse engineering it,
+  completely independent of Sega. There are no copyright violations in the
+  purchase or sale of this development system, nor is there anything illegal
+  about any use of it.
+ 
+Q:How does it work?
+ 
+A:The board has ROMs on it which contain the monitor and debugger that runs
+  on the Genesis. When the Genesis is reset, the ROMs take over and wait for
+  commands to come from the host machine-commands like download bytes, send
+  bytes back, set up registers, define a symbol, or enter the interactive
+  debugger. When in the interactive debugger the host machine acts as a
+  terminal, and characters are sent over the cable. Full 68000 debugging
+  is possible, including disassembly, single step, register view and modify,
+  breakpoints, expression evaluation, memory view, modify, search and copy,
+  symbol definition, memory compare. There is also a z80 disassembler built
+  in.
+ 
+Q:What about the assembler?
+ 
+A:The assembler is a full macro 68000 assembler, and includes the full 8080
+  and parts of the Z80 instruction set. It generates symbol table information
+  that can be downloaded to the Genesis to allow for symbolic debugging.
+  On a 66 Mhz DX2 the assembler is about 550,000 lines/minute. There is also
+  a linker which combines multiple object files.
+ 
+Q:Can I program in C?
+ 
+A:There is no C compiler included in the package. In the future there
+  may be.
+ 
+Q:How do I make artwork? Is there a sprite editor?
+ 
+A:Originally I planned on including a simple graphic editor, but I found that
+  no one used it-instead they used Dpaint. The best way is to use dpaint to
+  create graphics in lo-res 16 color mode, then to use the utility I provide
+  to convert them to raw data to be sent to the Sega. Animation can be done
+  within Dpaint. Unfortunately there is no editor for manipulating giant
+  figures made out of sprites, but in principle it would be possible to do. So
+  probably you will use dpaint or some other painting program to create the
+  artwork.
+ 
+A:Can you backup existing cartridges like the game backup systems?
+ 
+Q:The system is intended for game development. However if you were able
+  to obtain ROM images, they can be downloaded just like original code.
+  When running a ROM under the system, you can tinker with memory, modify
+  gameplay, add lives, etc. You can do all the normal debugging functions,
+  like single step, breakpoints, etc, to see how the program is working.
+  In the future (Mid March, 1994) a reader will be available for $100 which
+  will let you read out the contents of your cartridges.
+ 
+Q:How fast are downloads?
+ 
+A:The current board has transfer rates of up to 105K bytes per second. Older
+  versions of the board had a 49K bytes per second transfer rate.
+ 
+Q:What host machines is this available on?
+ 
+A:Currently the complete system is available on the IBM PC. There is also
+  an Amiga version but it has fewer features than the PC version.
+ 
+Q:Why should I buy your system and not go through Sega?
+ 
+A:My system is better and cheaper than those provided by Sega. I sell to
+  anyone. Sega sells only to large companies. I require no non-disclosure
+  statements to be signed. Sega requires you to sign extensive non-disclosure
+  statements, and you essentially have to be subservient to them forever.
+  If you buy my system you immediately have the ability to create software
+  for the Genesis. If you create a game, you can then sell it outrifht or
+  attempt to publish it yourself. You wouldn't have to pay Sega any of their
+  rediculous royalties on each unit, regardless of how well your program
+  sells.
+ 
+Q:How long has this system been available?
+ 
+A:It first became available in April 1991. The 2 and 4 megabyte versions
+  first became available in February, 1994.
+ 
+Q:How many have already been sold?
+ 
+A:I've sold around 30 units so far.
+ 
+Q:How much does it cost?
+ 
+A:For the 4 megabyte version the cost is $1600. For the 2 megabyte version
+  the cost is $1500. For the duration of March, 1994 there is a special
+  introductory price of $1000 for the 2 megabyte version and $1100 for the
+  4 megabyte version. After March, 1994 the price will be raised by $500.
+ 
+Q:Will it be ported to other platforms?
+ 
+A:There are no plans to port the software to any other platforms.
+ 
+Q:What about technical support? How about software upgrades?
+ 
+A:You can send me email and I will answer questions and help solve your
+  problems. If I'm home you can call me. Concerning software support: I want
+  you to be happy with this. If you want some program written, and it seems
+  like a good idea, chances are I'll do it for free and include it with the
+  system. Currently if the software seems sparse it's because no one has
+  complained so I guess I include enough. There's no point in writing
+  software if it isn't going to be used. In any case software upgrades are
+  free unless it's some major upgrade like including a C compiler-I don't
+  believe in selling something for hundreds of dollars then nickel and diming
+  you on upgrades. EPROM upgrades are free if you send back your originals.
+ 
+Q:Do we need to pay you any royalty on games developed with the system?
+ 
+A:No. Once you bought the system you can do anything you want with it-except
+  copy it and sell it yourself...
+ 
+Q:How can I contact you?
+ 
+A:Send me mail, email or call.
+  818-584-0357
+  INTERNET: dash@netcom.com
+  David Ashley
+  395 Sierra Madre Villa
+  Pasadena, CA 91107
+  USA
+
+
+
+4.0 Code samples. The following code was graciously given to
+me by David Ashley, inventor of the GDS. We all owe him a big
+Thanks!
+ 
+Here's sample code for reading the joystick:
+------------
+jsinit must be called to set up the joystick, otherwise
+reading back will have errors. This need only be called
+once.
+jsinit:     moveq #$40,d0
+      move.b      d0,$a10009
+      move.b      d0,$a1000b
+      move.b      d0,$a1000d
+      rts
+The following two routines can be used for reading from the
+oystick
+ports.
+porta and portb return a byte in d0. 0 bits mean button is
+not down,
+1 mean button is down.
+The order is:
+76543210
+SACBRLDU
+meaning Start, A, C, B, Right, Left, Down, Up
+porta:      move.b      #$40,$a10003
+      nop
+      nop
+      move.b      $a10003,d1
+      andi.b      #$3f,d1
+      move.b      #$00,$a10003
+      nop
+      nop
+      move.b      $a10003,d0
+      andi.b      #$30,d0
+      lsl.b #2,d0
+      or.b  d1,d0
+      not.b d0
+      rts
+portb:      move.b      #$40,$a10005
+      nop
+      nop
+      move.b      $a10005,d1
+      andi.b      #$3f,d1
+      move.b      #$00,$a10005
+      nop
+      nop
+      move.b      $a10005,d0
+      andi.b      #$30,d0
+      lsl.b #2,d0
+      or.b  d1,d0
+      not.b d0
+      rts
+-----------------------
+ 
+Graphics code is another matter. Since I sell a development
+system, and one of the features is I provide technical info
+on the Genesis hardware, it would sort of be a conflict of
+interest for me to give things away :^).
+ 
+-----------------------
+ 
+The whole sample is not inlcuded because of it's size.
+However you can find the rest of the code, about 5 pages worth, at the
+same locations as this file. Look for a file called code.txt.
+These files will always be posted together.
+ 
+        dc.l $FFFE00,$D7E,$200,$200,$200
+        dcb.l $17,$200
+        dc.l $E9E,$200,$EAE,$200,$20E
+        dcb.l $F,$20E
+        dcb.l $F,$200
+        dc.b "SEGA MEGA DRIVE (C)SEGA "
+        dc.b "1989.AUG _____",$87,"V        "
+        dc.b "                        "
+        dc.b "              ",$87,"V        "
+        dc.b "                        "
+        dc.b "        GM 00054010-01",$93,"G"
+        dc.b "JD              ",$0,$0,$0,$0,$0,$3,"",$FF
+        dc.b $0,"",$0,$0,$0,"",$FF,"                "
+        dc.b "                        "
+        dc.b "                        "
+        dc.b "JUE             "
+        move #$100,$A11100
+
+
+
+ 
+4.11 Four Way Player Tap from Electonic Arts. While no code
+is prodived, here is a hack of sorts. I am honoring the request
+of anonymity from the sender. The $__ are ports calls by the
+software to control the hardware (of couse).
+ 
+With the EA 4 way play adapter, all the controllers are read through
+controller 1's port after sending the selection data out of controller
+2's port. The selection data is $0C for controller 1, $1c for controller
+2, $2c for controller 3, and $3c for controller 4.
+ 
+The adaptor is detected by setting the registers in the following way.
+(This is from G______ C____ code, so don't ask me why they did some of
+this stupid stuff.)
+ 
+$40->CTRL1
+$40->CTRL2
+$43->CTRL2 (This doesn't make sense... why set it twice?)
+$7C->DATA2 (This is probably masked off by the $43 above...)
+$7F->CTRL2
+$7C->DATA2
+ 
+If you read DATA1 and either of the low 2 bits is set, there isn't a 4
+tap. You must enable writing to port two after that so that you can
+select the port.
+ 
+Well this is the view from inside the machine... hope this helps you
+somewhat.
+
+
+
+ 
+4.2 Graphics, Color Palette and sprit control
+ 
+ 
+Hi,
+ 
+I found a file called 'MegaDrive Documentation' on a BBS in Holland.
+I dunno which format it use (maybe an Amiga one) but it's easily redable.
+You'll maybe find some info in it for your faq. So here it is...
+ 
+Regards,
+ 
+David Delabassee 
+
+
+
+ 
+Table of Contents:
+ 
+ About
+ Megadrive map
+ TheVRAM
+ The Tiles 8*8
+ Horizontal Scrolls
+ The CRAM
+ The Screens Maps
+ Priority of Planes
+ The SRAM
+ Sprites List
+ Access to the VRAM
+ Video Registers
+ Interrupts
+ Exceptions of 68000 of the GENESIS
+ 
+ 
+ More Informations
+ 
+ 
+----------------------------------------------------------------------
+                  ABOUT
+----------------------------------------------------------------------
+ 
+      *     MEGADRIVE DOCUMENTATION VERSION 1.0 *
+ 
+      Date   : 09-02-94
+      Author : All Writen by MuMBlY / MYSTIC
+ 
+ 
+----------------------------------------------------------------------
+                  MEGADRIVE MAP
+----------------------------------------------------------------------
+ 
+            000000-3FFFFF : 4 Megs Rom Cardtrige
+            400000-9FFFFF : Reserved
+            A00000-AFFFFF : I/O Ports
+            B00000-BFFFFF : Reserved
+            C00000-DFFFFF : Vdp
+            E00000-FEFFFF : Ram Image
+            FF0000-FFFFFF : 64kb RAM
+ 
+----------------------------------------------------------------------
+                   The VRAM
+----------------------------------------------------------------------
+ 
+The 'RAM video' (64 kb) is used for countaining all informations of
+the screen.
+ 
+- Characters (tiles) of 8*8 pixels in 16 colors (32 bytes per caracters).
+- Screens (2 screen of 32*32 to 128*128 in 64 colors).
+- Attributs of Sprites (maximum of 80 sprites).
+- Horizontal pointers of scrollings (1 pointer per line).
+ 
+----------------------------------------------------------------------
+                  The CRAM
+----------------------------------------------------------------------
+ 
+The 'RAM color' (128 bytes) is used for containing the 4 palettes of 16
+colors (1 word per color).
+ 
+- Each Color is coded on 12 bits:
+  Bit 11-8 : Blue Value
+  Bit 7-4  : Green Value
+  Bit 3-0  : Red   Value
+ 
+THe least signicative bit of each value is ignored, that is given a palette
+of 8*8 values = 512 differents colors
+ 
+----------------------------------------------------------------------
+                  The SRAM
+----------------------------------------------------------------------
+ 
+The 'Scroll RAM' (128 Bytes ?)is used for countaining values of vertical
+scrolling.
+ 
+----------------------------------------------------------------------
+                  The Tiles 8*8
+----------------------------------------------------------------------
+ 
+The Tiles of 8*8 pixels in 16 colors.
+Each tile is 32 bytes.
+The Format is simple : 1 long word per line*8 lines.
+Each Pixel is represented in an half-byte.
+ 
+Example : dc.l $01111100 ; letter A in Color 1 !
+          dc.l $11000110 ; Notice values are hex (4bit) values
+          dc.l $11000110 ; if the first 0 was changed to 3 the first
+          dc.l $11111110 ; pixel would be color 3.
+          dc.l $11000110
+          dc.l $11000110
+          dc.l $11000110
+          dc.l $00000000
+ 
+----------------------------------------------------------------------
+                  The Screens Maps
+----------------------------------------------------------------------
+ 
+The GENESIS is able to manage 2 Superimposed screens (Playfields).
+Each palyfield can be 32*32 tiles upto 128*128 tiles.
+Each tiles is coded in 1 word and are consecutive in the screen map.
+ 
+The Format is
+      Bit 15      : Priority
+        Bit 14-13 : Palette  ( 0 to 3 )
+        Bit 12    : Vertical Flipping
+        Bit 11    : Horizontal Flipping
+        Bit 10-0  : Tile number ( 0 to 2047 )
+ 
+Example :
+      dc.w $8001 ; Priority = 1, Pallette = 0, no Flipping, Tile number #1
+ 
+----------------------------------------------------------------------
+                  Sprites List
+----------------------------------------------------------------------
+ 
+The GENESIS is able to manage upto 80 sprites on the screen.
+The only limit is 20 sprites per line of pixel and 320 pixels
+of sprites per line. ( ya can display 20 sprites of 16 pixels of large
+with the same Y-axis but which 10 sprites of 32 pixels of large )
+ 
+The sprites use the same tiles as the screen.
+They can be 1*1 tiles to 4*4 tiles.
+ 
+Format of the list of sprites to display (8 bytes per sprite) :
+ 
+byte 0-1 : Y-axis (0 to 511)+$80
+byte 2   : SIze    (bit 0-1 : height 0-3+1 , Bit 2-3 : width 0-3+1)
+byte 3   : Link Data ( next sprite in the list or 0 for end of list)
+byte 4-5 : First number tile sprite (Explained below)
+bute 6-7 : X-axis (0 to 511)+$80
+ 
+This is the tile for the upper left corner of the sprite
+and the next tiles are:
+ 
+      Tile #1:Tile #4 ; Sprite of 16 pixels on 24 pixels
+      Tile #2:Tile #5
+      Tile #3:Tile #6
+
+The format of tile number is same at format of screens
+That's limit the sprites to 16 colors (maxi!).
+Flipping is done on the complete sprite.
+ 
+example List :
+dc.w $0+$80  ; Y-axis in the top of screen (0)
+dc.b %0101   ; Size 16*16 pixels
+dc.b 1       ; Number of the next sprite in the List for the priority
+dc.w $4001   ; Palette = 2, First tile = 1, No Flipping=(Tiles#1,#2,#3,#4)
+dc.w $0+$80  ; X = 0
+dc.w $40+$80 ; Y = 64
+dc.b %0001   ; Size 8*16 pixels
+dc.b 0       ; Last sprite
+dc.w $5001   ; Palette 2, Vertical Flipping, Tile #1 (Tile #1,#2)
+dc.w $40+$80 ; X = 64
+ 
+ the order of sprites in the list indicates the priority of sprites on the 
+ display.
+
+----------------------------------------------------------------------
+                  Horizontal Scrolls
+----------------------------------------------------------------------
+ 
+The GENESIS is able to manage an horizontal offset for each line.
+ 
+The Format for each horizontal offset :
+ 
+ 1 word for each offset of playfield A
+ 1 word for each offset of playfield B
+ ...
+ 
+ Example :
+ 
+ dc.w $0001 ; A move of 1 pixel about right for playfield A
+ dc.w $ffff ; A move of 1 pixel about left for playfield B
+ dc.w $0002 ; 2 pixels to right for A (second line)
+ dc.w $0003 ; 3 pixels to right for B (second line)
+ ...
+ 
+ it's possible to have a pointer which functions for all screen or for all
+ tiles or for all lines.
+ The numbber of pointer is in function of choose mode.
+ 
+----------------------------------------------------------------------
+                  Priority of Plans
+----------------------------------------------------------------------
+ 
+Each Tiles of each screen and each sprite countains a bit of priority.
+That settles the priorities of plans between them and the sprites with
+plans.
+When all bits are to 0 : the sprites are on the screen A which is on the
+screen B. Each bit that we have putting to 1, does moving the plane.
+ 
+Example :
+ Screen B=1, Screen A=0, Sprite=0
+ The screen B pass in front of the sprites which goes in front of the
+ screen A.
+ 
+----------------------------------------------------------------------
+                  Access to the VRAM
+----------------------------------------------------------------------
+ 
+In Manual Mode (without SRAM) :
+2 ports are used : 1 for the address and 1 for the data.
+the two ports are on 32 bits and the address increases itself
+automaticaly.
+the only problem is that the address indicates the the type of RAM that we 
+want to address.
+ 
+For the VRAM : Address 0-FFFF
+ 
+ ((address and $3fff)+$4000)*$10000+(($1c000 and address)shr 14)
+ 
+For the CRAM : Address 0-7F
+ 
+ ($c000+address)*$10000
+ 
+For the SRAM : Address 0-7F ?
+ 
+ (($3fff and address)+$4000)*$10000+$10
+ 
+ The address is putting in the vdp_cmd ($c00004)
+ 
+ The Data is putting in the vdp_dat ($c00000)
+ 
+Example :
+ 
+ move.l #$c0000000,vdp_cmd ; Address 0 of the CRAM
+ move.l #$c0000eee,vdp_dat ; color 0 and 1 of the first palette (black&white)
+ move.w #$0444,vdp_dat ; color 2 of the first palette (Dark Grew)
+ 
+----------------------------------------------------------------------
+                  Video Registers
+----------------------------------------------------------------------
+ 
+the write access to video regiters does by the vdp_cmd
+it codes on a word :
+ 
+      Bit 15=1 : indicates that's a register
+      Bit 14-8 : number of register
+      Bit 7-0  : Value to write in the register
+ 
+Example :
+ 
+ move.w #$8000,vdp_cmd ; Register #0=0
+ move.l #$81ff8200     ; Register #1=ff, register #2=0
+ 
+Register #0
+ 
+ Bit 7 : 0
+ Bit 6 : 0
+ Bit 5 : 0
+ Bit 4 : Control interrupt H(Niv 4) 1:ON 0:OFF
+ Bit 3 : 0
+ Bit 2 : 1
+ Bit 1 : Control mode screen ?
+ Bit 0 : 0
+ 
+Register #1
+ 
+ Bit 7 : 0
+ Bit 6 : TV 1:ON 0:OFF
+ Bit 5 : Control Interrupt V(Niv 6) 1:ON 0:OFF
+ Bit 4 : DMA 1:ENABLE 0:DISABLE
+ Bit 3 : 0:NTSC(28 lines Cell) 1:PAL(30 lines Cell)
+ Bit 2 : 1
+ Bit 1 : 0
+ Bit 0 : 0
+ 
+Register #2
+ 
+ Address of base of the Screen MAP A/$400 (that all the $2000).
+ 
+Register #3
+ 
+ Address of base of the window/$400 (Third Screen)   (D000)
+ 
+Register #4
+ 
+ Address of base of Screen MAP B/$2000               (E000)
+ 
+Register #5
+ 
+ Address of base of the list of sprites/$200         (BC00)
+ 
+Register #6
+ 
+ Not used (0)
+ 
+Register #7
+ 
+ Background Color (0 to 63) : 'Border' color.
+ 
+Register #8 and #9
+ 
+ Not used (0)
+ 
+Register #10
+ 
+ Line counter per H interrupt (0 to 255).
+ 
+Register #11
+ 
+ Bit 7-4 : 0
+ Bit 3   : Level 2 Interrupt 1:ON 0:OFF
+ Bit 2   : Vertical Scroll Control 1: An offset per 16 pixels
+                           0: An Screen offset
+ Bit 1-0 : Horizontal Scroll Control
+            00 : An Screen offset
+            01 : Not Used
+            10 : An offset per cellule
+            11 : An offser per line
+ 
+Register #12
+ 
+ Bit 7 : Must be as the bit 0
+ Bit 6 : 0
+ Bit 5 : 0
+ Bit 4 : 0
+ Bit 3 : Shadow effect between Playfields and the sprites 1:ON 0:OFF
+ Bit 2 : Vertival Resolution (224 or 448 pixels)
+ Bit 1 : Entrelaced ( only on entrelaced : 448 pixels are possible)
+ Bit 0 : 32 Tiles per line or 40 tiles per line (320 or 256 pixels)
+ 
+Register #13
+ 
+ Address of base for Horizontal Scrolls/$400         (B800)
+ 
+Register #14
+ 
+ Not used (0)
+ 
+Register #15
+ 
+ Increase offset of vdp_cmd in word
+ 
+Register #16
+ 
+ Bit 7-6 : 0
+ Bit 5-4 : Size Vertical Screen Maps A and B 00:32 01:64 10:USED 11:128
+ Bit 3-2 : 0
+ Bit 1-0 : SIze Horizontal Screen Maps A and B ( Same format as Vertical)
+ 
+Register #17
+ 
+ Horizontal Dimension Window
+ 
+Register #18
+ 
+ Vertical Dimension Window
+ 
+Register #19                                         (93)
+ 
+ Less weight longer transfert DMA
+ 
+Register #20                                   (94)
+ 
+ Strong Weight longer transfert DMA
+ 
+Register #21                                         (95)
+ 
+ DMA Source Less Weight
+ 
+Register #22                                         (96)
+ 
+ DMA Source Strong Weight for VRAM or Middle Weight for RAM
+ 
+Register #23                                         (97)
+ 
+ DMA Control
+ 
+ Bit 7   : Source 1:VRAM 0:RAM
+ Bit 6   : Source 1:ON 0:OFF (or Bit 23 Source RAM)
+ Bit 5-0 : RAM Source ( Bit 22-17)
+ In thiz case of RAM Source, the bits 6-0 are considerated as the strong
+ weight of the source.
+ 
+----------------------------------------------------------------------
+                  INTERRUPTS
+----------------------------------------------------------------------
+ 
+ Level 2 : External Interrupt (???)
+ Level 4 : H interrupt (Interruption Raster Runs by the VDP)
+ Level 6 : V interrupt (Interruption Vertical Blanck)
+ 
+*****************************************************************
+            EXCEPTIONS OF 68000 OF THE GENESIS
+*****************************************************************
+ 
+      $00   SYSTEM SSP
+      $04   SYSTEM PC
+      $08   BUS ERROR
+      $0C   ADDRESS ERROR
+      $10   ILLEGAL INSTRUCTION
+      $14   DIVISION BY ZERO
+      $18   CHK EXCEPTION
+      $1C   TRAPV EXCEPTION
+      $20   PRIVILEGE VIOLATION
+      $24   TRACE EXCEPTION
+      $28   LINE-A EMULATOR
+      $2C   LINE-F EMULATOR
+      $30   RESERVED BY MOTOROLA
+      $34   RESERVED BY MOTOROLA
+      $38   RESERVED BY MOTOROLA
+      $3C   RESERVED BY MOTOROLA
+      $40   RESERVED BY MOTOROLA
+      $44   RESERVED BY MOTOROLA
+      $48   RESERVED BY MOTOROLA
+      $4C   RESERVED BY MOTOROLA
+      $50   RESERVED BY MOTOROLA
+      $54   RESERVED BY MOTOROLA
+      $58   RESERVED BY MOTOROLA
+      $5C   RESERVED BY MOTOROLA
+      $60   SPURIOUS EXCEPTION
+      $64   INTERRUPT REQUEST LEVEL 1
+      $68   INTERRUPT REQUEST LEVEL 2
+      $6C   INTERRUPT REQUEST LEVEL 3
+      $70   INTERRUPT REQUEST LEVEL 4 (VDP INTERRUPT)
+      $74   INTERRUPT REQUEST LEVEL 5
+      $78   INTERRUPT REQUEST LEVEL 6 (VERTICAL BLANK)
+      $7C   INTERRUPT REQUEST LEVEL 7
+      $80   TRAP #00 EXCEPTION
+      $84   TRAP #01 EXCEPTION
+      $88   TRAP #02 EXCEPTION
+      $8C   TRAP #03 EXCEPTION
+      $90   TRAP #04 EXCEPTION
+      $94   TRAP #05 EXCEPTION
+      $98   TRAP #06 EXCEPTION
+      $9C   TRAP #07 EXCEPTION
+      $A0   TRAP #08 EXCEPTION
+      $A4   TRAP #09 EXCEPTION
+      $A8   TRAP #10 EXCEPTION
+      $AC   TRAP #11 EXCEPTION
+      $B0   TRAP #12 EXCEPTION
+      $B4   TRAP #13 EXCEPTION
+      $B8   TRAP #14 EXCEPTION
+      $BC   TRAP #15 EXCEPTION
+      $C0   RESERVED BY MOTOROLA
+      $C4   RESERVED BY MOTOROLA
+      $C8   RESERVED BY MOTOROLA
+      $CC   RESERVED BY MOTOROLA
+      $D0   RESERVED BY MOTOROLA
+      $D4   RESERVED BY MOTOROLA
+      $D8   RESERVED BY MOTOROLA
+      $DC   RESERVED BY MOTOROLA
+      $E0   RESERVED BY MOTOROLA
+      $E4   RESERVED BY MOTOROLA
+      $E8   RESERVED BY MOTOROLA
+      $EC   RESERVED BY MOTOROLA
+      $F0   RESERVED BY MOTOROLA
+      $F4   RESERVED BY MOTOROLA
+      $F8   RESERVED BY MOTOROLA
+      $FC   RESERVED BY MOTOROLA
+
+ 
+
+
+The 68000 keeps all of it's interrupt vectors in the first 1024 bytes of 
+memory(this is cartridge ROM!) The first 10 longwords are:
+Stack pointer after reset
+Program counter after reset
+Bus Error
+Address Error
+Illegal Instruction
+Division by Zero
+CHK instruction
+TRAPV instruction
+Priviledge violation
+Trace
+ 
+The external interrupts start at $60 (vector 25-31) and end at $7F. Now
+all videogame units have a variety of interrupts of VBlank and HBlank. If
+you poke arount the interrupt table with the hints I've given you, and
+follow those addresses into the code, you can probably find the VBLANK
+and HBLANK routines for any given game. The vblank routines often read
+the controllers, do DMA, access video RAM, etc. so this is a good short
+cut to find meaty code within the machine! (Look for nice round addresses
+close together... wouldn't those be VDP registers?) HBLANK is even better
+if a game uses it (look at any sonic game!) because they must be short
+(and are thus easily identifiable when traced from the interrupt table
+vectors), generally they only have one or two instructions to load their
+data into the VDP before it will be displayed on the screen, so you
+should immediately be able to figure out how to load palettes into the
+Genesis.
+ 
+Look at Sonic the Hedgehog 1 dissassembly, following the interrupt vectors
+to find the HBLank routine. (All interrupt routines should end in RTE.)
+ 
+Notice there is one branch and then some set up and a lot of longword
+writes. Try changing these writes to write constant data and then look at
+some section of the game which uses Hblank interrupts. Betcha the colors
+have changed...(oops... the game will hang because the checksum is
+no longer good. You must find the checksum and step over it... trace
+through initialization till you find it... I think it should end on a
+nice round address, but it's been a while so I am not sure. Look for a
+loop with an add in it and nothing else. The checksum is stored in a
+place where changing it will not change the checksum, lots of other data
+like that is there... good luck!) Anyway, if you disable the checksum and
+change the data in hblank then play a board with water I think you will
+understand how to change color palettes on the Genesis!
+ 
+If you can figure this out, you can probably guess that writing other
+data to the VDP is very similar. Look at the VBlank code to see what it
+does with similar addresses to figure out how to write characters and
+stuff. This is pretty convoluted, unfortunately. I can only suggest that
+you look at very old games for this information as they are programmed
+more simply.
+ 
+I hope this helps you somewhat. I ask that you don't print this as I have
+written it, and what you do print please don't mention me as I could get
+in trouble. If you do some hacking and get stuck, let me know and I'll
+give you some more hints. I hate not being able to say things directly,
+because I think the Genesis is a wonderful piece of hardware and wish
+everyone could know how great it is.
+ 
+P.S. don't look at Road Rash, it will drive you INSANE! It seems to run
+entirely in VBLANK and HBLANK! I figured out the 4-TAP by looking for
+Joystick accesses in the VBLANK code... easy!
+
+ 
+
+ 
+5.0 Language Switch, from Rec.Games.Video FAQ
+ 
+How to make a language switch (Genesis/MD).
+ 
+On a Genesis/MD, there are jumpers labelled JP1, JP2, JP4,
+and JP3.  The Genesis has a capacitor on JP1 and a trace on
+JP2; the Mega Drive has a capacitor on JP2 and a trace on
+JP1.  The bottom ends of JP1 and JP2 are connected together.
+So if you cut the trace and the top end of the capacitor, and
+install a DPDT switch between them which reconnects them
+either unchanged or swapped left to right, you have a
+language switch. You'll need some wire, a soldering iron,
+solder, and a DPDT switch.
+ 
+Some machines have an open circuit instead of the capacitor.
+Also, I've been told that even if there is a capacitor, you
+can throw it out and leave an open circuit. Either way, the
+switch is a lot simpler, requiring a SPDT switch and less
+wire and solder.
+ 
+Several people have told me that you could just cut both JP1
+and JP2 and put a SPST switch on JP1. This is even simpler,
+but I'm not sure it really works, as opposed to putting your
+machine in an intermediate state that only sort-of works.
+ 
+The redesigned Genesis 2 machines don't appear to have either
+the capacitor or circuit. Nobody yet knows how to make the
+language switch for one, though there are language switch
+cartridges you can buy to act as one.
+ 
+IF YOUR MACHINE HAS NO CAPACITOR (or if you want to cross
+your fingers and throw away your capacitor) and is not a
+Genesis 2:
+ 
+Cut JP2.  The trace might be covered with paint and hard to
+see.  (If you started with a Mega Drive, JP2 is open and you
+have to cut JP1 instead.) If you aren't sure which end I mean
+by "bottom", just check the back of the board to see which
+end is connected together.
+ 
+   Original state of machine:             After cutting:
+ 
+       JP2 top     JP1 top              JP2 top     JP1 top
+          |           |                    |           |
+          |           |                    |           |
+          |
+          |
+          |
+          |
+          |           |                    |           |
+           \         /                      \         /
+            \_______/                        \_______/
+          bottom of both                   bottom of both
+ 
+Add a SPDT switch which can be in one of two positions:
+              ._ _ _ _ _ _ _ _ _ _ _ _
+             .                        .
+            .           . _ _ _ _ _ _ _ _ _ _
+           .           .                .    .
+       JP2 top     JP1 top               .    .
+          |           |                  .    .
+          |           |                 _________
+                                        | o   o |
+                                        | \     |
+                                        |  \    |
+                                        \___o___/
+          |           |                     .
+           \         /                      .
+            \_______/ - - - - - - - - - - - -
+          bottom of both
+ 
+              ._ _ _ _ _ _ _ _ _ _ _ _
+             .                        .
+            .           . _ _ _ _ _ _ _ _ _ _
+           .           .                .    .
+       JP2 top     JP1 top               .    .
+          |           |                  .    .
+          |           |                 _________
+                                        | o   o |
+                                        |     / |
+                                        |    /  |
+                                        \___o___/
+          |           |                     .
+           \         /                      .
+            \_______/ - - - - - - - - - - - -
+          bottom of both
+-------------------------------------------------------------
+ 
+IF YOUR MACHINE DOES HAVE THE CAPACITOR:
+ 
+Cut both sides.  (Note: if you started with a Japanese Mega
+Drive the capacitor will be on the side labelled X instead)
+ 
+   Original state of machine:             After cutting:
+ 
+       JP2 top     JP1 top              JP2 top     JP1 top
+          |           |                    |           |
+          |           |                    |           |
+          |           |
+          |           |
+          |           |                    |
+        X |          ###                 X |          ###
+          |          ###                   |          ###
+          |          ###                   |          ###
+           \         /                      \         /
+            \_______/                        \_______/
+          bottom of both
+ 
+add switch which can be in one of two positions:
+ 
+       JP2 top     JP1 top
+(Connect 2 to 2
+          |           |
+and 1 to 1)
+          |           |
+          2           1                   2  1  1  2
+                                        ______________
+           _ _ _ _ _ _ _ _ _ _          | o  o  o  o |
+          |                   `         |  \  \      |
+        X |          ###`      `        |   \  \     |
+          |          ### `      `       \____o__o____/
+          |          ###  `      `           '  '
+           \         /     `      `- - - - -'  '
+            \_______/       ` _ _ _ _ _ _ _ _ '
+          bottom of both
+ 
+       JP2 top     JP1 top
+(Connect 2 to 2
+          |           |
+and 1 to 1)
+          |           |
+          2           1                   2  1  1  2
+                                        ______________
+           _ _ _ _ _ _ _ _ _ _          | o  o  o  o |
+          |                   `         |      /  /  |
+        X |          ###`      `        |     /  /   |
+          |          ### `      `       \____o__o____/
+          |          ###  `      `           '  '
+           \         /     `      `- - - - -'  '
+            \_______/       ` _ _ _ _ _ _ _ _ '
+          bottom of both
+ 
+ 
+50/60 hertz switch.
+ 
+You can build a 50/60 hertz switch on a Genesis/Mega Drive
+like a language switch, but using jumpers JP3 and JP4.  The
+standard setting is 50 in PAL areas such as Europe, and 60 in
+NTSC areas like the US and Japan. In the 60 hertz mode, the
+game is faster and the screen taller; however, not all TVs
+and monitors in Europe can display this mode.
+ 
+ 
+Some American/Japanese games are protected to keep Europeans
+>from playing them; this protection checks the 50/60 hertz
+setting.  You can usually get around it by installing the
+switch and switching when starting the game, then switching
+back afterwards.
+ 
+Many European games are simple ports of American or Japanese
+games and are not redesigned for 50 hertz, so work faster and
+with "better" screen proportions if played at 60 hertz.
+ 
+ 
+Genesis/Mega Drive dual version (language switch) list:
+ 
+   *Battle Maina 2: The game plays in both positions. However
+     with both controlers removed, a system info screen appears
+     which informs about system version, langauge mode.
+    Bonanza Brothers: Game plays in Japanese.  (Maybe. There
+     seems to be more than one version floating around.)
+    Columns: Game plays in Japanese.
+   *Cyberball: Japanese version has a modem option.
+    Dragon's Fury: Works only with language set to English.
+     The original, Devil's Crush MD, works either way.
+    Dynamite Duke: Harder on the Mega Drive.
+    Elemental Master: Harder on the Mega Drive.
+    Fatal Labyrinth: Game plays in Japanese.
+    Fire Shark: Different title screen with Kanji.
+    Flicky: Characters have Japanese names and instructions
+     are in Japanese.
+    Forgotten Worlds: Game plays in Japanese.
+    Gaiares: only mentions the Japanese licensee on the title
+     screen, and has Japanese text; you can also select
+     Japanese text from the option screen.
+    Ghostbusters: Game plays in Japanese.
+    Ghouls and Ghosts: Different title screen with Kanji.  To
+     see it on a Genesis, select the last music and sound (26
+     and 56) from the options screen, then press lower left;
+     A, B, or C; and Start all at the same time.  (I never
+     tried this, but Gamepro magazine claimed it works.) The
+     game shows some other Japanese text, and when you die
+     during a boss you start out earlier.
+    Insector X: Title screen refers to company as Hot-B, not
+     Sage's Creation. The MD version shoots more slowly. The
+     ending text is still English.
+   *Marvel Land: The Japanese version says "for Mega Drive"
+     or "for Genesis" but the language stays Japanese. (What
+     does an English version do?)
+    Monaco GP: Game plays in Japanese (also an option on the
+     option screen).
+    Mystic Defender: This game is actually the anime-based
+     Kujaku-Ou (Peacock King) 2 game. In Japanese mode, the
+     opening text is replaced by a graphics screen (never
+     seen in the US version) with Japanese.  The levels have
+     names, the main character wears a white robe, the
+     lightning magic effect is different, and the character
+     is named Kujaku in the ending (which is still English).
+    Outrun: The attract mode lacks sound, the startup screen
+     says "push" (not "press") start button, and "(C) Sega
+     1986, 1991" is printed in reverse order. The default
+     options are KM/H and a different button selection (but
+     can still be changed on the option screen).
+    Quackshot: Game plays in Japanese.
+    Raiden Trad: The "licensed to Sega" line is absent on
+     both title screens, and the second title screen includes
+     only the Japanese part instead of the non-Japanese part
+     of the first one.
+    Revenge of Shinobi: Title changes to Super Shinobi;
+     credits show at the end.
+    Rolling Thunder II: The Japanese version only works on a
+     Japanese setting. The US version works either way (and
+     isn't bilingual).
+    Sonic the Hedgehog II: Tails is renamed to "Miles".
+    Streets of Rage: Title screen changes to Bare Knuckle,
+     and all text is in Japanese, including the introduction.
+     The clock resets when you encounter the bosses.
+    Streets of Rage II: Turns to Bare Knuckle II, and renames
+    Skate to Sammy --_if_ you change the setting sometime
+     after turning the machine on (to skip the lockout).
+    Thunder Force II: Title screen has "MD" on it, and
+     company name is "Tecnosoft".
+    Thunder Force III: company's name is spelled "Tecnosoft".
+   *Thunder Storm FX (CD): Turns to Cobra Command in US mode.
+    Truxton: Japanese title is Tatsujin.
+    Twin Hawk: Different title screen with Kanji.
+   *Wrestle War: The wrestler is blond on a Genesis and
+     black-haired on a MD.
+ 
+    * Information from testing a Japanese game
+
+
+
+ 
+6.0 Sega Internet Information - This information came from
+Bernd P. Ziller. Mailing to any of these site (or FTP, gopher,
+etc.) will not work due to a firewall. They are looking out, but
+we can't look in. I stongly suggest that you don't try anything
+stupid.
+ 
+ segaoa.com       198.176.13.13      130slmail        198.176.14.65
+ loghost          198.176.13.13      localhost        127.0.0.1
+ 400mail          198.176.14.57      pd275            198.176.14.68
+ trixie           198.176.9.40       torcable         198.176.14.53
+ pd130            198.176.14.61      storm            198.176.11.47
+ segaintera       198.176.14.52      segaoa           198.176.13.13
+ sonic            198.176.13.13      blackhole        198.176.14.69
+ multimedia       198.176.14.63      pd1              198.176.14.62
+ segard           198.176.14.51      segaeurope       198.176.14.50
+ tormail          198.176.14.54      si32             198.176.14.55
+ sb1mail          198.176.14.60      macpo            198.176.14.67
+ pluto            198.176.9.52       fremontml        198.176.14.56
+ racerx           198.176.9.41       hummer           198.176.11.55
+ 303tdmail        198.176.14.64      sb2mail          198.176.14.58
+ ftp              198.176.13.13      gambit           198.176.11.46
+ Emerald_Dragon   198.176.8.22
+
+
+
+ 
+I am still hoping to expand this document. I am looking for
+information on the Sega Multitap, CD, 32-X (Mars), HMD, hardware
+in general, Saturn, and the controllers.
+ 
+Please E-Mail me for a copy or to add information to this
+list. Again My E-Mail address is:
+ 
+U6c16@Wvnvm.Wvnet.Edu
+ 
+Snail Mail:
+ 
+Henry Rieke
+Attn: Sega FAQ
+161 Poplar Dr
+Morgantown, Wv 26505-2340
+ 
+A Very Special Thanks to:
+ 
+David Ashley 
+ 
+Rober Leyland 
+ 
+David Delabassee 
+ 
+Special Thanks to :
+ 
+Scott Golby 
+ 
+Rick McTeague 
+ 
+Landon Dyer 
+ 
+Neal Howland 
+ 
+Heres an extract from the game _____. I just included some of the beginning
+of the code and some ASCII segments. I hope you are satisfied with this.
+ 
+ 
+ 
+ 
+        dc.l $FFFE00,$D7E,$200,$200,$200
+        dcb.l $17,$200
+        dc.l $E9E,$200,$EAE,$200,$20E
+        dcb.l $F,$20E
+        dcb.l $F,$200
+        dc.b "SEGA MEGA DRIVE (C)SEGA "
+        dc.b "1989.AUG _____",$87,"V        "
+        dc.b "                        "
+        dc.b "              ",$87,"V        "
+        dc.b "                        "
+        dc.b "        GM 00054010-01",$93,"G"
+        dc.b "JD              ",$0,$0,$0,$0,$0,$3,"",$FF
+        dc.b $0,"",$0,$0,$0,"",$FF,"                "
+        dc.b "                        "
+        dc.b "                        "
+        dc.b "JUE             "
+        move #$100,$A11100
+        nop
+        rte
+        bra.s $20C
+        bra.s $20E
+        move.l a6,d5
+        lea $C00004,a5
+        move.l #$940000,d4
+        move d6,d4
+        lsl.l #8,d4
+        move #$9300,d4
+        move.b d6,d4
+        move.l d4,(a5)
+        lsr.l #1,d5
+        and.l #$7FFFFF,d5
+        move.l #$960000,d4
+        move d5,d4
+        lsl.l #8,d4
+        move.b d5,d4
+        move.l d4,(a5)
+        swap d5
+        move #$9700,d4
+        move.b d5,d4
+        move d4,(a5)
+        or #$80,d7
+        swap d7
+        move d7,(a5)
+        swap d7
+        move d7,-(a7)
+        move (a7)+,(a5)
+        rts
+        move.l #$7C000002,$C00004
+        move.l #$0,$C00000
+        rts
+        bsr $3BCC
+        lea $FFFFC800.w,a6
+        moveq #$0,d6
+        move #$13F,d7
+        move d6,(a6)+
+        dbf d7,$282
+        move.l #$78000002,d7
+        move #$13F,d6
+        bra $2B8
+        move.l #$40000003,d7
+        bra $2A6
+        move.l #$60000003,d7
+        move #$1FFF,d6
+        bra $2B8
+        move.l #$60000002,d7
+        move #$DFF,d6
+        moveq #$0,d5
+        move #$8F01,$C00004
+        lea $C00004,a5
+        move.l #$940000,d4
+        move d6,d4
+        lsl.l #8,d4
+        move #$9300,d4
+        move.b d6,d4
+        move.l d4,(a5)
+        move #$9780,(a5)
+        or.l #$40000080,d7
+        move.l d7,(a5)
+        move.b d5,$C00000
+        move (a5),d4
+        btst #$1,d4
+        bne.s $2EC
+        move #$8F02,(a5)
+        rts
+        move.l #$40000010,d7
+        moveq #$28,d6
+        moveq #$0,d5
+        move d5,$C00000
+        dbf d6,$30A
+        rts
+        lea $C00000,a5
+        move.l #$800000,d3
+        move.l d7,$C00004
+        move d6,d2
+        move (a6)+,(a5)
+        dbf d2,$32A
+        add.l d3,d7
+        dbf d5,$322
+        rts
+        move d6,d2
+        lea (a5),a4
+        move d4,(a5)+
+        addq #1,d4
+        dbf d2,$33C
+        lea $80(a4),a5
+        dbf d5,$338
+        rts
+        bset #$6,$FFFFC127.w
+        bra.s $36E
+        move.l #$C0200000,$C00004
+        move #$0,$C00000
+        bclr #$6,$FFFFC127.w
+        move $FFFFC126.w,$C00004
+        rts
+        bset #$0,$FFFFC15E.w
+        moveq #$0,d0
+        moveq #$0,d1
+        move.b (a6)+,d0
+        lea $FFFFC080.w,a1
+        add d0,a1
+        move.b (a6)+,d0
+        move (a6)+,(a1)+
+        dbf d0,$38C
+        rts
+        bclr #$0,$FFFFC15E.w
+        beq.s $3CE
+        btst #$6,$A10001
+        beq.s $3AE
+        move #$6EE,d0
+        dbf d0,$3AA
+        lea $C00004,a5
+        move.l #$94009340,(a5)
+        move.l #$96E09540,(a5)
+        move #$977F,(a5)
+        move #$C000,(a5)
+        move #$80,-(a7)
+        move (a7)+,(a5)
+        rts
+        moveq #$7,d1
+        lea $FFFFC080.w,a6        
+        moveq #$E,d7
+        move (a6),d4
+        move d4,d2
+        and d7,d2
+        beq.s $3E4
+        subq #2,d2
+        asl #4,d7
+        move d4,d3
+        and d7,d3
+        beq.s $3F0
+        sub #$20,d3
+        asl #4,d7
+        and d7,d4
+        beq.s $3FA
+        sub #$200,d4
+        or d2,d3
+        or d3,d4
+        move d4,(a6)+
+        dbf d0,$3D8
+        bset #$0,$FFFFC15E.w
+        moveq #$7,d2
+        moveq #$1,d0
+        jsr $F80(pc)
+        dbf d2,$40C
+        dbf d1,$3D2
+        rts
+        moveq #$1F,d0
+        lea $FFFFC080.w,a2
+        lea -$80(a2),a1
+        move.l (a2)+,(a1)+
+        dbf d0,$426
+        moveq #$1F,d0
+        clr.l (a1)+
+        dbf d0,$42E
+        rts
+        moveq #$E,d1
+        lea $FFFFC080.w,a6
+        lea -$80(a6),a1
+        moveq #$3F,d0
+        move d1,d5
+        moveq #$E,d7
+        move (a1)+,d4
+        move d4,d2
+        and d7,d2
+        sub d5,d2
+        bpl.s $452
+        moveq #$0,d2
+        asl #4,d7
+        asl #4,d5
+        move d4,d3
+        and d7,d3
+        sub d5,d3
+        bpl.s $460
+        asl #4,d7
+        asl #4,d5
+        and d7,d4
+        sub d5,d4
+        bpl.s $46C
+        moveq #$0,d4
+        or d2,d3
+        or d3,d4
+        move d4,(a6)+
+        dbf d0,$442
+        cmp #$8020,$FFFFC142.w
+        bne.s $48E
+        lea $FFFFC0A0.w,a2
+        lea -$80(a2),a1
+        moveq #$7,d0
+        move.l (a1)+,(a2)+
+        dbf d0,$488
+        moveq #$7,d2
+        bset #$0,$FFFFC15E.w
+        jsr $F7E(pc)
+        dbf d2,$496
+        subq #2,d1
+        bpl.s $438
+        rts
+ 
+ 
+.........
+ 
+ 
+        move #$B4,$FFFFC150.w
+        clr $FFFFC152.w
+        moveq #-$79,d7
+        jsr $748.w
+        lea $16F8,a0
+        jsr $14F4(pc)
+        lea $1700,a0
+        jsr $14F4(pc)
+        lea $1296(pc),a6
+        lea $FF03A0,a5
+        jsr $197A
+        lea $FF25A0,a5
+        lea $1274(pc),a6
+        bsr $19E8
+        lea $FF359A,a5
+        lea $127E(pc),a6
+        bsr $19E8
+        lea $FF37A2,a5
+        lea $128E(pc),a6
+        bra $19E8
+        dc.b "GAME OVER",$0,"CONTINUE PLAY "
+        dc.b "^",$0,"YES NO",$0,$0,"PLAYER 1",$0,$0,$0,$0,$0,$0
+ 
+        dc.b "NUS@@@@@@@@@@@@@@@",$0,"MISSI"
+        dc.b "ON COMPLETED BONUS@@",$0,"MIN"
+        dc.b "//SEC",$0,"OVER/////SEC///NO/"
+        dc.b "BONUS",$0,"UNDER////SEC",$0,"PTS",$0,"P"
+        dc.b "TS",$0,"PTS",$0,$0
+        dc.b "INFILTRATE ENEMY LINES?",$0
+        dc.b $12,"RESCUE SECRET AGENT?",$0,$0,$14
+        dc.b "GO TO THE ARSENAL?",$0,$8,"BLOW"
+        dc.b " UP ALL THE ENEMY WEAPON"
+        dc.b "S?",$0,$10,"PENETRATE THE FORTRE"
+        dc.b "SS?",$0,$E,"RESCUE COLONEL TRAU"
+        dc.b "TMAN?",$0,$0,"PLAYER 1 START",$0,$0
+
+
+
+© 1996 Damaged Cybernetics
+				

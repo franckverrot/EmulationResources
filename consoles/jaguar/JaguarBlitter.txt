@@ -1,0 +1,1043 @@
+
+# -------------------------------------------------------------------
+# BLITTER                               (c) Copyright 1996 Nat! & KKP
+# -------------------------------------------------------------------
+# These are some of the results/guesses that Klaus and Nat! found
+# out about the Jaguar with a few helpful hints by other people, 
+# who'd prefer to remain anonymous. 
+#
+# Since we are not under NDA or anything from Atari we feel free to 
+# give this to you for educational purposes only.
+#
+# Please note, that this is not official documentation from Atari
+# or derived work thereof (both of us have never seen the Atari docs)
+# and Atari isn't connected with this in any way.
+#
+# Please use this informationphile as a starting point for your own
+# exploration and not as a reference. If you find anything inaccurate,
+# missing, needing more explanation etc. by all means please write
+# to us:
+#    nat@zumdick.rhein-main.de
+# or
+#    kkp@gamma.dou.dk
+#
+# If you could do us a small favor, don't use this information for
+# those lame flame-wars on r.g.v.a or the mailing list.
+#
+# HTML soon ?
+# -------------------------------------------------------------------
+# $Id: blitter.html,v 1.26 1997/03/30 02:27:12 nat Exp $
+# -------------------------------------------------------------------
+
+
+
+
+The BLiTTER
+-----------
+
+The Blitter is a little different to what you're used to
+on your ST (and you probably didn't get used to it very much
+anyway).
+
+You can blit a scaled pixmap to an unscaled destination
+or you can blit an unscaled pixmap unto a scaled destination. Or you can
+rotate the source and the destination bitmap, and in some cases you
+can scale and rotate at the same time (I think scaling up and rotating
+without leaving holes isn't possible)
+
+The former will probably be the most often used. The source or the
+destination can be arbitrarily 'angled' lines and need not be
+contiguous addresses. Furthermore you can blit pixels of 1 bit, 2 bit
+4 bit 8 bit 16 bit or 32bit depth.
+
+The Blitter in broad outline works like this:
+
+The blitter has two channels called A1 and A2, where it reads from and 
+writes data to. 
+A1 is the sophisticated channel allowing fractional pixel treatment
+(like f.e. read pixel 1 twice, then pixel2 twice etc. for an effective
+scaling of 2.0), whereas A2 is a simple channel allowing only integer
+increments of the addresses. This means that A2 can only be used for
+straight or diagonal lines.
+
+Picture in your mind that a channel is pointing to a square bitmap. 
+You define the width of this bitmap and the origin at which the blitter 
+should start fetching data. The origin might for example be the center 
+of your bitmap, or the upper left corner, you decide!.
+You then define the orientation (slope) of the line the blitter should
+'draw' into (or 'fetch' from) this bitmap.
+
+            .....width.......
+channel --> +----------------+
+            |                |
+            |  x  (origin)   | 
+            |   \            |
+            |    \  (slope)  |
+            |                |
+            +----------------+
+
+
+In a real life environment you might for example use A2 as the source
+of your texture, that is stored as a contiguous block in memory and
+A1 is used to draw an arbitrary scaled and angled line of your polygon.
+Or you might use A1 to traverse the texture data at an arbitrary angle
+and update the destination pixmap in a scan-line fashion horizontally
+left to right.
+
+If you want to scale the bitmap you gotta figure out whether you want
+to shrink or to enlarge. If you want to enlarge, you need to use A1
+as the source and A2 as the destination, using fractional incrementing
+on the source, if you want to shrink you want to use A1 as the destination
+(also with fractional increments)
+
+
+You can do a few operations concurrently while blitting your data.
+
+If you're drawing with a single color and outputting cry-color pixels 
+you can gouraudshade them at the same time at no extra cost. The 
+blitter will use the intensity of the pixel and add the contents of a 
+register to it (saturating add). This will work nicely for single lines,
+but not for regions, where the blitter does not reinitalize the intensity 
+for the starting pixel. (Your job)
+The contents of this register are then updated for the next pixel.
+Since the update is fractional, you can achieve a smooth shaded
+line with this.
+
+You can add an intensity factor to your incoming cry-color data.
+
+
+You can also use the Z-buffering capabilities of the blitter. 
+Your destination data is not just an array of pixel values, but rather a 
+combination of Z-data and pixel data. Consider the Z-data to be the 
+third coordinate providing depth. 
+The smaller the value, the nearer it is to the viewer. (usual convention)
+You set up the blitter with a starting Z-value for your line and a factor 
+that should be added for every pixel step, thereby possibly increasing 
+or decreasing the Z-position. 
+
+That value is then compared to the Z-data of the destination pixel. 
+If the z-value (in the registers) is less than the the destination value, 
+the pixel will be written - else the pixel will not be written. The 
+destination pixel is then updated with the new Z-buffer value. 
+
+A Z-data is the same size as the pixel, and a pixel is always 16 bit sooo...
+The layout will be typically something like this:
+
+     phrase #0   phrase #1   phrase #2   phrase #3
+   +-----------+-----------+-----------+-----------+
+    P0 P1 P2 P3 Z0 Z1 Z2 Z3 P4 P5 P6 P7 Z4 Z5 Z6 Z7
+
+The you'd specify a phrase offset of 1 for the Z-data and use a "pitch"
+of 2 for accessing the pixel phrases (in the Blitter's A?_FLAGS registers).
+
+
+You can probably do collision detection on background colors, and
+transparent blits...
+
+
+
+Phrasemode and Pixelmode. 
+------------------------
+
+The blitter can operate either in pixelmode or in phrasemode. Phrasemode
+is (in 16-bit cry-color) usually four times faster and is therefore much more
+desirable. But there are some limitations that are connected to phrasemode:
+
+o  Both A1 and A2 must work in phrasemode, you can't have one running in
+   pixelmode and the other in phrasemode
+
+o  Phrasemode implies linear address (or horizontally oriented) blits
+   It looks like phrasemode doesn't work with all resolutions. So
+   far only 16bit modes are known to work.
+
+Scales and rotates aren't possible in phrasemode.
+[ Please note, that you can do (non rotated) sprite scaling also with an OP
+object, which might (or not) be more convenient ]
+
+For blitter actions that span across a page you
+currently gotta figure, that the machine takes
+
+   time = 1 write + [4 cycles read source] + [1 cycle read destination]
+ 
+   (This is mathematically correct doesn't really reflect the reality 
+   though, because source reads outside the page also force a slower 
+   destination write)
+  
+regardless of pixelmode or phrasemode. If you keep the accesses to within
+a page you should calculate it as:
+
+   time = 1 write + [1 cycles read source] + [1 cycle read destination]
+
+Of course in phrasemode you usually speed up the blitting process in 
+16 bit pixel mode by a factor of four. 
+(Cycles meaning bus cycles (i.e. 2 system cycles))
+
+This means, that the Blitter should be capable of doing about 
+(with the video system running a 256x200 cry-color screen):
+
+   Gouraud pixelmode  : 13.3 / 1 = 13.3 Mio pixels / second
+                              or ca. 222000 pixels / frame
+   Copyblit pixelmode : 13.3 / 5 =  2.7 Mio pixels / second 
+                               or ca. 44000 pixels / frame
+   XOR blit pixelmode : 13.3 / 6 =  2.2 Mio pixels / second
+                               or ca. 37000 pixels / frame
+
+and in phrasemode (16 bit pixels)
+
+   Gouraud phrasemode : 13.3 * 4 / 1 = 53.2 Mio pixels / second
+                                  or ca. 887000 pixels / frame
+   Copyblit pixelmode : 13.3 * 4 / 5 =  2.7 Mio pixels / second 
+                                  or ca. 177000 pixels / frame
+   XOR blit pixelmode : 13.3 * 4 / 6 =  2.2 Mio pixels / second
+                                  or ca. 148000 pixels / frame
+
+
+
+ 
+
+
+READ-MODIFY-WRITE
+-----------------
+
+It's important for the proper setup of the blitter, to know when the
+blitter will need to do a RMW. A RMW occurs whenever the destination
+is read, then modified by the blitter and then written back back. A
+classic example of RMW is the exclusive or like *dst ^= 0xFFFF;
+
+RMW does happen when you're using the blitter in pixelmode and the
+bitmap depth is below 16 bit (8 bit?). 
+
+RMW does also happen with _all_ logical blitting ops except:
+
+         0: LFU_ZERO     DST = 0              (LFU_CLEAR)
+         3: LFU_NOTS     DST = ! SRC
+        12: LFU_S        DST = SRC           (LFU_REPLACE)
+        15: LFU_ONE      DST = 1
+
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                      Your friendly blItter-registers
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+R: B_STATUS ($F02238)
+~~~~~~~~~~~~~~~~~~~~~
+ 32       28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------^--------^--------^--------^-----+--+
+  |                               unused                                 |i |
+  +----------------------------------------------------------------------+--+
+     31...............................................................1   0
+
+idle (i):   bit 0
+
+   This bit gives the blitter status: 0 if busy, idle if set. Not the
+   other way round.
+
+
+
+W: B_CMD ($F02238)
+~~~~~~~~~~~~~~~~~~
+
+ 32       28        24        20       16       12        8        4        0
+  +-+------^--------+^--------+^------+-^-----+--^--+-----^----+---^--+-----+
+  | |   control     |   OP    | z-op  |  ity  | mode|A1ctl|misc| dst  | src |
+  +-+---------------+---------+-------+-------+-----+-----+----+------+-----+
+      30.........25   24...21   20..18 17..14  13.11 10..8 7..6  5..3  2..0
+
+Writing into the lower word activates the blitter! 
+
+src:
+        bit 0: SRCEN   source data read enable
+        bit 1: SRCENZ  source Z-data read enable
+        bit 2: SRCENX  source extra data read enable
+
+   With this set of bits you tell the blitter what kind of
+   data accesses it needs to perform. It can not figure it out from the
+   way the other command bits are set and conclude what it needs to
+   do, you have to instruct the blitter yourself. If you're doing
+   straight copies from memory to memory, you will want to set bit0.
+   If you're using the Z-buffer capabilities you'd want to set bit1
+   as well.
+   If your source data spans more phrases than the destination data
+   then you need to set bit2 to tell the blitter to do that extra 
+   phrase read.
+
+dst:
+        bit 3: DSTEN   destination data read enable
+        bit 4: DSTENZ  destination Z-data read enable
+        bit 5: DSTWRZ  destination Z write enable
+
+   You'd want to set DSTEN if you're doing read-modify-write cycles on the 
+   destination. (See RMW-Cycles below). Else you should clear this bit 
+   (or pay the price in speed decrease).
+   Likewise if you're not going to do Z-buffer blitting keep bits 4 and 5
+   clear, else set'em!
+   Note that you can not disable 'destination write' because, you'd just
+   not use the Blitter in this case, right ?
+
+misc:
+        bit 6: CLIP_A1 enable A1 clipping
+        bit 7:         unused
+
+   You can clip the pixmap that is handled with the A1 register set.
+   If this bit is set, then the information in the A1_CLIP register is
+   used to clip the A1 lines. See A1_CLIP for more information about
+   clipping.
+
+   Actually it's a lie, that bit 7 is unused. It does something but
+   nothing interesting so far.
+
+A1-control (A1ctl):
+        bit 8: UPDA1   enable A1 update step fraction part
+        bit 9: UPDA1F  enable A1 update step integer part
+        bit10: UPDA2   enable A2 update step
+
+  You hint the Blitter here, which step registers it should update.
+  If you're just doing line-drawings you don't need any of these bits
+  set. Only when you're blitting in two dimensions you need to consider
+  these bits. The idea behind them is probably not that you can
+  improve the blitter performance but rather the setup performance,
+  since you know which registers change and which not and need not
+  update all of them for consecutive blits.
+
+mode:
+        bit11: DSTA2   use A2 as destination
+        bit12: GOURD   enable Gouraud shading
+        bit13: ZBUFF   enable Z-buffer handling (sometimes called GOURZ)
+
+   Usually (DSTA2 cleared) you use A2 as the source and A1 as the
+   destination. You can reverse the roles by setting this bit.
+   Set bit12 (GOURD) to enable Gouraudshading. Gouraudshading will only
+   be "gouraud shading" if used on cry-color data. Use the intensity
+   counters/incrementers to specify the shading (see B_IINC for
+   further reference)
+   With ZBUFF you enable Z-buffer handling (look for the A1_FLAGS for
+   a small description of Z-buffer handling).
+
+
+intensity (ity) and other stuff:
+        bit14: TOPBEN   carry into nybble
+        bit15: TOPNEN   carry into byte
+        bit16: PATDSEL  use pattern data (instead of source)
+
+   TOPBEN and TOPNEN will all be explained in the gouraud shading description
+   coming up soon. You can control with the bit TOPB/NEN where the overflow
+   from the intensity addition should be stored (added to)
+   On a completely different note, if you just want to initialize a
+   memory region (or draw a line) in a single color, you don't need to
+   read the source data from memory. You can let the blitter pull the
+   color from one of its own registers (B_PATD). This saves you on
+   the average a read cycle for every phrase written, which is a good
+   thing. None of the logical blitter operations apply when using the 
+   pattern data register. You can't XOR your bitmap with the pattern data!
+
+z-op:
+        bit18-20:
+
+        bit18: ZMODELT  source < destination
+        bit19: ZMODEEQ  source = destination
+        bit20: ZMODEGT  source > destination
+
+   or
+
+        0:      unused
+        1:      src < dst
+        2:      src == dst
+        3:      src <= dst
+        4:      src > dst
+        5:      src != dst
+        6:      src >= dst
+        7:      unused
+
+   You can tell the blitter how to decide, whether the source data should
+   overwrite the destination pixel or not when using the Z-buffer mode.
+   Usually you will want to put a 3 or a 1 here, so that you're
+   'nearer' pixels overwrite the 'farther' pixels. (Assuming that your
+   Z-buffer values are the higher, the farther away from the viewer
+   they are)
+
+OP:     logical operation the Blitter should perform
+
+        bit21: LFU_NAN  ! source & ! destination
+        bit22: LFU_NA   ! source &   destination
+        bit23: LFU_AN     source & ! destination
+        bit24: LFU_A      source &   destination
+
+   or
+
+         0: LFU_ZERO     DST = 0              (LFU_CLEAR)
+         1: LFU_NSAND    DST = ! SRC & ! DST
+         2: LFU_NSAD     DST = ! SRC & DST
+         3: LFU_NOTS     DST = ! SRC
+         4: LFU_SAND     DST = SRC & ! DST
+         5: LFU_NOTD     DST = ! DST
+         6: LFU_N_SXORD  DST = ! (SRC ^ DST)
+         7: LFU_NSORND   DST = ! SRC | ! DST
+         8: LFU_SAD      DST = SRC & DST
+         9: LFU_SXORD    DST = SRC ^ DST     (LFU_XOR)
+        10: LFU_D        DST = DST
+        11: LFU_NSORD    DST = ! SRC | DST
+        12: LFU_S        DST = SRC           (LFU_REPLACE)
+        13: LFU_SORND    DST = SRC | ! DST
+        14: LFU_SORD     DST = SRC | DST
+        15: LFU_ONE      DST = 1
+
+   Just as on the Atari ST blitter you can have the usual set of
+   logical operations you can perform on your data. Use 12 for your
+   copying blits and 0 for your single color initilization. Note that
+   if you set bit16 (use pattern data), then the blitter will NOT
+   zero your buffer with OP==0, but fill it with the pattern color
+   instead.
+   The opcodes are ignored when bit16 is set.
+
+control:
+      bit25: CMPDST   compare destination pixel with pattern pixel
+      bit26: BCOMPEN  bit compare, write inhibit
+      bit27: DCOMPEN  data compare, write inhibit
+      bit28: BKGWREN  write inhibit, still write
+      bit29: BUSHI    hog the bus
+      bit30: SRCSHADE source shading
+
+   bit25 (CMPDST):   If you enable this the destination pixel (that 
+                     will be overwritten) is compared with the value 
+   stored in the pattern-data register (B_PATD). 
+   If you enable this in conjunction with B_STOP this _maybe_ is used as 
+   a way to do hardware collision detection. (like in GTIA on the Atari
+   8 bit). Supposedly works only in 8 and 16 bit modes.
+
+   bit26 (BCOMPEN):   speculation: The lower 8 bit of the source value 
+                      are examined. If all bits are 0 then nothing will 
+   be written back, if all of them are set then everything will be written 
+   back. Now what happens if there are just a few bits set ? 
+   Imagine that the pixels of the destination pixmap are numbered from
+   7 to 0 wrapping at -1 back to 8. 
+      
+     Start of line blit
+        \                    
+         7654321076543210765
+               ^
+               current pixel position     
+
+     Source pixel value:   0xFF55  ->  11111111 01010101
+
+         76543210
+         01010101
+               ^
+   
+     So this pixel value will not be written.
+   
+   Don't ask me what that might be good for. See DCOMPEN for more details
+   about collision detection. Supposedly works only in 8 and 16 bit modes.
+
+   
+   bit27 (DCOMPEN):  used most often in conjunction with bit25. 
+                     If you set bit25 and bit27 the effect will be that 
+   only those destination values will be overwritten that do not match 
+   the value stored in B_PATD. (If bit 25 is off, then the comparison will
+   be made with the source pixel)
+   So if you put the color 0x0000 into B_PATD only those pixels will be 
+   written, where there are not zero-valued pixels in the destination bitmap. 
+   You should have DSTEN on!
+   The write inhibit serves a second function in collision detection. If 
+   bit #2 is set in the B_STOP register, then the blitter will stop when
+   such a inhibit would occur. Look at B_STOP for more details.
+   If you have BKGWREN set, then the data will be written back still.
+   Supposedly works only in 8 and 16 bit modes.
+
+   bit28 (BKGWREN):  when a write inhibit occurs, this flag enables the 
+                     blitter to still perform the write, but to write 
+   back destination data. This only applies to pixel mode, in phrase 
+   mode destination data is always written. 
+
+   bit29 (BUSHI):    seems to let the blitter hog the bus completely. 
+                     This is not such a good idea for extensive blits, 
+   since apparently the OP is also shut off and you'll see garbage on the 
+   screen. For small blits this might yield an overall system performance 
+   increase, when you're pushing the machine to its limits.
+
+   bit30 (SRCSHADE): Enable source shading. Yes it does work, although 
+                     the setup is a bit weird because you seem to have to 
+   set bit3 (destination read enable) for real source shading to happen. 
+   Put the shade value into B_IINC. Looks really cool.
+   You can get some funky albeit as yet unpredictable (?) effects putting
+   a value in B_DSTD and disabling the destination read. F.e. put the 
+   B_IINC to $40000 and blit repeatedly incrementing B_DSTD (and delaying
+   a little between blits). It's psychedelic!
+   Alternatively, if you've ZBUFF on, you don't have to enable DSTEN.
+
+
+
+RW: B_COUNT ($F0223C)
+~~~~~~~~~~~~~~~~~~~~~
+ 32       28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------+--------^--------^--------^--------+
+  |                n_lines              |               n_pixels            |
+  +-------------------------------------+-----------------------------------+
+                   16 bit                               16 bit
+
+n_pixels:   number of pixels to draw in a line
+n_lines:    number of lines to draw 
+
+   You need to draw at least one line of size one pixel. After n_pixels are 
+   drawn the STEP registers are applied to the current pixel position and
+   blitting resumes.
+
+
+
+
+
+
+
+RW: B_IINC ($F02274)    pixel mode
+~~~~~~~~~~~~~~~~~~~~
+RW: B_I3   ($F0227C)    \
+RW: B_I2   ($F02280)     \ phrasemode
+RW: B_I1   ($F02284)     /
+RW: B_I0   ($F02288)    /
+~~~~~~~~~~~~~~~~~~~~
+ 32       28        24        20       16       12        8        4        0
+  +--------+---------+---------^--------+--------^--------^--------^--------+
+  |chroma.i|chroma.f |  intensity.i     |             intensity.f           |
+  +--------+---------+------------------+-----------------------------------+
+     4 bit    4 bit          8 bit                       16 bit
+
+  chroma.i:             delta for chroma change, integer part
+  chroma.f:             delta for chroma change, fractional part
+  intensity.i           delta for gouraud shading, integer part
+  intensity.f:          delta for gouraud shading, fractional part
+  
+   This register is used for chroma changes and gouraud shading (or 
+   both operations together). Chroma changes are like gouraud shades,
+   but with an intensity delta of zero. Pure gouraud shadings have a chroma
+   delta value of zero.
+   This register is added to either B_PATD in pixelmode or B_I0 to B_I3 in 
+   phrasemode. The intensity is saturation added, meaning that you can't 
+   have an intensity wrap around. The chroma change on the other hand does
+   wrap around. The integer part is by the way sign extended.
+   So normally chroma and intensity are two separate entities that don't 
+   influence each other. If you want you can set in the B_CMD register
+   either TOPBEN or TOPNEN. 
+   If you set TOPNEN then the carry of the saturation add will be added to
+   the upper nybble (chroma.i) of the current source data value.
+   If you set TOPBEN then there will be _no_ saturation for the addition 
+   of the intensity delta. Instead the carry is added to the top byte of 
+   the current source data value. If you set both, you'll achieve the
+   effect of TOPBEN but _with_ saturation. 
+  
+   B_I0, B_I1, B_I2, B_I3 are used in phrasemode instead of B_IINC, 
+   which is used in pixelmode.
+
+
+
+
+
+
+
+RW: B_ZINC ($F02274)    pixel mode
+~~~~~~~~~~~~~~~~~~~~
+RW: B_Z3   ($F0228C)    \
+RW: B_Z2   ($F02290)     \ phrasemode
+RW: B_Z1   ($F02294)     /
+RW: B_Z0   ($F02298)    /
+~~~~~~~~~~~~~~~~~~~~
+ 32       28        24        20       16       12        8        4        0
+  +--------^---------+---------^--------+--------^--------^--------^--------+
+  |                 z.i                 |                z.f                |
+  +------------------+------------------+-----------------------------------+
+                  16 bit                               16 bit
+
+  z.i:                    z value integer part
+  z.f:                    z value fractional part
+  
+   The documented makeup of the register is just an educated guess!!
+   These is the increment factor that is added to the Z-value, which
+   is used in the comparison, that decides whether the pixel should
+   be draw or not.
+
+   Z_I0, Z_I1, Z_I2, Z_I3 are used in phrasemode instead of B_ZINC, 
+   which is used in pixelmode.
+
+
+
+RW: B_DSTD ($F02248)
+~~~~~~~~~~~~~~~~~~~~
+ 32       28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------^--------^--------^--------^--------+
+0 |                                 pixelvalue                              |
+  +-------------------------------------------------------------------------+
+
+ 64       60        56        52       48       44       40       36        32
+  +--------^---------^---------^--------^--------^--------^--------^--------+
+1 |                                 pixelvalue                              |
+  +-------------------------------------------------------------------------+
+   
+pixelvalue:
+  
+   If you're doing RMW-cycles with the blitter and have not enabled data
+   reads, then this register will be used as input for the logical operations
+   instead.
+  
+   Depending on the blitter-mode (pixelmode or phrasemode) there is either
+   only one pixel kept in here (phrase 0) right-side aligned by the way,
+   or as many pixels that can fit in a phrase.
+  
+   Experiments show that the value in DSTD is NOTed before being used as
+   a logical operation. Curious.
+  
+   f.e.
+      move.l   #(1<<16)|WIDTH,B_COUNT
+      move.l   #PITCH1|PIXEL16|WID320|XADDPIX,A1_FLAGS
+      move.l   #PITCH1|PIXEL16|WID320|XADDPIX,A2_FLAGS
+      move.l   #$00000FFFF,B_DSTD
+      move.l   #SRCEN|LFU_XOR,d0
+
+   is actually a straight replacement, although one would expect
+   
+      S ^ 0xFFFF to yield ~S and not S
+  
+
+
+RW: B_SRCD ($F02240)
+~~~~~~~~~~~~~~~~~~~~
+ 32       28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------^--------^--------^--------^--------+
+0 |                                 pixelvalue                              |
+  +-------------------------------------------------------------------------+
+
+ 64       60        56        52       48       44       40       36        32
+  +--------^---------^---------^--------^--------^--------^--------^--------+
+1 |                                 pixelvalue                              |
+  +-------------------------------------------------------------------------+
+   
+pixelvalue:
+  
+   This is probably just the same as B_DSTD but for those case when you
+   did not have source read enabled (bit #0 of the CMD register) and
+   when you haven't selected the pattern as the source of your blit.
+
+
+
+RW: B_STOP ($F02278)
+~~~~~~~~~~~~~~~~~~~~
+  32      28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------^--------^--------^--------^-+------+
+  |                                  unused                          | stop |
+  +------------------------------------------------------------------+------+
+
+   stop: 
+      bit 0:   Resume
+      bit 1:   Abort
+      bit 2:   Collision detection
+
+   Uses 3 bits to resume or stop after a write inhibit occurs. Inhibit 
+   will occur when painting pixel-pixel mode, Xadd=1, BKGWREN=0, and one 
+   of the BCOMPEN, DCOMPEN or Zmodem0-2 are set, with matching conditions.
+
+   Resume:  Writing a one to this bit when the blitter has stopped
+            will cause the blitter to resume operations. 
+   Abort:   Writing a one to this bit when the blitter has stopped
+            will cause the blitter to terminate the current operation 
+            and return to its idle state. 
+   Coll.:   Set this bit to enable blitter collision stops. This should
+            stop the blitter. Then you can decide, whether to keep going
+            or whether to abort the blit, using the first two bits.
+
+
+
+RW: A1_BASE ($F02200)
+~~~~~~~~~~~~~~~~~~~~~
+  32      28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------^--------^--------^--------^--------+
+  |                                  address                                |
+  +-------------------------------------------------------------------------+
+
+   address:
+
+   Pointer to the bitmap. The bitmap must (probably) be phrase aligned.
+   For pixel positioning use A1_PIXEL
+
+
+
+
+RW: A1_FLAGS ($F02204)
+~~~~~~~~~~~~~~~~~~~~~~
+  32      28        24        20       16       12        8        4        0
+  +--------^---------^--------+---------+--+-----^-----+--^---+----^-+------+
+  |            unused         | addctl  |  |   width   | z-off| depth| pitch|
+  +---------------------------+---------+--+-----------+------+------+------+
+                                20...16       14...9     8..6    5..3  2..0
+                                          ^
+pitch:                                    +---- unused 
+      bit0-bit2: 
+
+      0: 1 phrase
+      1: 2 phrases
+      2: 4 phrases
+      3: 8 phrases
+
+   The amount of phrases the blitter should add to the address when
+   accessing the next phrase. Usually set to zero, although when you
+   Z-buffering or interleaving for better memory locality in copying
+   blits, this will come in handy.
+
+depth:
+      bit3-bit5:
+
+         colors         bit-planes           bits
+       ------------+-------------------+-------------
+      0: 2                 1                 1
+      1: 4                 2                 2
+      2: 16                4                 4
+      3: 256               8                 8
+      4: 32768/65536       16/CrY           16
+      5: 16 mio            24               32
+      6: unused
+      7: unused
+
+   The pixel size the blitter should move. Remember all pixels on the
+   Jaguar are chunky (meaning the bits to a pixel are adjacent, not like
+   on the Amiga or the ST)
+
+z-offset (z-off):
+
+      bit6-bit8 gives the number of phrases the Z-data is offset from
+      your pixel phrase. 
+      Apparently 0 and 7 are unusable values
+
+width:
+   bit9-14:
+
+      This is the width in pixels of a scanline of the area pointed
+      to by A1. Or in different words A1 points to a rectangular
+      block of pixels. The pixels are organized in horizontal strips.
+      You give the width of such a strip with this value.
+
+      The number is not an integer value but rather a floating point
+      value (no kidding). It is made up like this:
+
+      1.[bit14-13] * 2^[bit12-9] so for example
+
+      01 0101   would be 1.25 * 2^5 = 40     or
+      10 1000   would be 1.5  * 2^8 = 384
+
+         (1.00bin -> 1.00dec  1.01bin -> 1.25dec  
+          1.10bin -> 1.5dec   1.11bin -> 1.75dec)
+
+                  or you can think of it as:
+      
+      x   = 1 << [bit12-9] 
+      res = x + (bit14 ? (x >> 1) : 0) + (bit15 ? (x >> 2) : 0);
+      
+      01 0101   would be 
+         x   = 1 << 5                              /* 32 */
+         res = 32 + (0 ? 16 : 0) + (1 ? 8 : 0);    /* 40 */
+
+      Some often used values are:
+
+          value   width    value   width    value   width
+         -------+-------  -------+-------  -------+-------
+            4       2        8       4       10       6
+           12       8       13      10       14      12
+           15      14       16      16       17      20
+           18      24       19      28       20      32
+           21      40       22      48       23      56
+           24      64       25      80       26      96
+           27     112       28     128       29     160
+           30     192       31     224       32     256
+           33     320       34     384       35     448
+           36     512       37     640       38     768
+           39     896       40    1024       41    1280
+           42    1536       43    1792       44    2048
+           45    2560       46    3072       47    3584
+
+         
+adding control (addctl)
+
+** please note that the bit descriptions are as an exception
+** interleaved
+
+   Xadd control
+   bit16-17:
+      0: XADDPHR   add phrase offset to X and truncate
+      1: XADDPIX   add pixelsize (1) to X
+      2: XADD0     add zero (for those nice vertical lines)
+      3: XADDINC   add the contents of the increment register
+
+   bit19: XSIGNADD/XSIGNSUB  pixel add operation, 0 = add 1 = subtract
+                             when using "add pixelsize" mode
+
+   If you don't set any of these bits (0) then you are using the blitter
+   in phrase mode. That means that pixels are grabbed in lots of phrases
+   updated concurrently (one step) and written back in lots of phrases.
+   (lots as in "quantity-size", not as "many"). Obviously you can use the
+   phrasemode only for horizontal line blitting operations. Else you
+   need to put the Blitter in pixel mode (in CrY Mode ~4x slower).
+
+
+   Yadd control
+   bit18: YADD0/YADD1        add zero (clear) or one (set) to Y
+   bit20: YSIGNADD/YSIGNSUB  add 1/sub1 to Y (when bit18 is set)
+
+
+
+RW: A1_CLIP ($F02208)
+~~~~~~~~~~~~~~~~~~~~~
+  32      28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------+--------^--------^--------^--------+
+  |                height               |               width               |
+  +-------------------------------------+-----------------------------------+
+
+   Height is the height and the width that the blitter should clip at
+   starting from the base. It does work but seems to be buggy. (i.e. 
+   sometimes clips one pixel to early)
+   
+
+
+RW: A1_PIXEL ($F0220C)
+~~~~~~~~~~~~~~~~~~~~~~
+ 32       28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------+--------^--------^--------^--------+
+  |                 Y.i                 |               X.i                 |
+  +-------------------------------------+-----------------------------------+
+   
+   X.i:         horizontal position (integer part)
+   Y.i:         likewise vertical pixel offset 
+   
+        horizontal and vertical pixel offset from A1_BASE where the 
+        blitting operation should begin. Note that for the calculation
+        of the proper address offset, the blitter needs to know the
+        pixel size and the width of one line
+        
+
+
+RW: A1_FPIXEL ($F02218)
+~~~~~~~~~~~~~~~~~~~~~~~
+  32      28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------+--------^--------^--------^--------+
+  |                 Y.f                 |                X.f                |
+  +-------------------------------------+-----------------------------------+
+
+   X.i:         horizontal position (fractional part)
+   Y.i:         likewise vertical pixel offset 
+
+  You can position the pixel value at a fractional pixel value using this
+  register. If you're using fractional stepping rates, this register will
+  be updated as well as the integer A1_PIXEL register.
+
+  Guess: 0.FFFF will still address pixel 0 and will not round up
+  to 1.
+
+
+
+RW: A1_INC ($F0221C)
+~~~~~~~~~~~~~~~~~~~~
+  32      28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------+--------^--------^--------^--------+
+  |               unused                |          increment.i              |
+  +-------------------------------------------------------------------------+
+
+  increment.i:          integer delta added to pixel position
+  
+     offset to add to A1_PIXEL after a pixel has been blitted.
+     this register is used only, if a certain addressing mode 
+     (bit16... of A1_FLAGS) is used.
+     Please also note the update A1 bits in the blitter command
+     for proper operation.
+             
+     The size is not yet known, but believed to be 16 bit
+   
+
+
+RW: A1_FINC ($F02220)
+~~~~~~~~~~~~~~~~~~~~~
+  32      28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------+--------^--------^--------^--------+
+  |               unused                |            increment.f            |
+  +-------------------------------------+-----------------------------------+
+
+  increment.f:          fractional delta added to pixel position
+         As above but this is the fractional part of the stepper.
+         
+
+
+RW: A1_STEP ($F02210)
+~~~~~~~~~~~~~~~~~~~~~
+  32      28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------+--------^--------^--------^--------+
+  |               y_step.i              |               x_step.i            |
+  +-------------------------------------+-----------------------------------+
+
+  x_step.i:     value to be added to A1_PIXEL.x
+  y_step.i:     value to be added to A1_PIXEL.y
+  
+  Values added to the pixel-pointer after a line has been drawn.
+  You must set a bit in the control register to allow this update to happen.
+  
+
+
+RW: A1_FSTEP ($F02214)
+~~~~~~~~~~~~~~~~~~~~~~
+ 32       28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------+--------^--------^--------^--------+
+  |               y_step.f              |               x_step.f            |
+  +-------------------------------------+-----------------------------------+
+
+  x_step.f:     value to be added to A1_FPIXEL.x
+  y_step.f:     value to be added to A1_FPIXEL.y
+  
+  Values added to the pixel-pointer after a line has been drawn.
+  You must set a bit in the control register to allow this update to happen,
+  which is different than the control bit used for integer step updates!
+
+
+
+RW: A2_BASE ($F02224)
+~~~~~~~~~~~~~~~~~~~~~
+  32      28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------^--------^--------^--------^--------+
+  |                                  address                                |
+  +-------------------------------------------------------------------------+
+
+   See A1_BASE
+
+
+
+RW: A2_FLAGS ($F02228)
+~~~~~~~~~~~~~~~~~~~~~~
+  32      28        24        20       16       12        8        4        0
+  +--------^---------^--------+^--------+--+-----^-----+--^---+----^-+------+
+  |            unused         | addctl  |  |   width   | z-off| depth| pitch|
+  +---------------------------+---------+--+-----------+------+------+------+
+                                20...16       14...9     8..6    5..3  2..0
+
+   See A1_FLAGS
+
+
+
+RW: A2_PIXEL ($F02230)
+~~~~~~~~~~~~~~~~~~~~~~
+ 32       28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------+--------^--------^--------^--------+
+  |                 Y.i                 |               X.i                 |
+  +-------------------------------------+-----------------------------------+
+
+   See A1_PIXEL
+        
+
+
+RW: A2_MASK ($F0222C)
+~~~~~~~~~~~~~~~~~~~~~
+ 32       28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------+--------^--------^--------^--------+
+  |               mask.y                |              mask.x               |
+  +-------------------------------------+-----------------------------------+
+
+   mask.x:              x modulo value
+   mask.y:              y modulo value
+
+   A2_MASK is probably used to mask off the pixel value of A2 creating
+   thereby a circular buffer
+
+
+
+RW: A2_STEP ($F02234)
+~~~~~~~~~~~~~~~~~~~~~
+  32      28        24        20       16       12        8        4        0
+  +--------^---------^---------^--------+--------^--------^--------^--------+
+  |               y_step.i              |               x_step.i            |
+  +-------------------------------------+-----------------------------------+
+
+   See A1_STEP
+
+
+
+
+BUGS:
+-----
+
+It seems that when the blitter is done with blitting it is so happy that
+it's done, it forgets to update the PIXEL registers with the STEP 
+registers (UPDA1 UPDA2 UPDA1F).
+
+Therefore this:
+
+   move.l   #$00400040,B_COUNT
+   move.l   #VALUE,B_CMD
+
+        is not equivalent to this
+
+   moveq    #$3F,d1
+.loop:
+   move.l   #$00010040,B_COUNT
+   move.l   #VALUE,B_CMD
+.wait:
+   move.l   B_CMD,d0
+   ror.w    #1,d0
+   bcc.b    .wait
+ 
+   dbra     d1,.loop
+  
+
+
+Clipping seems to be buggy, occasionally clipping too early. (??)
+
+
+DISCUSSION:
+----------
+
+The designers of the Jaguar thought a lot about what makes a good
+blitter and not. Important for a good blitter is that the setup time
+is minimal. One of the reasons the Atari ST Blitter wasn't that successful
+was that in the time needed to setup the chip - and you did have to 
+setup and calculate quite a lot of values - you were typically just 
+about done doing the blit in software (a small exaggeration).
+
+The Jaguar blitter needs minimal setting up, because the hardware does a
+lot of the calculations for you. For doing a memory clear f.e. you need to
+write only five registers:
+
+   A1_BASE
+   A1_PIXEL
+   A1_FLAGS
+   A1_CMD
+   B_PATD
+
+
+With a little imagination you will find a lot of uses for this nice
+piece of hardware, that go way outside of just drawing and filling.
+
+
+The way the Jaguar's memory is accessed (in pages) make the Blitter
+unfortunately not necessarily the speediest method for some operations,
+since especially a blit is very often a nonlocal operation. 
+(REF :How to organize your bitmaps)
+
+Usually you want to copy a smaller bitmap (sprite) from some part of 
+memory to another bigger bitmap (screen), which will most probably 
+lie outside of the page, the source bitmap resides in.
+
+This might mean (academically waxing here) that the blitter is an 
+outdated concept as long as RAM is as slow as it is. To salvage the 
+blitter concept it would seem promising to use a buffer to copy in a 
+first pass all source data of a line into it. Then rerun the loop and 
+use only destination (reads and) writes in conjunction with the now cached 
+source data. This should approximate the maximum memory thruput.
+
+It'd be probably just as well to provide the programmer with a
+third fully busconnected GPU with a stripped down instruction set
+to emulate a blitter himself.
+
+
+
+
+------------------------------------------------------------------------
+Nat! (nat@zumdick.rhein-main.de)
+Klaus (kkp@gamma.dou.dk)
+
+
+
+
+$Id: blitter.html,v 1.26 1997/03/30 02:27:12 nat Exp $ 
+

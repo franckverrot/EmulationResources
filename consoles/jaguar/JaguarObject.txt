@@ -1,0 +1,609 @@
+# -------------------------------------------------------------------
+# OBJECTPROCESSOR              (c) Copyright 1995 Nat! & KKP
+# -------------------------------------------------------------------
+# These are some of the results/guesses that Klaus and I (Nat!) found
+# out about the Jaguar. Since we are not under NDA or anything from
+# Atari we feel free to give this to you for educational purposes
+# only.
+#
+# Please note, that this is not official documentation from Atari
+# or derived work thereof (both of us have never seen the Atari docs)
+# and Atari isn't connected with this in any way.
+#
+# Please use this informationphile as a starting point for your own
+# exploration and not as a reference. If you find anything innacurate,
+# missing, needing more explanation etc. by all means please write
+# to us:
+#     nat@zumdick.rhein-main.de
+# or
+#     kkp@gamma.dou.dk
+#
+# -------------------------------------------------------------------
+# $Id: op.txt,v 1.3 1995/12/08 17:57:09 nat Exp $
+# -------------------------------------------------------------------
+# Lots of thanks to "Blakatz" who cleared up quite a bit of loose
+# tails
+# -------------------------------------------------------------------
+Things to know about the Objectprocessor (OP):
+
+-1  Imagine a phrase being an entity of 64 bits (or 8 bytes for that
+    matter).
+
+0.  The object list is a linked list.
+
+1.  The object list is traversed by the object processor for
+    each! scanline. This means that if you have 64 scaled
+    bitmaps objects in your object list and a vertical rez
+    going of 240 lines and a refreshrate of 60Hz the
+    Objectprozessor is pulling
+
+    60hz * 240lines * 64objects * 2 phrases =  1.8 Mphrases/s
+    ~ 14.7Mb/s  for the object processor alone!
+    If you figure you're using 128x128x16bit sprites, fully
+    visible, you're doing:
+
+    128x128*16bits/64bits = 4096 phrases a sprite
+    64 sprites in 60hz    = 3840 sprites
+    yields 15728640 phrases/s (R/W ops) giving
+    31457280 bus accesses for a total of
+    251658240 bytes/s
+
+    So it is fairly easy to unknowingly saturate the bus with
+    a nice object list...
+
+1.1 It should be obvious that non-"truecolor" sprites still make
+    lotsa sense, when you're using the OP heavily.
+
+1.2 It looks like the Objectprocessor is loading the Objectlist
+    in lots of four phrases. (This is a guess, because there
+    are four object phrase registers)
+
+2.  The last object must be a STOP object.
+
+4.  The Objectlist must be doublephrase aligned. This means
+    that the lower nybble of the address must be zero.
+
+5.  The Objectprocessor probably works like this:
+
+    Whenever a new scanline needs to be displayed, the
+    objectprocessor provides a linebuffer to the videosystem. While
+    the videosystem is busy displaying this, the OP readies the next
+    scanline. (It uses a doublebuffering strategy) It does
+    this by traversing the objectlist and interpreting each
+    object in sequence. Each object has per scanline the chance
+    ONCE to fill the linebuffer. It fills the linebuffer at
+    a specified horizontal position for a specified width. The data
+    in the linebuffer is always overwritten (except when the
+    Read-Modify-Write bit is set). If the active object has the
+    transparent bit set, it will not overwrite values in the
+    linebuffer when its source pixel has the value zero.
+    The 'transparency' check is done before looking up the pixel's
+    color in the CLUT (1 - 256 color modes) CLUT.
+
+5.1 The sooner a object appears in the list the more
+    in the background it appears. The linebuffer is initalized with
+    the linebufferbackgroundcolor (BG) before the objectprocessor
+    starts filling  the linebuffer.
+
+    One may also assume that the OP normally traverses the
+    linebuffer from left to right, except when the horizontal flip
+    bit is set.
+    Each bitmap object is made up of pixels. These pixels can be either
+    contain the color itself (direct) as in CrY and TrueColor modes
+    or be an index into a Colorlookuptable (indirect).
+
+5.2.    The videosystem can deal with 16bit RGB/Crycolor and 32bit RGB (?)
+    pixels, the size of the pixels the OP writes into the linebuffer
+    and pulls out of the CLUT, depends on the pixeltype chosen for
+    the videosystem.
+
+5.3 The object in the objectlist are *modified* by the OP. This means
+    that an object list is only good for one frame. You need to
+    continually refresh your object list each VBLANK.
+
+7.  The address of the image of an object must be (as expected)
+    phrase aligned (zero in the lower 3 bits)
+
+8.  There are five different objects that the Objectprocessor knows
+    about. These are:
+
+    1.  Bitmapped Object
+    2.  Scaled bitmapped object
+    3.  GPU-Object (Calls the GPU to do the displaying ?? )
+    4.  Branchobject (for what ?)
+    5.  Stopobject (marks the end of the object list)
+
+    The objects have different sizes. The minimum size of an object
+    is a "phrase".
+
+    Object type Number    Size in phrases
+    -----------------------------------------
+    BIMAP       0       2
+    SCALE       1       3 (4?)
+    GPU     2       1
+    BRANCH      3       1
+    STOP        4       1
+
+    It looks like you need to pad your scale objects to four phrases...
+
+9.  The branch objects are used to compare the current scanline
+    with the value stored in the branch object. Depending on the
+    branch instructions comparison mode, the branch is taken
+    either on < == != or > (just a guess). The branch taken takes
+    the information from the Linkinfo and branches to the phraseindexed
+    object. If the comparison fails it simply examines and handles
+    the next object in the list.
+
+9.1 To keep the Objectprocessor from fetching data (and wasting bandwidth)
+    during the VBLANK you usually put two branch objects at the beginning
+    of the display list, that branch to the stop object if the first
+    displayable scanline has not been reached or the last displayable
+    scanline has already been displayed.
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+10  This is what a branch object looks like:
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Phrase #0:
+
+   63      56        48       40       32        24       16       8    3   0
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+  |        unused          |      Link-address   |CC| unknown|   VCnt   |011|
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+      63 .............43         42..........24   23           13 .... 3
+                          .
+                          22
+
+Conditioncodes:
+
+         Values     Comparison/Branch
+    ------------------------------------------------
+        00  Branch on not equal  (Guess)
+        01  Branch on less than
+        10  Branch on greater than
+        11  Branch on equal      (Guess)
+
+VCnt:       This is the value you compare the vertical scanline
+counter with. For CC code 10 the operation goes:
+
+    if( Actual_scanline > object->YCnt)
+       goto object->link;
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+11  This is what a stop object looks like:
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Phrase #0 (1 of 1):
+
+   63      56        48       40       32        24       16       8    3   0
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+  |                            unused            |      datafield       |100|
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+
+ There is a datafield in this instruction of unkown size. This may or
+ may not be a way to generate horizontal interrupts. Maybe this is just
+ a flag that someone can poll from somewhere...
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+12. This is what a bitmap object looks like:
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Phrase #0 (1 of 2):
+
+   63      56        48       40       32        24       16       8    3   0
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+  |        data-address    |     Link-address    |   Height  |   YPos   |000|
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+      63 .............43         42..........24   23 ..... 14 13 ..... 3 2.0
+         21 bits             19 bits        10 bits     11 bits  3 bits
+
+
+  data-address:     Pointer to the bitmap       *?*DESTROYED BY THE OP*?*
+  link-address:     Pointer to the next object
+  height:       Height in pixels
+  y-pos:        Vertical position       ***DESTROYED BY THE OP***
+  type:         Object type
+
+
+  data-address:
+    An address is a memory address in terms of phrases. To get the
+    byte address you have to shift it up by 3. (or in this example
+    to get the data-address you would fetch the upper lword with
+    the 68K and do):
+
+        move.l  (a0),d0     ; fetch it  (bits 63-32)
+        moveq   #11,d1      ; or some other less lame way
+        lsr.l   d1,d0       ; shift it down for phrase address
+        lsl.l   d1,d0       ; shift it up for byte address
+
+   link-address:
+    The link address strings the object list together. So it really
+    is a linked list, not just an array. OK an array would have
+    been better and the link could have been a number of phrases
+    to skip. It misses the upper two bits two form a proper full
+    24 bit address. This means that objects must reside in the
+    lower 4 MB.
+
+   height:
+    The height of the object is also stored in the first phrase.
+    This is the number of pixels an object has in it vertical extent.
+
+   ypos:
+    The YPos is predictably the vertical position of the object on
+    the screen. The vertical position is the halfline vertical
+    position. This means that in interlace mode this is the "true"
+    vertical position on the screen. In non-interlaced modes
+    (non-flicker)   modes, you should multiply your Y-Pos by two and
+    stuff that into the object. (That's why its eleven bits, and the
+    height is only 10 bits.)
+
+   type:
+    Lastly the object type indicates with a 0 (000) that this object
+    is a normal non-scaled bitmap object.
+
+
+Phrase #1 (2 of 2):
+
+   63      56        48       40       32        24       16       8       0
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+  | unused | 1stpix  |flags | idx | iwidth  | dwidth  | p | d |    <XPos>   |
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+    63...57 56....49  48..45 44.38  37...28    27..18 17.15 14.12   11.....0
+               8bit 4bit  7bit   10bit  10bit  3bit  3bit     12bit
+
+    Curiously there seem to be some unused bits in the top half of
+    this second phrase. Anyway starting from the left:
+
+   firstpix:    Pixels to skip              ***DESTROYES ???***
+   flags:   How to handle the source data
+   index:   Index into the CLUT
+   iwidth:  Width of the image
+   dwidth:  Offset to the next line of the image
+   pitch:   Increment for the Datapointer
+   depth:   Pixeldepth of the bitmap
+   x-pos:   Horizontal position of the object   ***DESTROYED BY THE OP***
+
+
+1stpix: this is a field of 8 bits that contains the number of
+    'bits' to skip before fetching the first pixel. This is
+    probably most useful for CLUT modes, where you want to
+    specify an offset into the first phrase to get the pixel you
+    want. You get the value you want to write here by calculating:
+
+    pixelindex * bits_per_pixel (f.e. 8 for 256 color mode)
+
+
+flags:  You can tell the Objectprocessor the way it should
+handle the display data. These are the values you set here:
+
+    Bit0        Bit1        Bit2        Bit3
+    --------------------------------------------------------------
+     Horizontal Flip   ReadWriteModify   Transparent   Release
+
+A few guesses as to what each flag does:
+
+Horizonal flip:     Lets the Objectprocessor run
+its path from the other end of the spritedata, which should
+effectively flip you sprite data.
+[ Since this is a hairy calculation, it is doubtful that the
+hardware pulls this off faultlessly with firstpix set to anything
+but zero ?? ]
+
+ReadWriteModify:    The object data reads the data in the
+line buffer does something with the bitmap pixel value
+and the linebuffer pixel value and stores the result back into
+the linebuffer. For Crycolor the lower byte of the bitmap pixel value
+is sign extended and added to the lower byte of the linebuffer pixel
+value, thereby increasing or decreasing (depending on the sign)
+the intensity of the linebuffer pixel. This is a 'saturating add'
+meaning that you don't wrap around, but subtractions stick at 0 and
+additions stick at 255.
+The cryhues (upper byte) are mangled even more strangely, the effect
+could (with the right values) be like looking through a colored
+glass (your bitmap object with the RMW-flag set) onto the
+background (the other bitmap objects below it)
+
+Transparent:        When the source pixel is zero, this
+pixel will not be written. This is the way to achieve
+transparent sprites with the GPU. (Both CLUT and non-CLUT pixels)
+
+Release:        If cleared then the OP 'hogs' the bus for
+the time it takes to fetch the scanline data of the object. If this
+bit is set, then the bustime is shared with other processors. If you
+have lotsa interrupts going, this might be worthwhile.
+
+index (idx):    Index into the ColorLookUpTable (CLUT)
+This information is only used for 1 - 2 or 4 bitplane objects,
+to determine the offset in the CLUT to use.
+
+    1 bitplane  2 bitplane  4 bitplane
+        iiiiiiii          iiiiii0         iiiii00
+
+The value is shifted left once and then used as an index into
+the CLUT. Note that in 2 + 4 bitplane modes not all bits are in
+used, because the lower bits are replaced with the pixel value.
+
+For example in 4-bits-per-pixel mode pixel #7 and an idx value of
+64 gives you an index of (64*2)+7 -> 135
+
+So you preload the CLUT with the colors you want to use, for
+example green at index #241. When you want to display a small
+green arrow on the screen (as a pointer) for example you set
+your object to transparent, and the index to 120. When the
+object pointer fetches a set pixel, it will write the green
+value into the linebuffer.
+
+
+iwidth:     Tell the OP how many *phrases* to draw in each
+line. This is the actual number of phrases to draw, not the
+horizontal index to index the next line (dwidth). This is
+probably not just  #pixels_to_draw / bits_per_pixel, but rather
+the number of phrases the object spans. If a 32bit object spans
+two phrases you should enter a two here.
+
+dwidth:     The horizontal phrase offset the OP should use
+to index to the next line. If you data is laid out in
+consecutive strips of horizontal data like this:
+
+screen <destination>:
+    00000000000
+    11111111111
+    22222222222
+    33333333333
+
+memory <source>:
+    00000000000111111111112222222222233333333333
+
+then this will be just the same as <iwidth>. But if your data
+is laid out like this:
+
+    00000000000xxxxx11111111111xxxxx22222222222xxxxx33333333333xxxxx
+
+you should set <dwidth> to the proper offset so that adding
+<dwidth> to the phrase-address will bring you to the next line.
+(This might be useful for 'horizontally scrolling' objects).
+
+depth (d):  The number of bits of each pixel. This
+specifies the rez of the object. You have the choice between
+direct pixel modes (16 or 24/32 bits) and indirect (CLUT)
+pixel modes. Note that using transparency effectively
+reduces the number of available colors by one (color #0).
+
+Values:
+    0   1 bits per pixel    2 colors    CLUT
+    1   2 bits per pixel    4 colors    CLUT
+    2   4 bits per pixel    16 colors   CLUT
+    3   8 bits per pixel    256 colors  CLUT
+    4   16 bits per pixel   65536 colors    CRY
+    5   24 bits per pixel   16 Mio Colors   TrueColor
+    6   unused
+    7   unused
+
+
+pitch (p):  If you so desire you can organize your bitmap
+data in even stranger ways than one would think possible. With
+this value you control the datapointer that the OP uses to
+traverse your bitmap data. This value is added to the
+datapointer after the last fetch. If you use a 0 you will be
+always fetching the same phrase over and over again. Normally
+you set <pitch> to 1, to advance through memory contigously.
+(Note: If the designers of the OP were clever, you can save a
+lot of bandwidth with the background by putting an object in
+front of the object list that contains a single pixel bitmap
+with the background color and setting <pitch> to zero)
+
+
+xpos:       The horizontal position of the object on the
+screen (or in the linebuffer if you will)
+
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+13.     This is what a scaled bitmap object looks like.
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Phrase #0 (1 of 3):
+
+   63      56        48       40       32        24       16       8    3   0
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+  |       <data-address>   |    <Link-address>   | < Height >|  <YPos>  |001|
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+      63 .............43         42..........24   23 ..... 14 13 ..... 3 2.0
+         21 bits             19 bits        10 bits     11 bits  3 bits
+
+    Except for the type, which is different, this is just
+    the same as the first phrase of the bitmap (non-scaled)
+    object.
+
+
+Phrase #1 (2 of 3): This is the same as the the 'bitmapped' object
+
+
+Phrase #2 (3 of 3):
+
+   63      56        48       40       32        24       16       8       0
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+  |                  unused                      | remain | VScale | HScale |
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+                                   23...16  15...8   7...0
+
+  remainder:    Keeps the VScale remainder  ***DESTROYED BY THE OP***
+  v-scale:      Vertical scaling factor
+  h-scale:  Horizontal scaling factor
+
+
+  The scale is a fractional representation, using 3 bits for the integer
+  part and 5 bits for the fractional part. Or in ASCII-Graphics:
+
+    76543210    00100000 or 0x20 is 1.0
+    iiifffff    00010000 or 0x10 is 0.5
+
+  The remainder is used by the objectprocessor for the vertical scaling,
+  as a memory place. You should initialize it to 0.5 for best results,
+  although in a lot of democode its initialized to 1.0.
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+14.        The elusive GPU-object
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Phrase #0 (1 of 1):
+
+   63      56        48       40       32        24       16       8    3   0
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+  |                            unknown                                  |010|
+  +--------+---------+---------+--------+--------+--------+--------+--------+
+
+   Predictably just the opcode is used in this object type
+
+
+A speculation might be that the GPU object sends an Interrupt to the GPU
+and puts itself into sleep mode (really??) until the GPU has done its
+refresh of the Linebuffer. Maybe the OP continues and just gives the GPU
+a chance to sync. Maybe there's a subroutine address encoded in the
+object... Who knows.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+15  You can also look at the object in terms of C-structs, that's how
+    they'd look like.
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+/* DON'T USE THESE BITFIELDS WITH ANYTHING ELSE THAN A
+   ***GOOD*** C-COMPILER AND A MOTOROLA PROCESSOR
+*/
+
+
+    #define byte    unsigned char
+    #define word    unsigned short
+    #define lword   unsigned long
+    #define phrase  unsigned long long
+
+
+    typedef struct
+    {
+        lword   data:21;
+        lword   link:19;
+        word    height:10;
+            word    ypos:11;
+        word    type:3;
+    } bitmap_obj_phrase_0;
+
+
+    typedef struct
+    {
+       word   unused:7;
+           word   firstpix:8;
+       word   flags:4;
+       word   index:7;
+       word   iwidth:10;
+       word   dwith:10;
+       word   pitch:3;
+       word   depth:3;
+       word   x_pos:12;
+    } bitmap_obj_phrase_1;
+
+
+    typedef struct
+    {
+       lword  unused:24;
+       word   remainder:8;
+       word   v_scale:8;
+       word   h_scale:8;
+    } scale_obj_phrase_2;
+
+
+    typedef struct
+    {
+        lword   unused:21;
+        lword   link:19;
+        word    conditioncode:2;
+        word    unused:8;   ;; maybe index to register ?
+            word    ypos:11;
+        word    type:3;
+    } branch_obj_phrase_0;
+
+
+    typedef struct
+    {
+        phrase  unused:61;
+        word    type:3;
+    } stop_obj_phrase_0;
+
+    typedef struct
+    {
+        phrase  unknown:61;
+        word    type:3;
+    } gpu_obj_phrase_0;
+
+
+    typedef struct
+    {
+       stop_obj_phrase_0    p0;
+    } stop_obj;
+
+
+    typedef struct
+    {
+       branch_obj_phrase_0  p0;
+    } branch_obj;
+
+
+    typedef struct
+    {
+       gpu_obj_phrase_0 p0;
+    } gpu_obj;
+
+
+    typedef struct
+    {
+       bitmap_obj_phrase_0  p0;
+       bitmap_obj_phrase_1  p1;
+    } bitmap_obj;
+
+
+    typedef struct
+    {
+       bitmap_obj_phrase_0  p0;
+       bitmap_obj_phrase_1  p1;
+       scale_obj_phrase_2   p2;
+    } scale_obj;
+
+
+
+OPEN QUESTIONS:
+
+    Klaus thinks that the OP is smart, and that therefore the
+    nearest object comes first. Nat! thinks that the OP is
+    stupid and that the background comes first.
+
+    If Klaus is right, then the OP with nontransparent objects
+    runs at a rather constant (if a background is used) out at:
+
+        hrez * vrez * refresh * average_bits_per_pixel
+        ---------------------------------------------- phrases/s
+                    64
+
+    which is GOOD. For 320x200x60x16 this means 0.916 Mphrases/s
+
+
+    If Nat! is right then the OP needs:
+
+        #sprites * average_sprite_size
+        ------------------------------ phrases/s
+               64
+
+    This is exceedingly bad...
+
+
+
+NEEDED STUFF:
+    Need to document the logic setting up objects, that cross
+    boundaries (especially the scaled bitmaps)
+
+
+
+--- uugate 0.40 (SunOS 4.1.3)
+ * Origin: Internet gateway [cindy] (2:200/427.1)
+

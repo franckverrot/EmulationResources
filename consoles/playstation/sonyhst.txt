@@ -1,0 +1,338 @@
+                                History of the Sony PlayStation
+                               
+                               taken from http://www.psxpower.com
+
+
+
+
+Prologue B.P. (Before PlayStation) 
+
+Before the release of the PlayStation, Sony had never held a large portion of the videogames 
+market. It had made a few forays into the computer side of things, most notably in its 
+involvement with the failed MSX chip in the early 80's, but it wasn't until the advent of 
+CD-ROM technology that Sony could claim any market share. A joint venture with the Dutch 
+company Philips had yielded the CD-ROM/XA, an extension of the CD-ROM format that combined 
+compressed audio, and visual and computer data and allowed both to be accessed simultaneously 
+with the aid of extra hardware. By the late 80's, CD-ROM technology was being assimilated, 
+albeit slowly, into the home computer market, and Sony was right there along side it. But 
+they wanted a bigger piece of the pie. 
+
+
+
+
+
+1988 Sony Enters The Arena 
+
+By 1988, the gaming world was firmly gripped in Nintendo's 8-bit fist. Sega had yet to make 
+a proper showing, and Sony, although hungry for some action, hadn't made any moves of its own. 
+Yet. 
+
+Sony's first foray into the gaming market came in 1988, when it embarked on a deal with 
+Nintendo to develop a CD-ROM drive for the Super NES, not scheduled to be released for another
+18 months. This was Sony's chance to finally get involved in the home videogame market. 
+What better way to enter that arena than on the coat-tails of the world's biggest gaming 
+company? 
+
+
+
+Using the same Super Disc technology as the proposed SNES drive, Sony began development 
+on what was to eventually become the PlayStaion. Initially called the Super Disc, it was
+supposed to be able to play both SNES cartridges and CD-ROMs, of which Sony was to be the 
+"sole worldwide licenser," as stated in the contract. Nintendo was now to be at the mercy of 
+Sony, who could manufacture their own CDs, play SNES carts, and play Sony CDs. Needless to 
+say, Nintendo began to get worried. 
+
+
+
+
+
+
+
+1991 Multimedia Comes Home 
+
+1991 saw the commercial release of the multimedia machine in the form of Philips' CD-I, 
+which had initially been developed jointly by both Philips and Sony until mounting conflicts 
+resulted in a parting of ways. Multimedia, with the current rise of the CD-ROM, was seen as 
+the next big thing. And although the CD-I was too expensive for the mass market, its arrival 
+cemented the CD-ROM as a medium for entertainment beyond the computer. 
+
+
+
+
+
+June 1991 Treachery At The 11th Hour 
+
+In June of 1991, at the Chicago CES (Consumer Electronics Show), Sony officially announced 
+the Play Station (space intentional). The Play Station would have a port to play Super 
+Nintendo cartridges, as well as a CD-ROM drive that would play Sony Super Discs. The machine 
+would be able to play videogames as well as other forms of interactive entertainment, as was 
+considered important at the time. 
+
+Sony intended to draw on its family of companies, including Sony Music and Columbia 
+Pictures, to develop software. Olaf Olafsson, then chief of Sony Electronic Publishing, 
+was seen on the set of Hook, Steven Spielberg's new Peter Pan movie, presumably deciding how 
+the movie could be worked into a game for the fledgling Play Station. In Fortune magazine, 
+Olafsson was quoted as saying "The video-game business...will be much more interesting (than 
+when it was cartridge based). By owning a studio, we can get involved right from the 
+beginning, during the writing of the movie." 
+
+
+
+By this point, Nintendo had had just about all it could take. On top of the deal signed 
+in 1988, Sony had also contributed the main audio chip to the cartridge-based Super NES. 
+The Ken Kutaragi-designed chip was a key element to the system, but was designed in such 
+a way as to make effective development possible only with Sony's expensive development tools. 
+Sony had also retained all rights to the chip, which further exaserbated Nintendo. 
+
+
+
+The day after Sony announced its plans to begin work on the Play Station, Nintendo made 
+an announcement of its own. Instead of confirming its alliance with Sony, as everyone 
+expected, Nintendo announced it was working with Philips, Sony's longtime rivals, on the 
+SNES CD-ROM drive. Sony was understandably furious. 
+
+
+
+Because of their contract-breaking actions, Nintendo not only faced legal repercussions 
+from Sony, but could also experience a serious backlash from the Japanese business community. 
+Nintendo had broken the unwritten law that a company shouldn't turn against a reigning 
+Japanese company in favor of a foreign one. 
+
+
+
+However, Nintendo managed to escape without a penalty. Because of their mutual involvement, 
+it would be in the best interests of both companies to maintain friendly relations. 
+Sony, after all, was planning a port for SNES carts, and Nintendo was still using the Sony 
+audio chip. 
+
+
+
+
+
+
+
+1992 The Smoke Clears 
+
+By the end of 1992, most of the storm had blown over. Despite a deal penned between Sega, 
+one of Nintendo's biggest competitors, and Sony, whereby Sony would produce software for 
+the proposed Sega Multimedia Entertainment System, negotiations were reached with Nintendo. 
+In October of 1992, it was announced that the two companies' CD-ROM players would be compatible.
+The software licensing for the proposed 32-bit machines was awarded to Nintendo, with Sony 
+receiving only minimal licensing royalties. Nintendo had won this battle, but hadn't won 
+the war. Not by a long shot.
+
+The first Play Station never made it out of the factories. Apparently, about 200 were 
+produced, and some software even made it to development. For whatever reason, whether 
+it was because of the tough licensing deal with Nintendo, or the predicted passing of 
+masked ROM (cartridge-based) technology, Sony scrapped its prototype. Steve Race, Sony 
+Computer Entertainment Of America's (SCEA) then CEO, stated, "Since the deal with Nintendo 
+didn't come to fruition we decided to put games on a back burner and wait for the next 
+category. Generally, the gaming industry has a seven-year product life-cycle, so we bided 
+our time until we could get in on the next cycle."
+
+
+
+
+
+
+
+1993 The Next Cycle 
+
+After returning to the drawing boards, Sony revealed the PS-X, or PlayStation-X. Gone was 
+the original cartridge port, as were the plans for multimedia. Apparently, Sony had visited 
+3DO when Trip Hawkins was selling his hardware and had come away unimpressed, saying it 
+was "nothing new." The PS-X was to be a dedicated game-machine, pure and simple. Steve Race 
+said in Next Generation magazine, "We designed the PlayStation to be the best game player 
+we could possibly make. Games really are multimedia, no matter what we want to call it. 
+The conclusion is that the PlayStation is a multimedia machine that is positioned as the 
+ultimate game player."
+
+Key to Sony's battle plan was the implementation of 3D into its graphics capabilities, 
+a move that many felt was critical to any kind of future success. At the core of the 
+PlayStation's 3D prowess was the R3000 processor, operating at 33 Mhz and 30 MIPS (millions 
+of instructions per second). While this may seem fairly average for a RISC CPU, it's the 
+PlayStation's supplementary custom hardware, designed by Ken Kutaragi (who had previously 
+designed the key audio chip for the SNES), that provides the real power. The CPU relies 
+heavily on Kutaragi's VLSI (very large scale integration) chip to provide the speed necessary 
+to process complex 3D graphics quickly. 
+
+
+
+The CPU is backed up by the GPU (Graphics Processing Unit), which takes care of all the 
+data from the CPU and passes the results to the 1024K of dual-ported VRAM, which stores 
+the current frame buffer and allows the picture to be displayed on-screen. Part of this 
+picture involves adding special effects such as transparency and fog, something that the 
+PlayStation excels at. This was to be the most impressive display of hardware the home 
+gaming world had ever seen
+
+
+
+
+
+
+
+1994 Third Party Round Up 
+
+There was no doubt that Sony could deliver the hardware. After all, Sony was one of the 
+world's largest manufacturers of electronics. There was no denying though, that Sony was 
+extremely green when it came to videogames. And no one knew it better than Sony. 
+
+Not wanting to end up like Atari or 3DO, Sony set about rounding up third party developers, 
+assembling an impressive 250 developing parties in Japan alone. Sony also knew it had to 
+gain the support of the millions of arcade-going gamers if it was to succeed. The involvement 
+of Namco, Konami, and Williams helped ensure Sony would be able to compete with the 
+arcade-savvy Sega on its own turf. Namco's Ridge Racer was the natural choice to be the 
+flagship launch game, and Williams' Mortal Kombat III, previously promised to Nintendo for 
+their Ultra 64, could be tested in the arcades using the new PS-X board.
+
+
+
+Perhaps Sony's most controversial acquisition was the purchase of Psygnosis, 
+a relatively unknown European developer, for $48 million. Sony needed a strong in-house 
+development team, and Psygnosis' Lemmings seemed to point at good things. While the purchase 
+confused many at the time, prompting vocal outcries from naysayers and competitors alike, 
+Psygnosis has since proven them all wrong. Sony Interactive Entertainment, as Psygnosis was 
+renamed, has been responsible for some of the PlayStation's best games, including WipeOut and 
+Destruction Derby. 
+
+
+
+Sony's acquisition of Psygnosis yielded another fruit as well: the development system. 
+SN Systems, co-owned by Andy Beveridge and Martin Day, had been publishing its development 
+software through Psygnosis under the PSY-Q moniker. Sony originally had been planning on 
+using expensive, Japanese MIPS R4000-based machines that would be connected to the prototype 
+PS-X box. Having become accustomed to developing on the PC, Psygnosis gave Beveridge and 
+Day first crack at creating a PlayStation development system that would work with a standard PC. 
+
+
+
+The two men worked through Christmas and New Year's, around the clock, eventually completing 
+the GNU-C compiler and the source-level debugger. Psygnosis quickly arranged a meeting for SN 
+and Sony at the Winter CES in Las Vegas, 1994. Fortunately, Sony liked the PSY-Q alternative 
+and decided to work with SN Systems on cendensing the software onto two PC-compatible cards. 
+Thus, an afordable and, more importantly, universally compatible PlayStation development 
+station was born. 
+
+
+
+
+
+
+
+December 3, 1994 We Have Lift Off 
+
+On December 3, 1994, the PlayStation was finally released in Japan, one week after the 
+Sega Saturn. The initial retail cost was 37,000 yen, or about $387. Software available 
+at launch included King's Field, Crime Crackers, and Namco's Ridge Racer, the PlayStation's 
+first certifiable killer app. It was met with long lines across Japan, and was hailed by 
+Sony as their most important product since the WalkMan in the late 1970's. 
+
+Also available at launch were a host of peripherals, including: a memory card to save high 
+scores and games; a link cable, whereby you could connect two PlayStations and two TVs and 
+play against a friend; a mouse with pad for PC ports; an RFU Adaptor; an S-Video Adaptor; and 
+a Multitap Unit. Third party peripherals were also available, including Namco's Negcon. 
+
+
+
+The look of the PlayStation was dramatically different than the Saturn, which was beige 
+(in Japan), bulky, and somewhat clumsy looking. In contrast, the PlayStation was slim, sleek, 
+and gray, with a revolutionary controller that was years ahead of the Saturn's SNES-like pad. 
+The new PSX joypad provided unheardof control by adding two more buttons on the shoulder, 
+making a total of eight buttons. The two extended grips also added a new element of control. 
+Ken Kutaragi realized the importance of control when dealing with 3 Dimensional game worlds. 
+"We probably spent as much time on the joypad's development as the body of the machine. Sony's 
+boss showed special interest in achieving the final version so it has his seal of approval." 
+To Sony's delight, the PlayStation sold more than 300,000 units in the first 30 days. 
+The Saturn claimed to have sold 400,000, but research has shown that number to be misleading. 
+The PSX sold through (to customers) 97% of its stock, while many Saturns were still sitting 
+on the shelves. These misleading numbers were to be quoted by Sega on many occasions, and 
+continued even after the US launch. 
+
+
+
+
+
+
+
+1995 Setting Up House 
+
+By mid-1995, Sony had set its sights firmly on the United States. Sony Computer Entertainment 
+of America was created and housed in Foster City, California, in the heart of Silicon Valley. 
+Steve Race, formerly of Atari, was appointed as president and CEO of the new branch of Sony. 
+
+The accumulation of third party developers continued apace, with over 100 licenses in the US 
+and 270 licenses in Japan secured. Steve Race said, "We've allowed people to come in and to 
+play on the PlayStation - and at a much more reasonable cost than has been done in the old 
+days with Nintendo and Sega." Sony's development strategy had paid off, with over 700 
+development units having been shipped out worldwide. 
+
+
+
+
+
+
+
+May 11, 1995 Victory At E3 
+
+The Electronic Entertainment Expo (E3) was held in Los Angeles from May 11 to 13, 1995, and 
+was the United State's first real look at the PlayStation. Sony made a huge impression at 
+the show with their (rumored) $4 million booth and surprise appearance by Michael Jackson. 
+The PSX was definitely the highlight of the show, besting Sega's Saturn and Nintendo's 
+laughable Virtual Boy. 
+
+The launch software was also displayed, with WipeOut and Namco's Tekken and Ridge Racer 
+drawing the most praise. Sony also announced the unit would not be bundled with Ridge Racer, 
+as was previously assumed. 
+
+
+
+Overall, Sony made a very formidable showing at E3. They had already proven themselves 
+in Japan and were close on Sega's heels. Over the course of the next year they would overtake 
+Sega and conquer Japan as their own. Now they were poised to do the same in America. 
+
+
+
+
+
+
+
+September 9, 1995 You Are Not Ready 
+
+The PlayStation launched in the United States on September 9, 1995 to instant success. 
+Although it retailed for $299, that was still $100 less than the Sega Saturn. Over 100,000 
+units were already presold at launch, and 17 games were available. Stores reported sell-outs 
+across the country, and sold out of many games and peripherals as well, including second 
+controllers and memory cards. 
+
+Sony's initial marketing strategy seemed to be aimed at an older audience than the traditional 
+8-16 year old demographic of the past. With the tag line "U R Not E" (the "E" being red) 
+and a rumored $40 million to spend on launch marketing, Sony swiftly positioned itself as 
+the market leader. To further cement their audience demographic, Sony sponsored the 1995 MTV 
+Music Awards. 
+
+
+
+
+
+
+
+Epilogue What A Year 
+
+By the US launch, Sony had sold over one million PlayStations in Japan alone. Since the US 
+launch, as of late 1996, the PlayStation has sold over 7 million units worldwide, with close 
+to two million of those being in the US alone. In May of 1996, Sony dropped the price of the 
+PlayStation to $199, making it even more attractive to buy. 
+
+Like Japan, America and Europe embraced the PlayStation as their next-gen console of choice. 
+The demographic of PlayStation owners has fallen in years steadily from twenty-somethings to 
+the younger age bracket so coveted by Nintendo. In fact, many former Nintendo loyalists, 
+tired of waiting for the Nintendo 64 to be released, bought PlayStations and are now happier 
+for it. With close to 200 games available by Christmas 1996, it's easy to see why. This really 
+is the ultimate gaming console! 
+
+
+
+
+
+
+

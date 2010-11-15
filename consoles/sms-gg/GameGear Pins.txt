@@ -1,0 +1,81 @@
+hi !
+
+
+here's yar pinouts infos...
+
+
+-------------------------------------------------------------------------------
+
+
+
+                            GameGear cartridge inputs
+
+2 ->   [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] []  <- 44
+1 -> [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] <- 45
+
+                            top view of gamegear cartridge
+
+No      Name            Description
+
+1       +34(V)          liquid drive
+2       +5(V)           +5(V)
+        __
+3       WR              write signal
+4       A12             address
+5       A7/CL1B3        address
+6       A6/CL1A2        address
+7       A5/CL1B2        address
+8       A4/CL1A1        address
+9       A3/CL1B1        address
+10      A2/DW           address
+11      A1/DO3          address
+12      A0/DO1          address
+13      D0/DB           data
+14      D1/P3           data
+15      D2/P2           data
+16      GND D           ground
+17      GND A           ground
+18      GND D           ground
+19      D3/P4           data
+20      D4/P1           data
+21      D5/CL2          data
+22      D6/DO2          data
+23      D7/DO4          data
+        ____
+24      MREQ            memory request
+25      A10/TPR2        address
+        __
+26      RD              read signal
+        _____
+27      EXM 2           0~7FFFH
+28      A15             address
+29      A11             address
+30      A9/TPR1         address
+31      A8/CL1A3        address
+32      A13             address
+33      A14             address
+        _____
+34      EXM 1           8000~BFFFH
+35      +5(V)           +5(V)
+        __
+36      M1              M1 cycle
+37      IORQ            I/O request
+        ____
+38      RFSH            refresh
+        _____
+39      RESET           reset
+40      CCLK            clock
+41      GND             ground
+        __
+42      GG              MS/GG
+        __
+43      TV              TV cartridge signal
+44      TVSNDR          TV's right channel
+45      TVSNDL          TV's left channel
+
+
+
+--------------------------------------------------------------------------------
+
+
+that's all, nothin more about pinouts !

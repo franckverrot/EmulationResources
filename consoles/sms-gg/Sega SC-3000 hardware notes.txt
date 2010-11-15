@@ -1,0 +1,409 @@
+ 
+ Sega SC-3000 hardware notes
+ by Charles MacDonald
+ E-mail: cgfm2@hotmail.com
+ WWW http://cgfm2.emuviews.com
+
+ Unpublished work Copyright 2002 Charles MacDonald
+
+ Table of Contents
+
+ 1.) Introduction
+ 2.) Overview
+ 3.) Memory map
+ 4.) Port map
+ 5.) Keyboard and I/O
+ 6.) TMS9929 information
+ 7.) Assistance Needed
+ 8.) Credits and acknowledgements
+ 9.) Disclaimer
+
+ 1.) Introduction
+
+ The SC-3000 is a personal computer made by Sega. For information about
+ Sega's 8-bit computers and game systems that came before the Mark III,
+ check out the documentation for MEKA:
+
+ http://www.smspower.org/meka/
+
+ To briefly sum things up, here's a list of the different systems:
+
+ SG-1000        No keyboard
+ SG-1000 II     No keyboard, but supports the SK-1100 external keyboard
+ SC-3000        Built-in keyboard with soft rubber keys
+ SC-3000H       Built-in keyboard with hard plastic keys
+
+ An addition for the SC-3000 was the SF-7000, which adds 64K of RAM, 8K
+ of ROM (for a disk operating system), Centronics parallel port, and an
+ RS232 serial port. Marc Le Dourain has a webpage about it at:
+
+ http://www.multimania.com/mavati
+ 
+ 2.) Overview
+
+ The SC-3000H has the following hardware:
+
+ TMS SN76489AN              Programmable sound generator
+ TMS9929ANL                 PAL variant of TMS9918 video chip
+ D8255AC-2                  NEC's version of the Intel 8255 PPI
+ LH0080A                    Sharp's version of the Zilog Z80-A
+ MB8128-15                  2Kx8 SRAM for the Z80
+ MCM4517P15 (x8)            16Kx1 Page Mode DRAM for the TMS9929
+ MB74LS145                  1 of 10 decoder
+ MN74HC04                   Hex inverter
+ SEGA MITEC 2               Custom, unknown purpose
+
+ It's main clock runs at 10.73863 MHz, which is divided by 3 by the TMS9929
+ to generate the CPU clock of 3.579545.
+
+ It also has several connectors on the back and side panels:
+
+ - Two gamepad connectors (DB9)
+ - Audio / video output (5-pin DIN)
+ - Printer interface (8-pin DIN)
+ - Cassette in and out jacks (2 mono miniplugs)
+ - 44-pin cartridge connector
+
+ According to the SF-7000 webpage, the printer that can be used with the
+ SC-3000 is the SP-400 and is described as a 'serial printer'. I don't
+ have any information on this or the cassette interface, however.
+
+ Pin assignments
+
+ Joystick connectors:
+
+ Looking directly at the DB9 plug, the pins go from 1 to 5 on the top row
+ and 6-9 on the bottom row.
+
+ Pin    Description
+ ---    -----------
+  1     Joystick up
+  2     Joystick down
+  3     Joystick left
+  4     Joystick right
+  5     +5v
+  6     Trigger left
+  7     ?
+  8     Ground
+  9     Trigger right
+
+ Pin 7 is not used by the SJ-200 joystick. It may not be connected to
+ anything in the SC-3000, but I haven't been able to check.
+
+ Audio / Video connector:
+
+ Looking directly at the DIN plug, the pins go from 1 to 5:
+
+ Pin    Description
+ ---    -----------
+  1     Video
+  2     Ground     
+  3     Ground
+  4     Ground
+  5     Audio
+
+ Cartridge connector:
+
+ Side B has pins 1-22 going from left to right, side A has pins 1-22 going
+ from right to left.
+
+ Pin     A (solder side)     B (components side)
+ ---     ---------------     -------------------
+  1      A0                  +5v
+  2      A1                  +5v  
+  3      A2                  Work RAM disabled if connected to B-2
+  4      A3                  ?
+  5      A4                  /RD
+  6      A5                  /WR
+  7      A6                  ?
+  8      A7                  ?
+  9      A8                  ?
+ 10      A9                  /OE
+ 11      A10                 /CONT (to PPI port C bit 4)
+ 12      A11                 DRAM refresh (?)
+ 13      A12                 ?
+ 14      A13                 ?
+ 15      D0                  ?  
+ 16      D1                  ?  
+ 17      D2                  ?
+ 18      D3                  A14
+ 19      D4                  A15
+ 20      D5                  ?
+ 21      D6                  Ground
+ 22      D7                  Ground
+
+ I figured out how some of the pins work by examining the Basic Level III
+ cartridge. It has four locations for TMS4416 DRAMs, with two of them
+ used. The /RAS pin of each DRAM is connected to pin B-12, which presumably
+ controls DRAM refresh.
+
+ Pin B-3 is supposed to be connected to B-2, but the trace was cut - joining
+ them caused the Basic software to report 2048 less bytes, so this would
+ seem to disable the SC-3000's internal RAM that's normally mapped to
+ $C000-$FFFF. If the cartridge did use all four DRAMs to provide 32K of
+ memory, pin B-3 could be used to assign that memory to $C000-$FFFF.
+
+ This also means you could upgrade an existing Basic cartridge just by
+ adding two more DRAMs and joining B-3 and B-2 together.
+
+ See the keyboard and I/O section for information about pin B-11.
+
+ 3.) Memory map
+
+ The Z80 memory layout is fairly simple:
+
+ $0000-$BFFF : Controlled by the cartridge (e.g. RAM or ROM).
+ $C000-$FFFF : Work RAM, mirrored every 2K.
+
+ How $0000-BFFF is used is dependant on the cartridge itself. Most games are
+ up to 48K in size with no extra hardware, but there are a few exceptions:
+
+ Safari Hunting
+
+ This cartridge has A14 connected to /OE and A15 connected to /CE of the
+ mask ROM. This makes it enabled for $0000-$3FFF only, the ROM is not
+ mirrored in $4000-$7FFF or $8000-$BFFF.
+
+ Basic Level III
+
+ This cartridge has 32K of ROM and 16K of RAM.
+
+ $0000-$7FFF : ROM (32K)
+ $8000-$BFFF : RAM (16K)
+
+ Terebi Oekaki
+
+ $0000-$1FFF : ROM
+ $6000       : Graphics tablet axis to read
+ $8000       : Pen pressure sense / axis data conversion busy flag
+ $A000       : Axis data
+
+ This cartridge connects to a pressure sensitive graphics tablet.
+ A plastic stylus is used, which can have it's position tracked when
+ pressed against the tablet.
+
+ SF-7000
+
+ $0000-$3FFF : ROM (8K, presumably mirrored twice)
+ $0000-$FFFF : RAM (as 48K from $4000 or 64K from $0000)
+
+ On power-up, the first 16K is for ROM and the remaining 48K is for RAM.
+ The ROM can be switched out through the SF-7000's PPI, allowing all of
+ the RAM to be used. Presumably pin B-3 on the cartridge connector is used
+ to disable the 2K work RAM to free up $C000-$FFFF.
+
+ 4.) Z80 port map
+
+ The VDP, PSG, and PPI are enabled according to the following port
+ addresses:
+
+ Range     PPI     VDP     PSG      Data returned
+ ------    ---     ---     ---      ---------------------------
+ $00-1F     Y       Y       Y       PPI+VDP 
+ $20-3F     N       Y       Y       VDP
+ $40-5F     Y       N       Y       PPI
+ $60-7F     N       N       Y       Instruction referenced by R
+ $80-9F     Y       Y       N       PPI+VDP 
+ $A0-BF     N       Y       N       VDP 
+ $C0-DF     Y       N       N       PPI 
+ $E0-FF     N       N       N       Instruction referenced by R
+
+ For each location, data written goes to all devices that are enabled.
+
+ For addresses where both the PPI and VDP are enabled (regardless of the
+ PSG) the data returned is from the PPI but has a few bits corrupted,
+ most likely due to the VDP trying to place information on the data bus at
+ the same time.
+
+ The officially documented ports for each device are the ones where only
+ one of them is enabled. The PSG has no readable registers, so even when
+ it's enabled, there is no change to the data returned.
+
+ For ports $60-7F and $E0-FF, the data returned is from an offset into the
+ cartridge ROM defined by the R register plus one. Maybe this behavior
+ is different in cartridges that actually use the Z80's refresh ability, in
+ my test cartridge, it is unused.
+
+ The SF-7000 maps it's own hardware at ports $E0-FF. I haven't looked
+ into SF-7000 emulation much, so I can't comment on how these ports are
+ used.
+
+ I'll mention it here as this doesn't fit anywhere else, but the SN76489
+ is not reset when the SC-3000 is powered on. Either it has no reset input
+ or this input is not used. If you cycle the power to reset the machine,
+ then the PSG plays the same sounds that were last written to it, and
+ from a cold boot the PSG emits a medium volume tone.
+
+ 5.) Keyboard and I/O
+
+ The keyboard, gamepads, and cassette/printer interface are handled through
+ an 8255 PPI. This chip has three 24 I/O pins which are arranged into 3
+ 8-bit I/O ports called A, B, and C. It also has a control register which
+ defines if the ports are outputs or inputs, amongst other things.
+
+ Port A
+ D7 : Keyboard/gamepad input data
+ D6 : Keyboard/gamepad input data
+ D5 : Keyboard/gamepad input data
+ D4 : Keyboard/gamepad input data
+ D3 : Keyboard/gamepad input data
+ D2 : Keyboard/gamepad input data
+ D1 : Keyboard/gamepad input data
+ D0 : Keyboard/gamepad input data
+
+ Port B
+ D7 : Casette data input
+ D6 : BUSY input from printer port
+ D5 : FAULT input from printer port
+ D4 : /CONT input from B-11 on cartridge connector
+ D3 : Keyboard/gamepad input data
+ D2 : Keyboard/gamepad input data
+ D1 : Keyboard/gamepad input data
+ D0 : Keyboard/gamepad input data
+
+ Bits 7,6,5 return 1,0,0 respectively on power-up.
+
+ Bit 4 returns 1 if cartridge pin B-11 is left unconnected, and it returns
+ 0 if the pin is connected to ground. This seems to vary from game to
+ game, Basic Level III has it grounded while Safari Hunting leaves the pin
+ unconnected. In the SMS schematics, the input from the reset button is
+ also called 'CONT' and is assigned to the same bit, however the SC-3000
+ has no real reset button.
+
+ Port C
+ D7 : /FEED output to printer port
+ D6 : /RESET output to printer port
+ D5 : Data (unknown purpose)
+ D4 : Output to cassette 
+ D3 : Not connected
+ D2 : To 74LS145 to select 1 of 8 keyboard rows (bit 2)
+ D1 : To 74LS145 to select 1 of 8 keyboard rows (bit 1)
+ D0 : To 74LS145 to select 1 of 8 keyboard rows (bit 0)
+
+ The descriptions of the PPI ports were taken from Marc Le Dourain's
+ SF-7000 page, which I believe were in turn taken from a SF-7000 manual.
+ So I can't really elaborate much more on what each bit does, beyond what
+ I've checked myself.
+
+ The SC-3000 has a 64-key keyboard, and two gamepad ports which are identical
+ to the ones in the Master System (with the TH pin absent). One of the keys
+ is called "RESET" and is connected to the Z80's NMI pin rather than being
+ an actual input.
+
+ Bits 7-0 of port A and 3-0 of port B are used to return data from the
+ keyboard and gamepads. This data is broken down into 8 groups, with 7
+ for the keyboard rows and 1 for the two gamepads.
+
+ The keyboard rows are assigned to the following keys, where each bit
+ returns one for a pressed key and zero if the key has not been pressed.
+
+      Port A                          Port B
+ Row  D0  D1  D2  D3  D4  D5  D6  D7  D0  D1  D2  D3
+  -   ------------------------------- ---------------
+  0   '1' 'Q' 'A' 'Z' ED  ',' 'K' 'I' '8' --- --- ---
+  1   '2' 'W' 'S' 'X' SPC '.' 'L' 'O' '9' --- --- ---
+  2   '3' 'E' 'D' 'C' HC  '/' ';' 'P' '0' --- --- ---
+  3   '4' 'R' 'F' 'V' ID  PI  ':' '@' '-' --- --- ---
+  4   '5' 'T' 'G' 'B' --- DA  ']' '[' '^' --- --- ---
+  5   '6' 'Y' 'H' 'N' --- LA  CR  --- YEN --- --- FNC
+  6   '7' 'U' 'J' 'M' --- RA  UA  --- BRK GRP CTL SHF
+  7   1U  1D  1L  1R  1TL 1TR 2U  2D  2L  2R  2TL 2TR
+
+ ED  = "ENG DIER'S"
+ SPC = (Spacebar)
+ HC  = "HOME CLR"
+ ID  = "INS DEL"
+ PI  = (PI symbol)
+ DA  = (Down arrow on keypad)
+ LA  = (Left arrow on keypad)
+ RA  = (Right arrow on keypad)
+ CR  = "CR" (Enter)
+ UA  = (Up arrow on keypad)
+ YEN = (Yen symbol)
+ BRK = "BREAK"
+ GRP = "GRAPH"
+ CTL = "CTRL"
+ FNC = "FUNC"
+ SHF = "SHIFT"
+ --- = Key is unused, always returns 1.
+
+ Due to the way the keyboard is implemented, certain combinations of keys
+ being pressed simultaneously will report more keys being pressed than
+ there actually are.
+
+ I haven't been able to figure out what determines which keys are affected,
+ but it has to do with the keys being arranged in a 12x8 matrix, where
+ multiple keys on certain rows and columns make keys on other rows or
+ columns appear pressed (I think it's where all keys that are on the same
+ rows/columns that the pressed keys would intersect are misreported as
+ pressed).  The gamepads are also affected by this, being on the last row
+ in the matrix.
+
+ Most software writes $92 to the PPI control register and $07 to PPI port C,
+ which configures ports A and B as inputs and all bits of port C as outputs,
+ as well as selecting row 8 of the keyboard matrix to access the gamepads.
+
+ 6.) TMS9929 information
+
+ I'll include more details later on. For now, just a few notes:
+
+ - When writing to a VDP register, bits 6-3 of the byte written are
+   ignored by the VDP.
+
+ - Data written to the data port is also copied to the VRAM read buffer.
+
+ - Bits 7-3 of register #0 and bit 2 of register #1 have no use.
+
+ - Bit 0 of register #0 does not turn off the screen when set, but rather
+   distorts the synchronization of the display. This bit is intended to
+   enable external video input which is unused in the SC-3000.
+
+ - Bit 7 of register #1 is used to select the type of DRAM connected to
+   the VDP. The SC-3000H uses eight 16Kx1 DRAMs, and operates correctly
+   with bit 7 cleared. Setting bit 7 causes the VDP to access data at
+   the wrong addresses. This is in conflict with the TMS9918 manual that
+   says bit 7 is cleared for 4K memory and set for 8K or 16K memory.
+
+ 7.) Assistance Needed
+
+ - Is there any information about how the casette and printer interfaces
+   work? Does any software support either one (Basic maybe), or are
+   there any cassette images available?
+
+ - I'm looking for datasheets for the MCM4517P15, TMS4027, TMS4108 or
+   TMS4116 DRAMs, as well as schematics for any hardware that uses a
+   TMS9918 or related video chip with only 4K of video RAM.
+
+ - I'd be interested in knowing what kind of hardware is inside a Terebi
+   Oekeki or Rozetta no Shouzou cartridge (chip part numbers, etc.)
+
+ 8.) Credits and acknowledgements
+
+ - Omar Cornut for MEKA, the cartridge and A/V pinouts, Terebi Oekaki
+   information, and a lot of advice. :)
+
+ - Marc Le Dourain for his great SF-7000 webpage. This is where I got
+   information about the 8255 PPI and keyboard.
+
+ - Chris MacDonald for support and program testing.
+
+ - Sean Young for the TMS9918 documentation.
+
+ 9.) Disclaimer
+
+ If you use any information from this document, please credit me
+ (Charles MacDonald) and optionally provide a link to my webpage
+ (http://cgfm2.emuviews.com/) so interested parties can access it.
+
+ The credit text should be present in the accompanying documentation of
+ whatever project which used the information, or even in the program
+ itself (e.g. an about box)
+
+ Regarding distribution, you cannot put this document on another
+ website, nor link directly to it.
+
+
+ Unpublished work Copyright 2002 Charles MacDonald
+
+
+

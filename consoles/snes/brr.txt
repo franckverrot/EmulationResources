@@ -1,0 +1,168 @@
+
+    The Bit Rate Reduction sound encoding scheme, as interpreted by Butcha
+    ______________________________________________________________________
+              __________________________________________________
+                                  __________
+
+INTRODUCTION
+____________
+
+Due to the requests of several people, the lack of documentation in this area,
+and a hope to spring the SNES emulation "scene" forward, I am going to try to
+describe the BRR encoding scheme in this doc.  Everything here, I either read
+in publicly available documentation, or discovered myself through trial and
+error.  I cannot guarantee the accuracy of this doc, and I will not be
+responsible for errors, either typographical or otherwise.  However, if you
+are satisfied with the output of SNESSOR, the SNES SOund Ripper, then this doc
+should work for you.
+
+
+BRR
+___
+
+BRR, or Bit Rate Reduction, is the sound encoding scheme used by the SPC700,
+the sound chip in the SNES.  It has a compression ratio of 32:9, meaning that
+for every 32 bytes of 16-bit PCM there are 9 bytes of BRR.  These 9 bytes
+consist of 1 header byte, and 16 nybbles of data, as follows:
+
+ _______
+|       | byte
+|Header |  1
+|       |
+|-------|
+|data 1 | byte
+| - - - |  2
+|data 2 |
+|-------|
+|data 3 | byte 
+| - - - |  3
+|data 4 |
+|-------|
+/       /
+/       /
+|-------|
+|data 15| byte
+| - - - |  9
+|data 16|
+|_______|
+
+The header byte is decoded as follows:
+ xxxxxxxx
+ ||||||||____END  bit - determines the end of a sample
+ |||||||_____LOOP bit - determines whether a sample will loop
+ ||||||______
+ |||||_______>FILTER bits - determines which filter to apply (described later)
+ ||||________
+ |||_________\
+ ||__________ >RANGE bits - see below
+ |___________/
+
+The END bit is clear for every 9-byte block until the last block of a sample.
+When you encounter this bit, you should finish reading the following 8 bytes,
+then stop.
+
+The LOOP bit is set in every single 9-byte block of a sample that loops, and
+is clear in every single block of a sample that doesn't.  Proper use of this
+bit requires a loop point, however there is no standard way to store this
+outside of the SPC itself.  For more info concerning loop points, consult an
+SPC hardware doc.
+
+The FILTER bits are described below.
+
+The RANGE bits tell how to read each nybble of data.  Basically, you take the
+nybble, and you shift it left RANGE times.  The nybble is signed, and this
+must be taken into account.  Note that a RANGE greater than 12 would shift the
+nybble past a 16-bit value, so RANGE values from 12 to 15 are invalid, and it
+is on this that the SNESSOR sample search is based, among other things.
+
+If that wasn't especially clear, I'm sorry.  Let's try some example code to
+help:
+
+int range, end=0, loop, filter, counter, temp; // Size of these doesn't matter
+short input, output[MAXSAMPLEN];    // These must be 16-bit
+int now=0;      // Pointer to where we are in output[];
+
+while(end==0)
+{
+        range=GetNextByte();    // Let's just put the header here for now
+        end=range&1;            // END bit is bit 0
+        loop=range&2;           // LOOP bit is bit 1
+        filter=(range>>2)&3;    // FILTER is bits 2 and 3
+        range>>=4;              // RANGE is the upper 4 bits
+
+        for(counter=0;counter<8;counter++)      // Get the next 8 bytes
+        {
+                temp=GetNextByte();     // Wherever you want to get this from
+                input=temp>>4;  // Get the first nybble of the byte
+                input&=0xF;
+                if(input>8)             // The nybble is negative, so make the 
+                        input|=0xFFF0;  // 16-bit value negative
+                output[now]=input<<range;    // Apply the RANGE value
+
+                // Filter processing goes here (explained later)
+
+                now++;                  // Advance our output pointer
+
+                // Now do the same thing for the other nybble
+
+                input=temp&0xF; // Get the second nybble of the byte
+                if(input>8)             // The nybble is negative, so make the 
+                        input|=0xFFF0;  // 16-bit value negative
+                output[now]=input<<range;    // Apply the RANGE value
+
+                // Filter processing goes here (explained later)
+
+                now++;                  // Advance our output pointer
+        }
+        // We're done with all 8 bytes, and if the END bit was present, we're
+        // done with the whole sample.
+}
+
+Note that this does NOT deal with the filter bits, so lets discuss that now:
+
+FILTERS
+_______
+
+There are 3 BRR filters.  A filter value of zero means apply no filter.
+
+Filter 1: This filter is relatively simple.  All you have to do, is take the
+16-bit sample that was last output, multiply it by the fraction 15/16, and add
+the value you got by decoding the nybble as usual.  In all 3 filters, this
+decoded value will serve as an "error" between the calculated value and the
+actual one.
+Filter 2: This filter and the next are a little more complicated.  To
+calculate the value, multiply the last sample output by the fraction 61/32.
+Then, subtract from it the value when the sample before that is multiplied by
+the fraction 15/16.  Then, add the value decoded from the nybble as always.
+Filter 3: This filter is identical to the last one, except the fractions are
+different.  The fraction for the previous sample is 115/64, and for the sample
+before that, 13/16.
+
+Now, I KNOW that explanation is going to need some example code.  Assuming
+that output[now] already contains the value decoded by shifting the nybble by
+the range(see example code above), processing the filters is as follows:
+
+if(filter==1)
+        output[now]+=(short)((double)output[now-1]*15/16);
+else if(filter==2)
+        output[now]+=(short)(((double)output[now-1]*61/32)-((double)output[now-2]*15/16));
+else if(filter==3)
+        output[now]+=(short)(((double)output[now-1]*115/64)-((double)output[now-2]*13/16));
+
+
+CLOSING
+_______
+
+I think that should about do it...  If you didn't catch all that, I'm sorry,
+this is my first doc.  If someone thinks they can describe it better, please
+do.
+
+Thanks to:  Everyone that ever wrote an SPC doc, especially:
+        Gau of the Veldt for his SPC doc,
+        Ledi for his APU manual (TODO.TXT),
+        Uxorious, who didn't write a doc that I know of, but did write the
+                Cool 95 plugin that can read BRR, from which I learned how to
+                do the filters, and who I still wonder how he learned them,
+        _Demo_ of ZSNES for helping to make a great emulator, and for his
+                support.
+        and anyone else that feels they should be thanked!

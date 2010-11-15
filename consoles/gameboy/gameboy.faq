@@ -1,0 +1,1378 @@
+
+
+
+                               Nintendo GameBoy
+                          FREQUENTLY ASKED QUESTIONS
+
+                     Maintained by  Marat Fayzullin [FMS]
+                           EMAIL:  fms@wam.umd.edu
+                                 IRC: RST38h
+                     WWW: http://ww.cs.umd.edu/users/fms/
+
+                                 version 3.1b
+                                  8/22/1995
+
+
+
+1.  GameBoy: General Description
+2.  GameBoy-related resources on the Net
+3.  Cheats, Passwords, Strategies, etc.
+4.  List of the best games
+5.  GameGenie Questions
+6.  Various questions
+7.  Programming, Hardware, etc.
+*** Unanswered Questions
+
+
+  People, could somebody subscribing for "Electronic Gaming World" and other
+similar magazines go through the "S.W.A.T." sections in them and write down
+all GameBoy cheats/passwords/etc. not included into this file? I would
+appreciate your help.
+
+  Also, there is a lot of GameGenie codes posted recently in r.g.v.nintendo
+and GB mailing list which are not listed in the official Galoob updates. Could
+somebody compile these codes into a separate list?
+
+  Another thing needed by me and many other people on the Net who requested it
+is map for GB Metroid. If you have this map in some magazine or a strategy
+guide, *PLEASE* scan it and send the .GIF [or whatever file you get] to me. If
+you don't have a scanner, xerox it and send copy to me by snail-mail. My
+address is
+
+ Marat Fayzullin
+ 6304 Hampton Place
+ Elkridge, MD 21227
+ USA
+
+  
+********************* I. GameBoy: General Description ************************
+ 
+    CPU:  8-bit Z80 work-alike at 4.194304MHz
+    RAM:  8kB internal
+    ROM:  256kBit, 512kBit, 1MBit, 2MBit and 4MBit cartridges are known
+          (32kB, 64kB, 128kB, 256kB and 512kB). Probably, there are 16kB
+          cartridges as well.
+    VRAM: 8kB internal
+
+    Sound: 4 channels each of which can be mapped either to the left
+           or to the right or to both speakers
+    
+    Video: 
+      Display: Reflective LCD 160x144 dots
+      Colors:  4 shades of gray
+      Sprites: 40 sprites of either 8x8 or 8x16 [switchable]
+
+    Communications: Serial port
+      Up to 4 Gameboys can be connected together using these ports
+      
+    Power: 6 Volts, 0.7 Watts 
+      4 AA Batteries             - 35 hours
+                       OR
+      Rechargable battery (NAKI) - 12 hours
+           
+* What are the advantages of GB in comparison with other portable videogames?
+
+  The same reflective LCD screen which is considered to be the weak point of
+GameBoy, is its advantage. Other systems, such as Atari Lynx or SEGA GameGear,
+use backlighted color screens which consume several times more power than
+reflective LCD of GB. Thus, these systems need 6 AA batteries instead of 4 AAs
+needed by GB and drain these batteries in about 6 hours. Also, dots on GB's
+LCD are much smaller than dots on the color screens of other portables which
+[given that you have a good light source nearby] means that GB's LCD looks
+crisper. The other advantage of GameBoy is that it is the only portable
+videogame you can actually PUT INTO YOUR POCKET. Both Lynx and GameGear are
+too big for it. Speaking about variety of games available for GB, I would
+*NOT* consider it an advantage of GB if we are talking solely about its
+technical characteristics. Amount of software written for the system has
+nothing to do with the system's hardware architecture. It is rather determined
+by commercial success of the system and, in fact, by how it is marketed. There
+are many technologically superior systems which just didn't make it because of
+the poor marketing [TurboGrafx is an example].
+
+
+************** II. GameBoy-related Resources on the Net *************
+
+1.  GameBoy WWW Site -- Marat Fayzullin [fms@wam.umd.edu]
+    * http://www.cs.umd.edu/users/fms/GameBoy/
+
+2.  GameBoy FAQ [this file] -- Marat Fayzullin [fms@wam.umd.edu]
+    * http://www.cs.umd.edu/users/fms/stuff/gameboy.faq
+    * ftp://ftp.netcom.com/pub/vidgames/faqs/
+
+3.  GameBoy Zelda FAQ -- Michael Evans [evansmj@NeXTwork.Rose-Hulman.Edu]
+
+4.  Zelda Strategy Guide -- Christer Ericson
+
+5 . Nick's GB Game Ratings -- Nick Paiement [paiement@info.polymtl.ca]
+    * Send mail with word "get_gameboy" in the subject to
+      paien00@dmi.usherb.ca.
+
+6.  GameGenie codes
+    * ftp://ftp.netcom.com/pub/vidgames/gamegenie/
+
+7.  GameBoy Mail-Server -- M. S. Manley [manley@iies.ecn.purdue.edu]
+    * gameboy@expert.cc.purdue.edu
+      Send mail with word archive in the subject and a list of
+      commands in the body. First, send a single command "help"
+      to get a list of other commands.
+
+8.  GameBoy Mailing List -- Andy Norman [ange@hplb.hpl.hp.com]
+    * gameboy@cuckoo.hpl.hp.com
+      To subscribe, unsubscribe or get information send mail to
+      gameboy-request@cuckoo.hpl.hp.com.
+
+9.  Virtual GameBoy emulator -- Marat Fayzullin [fms@wam.umd.edu]
+    * http://www.cs.umd.edu/users/fms/GameBoy/VGB.html
+
+10. Backup Units:
+    * http://www.gate.net/~tramtane/
+
+11. SuperGameBoy FAQ -- Jeff Bogumil [NC500140@nccvax.wvnet.edu]
+    * http://reality.sgi.com/employees/portuesi/sgb_faq.html
+    * ftp://ftp.netcom.com/pub/vi/vidgames/faqs/supergb.txt
+
+12. SuperGameBoy WWW -- Michael Portuesi
+    * http://reality.sgi.com/employees/portuesi/sgb.html
+
+13. GameBoy Development FTP
+    * ftp://ftp.webcom.com/pub/cdoty/gameboy/
+
+
+****************** III. Cheats, Passwords, Strategies, etc. ******************
+
+[?] - this cheat didn't work for me
+------------------------------------------------------------------------------
+1. Castlevania II: Belmont's Revenge passwords
+
+H - Heart   C - Candle   B - Ball   . - Space
+   
+Central Castle:        HBC.    Hard Mode (like Castlevania I): .B.B
+Belmont's son's realm: HCBB    Music Test:                     HHHH
+Count Dracula:         BHCH    Easy Mode (9 lives):            CCHH
+------------------------------------------------------------------------------
+2. Nemesis cheats
+
+Pause the game and press these buttons:
+   
+To get SPEED and SHIELD:                     BBBBBAAAAA
+To get SHADOWFIGHTERS,SHIELD,LASER,MISSILES: UUDDLRLRBA
+   
+( U-[UP]  D-[DOWN]  L-[LEFT]  R-[RIGHT]  A-[A]  B-[B] )
+------------------------------------------------------------------------------
+3. Fortified Zone passwords: 1111,3375,1681,1122
+------------------------------------------------------------------------------
+4. Pipe Dream passwords:
+
+5:HAHA  9:GRIN  13:REAP  17:SEED  21:GROW  25:TALL  29:YALI
+------------------------------------------------------------------------------
+5. Last password in Dr.Franken: JHT87 [HEART]V7VN VG20Z
+------------------------------------------------------------------------------
+6. How to get to Medusa Cave in Final Fantasy Adventure?
+
+Find an oasis with two palm trees and walk in 8-like manner around them:
+
+                 +->>-+ <<-+
+                 | PP | PP |
+                 +-<< +->>-+
+------------------------------------------------------------------------------
+7. Faceball 2000   
+   
+Start on level one. Find an exit. Shoot it five times, then explore the level
+some more. You will find extra lives and speed-up power-ups. You will also
+have five exits to choose from, each of which takes you to a different level
+(level select).
+
+                                     Contributed by Mark Kaufman.
+------------------------------------------------------------------------------
+8. Zen the Intergalactic Ninja passwords:
+
+C - Can   B - Bottle   T - Tire   A - cArdboard box   . - Space
+
+Passwords:  [.CBB]  [T.AT]  [CBAB] ...and the final one: [BTCC]
+------------------------------------------------------------------------------
+9. Cheats in Final Fantasy Legend II:
+
+On some stage of the game double-clicking on the Trashcan [or, maybe, trying
+to "move" Trashcan to the different position in the list] will allow to
+increase Agility or Strength of the party members. This trick appeared only
+once and I couldn't repeat it. I also got responses from two people who
+encountered similar effect. Everybody who has more info on this trick, send
+email to me.
+
+Here is some mail I got:
+"I clicked twice on the trashcan, then the list showing my 4 players was
+shown. I clicked on one of them and his strength and agility was increased.
+After increasing my other players strength many times with this method, an
+error, or glith occured, for my pieces of mana went haywire. When I would
+use the trashcan method, the number of mana pieces would go down. And when I
+used the compass to locate the pieces, it would give me some bizarre number.
+If I can remember, I had about 53-57 pieces collected before I began
+increasing my player's status. Also, I had to start a new game after that
+because the game wouldn't register that I had any mana, and I couldn't go
+anywhere in the pillar of sky." -- JSem33@aol.com
+
+Another interesting cheat known as "Dragon Ride":
+  In the race world, with mutants in your party, your can ride the dragon
+off the track and around the world. Simply fight the boss ones with screen
+icons on the track (the ones with the magi) until a mutant gets teleport.
+Save before you fight the monsters; that way, if you don't get teleport, you
+can just press all four buttons to reset the game and try again. Use this
+skill while on the dragon. You can then ride around the world quickly, and
+move through walls. You can go all the way to the end of the game and get cool
+weapons by going through celestial doors backwards, and then zooming around to
+a higher level exit. The dragon will occasionally be lost during story
+sections of the game, but can always be retreived by starting a race again.
+NEVER CROSS THE FINISH LINE!!!
+
+                                   Contributed by Javan Gargus
+------------------------------------------------------------------------------
+10. Tecmo Bowl codes [contributed by Kelly Gillilan]:
+   
+Invisible Team: 397BFFA5
+
+Mirror Matches:
+
+Washington    5B7FBFA3   Denver    CFBFF7A0   Indianapolis 43AFFEAC
+Miami         46AFFDAB   Cleveland 49AFFBA9   L.A.         969FDFA5
+San Francisco 9C3F7FA5   Dallas    63AEFFA5   New York     269DFFA1
+Chicago       697BFFA5   Minnesota AC37FFA9
+------------------------------------------------------------------------------
+11. Stage select in Penguin Wars:
+
+At the character select screen, pick the character, then press L+B, then press
+A and [START].
+------------------------------------------------------------------------------
+12. Some interesting passwords for QBillion: WALL,IDEA,NOON
+------------------------------------------------------------------------------
+13. Some interesting codes in Shanghai:
+
+MAN - tough level   REV - reversed tiles   STF - credits
+------------------------------------------------------------------------------
+14. Invisible opponents in SoccerMania:
+
+At the title screen, press UUDDLRLRBA, then press [START]
+------------------------------------------------------------------------------
+15. Passwords for Korodice:
+
+         [4]    [5]    [6]    [7]    [8]    [9]    [10]
+EASY     94347  68890  24486  49320  28076  96545  83193
+AVERAGE  22307  64422  43059  46403  50136  17443  99007
+------------------------------------------------------------------------------
+16. Selected passwords for Mickey Mouse/Bugs Bunny:
+
+10:WZFS  20:ZTPZ  30:WYCZ  40:TX9W  50:2TWX  60:YTKX  70:SHE2  80:XHO2
+------------------------------------------------------------------------------
+17. Snoopy's Magic Show passwords:
+
+1N1B  XZ10  V5K2  CA1H  424V  VS10  C417  CS1V  VUY0  12ET  2UV4  VU12  Z2JH
+2207  C21I  ZUUV  7UBB  BE10  CE1Q  HEO4  CEIB  VHNX  1H11  B6N0  CD1T  CD1D
+------------------------------------------------------------------------------
+18. Fish Killer passwords:
+
+21:UIRE  22:CXMT  23:HOBL  31:KAPG  32:SNWD  33:FQJV  A1:PAHN  A2:ESZC
+------------------------------------------------------------------------------
+19. Battle Ping Pong codes:
+
+7822   6524   1604   0781   5802   8731   0511   1199
+------------------------------------------------------------------------------
+20. Burai Fighter Deluxe passwords:
+
+HGKM  GBAL  IDCP  CPFJ  MHCB  LEOJ  JJOE  ODEN  COHL  DKLF  KDPI  AFKP
+------------------------------------------------------------------------------
+21. Migrain Acclaim passwords: 0742,X480,586Y,3081
+------------------------------------------------------------------------------
+22. Blodia passwords:
+
+AIJD  DIFP  DJGN  BKQF  ANPD  CNGL  APQD  DQMQ  BNCE  CPHI
+------------------------------------------------------------------------------
+23. Solomon's Club passwords: GZ3ZNN,2Z3NND,CZ3DND
+------------------------------------------------------------------------------
+24. Awesome Klax pattern:
+
+  last brick --->4 2 1 1 2
+                 1 4 3 2 1
+                 3 3 4 3 3
+                 1 1 2 1 1
+                 1 2 1 2 1
+------------------------------------------------------------------------------
+25. Mega Man games:
+
+   Mega Man           Mega Man 2           Mega Man 3
+
+     1234            1234     1234        1234
+   A  **           A ***    A  * *      A *
+   B    *          B    *   B   **      B * *
+   C  **           C ***    C **        C  **
+   D               D *      D  **       D
+------------------------------------------------------------------------------
+26. Rolan's Curse:
+
+QKMTTQHP (fire wand/magic axe)    FRTTTGTP (sword/power crystal)
+         at maximum power, only 25 sword hits to kill Barius.
+[Check these passwords again - I have information that they don't work]
+------------------------------------------------------------------------------
+27. Selected paswords for Navy Blue:
+
+65:MVCROEOX (CRUISER)      89:YLNFEMHQ (TARTAN)   ??:KAFSKYLG (TOMCAT)
+73:MBZRLYOC (SEA SPARROW)  ??:YLNYDMIS (CARRIER)  ??:FLTHVMXP (TRIDENT)
+81:MUDLTEOH (TOMAHAWK)     ??:FKMWCMHK (FANTOM)   ??:FLTCWMHN (FINALE)
+------------------------------------------------------------------------------
+28. Final boss in Bionic Commando:
+
+S - Square  T - Triangle  C - Circle
+
+    ABCDEF
+  1 SCSSCC
+  2 TS TSC
+  3 TSC TC
+  4 CT CCT
+------------------------------------------------------------------------------
+29. Mortal Kombat:
+
+In order to play as Goro,
+
+1.  Beat the game normally.
+2.  Wait for credits to scroll by.
+3.  When "The End" appears, hold UP+LEFT+SELECT+A
+4.  Enter initials and press A
+5.  Play as Goro!
+
+  Playing as Goro, hold A+B and then press DOWN. Goro [you] will disappear and
+the time will go much faster. Your opponent will be constantly repeating same
+move and won't be able to hit you.
+  
+These cheats were contributed by Jim Hsu and Timothy A. Meushaw
+------------------------------------------------------------------------------
+30. Bill and Ted's level passwords:
+
+2: 555-4239   3: 555-8942   5: 555-4118   6: 555-8471   7: 555-2989
+8: 555-6737   9: 555-6429  10: 555-1881
+------------------------------------------------------------------------------
+31. Passwords for Krusty's Fun House:
+
+2: MC BAIN    3: MILHOUSE   4: CMBURNS    5: PRINCESS
+------------------------------------------------------------------------------
+32. Passwords for Prince of Persia:
+
+  A password is an 8-digit number abcdefgh. The first 3 digits (abc) are
+check-digits, the next one (d) codes the number of lives, the next two (ef)
+code the minutes left and the last two (gh) designate the level. How to
+construct your own password:
+
+1. Choose your level and jot it down as two digits and reverse.
+   Example: choose level 8 and write down 80.
+2. Choose the number of minutes left and write it down in two digits,
+   reverse, and append it to the left of the level.
+   Example: choose 59 minutes, which gives 9580.
+3. Choose the number of lifes (1 digit) and append it to the left.
+   Example: choose 7 lifes to obtain 79580.
+4. Call the result DEFGH and construct ABC as follows:
+     C = G + H (subtract 10 if necessary)
+     B = E + F (subtract 10 if necessary)
+     A = C + D (subtract 10 if necessary)
+   This way the 8-digit number ABCDEFGH is obtained.
+   Example: C = 8 + 0 = 8
+            B = 9 + 5 = 4
+            A = 8 + 7 = 5
+            The result is 54879580.
+5. Generate abcdefgh from ABCDEFGH by substituting each digit
+   according to the table at the bottom. In our example 54879580
+   becomes the password 01928095 which is good for 7 lifes and 59
+   minutes on level 8.
+   Table: FROM  0  1  2  3  4  5  6  7  8  9
+          INTO  5  4  7  6  1  0  3  2  9  8
+------------------------------------------------------------------------------
+33. Speedy Gonzales passwords:
+
+Mexico:  500999    Forest: 343003    Desert: 830637
+Country: 812171    Island: 522472
+------------------------------------------------------------------------------
+34. Sumo Fighter passwords:
+
+2-1: 532773    3-1: 355530    4-1: 524358    5-1: 650594
+2-2: 753442    3-2: 526158    4-2: 780554    5-2: 105960
+2-3: 362459    3-3: 085530    4-3: 546127    5-3: 155965
+
+Final:   968158
+------------------------------------------------------------------------------
+35. Warioland cheat:
+
+  Pause the game, then hit select 16 times. A box should appear over lives,
+time, or coins. Using A and B buttons you can increase all three to their
+maximum. This is available on each level.
+------------------------------------------------------------------------------
+36. Monster Max passwords:
+4.0  -8?-35R-
+5.0  273?35RZ
+6.0  JZVHMV3D
+7.0  L5VP79N7  (This is actually 6.3, just use the lift to get to 7.0)
+8.0  PL1H17P-  (The 1s may be Is, I'm not sure)
+9.0  MQLYTY2D
+0.0  -J#X5DKP  (Probably last level. Only one stage. Haven't finished.)
+------------------------------------------------------------------------------
+
+************************* Other cheats, passwords, etc. **********************
+
+Adventure Island      : Stage Select : RLRLABAB at the title screen
+Adventure Island 2    : Power Up     : 0894
+Amazing Penguin       : Level 37     : 916328
+Amazing Tater         : Floor 3      : YBTF5ZZFT2
+Amida                 : Passwords    : TLKSS, LEIQX, VOTAJ
+Atomic Punk           : Level 50     : B0MNDPBL3NCB3L2H2DJJ
+Avenging Spirit       : Expert mode  : U+A+B at the title screen
+Batman                : Sound Test   : U+R+START at the title screen
+Battle Bull           : Level 48     : $F**
+BattleToads 2         : 5 toads      : Holding D+A+B press [START]
+Boomer's Adventure    : Level 55     : ANCIENT
+Boxxle                : Lvl 11, Rm 8 : Q*HT * = Spade
+Boxxle 2              : Level 5      : 0K84
+Brainbender           : Level 5      : 3081
+Bubble Bobble         : Level 100    : KZ5J
+                      : Stage Select : KGBJ, then use L to select level
+Bugs Bunny            : Level 79     : XHO2
+Bugs Bunny 2          : Level 27     : KING
+Burai Fighter Deuxe   : Level 5      : DKLF
+Catrap                : Level 100    : R61H
+Chase HQ              : Stage Select : Holding D+A+B press [START]
+Contra                : Extra Lives  : UUDDLRLRABAB[SELECT][START]
+Cyraid                : Last Level   : RUGGER
+Dead Heat Scramble    : Stage Select : BBBBBBBBAAAAAAAA then B one less time
+                      :              : than the number of wanted level
+Deadalian Opus        : Stage Select : ZEAL
+Dick Tracy            : Level 5      : 56115
+Extra Bases           : 7W 0L        : 2CCZ
+Final Fantasy Leg. I  : Sound Test   : D+[START]+B at the title screen [?]
+Final Fantasy Leg. II : Sound Test   : [SELECT]+B+[START] at title screen
+Fish Dude             : Stage C-3    : SE
+Fist Of The North Star: Last Level   : XKP72QNVHRJGU5
+Flappy Special        : ?            : AK00
+Flash                 : Level 13     : FUNHOUS
+Fortified Zone        : Level 4      : 1122
+Gargoyle's Quest      : Last Level   : SWXE-CBFJ
+Godzilla              : Last Level   : JXRB7K&948HPD32#JN
+GO! GO! Tank          : Cheat Mode   : LURULLURULUL[START] at title screen
+Hong Kong             : Test Mode    : A+B+[START] at the second screen
+                      : Sound Test   : B+[START] at the second screen
+                      : End Screen   : A+[START] at the second screen
+Hunt for Red October  : Stage Select : B[SELECT]LR[START] at title screen
+Hyper Loderunner      : Level Select : Enter QM-0388 as passcode
+Kirby's Dream Land    : Cheat Mode   : D+[SELECT]+B
+Lock & Chase          : ?            : Press AABBABB at the title screen
+Mercenary Force       : Stage Select : Holding U+[SELECT]+A+B press [START]
+Navy Blue             : End          : FLTCWMHN
+Ninja Boy             : Stage Select : UUDDABAB, holding A press [START]  
+                      : Continue     : Holding A press [START]
+Operation C           : Stage Select : UUDDLRLRBABA[START] at full title screen
+Pitman                : Stage Select : Q16KXW [Stage 95]
+Power Mission         : Level 11     : LRDMR1
+Prince of Persia      : Final Battle : 71196464
+Q Billion             : Stage Select : TOIL
+Raging Fighter        : Plr vs. Plr  : UUDDLRLRB, then A for dk., B for normal
+Roger Rabbit          : Level 6      : RTJBWW43
+Rolan's Curse         : End          : PQRJLNPC
+Snoopy's Magic Show   : Level 58     : V5YO
+Snow Bros. Jr.        : Stage Select : Holding U+[SELECT]+B press start at
+                      :              : the title screen
+Solomon's Club        : Level 4-10   : QDDHSY8
+Spanky's Quest        : Stage Select : 0119
+Spud's Adventure      : Stage Select : BANCHOU
+Star Trek             : Planet Killer: 3516.7
+Super Mario Land 2    : Easy Mode    : [SELECT] at the pipe screen
+Tail Gator            : Last Area    : 8093
+TMNT                  : Extra Life   : Pause game, then UUDDLRLRBA[START]
+                      : Bonus Games  : Holding A+B+[SELECT] press [START] at
+                      :              : the config screen [?]
+Tetris                : Expert Mode  : D+[START] at the title screen
+Turrican              : Stage Select : Holding [SELECT] press [START] at the 
+                      :              : title screen   
+
+   
+************************* IV. List of the best games *************************
+
+  This list is compiled based on the ratings and reviews I got from various
+sources. The fact that some game is in the list doesn't necessarily mean that
+it is the best game for you; it just means that this game is worth checking
+out. I put asterisk (*) next to my personal favorites. For the current
+information about the best games, you can refer to the "Nick's GameBoy Game
+Ratings List". It also seems to be biased, but let's hope that it will look
+better when more people contribute to it. Information about obtaining this
+list is in the "GB Resources on the Net" part of this FAQ list.
+
+1. RPGs:
+
+  *Final Fantasy Legend            |
+  *Final Fantasy Adventure (2MBit) +-----> These seem to be everybody's
+  *Final Fantasy Legend 2  (2MBit) |       favorites. 
+   Final Fantasy Legend 3  (4MBit?)|
+   Zelda: Link's Awakening (4MBit)
+
+2. R-Type-like shoot-em-ups:
+
+   Nemesis
+  *Gradius: Interstellar Assault (2MBit)
+   R-Type
+
+3. Platform Games:
+
+  *Metroid II
+   SuperMarioLand II (4MBit)
+  *Castlevania II: Belmont's Revenge
+  *Batman
+  *TMNT: Fall of the foot Clan
+  *Operation C
+   Mega Man 1,2,3
+   BattleToads
+   Gargoyle's Quest
+
+4. 3D Games:
+
+  *Altered Space (platform game)
+   Faceball 2000 (shoot-em-up)
+
+5. Sport Games:
+
+   Jack Nicklaus Golf
+   F-1 Race
+
+6. Logic/Strategy Games:   
+
+  *Shanghai
+  *Tetris                  
+   Chessmaster [watch for revision, there are two of them]
+  *Spot
+   4-in-1 packs 1 and 2
+   Dr. Mario
+   Ishido
+
+7. StreetFighter clones:
+
+   Mortal Kombat
+   Raging Fighter
+   
+8. Classical Arcade games:
+   
+   Asteroids
+   Missile Command
+   Centipede
+   Pacman
+   
+9. Flight Simulators:
+
+   Turn and Burn
+   Top Gun 
+
+
+******************************* V. Game Genie ********************************
+
+1. How it works?
+
+  GameGenie allows you to substitute some of the codes in the cartridge ROM
+with your own codes. For example, you can substitute the default number of
+lives with your own number. GameBoy GameGenie allows to substitute up to three
+codes.
+
+2. Where to get the codes?
+
+  GameBoy GameGenie codes are available through anonymous FTP at
+  
+       ftp.netcom.com     directory  /pub/vidgames/gamegenie
+
+3. What is the meaning of the digits in GameGenie code for GameBoy?
+
+  * All digits are in hexadecimal system
+
+         GameBoy GameGenie Code:     DD2-103-???
+         
+         DD         - Data Byte
+         0,1,2,3    - Address, reads as 3210     
+         ???        - Meaning of these digits is unknown.
+                      It is suspected that they represent the
+                      ROM paging register, but no information
+                      is available.
+         
+   Example: 3D2-ABF-3BE - Set 3Dh (DEC A command) at address F2ABh 
+           
+4. Some commonly used Z80 instructions with their codes:
+
+  Code(s):  Instruction:       Common Usage:   
+   3Eh xxh  - LD A,xxh    Load default number of lives (energy,ammo,etc.)
+   3Dh      - DEC A       Decrease number of lives (energy,ammo,etc.)
+   3Ch      - INC A       Increase number of lives (energy,ammo,etc.)
+   00h      - NOP         DO NOTHING (set this instead of 3Dh)
+
+5. CodeMasters' address and phone number:
+
+   Codemasters
+   Lower Farm House,              PHONE: +44 926 814132
+   Southam,
+   Warwickshire.
+   CV33 0DL
+   UK
+
+  * I didn't try calling them. If you get any additional information from
+    CodeMasters, please, email it to me
+
+6. Hidden messages in GameGenie:
+
+   1. UDLR             2. BALR[SELECT]     3. UUABADD
+   4. RUDULUDU         5. BABRLDU          6. AAAABBB[START]
+   7. RLRLDDUU         8. ABABAA[SELECT]   9. ALLABRRB
+
+7. Why some GameGenie codes don't work?
+
+  Some games exist in several different versions. Although these versions look
+exactly the same, the actual program codes differ. Therefore, while some
+GameGenie codes work with one version of the cartridge, they aren't guaranteed
+to work with other versions.
+
+
+**************************** VI. Various Questions ***************************
+
+1. Are there any GameBoy emulators for the personal computers?
+  
+  YES, there is a GameBoy emulator written by me, Marat Fayzullin. It is
+called Virtual GameBoy and can be obtained from
+
+  http://www.cs.umd.edu/users/fms/MSX/VGB.html
+
+  The Virtual GameBoy is portable. Its distribution includes C source code
+which can be compiled on any computer [given that there are system-dependent
+drivers for this computer] and a set of sample drivers for Unix/XWindows. For
+more information, refer to documentation at above-mentioned WWW.
+  There is also a GameBoy-look-alike emulator for the Commodore Amiga called
+ToyBoy. This emulator can be obtained via FTP from AmiNet sites:
+  
+  ftp.luth.se:           /pub/aminet/misc/emu/Gameboy68000.lha
+  ftp.etsu.edu:          /aminet/misc/emu/GameBoy68000.lha
+  wuarchive.wustl.edu:   /systems/amiga/aminet/misc/emu/Gameboy68000.lha
+  
+  Unfortunately, this package is incomplete amd HAS NOTHING TO DO with the
+real GameBoy. It was stolen from a UK-based company called Argonaut which does
+hardware and software development for Nintendo. According to Argonaut's
+managing director Jez San, ToyBoy was an in-house emulator written to see how
+difficult it would be to program GameBoy games. Since its authors knew nothing
+about internals of the real GameBoy when they were writing the emulator,
+ToyBoy is completely incompatible with GameBoy.
+  
+2. Is it possible to build a backlight into GameBoy?
+
+  A Japanese company sells a kit to add the EL-backlight to GameBoy. The kit
+costs 5000yen.
+(Information provided by Cinnichiro Ichise [ichise@mica.semicon.sony.co.jp])
+
+3. Are there any game copiers for GameBoy?
+
+  There is a SmartCard copier allowing to download data from GameBoy cards to
+PC via parallel port and store up to 4 games in a 4MBit flash-RAM cartridge.
+  There are said to be GameBoy adaptors for MultiGameDoctorII,
+MultiGameHunter, SuperWildCard, and SuperComPro.
+  Also, there is a device allowing to play games stored on credit card-like
+magnetic cards which is produced in Japan and isn't sold in U.S.
+
+4. MultiGame cartridges for GameBoy:
+
+  Yes, these cartridges are at least half-illegal because their producers
+violate copyright law. Yes, these things exist for GameBoy.
+  At present time, there are four kinds of them: 48in1, 64in1, 86in1 and
+105in1 (although there were rumors about 200in1 and even 1500in1 cartridges.
+The latter is said to be 15-20 cm long). They all seem to contain the same
+basic set of games most of which are either old Nintendo products (like
+Alleyway or Tennis) or low-quality games from other companies with a couple of
+good games added. Number of games in such a cartridge is actually SMALLER than
+the number written on the box because some games are present in two or three
+copies (with a number of lives and other things changed). For example, 64in1
+cartridge contains only about 48 DISTINCT games. At least 27 of them can be
+classified as "logic" or "strategy" games.
+  There were many requests to list games multigame cartridges contain. So,
+here is a list of games how it appears in a menu of a 105in1 cartridge. Other
+multigame cartridges contain subset of games listed below. Notice the large
+number of japanese titles and repetitions. There are also some titles which
+actually correspond to the same game.
+  
+  turtle ninja     bouken jima      super mario land    motocross
+  penguin land     kid kiki         mickey mouse        crocodile
+  dr. mario        solomons club    head on             dr mario
+  ishido           battle city      bouken              tennis
+  volley fire      boxing           trump boy           klax
+  bubble ghost     master karateka  othello             puzzle boy
+  hong kong        tetris           minisweeper         heiankyo alien
+  bouken 3         flipull          hyper loderunner    amida
+  yakuman          match mania      pala medes          world bowling
+  loopz            bouken 4         alleyway            koro dice
+  puzzle road      spot             castelian           dragon slayer 1
+  space invader    snake war        bouken 5            flappy special
+  pipe dream       koi wa kakehiki  bouken 6            pitman
+  tasmania story   soukoban 2       shanghai            kinkong escape
+  arkanoil         ls caste         star gate           bouken 7
+  super kid        super turtle     super mario         go tank
+  bouken 8         spec mouse       big ghost           excite bike
+  penguin egg      spec turtle      adventure 2         tank
+  kiki mouse       small ghost      motor bike          adventure
+  big penguin      speed runner     bom bom alley       1992 castelian
+  thunder force    luck boy         adventure 4         sp turtle
+  mario boy        adventure 5      loder runner        sp alley
+  sp motocross     adventure 6      sp invader          sp kid kiki 
+  easy tasmania    adventure 7      turtle ii           sp mario
+  gogo tank        adventure 8      sp mouse            adventure island
+  sp penguin       happy boy        happy ghost         bouken boy
+  sp tasmania
+
+5. Using GameGenie with multigame cartridges:
+
+  No, GameGenie DOES NOT WORK with multigame cartridges.  
+
+6. GameBoy clones:
+
+  There seem to be several GameBoy clones produced in Asia. Two of them are
+called Sunny and WonderBoy. The only difference is the name printed on the
+case. This information was supplied by Simon Lai.
+  The Russian GameBoy clone is called Bitman2000, if it is a clone and not a
+real GameBoy distributed in Russia under that name.
+
+7. Japanese cartridges:
+
+  These are cartridges which are not available in U.S., although you can find
+them if you are lucky. Following descriptions of japanese cartridges were
+prepared by Mark Kaufman.
+
+* Name: Parodius                     Type: Shooter     Producer: Konami  
+  Graphics: 10       Sound: 10       Playability: 10   Overall: 10
+
+  This is the legendary Japanese shooter to which all others are compared.
+  It is awesome, huge, creative, challenging and fun, fun, fun.
+
+* Name: Twinbee                      Type: Shooter     Producer: Konami
+  Graphics:  9       Sound:  9       Playability:  9   Overall:  9
+
+  Another Japanese cart that should be sold over here.  It's better than
+  90% of all GB games.
+
+8. Where to get parts to repair GameBoy?
+
+  Mark Kaufman found address of the company selling replacement parts for
+GameBoy [as well as Sega AC adapters and Atari parts]. Here is their phone
+number and a list of GameBoy parts they carry:
+
+  MCM Electronics    TOLL-FREE: 1-800-543-4330 
+                     FAX:       1-513-434-6959 
+                     VOICE:     1-513-434-0031
+                     M-F: 7AM-8PM EST  Sat: 9AM-6PM EST
+
+  #83-2285   $3.50   Gameboy Type 32 Pin Connector
+                     (replace worn or corroded cartridge jack inside GB)
+  #83-1570   $1.49   Controller Replacement Pads
+                     (set of three)
+  #81-1605   $7.95   Schematic Diagrams
+                     (THIS should be interesting! =))
+  
+  Game Bit Drivers (fit tamper resistant star screws):
+  #22-1145   $9.95   Small bit for GB cartridge
+  #22-1150   $9.95   Large bit for GB battery packs
+
+9. Some time ago, there was a preview of a 3D vectored game for GB 
+   called "Lunar Chase" in Nintendo Power magazine. What happened with
+   this game?
+
+  According to Nintendo, the game was cancelled :(. This information was
+obtained from Nintendo hotline [1-800-255-3700 in USA].
+
+
+********************** VII. Programming, Hardware, etc. *********************
+
+  Information about GameBoy hardware is extremely hard to find. Most of it
+is incomplete, uncertain and vague. If you have any information [especially
+about things listed in "Unanswered Questions" section], PLEASE, email it to
+fms@wam.umd.edu. The following information is mostly based on a document by
+Dr.Pan of Anthrox, but also includes some results of research done by Peter
+Knight and myself.
+
+1. Development tools for GameBoy:
+
+  There are very few publically accessible development tools available for 
+GB. Some of them are:
+
+  * SmartCard copier allows to download the code from GB cartridges into
+    PC and store up to 4 cartridges in a special 512kB flash-ROM card.
+  * Logical analyzers allowing to trace various signals in GB circuitry
+    are also very useful for hacking.
+  * SNES Magic Disassembler by Dr.Pan is written primarily for SNES, but
+    it also allows to disassemble, explore, and change GB code. SMD is
+    a shareware and it runs on Amiga.
+  * Another GB disassembler for PC is written by HeroZero.
+  * Virtual GameBoy emulator by me is a portable emulator written in C.
+    The distribution version runs on Unix/X systems, but with proper
+    drivers VGB can run on just about anything, given that your machine
+    is fast enough. VGB also includes a small disassembler for GB code.
+
+2. GameBoy cartridge pinouts [not complete]:
+------------------------------------------------------------------------------
+  Pin    Function
+------------------------------------------------------------------------------
+  1      Vcc [+5V]
+  2      ? Connected on Gameboy, but not used on GamePaks.
+  3      /RESET
+  4      /WR
+  5      ? Used by paging PAL on high capacity GamePaks.
+  6-20   A0-A14
+  21     /CS
+  22-29  D0-D7
+  30     /RD
+  31     ? Connected on Gameboy, but not used on Game-Paks.
+  32     GND
+------------------------------------------------------------------------------
+
+3. GameBoy CPU:
+
+  As it appears, the CPU used in GameBoy is not exactly Z80. Some of Z80
+instructions and registers are missing while others are added:
+
+* The "shadow" set of registers [BC',DE',HL',AF'] and the index registers
+  [IX,IY] are missing and, consequently, there are no DD and FD opcode tables.
+
+* I/O ports are gone and so are all IN/OUT opcodes.
+
+* HALT is interrupted even when interrupts are disabled.
+
+* Following Z80 opcodes are changed:
+------------------------------------------------------------------------------
+Code       Z80 operation  GameBoy operation
+------------------------------------------------------------------------------
+08 xx xx   EX AF,AF'      LD (word),SP     Save SP at given address
+10 xx      DJNZ offset    STOP             Meaning unknown
+22         LD (word),HL   LD (HLI),A       Save A at (HL) and increment HL
+2A         LD HL,(word)   LD A,(HLI)       Load A from (HL) and increment HL
+32         LD (word),A    LD (HLD),A       Save A at (HL) and decrement HL
+3A         LD A,(word)    LD A,(HLD)       Load A from (HL) and decrement HL
+D3         OUTA (byte)    No operation
+D9         EXX            RETI             Enable interrupts and return
+DB         INA (byte)     No operation
+DD         Prefix DD      No operation
+E0 xx      RET PO         LD (byte),A      Save A at (FF00+byte)
+E2         JP PO,word     LD (C),A         Save A at (FF00+C)
+E3         EX HL,(SP)     No operation
+E4         CALL PO,word   No operation
+E8 xx      RET PE         ADD SP,offset    Add signed offset to SP
+EA xx xx   JP PE,word     LD (word),A      Save A at given address
+EB         EX DE,HL       No operation
+EC         CALL PE,word   No operation
+F0 xx      RET P          LD A,(byte)      Load A from (FF00+byte)
+F2         JP P,word      No operation
+F4         CALL P,word    No operation
+F8 xx      RET M          LDHL SP,offset   Load HL with SP + signed offset
+FA xx xx   JP M,word      LD A,(word)      Load A from given address
+FC         CALL M,word    No operation
+FD         Prefix FD      No operation
+------------------------------------------------------------------------------
+
+4. GameBoy memory map:
+--------------------------- FFFF  | 32kB ROMs are non-switchable and occupy
+ I/O ports + internal RAM         | 0000-7FFF are. Bigger ROMs use one of two 
+--------------------------- FF00  | different bank switches. The type of a
+ Internal RAM                     | bank switch can be determined from the 
+--------------------------- C000  | internal info area located at 0100-014F
+ 8kB switchable RAM bank          | in each cartridge.
+--------------------------- A000  |
+ 16kB VRAM                        | MBC1 (Memory Bank Controller 1):
+--------------------------- 8000  | Writing a value into 2000-3FFF area will
+ 16kB switchable ROM bank         | select an appropriate ROM bank at
+--------------------------- 4000  | 4000-7FFF. Writing a value into 4000-5FFF
+ 16kB ROM bank #0                 | area will select an appropriate RAM bank 
+--------------------------- 0000  | at A000-C000.
+                                  |
+                                  | MBC2 (Memory Bank Controller 2):
+                                  | Writing a value into 2100-21FF area will
+                                  | select an appropriate ROM bank at
+                                  | 4000-7FFF. RAM switching is not provided.
+
+5. Internal information area:
+
+  The internal information area is located at 0100-014F in each cartridge. It
+contains following values:
+
+0100-0103  A sequence of bytes 00 C3 xx xx where last two bytes contain the
+           starting address of a cartridge [lower byte first]. The first two
+           bytes of this sequence can be used as a "magic number" to
+           recognize GameBoy cartridges. When GameBoy starts, the control is
+           passed to address 0100 and then the sequence is interpreted as
+           NOP; JP <addr>.
+0105-0133  Nintendo character area:
+           CE ED 66 66 CC 0D 00 0B 03 73 00 83 00 0C 00 0D
+           00 08 11 1F 88 89 00 0E DC CC 6E E6 DD DD D9 99
+           BB BB 67 63 6E 0E EC CC DD DC 99 9F BB B9 33 3E
+0134-0143  Title of the game in ASCII terminated by zeroes
+0144-0146  Not used
+0147       Cartridge type:
+           0 - ROM ONLY         3 - ROM+MBC1+RAM+BATTERY
+           1 - ROM+MBC1         5 - ROM+MBC2
+           2 - ROM+MBC1+RAM     6 - ROM+MBC2+BATTERY
+0148       ROM size:
+           0 - 256kBit =  32kB =  2 banks
+           1 - 512kBit =  64kB =  4 banks
+           2 -   1MBit = 128kB =  8 banks
+           3 -   2MBit = 256kB = 16 banks
+           4 -   4MBit = 512kB = 32 banks
+0149       RAM size:
+           0 - None 
+           1 -  16kBit =  2kB = 1 bank
+           2 -  64kBit =  8kB = 1 bank
+           3 - 256kBit = 32kB = 4 banks
+0150-0151  Manufacturer code:
+           3301 - Nintendo 
+           7901 - Accolade       
+           A400 - Konami     
+014C       Version number
+014D       Complement check
+014E-014F  Checksum [higher byte first] produced by adding all bytes of
+           a cartridge except for two checksum bytes together and taking
+           two lower bytes of the result.
+
+6. Video controller:
+
+  Main GameBoy screen buffer [aka background] consists of 256x256 pixels or
+32x32 tiles [8x8 pixels each]. Only 160x144 pixels can be displayed on the
+screen. Registers SCROLLX and SCROLLY hold the coordinates of background to be
+displayed in the left upper corner of the screen. Background wraps around the
+screen i.e. when part of it goes off the screen, it appears on the opposite
+side.
+  An area of VRAM known as Background Tile Table contains the numbers of tiles
+to be displayed. It is organized as 32 rows of 32 bytes each. Each byte
+contains a number of a tile to be displayed. Tile patterns are taken from the
+Tile Pattern Table located either at 8000-8FFF or 8800-97FF. In the first
+case, patterns are numbered with unsigned numbers from 0 to 255 [i.e. pattern
+#0 lies at address 8000]. In the second case, patterns have signed numbers
+from -128 to 127 [i.e. pattern #0 lies at address 9000]. The Tile Pattern
+Table address for the background can be selected via LCDCONT register.
+  Besides background, there is also a "window" overlaying the background. The
+window is not scrollable i.e. it is always displayed starting from its left
+upper corner. The location of a window on the screen can be adjusted via
+WNDPOSX and WNDPOSY registers. Screen coordinates of the top left corner of a
+window are WNDPOSX-7,WNDPOSY. The tile numbers for the window are stored in
+the Window Tile Table in the same way as background tiles are stored in the
+Background Tile Table. The tile patterns are taken from the table at 
+8800-97FF and therefore have unsigned numbers.
+  Both background and window can be disabled or enabled separately via bits
+in the LCDCONT register. There is also a special bit allowing to make window
+"transparent". When window is transparent, pixels of color #0 are not being
+displayed. 
+
+               0                Background                255
+              0+--------------------------------------------+
+               |             ^                              |
+               |             |                              |
+               |             | SCROLLY                      |
+               |             |                              |
+               |           0 v  Physical Screen   159       |
+               |          0+------------------------+       |
+               |           |              ^         |       |
+               |           |              |         |       |
+               |  SCROLLX  |              | WNDPOSY |       |
+               |<--------->|              |         |       |
+               |           |              v         |       |
+               |           |             +----------+       |
+               |           |  WNDPOSX-7  |          |       |
+               |           |<----------->|  Window  |       |
+               |           |             |          |       |
+               |        143+-------------+----------+       |
+               |                                            |
+               |                                            |
+               |                                            |
+            255+--------------------------------------------+
+
+  The tile images are stored in the Tile Pattern Tables. Each 8x8 image
+occupies 16 bytes, where each 2 bytes represent a line:
+
+  Tile:                                              Image:
+
+  .33333..                               .33333.. -> 01111100 -> 7Ch
+  22...22.                                           01111100 -> 7Ch
+  11...11.                               22...22. -> 00000000 -> 00h
+  2222222. <-- digits represent                      11000110 -> C6h
+  33...33.     color numbers             11...11. -> 11000110 -> C6h
+  22...22.                                           00000000 -> 00h
+  11...11.                               2222222. -> 00000000 -> 00h
+  ........                                           11111110 -> FEh
+                                         33...33. -> 11000110 -> C6h
+                                                     11000110 -> C6h
+                                         22...22. -> 00000000 -> 00h
+                                                     11000110 -> C6h
+                                         11...11. -> 11000110 -> C6h
+                                                     00000000 -> 00h
+                                         ........ -> 00000000 -> 00h
+                                                     00000000 -> 00h
+
+  As it was said before, there are two Tile Pattern Tables at 8000-8FFF and at
+8800-97FF. The first one can be used for sprites and the background. Its tiles
+are numbered from 0 to 255. The second table can be used for the background
+and the window display and its tiles are numbered from -128 to 127.
+  GameBoy video controller can also display up to 40 sprites either in 8x8 or
+in 8x16 mode. Sprite patterns have the same format as tiles, but they are
+taken from the Sprite Pattern Table located at 8000-8FFF and therefore have
+unsigned numbers. Sprite attributes reside in the Sprite Attribute Table [aka
+OAM] at FE00-FE9F. OAM is divided into 40 4-byte blocks each of which
+corresponds to a sprite. Blocks have the following format:
+
+  Byte0  Y position on the screen
+  Byte1  X position on the screen
+  Byte2  Pattern number 0-255 [notice that unlike tile numbers, sprite
+         pattern numbers are unsigned] 
+  Byte3  Flags:
+         Bit7  Priority
+               Sprite is displayed in front of the window if this bit
+               is set to 1. Otherwise, sprite is shown behind the
+               window but in front of the background.
+         Bit6  Y flip
+               Sprite pattern is flipped vertically if this bit is
+               set to 1.
+         Bit5  X flip
+               Sprite pattern is flipped horizontally if this bit is
+               set to 1.
+         Bit4  Palette number
+               Sprite colors are taken from OBJ1PAL if this bit is
+               set to 1 and from OBJ0PAL otherwise.
+
+7. GameBoy Sound:
+
+  There are two sound channels connected to the output terminals SO1 and SO2.
+There is also a input terminal Vin connected to the cartridge. It can be
+routed to either of both output terminals. GameBoy circuitry allows produces
+sound in four different ways:
+
+  1. Quadrangular wave patterns with sweep and envelope functions
+  2. Quadrangular wave patterns with envelope functions
+  3. Voluntary wave pattern
+  4. White noise
+
+  These four sounds can be controlled independantly and then mixed separately
+for each of the output terminals.
+
+8. GameBoy I/O ports:
+
+  I/O ports are mapped to memory locations in FF00-FFFF area:
+------------------------------------------------------------------------------
+FF00 -- JOYPAD [RW] Joypad port
+      Bit5   Bit4    | In order to scan the keys, output 0 into either Bit4
+Bit3  DOWN   START   | or Bit5 of JOYPAD, wait for some time and read JOYPAD.
+Bit2  UP     SELECT  | Bits 0-3 will be set to zeroes if corresponding
+Bit1  LEFT   B       | buttons are pressed. Bits 6 and 7 are not used. Bits
+Bit0  RIGHT  A       | 0-3 are connected to input lines P10-P13. Bits 4 and 5
+                     | are connected to ouput lines P14 and P15.
+
+        Example:
+        ; Routine finding which buttons were pressed since the last check
+        LD A,20h     ; Set 0 at the output line P14
+        LD (FF00h),A ; 
+        LD A,(FF00h) ; Read JOYPAD several times to accomodate the noise
+        LD A,(FF00h) ;
+        CPL          ; Bits 0-3 are now 1s if corresponding buttons pressed
+        AND 0Fh      ; Extract lower 4 bits carrying button status...
+        SWAP A       ; ...and move them into upper for bits
+        LD B,A       ; At this point: B = START.SELECT.B.A.x.x.x.x
+        LD A,10h     ; Set 0 at the output line P15
+        LD (FF00h),A ;
+        LD A,(FF00h) ; Read JOYPAD several times to accomodate the noise
+        LD A,(FF00h) ;
+        LD A,(FF00h) ;
+        LD A,(FF00h) ;
+        LD A,(FF00h) ;
+        LD A,(FF00h) ;
+        CPL          ; Bits 0-3 are now 1s if corresponding buttons pressed
+        AND 0Fh      ; Extract lower 4 bits carrying buttons' status...
+        OR B         ; ...and combine them with 4 other button status bits
+        LD D,A       ; At this point: D = START.SELECT.B.A.DOWN.UP.LEFT.RIGHT
+        LD A,(FF8Bh) ; Read old button status from RAM
+        XOR D        ; Set 1s for buttons whose status has changed
+        AND D        ; Extract buttons which were *pressed* since last check
+        LD (FF8Ch),A ; Save information of those buttons
+        LD A,D       ; Update button status in RAM
+        LD (FF8Bh),A ;
+        LD A,30h     ; Set 1s at both P14 and P15 lines
+        LD (FF00h),A ; [probably to reset the circuitry]
+
+------------------------------------------------------------------------------
+FF01 -- SIODATA [RW] Serial I/O Data
+----------------------------------------------+---------------+---------------
+FF02 -- SIOCONT [RW] Serial I/O Control       | when set to 1 | when set to 0
+Bit7  Transfer start flag                     | START         | NO TRANSFER
+Bit0  Serial I/O clock select                 | INTERNAL      | EXTERNAL
+----------------------------------------------+---------------+---------------
+FF04 -- DIVIDER [RW] Divider [meaning unknown]
+------------------------------------------------------------------------------
+FF05 -- TIMECNT [RW] Timer Counter
+        This register contains constantly increasing number. The timer
+        interrupt occurs when this register overflows.
+------------------------------------------------------------------------------
+FF06 -- TIMEMOD [RW] Timer Modulo
+        The contents of TIMEMOD are loaded into TIMECNT every time TIMECNT
+        overflows.
+----------------------------------------------+---------------+---------------
+FF07 -- TIMCONT [RW] Timer Control            | when set to 1 | when set to 0 
+Bit2    Start/Stop timer                      | COUNTING      | STOPPED
+Bit1-0  Timer clock select:
+  00 - 4096Hz    01 - 262144Hz    10 - 65536Hz    11 - 16384Hz
+----------------------------------------------+---------------+---------------
+FF0F -- IFLAGS [RW] Interrupt Flags           | when set to 1 | when set to 0
+Bit4  Transition High->Low on pins P10-P13    | OCCURED       | NO
+Bit3  End of serial I/O transfer              | OCCURED       | NO 
+Bit2  Timer overflow                          | OCCURED       | NO
+Bit1  LCD controller interrupt [see LCDSTAT]  | OCCURED       | NO
+Bit0  LCD vertical blanking impulse           | OCCURED       | NO
+----------------------------------------------+---------------+---------------
+FF10 -- SNDREG10 [RW] Sweep [Sound Mode #1]
+Bit6-4  Sweep time:
+  000: SWEEP OFF    010: 15.6ms    100: 31.3ms    110: 46.9ms
+  001: 7.8ms        011: 23.4ms    101: 39.1ms    111: 54.7ms
+Bit3    Frequency increase[0]/decrease[1]
+Bit2-0  Number of shifts
+------------------------------------------------------------------------------
+FF11 -- SNDREG11 [RW] Sound Length/Pattern Duty [Sound Mode #1]
+Bit7-6  Wave Pattern Duty [only these bits can be read]:
+  00: 12.5%    01: 25%    10: 50%    11: 75%
+Bit5-0  Length of sound data
+------------------------------------------------------------------------------
+FF12 -- SNDREG12 [RW] Control [Sound Mode #1]
+Bit7-4  Initial value of envelope
+Bit3    Envelope up[1]/down[0]
+Bit2-0  Number of envelope sweep
+------------------------------------------------------------------------------
+FF13 -- SNDREG13 [W] Frequency Low [Sound Mode #1]
+        Lower 8 bits of the 11bit frequency. Higher 3 bits are in SNDREG14.
+------------------------------------------------------------------------------
+FF14 -- SNDREG14 [RW] Frequency High [Sound Mode #1]
+Bit7    When 1 is written into this bit, sound restarts
+Bit6    Counter/Consecutive selection [only this bit can be read]
+Bit2-0  Higher 3 bits of the 11bit frequency
+------------------------------------------------------------------------------
+FF16 -- SNDREG21 [RW] Sound Length/Pattern Duty [Sound Mode #2]
+Bit7-6  Wave Pattern Duty [only these bits can be read]:
+  00: 12.5%    01: 25%    10: 50%    11: 75%
+Bit5-0  Length of sound data
+------------------------------------------------------------------------------
+FF17 -- SNDREG22 [RW] Control [Sound Mode #2]
+Bit7-4  Initial value of envelope
+Bit3    Envelope up[1]/down[0]
+Bit2-0  Number of envelope step
+------------------------------------------------------------------------------
+FF18 -- SNDREG23 [W] Frequency Low [Sound Mode #2]
+        Lower 8 bits of the 11bit frequency. Higher 3 bits are in SNDREG24.
+------------------------------------------------------------------------------
+FF19 -- SNDREG24 [RW] Frequency High [Sound Mode #2]
+Bit7    When 1 is written into this bit, sound restarts
+Bit6    Counter/Consecutive selection [only this bit can be read]
+Bit2-0  Higher 3 bits of the 11bit frequency
+------------------------------------------------------------------------------
+FF1A -- SNDREG30 [RW] Control [Sound Mode #3]
+Bit7    Sound on[1]/off[0]
+------------------------------------------------------------------------------
+FF1B -- SNDREG31 [RW] Sound Length [Sound Mode #3]
+------------------------------------------------------------------------------
+FF1C -- SNDREG32 [RW] Output Level [Sound Mode #3]
+Bit6-5  Output Level:
+  00: MUTE    01: 100%    10: 50%    11: 25% 
+------------------------------------------------------------------------------
+FF1D -- SNDREG33 [W] Frequency Low [Sound Mode #3]
+        Lower 8 bits of the 11bit frequency. Higher 3 bits are in SNDREG34.
+------------------------------------------------------------------------------
+FF1E -- SNDREG34 [RW] Frequency High [Sound Mode #3]
+Bit7    When 1 is written into this bit, sound restarts
+Bit6    Counter/Consecutive selection [only this bit can be read]
+Bit2-0  Higher 3 bits of the 11bit frequency
+------------------------------------------------------------------------------
+FF20 -- SNDREG41 [RW] Sound Length/Pattern Duty [Sound Mode #4]
+Bit5-0  Length of sound data
+------------------------------------------------------------------------------
+FF21 -- SNDREG42 [RW] Control [Sound Mode #4]
+Bit7-4  Initial value of envelope
+Bit3    Envelope up[1]/down[0]
+Bit2-0  Number of envelope step
+------------------------------------------------------------------------------
+FF22 -- SNDREG43 [RW] Polynomial Counter [Sound Mode #4]
+Bit7-4  Shift clock frequency for the counter
+  0000: Dividing ratio of frequencies / 2
+  0001: Dividing ratio of frequencies / 2^2
+  0010: Dividing ratio of frequencies / 2^3
+  ....  ....
+  1101: Dividing ratio of frequencies / 2^14
+  1100: Prohibited
+  1111: Prohibited
+Bit3    Number of steps: 7 [1]/15 [0]
+Bit2-0  Dividing ratio of frequences
+  000: f*2    010: f/2    100: f/4    110: f/6    where f = 4.194304Mhz/8 
+  001: f*1    011: f/3    101: f/5    111: f/7
+------------------------------------------------------------------------------
+FF23 -- SNDREG44 [RW] Frequency High [Sound Mode #4]
+Bit7    When 1 is written into this bit, sound restarts
+Bit6    Counter/Consecutive selection [only this bit can be read]
+------------------------------------------------------------------------------
+FF24 -- SNDREG50 [RW] Channel and Volume Control
+Bit7    Vin -> SO2 on[1]/off[0]
+Bit6-4  Volume on SO2
+Bit3    Vin -> SO1 on[1]/off[0]
+Bit2-0  Volume on SO1
+------------------------------------------------------------------------------
+FF25 -- SNDREG51 [RW] Sound Output Terminal Selector
+Bit7  Sound 4 -> SO2  |
+Bit6  Sound 3 -> SO2  |
+Bit5  Sound 2 -> SO2  | SO1 and SO2 are two sound outputs connected to the
+Bit4  Sound 1 -> SO2  | headphones. Vin is an input terminal in the cartridge
+Bit3  Sound 4 -> SO1  | slot.
+Bit2  Sound 3 -> SO1  |
+Bit1  Sound 2 -> SO1  |
+Bit0  Sound 1 -> SO1  |
+----------------------+-------------------------------------------------------
+FF26 -- SNDREG52 [RW] Sound ON/OFF
+Bit7  All sound on[1]/off[0]
+Bit3  Sound 4 on[1]/off[0]
+Bit2  Sound 3 on[1]/off[0]
+Bit1  Sound 2 on[1]/off[0]
+Bit0  Sound 1 on[1]/off[0]
+----------------------------------------------+---------------+---------------
+FF40 -- LCDCONT [RW] LCD Control              | when set to 1 | when set to 0
+Bit7  LCD operation                           | ON            | OFF
+Bit6  Window Tile Table address               | 9C00-9FFF     | 9800-9BFF
+Bit5  Window display                          | ON            | OFF
+Bit4  Tile Pattern Table address              | 8000-8FFF     | 8800-97FF
+Bit3  Background Tile Table address           | 9C00-9FFF     | 9800-9BFF
+Bit2  Sprite size                             | 8x16          | 8x8
+Bit1  Color #0 transparency in the window     | SOLID         | TRANSPARENT
+Bit0  Background display                      | ON            | OFF
+----------------------------------------------+---------------+---------------
+FF41 -- LCDSTAT [RW] LCD Status               | when set to 1 | when set to 0
+Bit6    Interrupt on scanline coincidence     | ON            | OFF
+Bit5    Interrupt on controller mode 10       | ON            | OFF
+Bit4    Interrupt on controller mode 01       | ON            | OFF
+Bit3    Interrupt on controller mode 00       | ON            | OFF
+Bit2    Scanline coincidence flag             | COINCIDENCE   | NO COINCIDENCE 
+Bit1-0  LCD Controller mode:
+  00 - Horizontal blanking impulse [VRAM 8000-9FFF can be accessed by CPU]
+  01 - Vertical blanking impulse [VRAM 8000-9FFF can be accessed by CPU]
+  10 - OAM FE00-FE90 is accessed by LCD controller
+  11 - Both OAM FE00-FE90 and VRAM 8000-9FFF are accessed by LCD controller
+------------------------------------------------------------------------------
+FF42 -- SCROLLY [RW] Background Vertical Scrolling
+------------------------------------------------------------------------------
+FF43 -- SCROLLX [RW] Background Horizontal Scrolling
+------------------------------------------------------------------------------
+FF44 -- CURLINE [RW] Current Scanline
+        This register contains the number of a screen line currently being
+        scanned. It can take values 0-153 where 144-153 indicate the vertical
+        blanking period. Writing into this register resets it.
+------------------------------------------------------------------------------
+FF45 -- CMPLINE [RW] Scanline Comparison
+        When contents of CURLINE are equal to contents of CMPLINE, scanline
+        coincidence flag is set in the LCD status register and an interrupt
+        may occur.
+------------------------------------------------------------------------------
+FF47 -- BGRDPAL [W] Background Palette
+Bit7-6  Palette for color #3  |
+Bit5-4  Palette for color #2  |     00 ------- 01 ------- 10 -------> 11
+Bit3-2  Palette for color #1  |     lightest                     darkest
+Bit1-0  Palette for color #0  |
+------------------------------+-----------------------------------------------
+FF48 -- OBJ0PAL [W] Sprite Palette #0
+Bit7-6  Palette for color #3  |
+Bit5-4  Palette for color #2  |     00 ------- 01 ------- 10 -------> 11
+Bit3-2  Palette for color #1  |     lightest                     darkest
+Bit1-0  Palette for color #0  |
+------------------------------+-----------------------------------------------
+FF49 -- OBJ1PAL [W] Sprite Palette #1
+Bit7-6  Palette for color #3  |
+Bit5-4  Palette for color #2  |     00 ------- 01 ------- 10 -------> 11
+Bit3-2  Palette for color #1  |     lightest                     darkest
+Bit1-0  Palette for color #0  |
+------------------------------+-----------------------------------------------
+FF4A -- WNDPOSY [RW] Window Y Position
+        WNDPOSY may assume values 0-143. It determines the vertical position
+        of the left upper corner of a window on the screen.
+------------------------------------------------------------------------------
+FF4B -- WNDPOSX [RW] Window X Position
+        WNDPOSX may assume values 7-166. It determines the horizontal position
+        of the left upper corner of a window on the screen. The real position
+        is WNDPOSX-7.
+------------------------------------------------------------------------------
+FF46 -- DMACONT [W] DMA Transfer Control
+        Writing to this register will cause a DMA transfer into OAM located
+        at FE00-FE9F. The written value determines the source address in a
+        following way: 00 -> 0000, 01 -> 0100, ... , 9A -> 9A00, ...
+        The DMA transfer takes about 160 nanoseconds.
+
+        Example:
+        ; Routine transferring 0400-049F into OAM
+        DI           ; Disable interrupts
+        LD A,04h     ; Transferring data from 0400h 
+        LD (FF46h),A ; Start DMA transfer
+  LOOP: LD A,#40     ; Wait
+        DEC A        ;
+        JR NZ,LOOP   ;
+        EI           ; Enable interrupts
+
+----------------------------------------------+---------------+---------------
+FFFF -- ISWITCH [RW] Interrupt Enable/Disable | when set to 1 | when set to 0
+Bit4  Transition High->Low on pins P10-P13    | ENABLED       | DISABLED
+Bit3  End of serial I/O transfer              | ENABLED       | DISABLED
+Bit2  Timer overflow                          | ENABLED       | DISABLED
+Bit1  LCD controller interrupt [see LCDSTAT]  | ENABLED       | DISABLED
+Bit0  LCD vertical blanking impulse           | ENABLED       | DISABLED
+----------------------------------------------+---------------+---------------
+
+
+*********************************** Credits: *********************************
+
+  Thanks to all people who sent their comments and 
+  contributed to this document!     (list follows)
+
+  Dr.Pan of Anthrox  - Excellent GameBoy hardware description
+  Mark Kaufman       - Cheats for Faceball 2000 and passwords Pipe Dream.
+                       Descriptions and ratings of some games. MCM
+                       Electrionics' phone numbers. 
+  Yi-Min Wei         - Comments about software sections of the FAQ.
+  Kelly Gillilan     - Excellent list of cheats and passwords.
+                       Tecmo Bowl codes. CodeMasters' phone number.
+  Peter Knight       - Cartridge pinouts and a memory map. Codemasters'
+                       address.
+  Jim Hsu            - List of passwords and codes and MK cheat.
+  Jez San [Argonaut] - Information about Argonaut's ToyBoy emulator.
+  Timothy A. Meushaw - Mortal Kombat cheat.
+  Robert Newman      - Various cheats and codes.
+  M. S. Manley       - Maintaining GB mailing list and mail-server.
+  G. L. Sicherman    - Krusty's Fun House passwords.
+  Jack Skipper       - Sound test cheats for FFLI and FFLII.
+  Andy Eddy          - Maintaining FAQ archive at ftp.netcom.com.
+  Simon Lai          - Info on Thailand GB clones and 1500in1 cart.
+  Josef Mollers      - Info on GB cartridge pinouts.
+  Herl Lindgreen     - Prince of Persia password construction.
+  G. L. Sicherman    - Speedy Gonzales passwords.
+  Jim Banks          - Warioland cheat.
+  Nick Paiement      - Game ratings
+  Leo Davidson       - Monster Max passwords
+
+
+**************************** UNANSWERED QUESTIONS ************************
+
+  If you have any information about GameBoy, feel free to send email to
+  
+                             Marat Fayzullin (FMS)
+                                fms@wam.umd.edu
+
+1.  Meaning of the last three digits of GameGenie code?
+2.  Pinouts of the GameBoy cartridges?
+3.  Connecting GameBoy to TV?
+4.  GameGenie codes not listed in the official updates?
+5.  Game cheats and passwords?
+6.  GameBoy emulators?
+7.  Classified listings of the games with ratings from 0 to 9?
+8.  Game Copiers for GameBoy?
+9.  "Generic" cartridges allowing to use reprogrammable ROM plugged
+    into a socket or even a static RAM?
+10. Pinouts of GameBoy's serial port?
+11. etc. etc. etc.
+
+* Reviews: Please, send your reviews of GB games. Rate four categories:
+
+                Graphics   Sound   Playability   Overall
+
+  Give ratings from 0 to 9 for each of these categories. Also, classify the
+game [RPG, shoot-em-up, classic, etc.] and give information about the
+cartridge size and manufacturer. Games which get more than 2 ratings from
+different people, will be mentioned in the FAQ. I still couldn't collect
+enough of these raitings to come to any conclusions.
+

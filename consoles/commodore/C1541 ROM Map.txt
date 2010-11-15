@@ -1,0 +1,459 @@
+ 
+;	Commodore 1541 / OC-118 Disk Drive ROM Map
+;	V1.1	18 Jan 1995
+
+
+; Note: This Memory map is collected from the 1541 diassembly
+;   which was made by Peter Weighill.
+;
+
+; Data types in headers (for reassembler):
+;
+;	DATA		Misc data
+;	TEXT		String terminated with 00
+;	WORD		Vectors in LO/HI byte pairs
+;	CHIP		I/O Area
+;	EMPTY		ROM containing AA's or FF's
+;
+ 
+
+c000	Unused					EMPTY
+
+;c100	File Manager Routines
+
+c100	Turn LED on for current drive
+c118	Turn LED on
+c123	Clear error flags
+c12c	Prepare for LED flash after error
+c146	Interpret command from computer
+c194	Prepare error msg after executing command
+c1bd	Erase input buffer
+c1c8	Output error msg (track and sector 0)
+c1d1	Check input line
+c1e5	Check ':' on input line
+c1ee	Check input line
+c268	Search character in input buffer
+c2b3	Check line length
+c2dc	Clear flags for command input
+c312	Preserve drive number
+c33c	Search for drive number
+c368	Get drive number
+c38f	Reverse drive number
+c398	Check given file type
+c3bd	Check given drive number
+c3ca	Verify drive number
+c440	Flags for drive check			DATA
+c44f	Search for file in directory
+c48b	?
+c4d8	?
+c5ac	?
+c63d	Test and initalise drive
+c66e	Name of file in directory buffer
+c688	Copy filename to work buffer
+c6a6	Search for end of name in command
+c6ce	?
+c6de	?
+c7ac	Clear Directory Output Buffer
+c7b7	Create header with disk name
+c806	Print 'blocks free.'
+c817	'Blocks free.'				DATA
+c823	Perform [S] - Scratch command
+c87d	Erase file
+c8b6	Erase dir entry
+c8c1	Perform [D] - Backup command (Unused)
+c8c6	Format disk
+c8f0	Perform [C] - Copy command
+c9a1	?
+c9a7	?
+c9d5	?
+c9fa	?
+ca35	?
+ca88	Perform [R] - Rename command
+cacc	Check if file present
+caf8	Perform [M] - Memory command
+cb20	M-R memory read
+cb50	M-W memory write
+cb5c	Perform [U] - User command
+cb84	Open direct access channel, number
+cc1b	Perform [B] - Block/Buffer command
+cc5d	Block commands "AFRWEP"			DATA
+cc63	Block command vectors			WORD
+cc6f	Get parameters form block commands
+ccf2	Decimal values  1, 10, 100		DATA
+ccf5	B-F block free
+ccfe	?
+cd03	B-A block allocate
+cd36	Read block to buffer
+cd3c	Get byte from buffer
+cd42	Read block from disk
+cd56	B-R block read
+cd5f	U1, Block read without changing buffer pointer
+cd73	B-W block write
+cd97	U2, Block write without changing buffer pointer
+cda3	B-E block execute
+cdbd	B-P block pointer
+cdd2	Open channel
+cdf2	Check buffer number and open channel
+ce0e	Set pointer for REL file
+ce2c	?
+ce6e	Divide by 254
+ce71	Divide by 120
+ced9	Erase work storage
+cee2	Left shift 3-byte register twice
+cee5	Left shift 3-byte register once
+ceed	Add 3-byte registers
+cefa	?
+cf09	?
+cf1e	?
+cf8c	Change buffer
+cf9b	Write data in buffer
+cff1	Write data byte in buffer
+d005	Perform [I] - Initalise command
+d00e	Read BAM from disk
+d042	Load BAM
+d075	Calculate blocks free
+d09b	?
+d0af	?
+d0c3	Read block
+d0c7	Write block
+d0eb	Open channel for reading
+d107	Open channel for writing
+d125	Check for file type REL
+d12f	Get buffer and channel numbers
+d137	Get a byte from buffer
+d156	Get byte and read next block
+d19d	Write byte in buffer and block
+d1c6	Increment buffer pointer
+d1d3	Get drive number
+d1df	Find write channel and buffer
+d1e2	Find read channel and buffer
+d227	Close channel
+d25a	Free buffer
+d28e	Find buffer
+d2ba	?
+d2da	?
+d307	Close all channels
+d313	Close all channels of other drives
+d339	?
+d37f	Find channel and allocate
+d39b	Get byte for output
+d44d	Read next block
+d460	Read block
+d464	Write block
+d475	Allocate buffer and read block
+d486	Allocate new block
+d48d	Write dir block
+d4c8	Set buffer pointer
+d4da	Close internal channel
+d4e8	Set buffer pointer
+d4f6	Get byte from buffer
+d506	Check track and sector numbers
+d552	Get track and sector numbers for current job
+d55f	Check for vaild track and sector numbers
+d572	DOS mismatch error
+d586	Read block
+d58a	Write block
+d599	Verify execution
+d5c6	Additional attempts for read errors
+d676	Move head by half a track
+d693	Move head one track in or out
+d6a6	Attempt command execution multiple times
+d6d0	Transmit param to disk controller
+d6e4	Enter file in dir
+d7b4	OPEN command, secondary addr 15
+d7c7	-Check '*' Last file
+d7f3	-Check '$' Directory
+d815	-Check '#' Channel
+d8f5	Open a file with overwriting (@)
+d940	?
+d9a0	Open file for reading
+d9e3	Open file for writing
+da09	Check file type and control mode
+da2a	Preparation for append
+da55	Open directory
+dac0	Close routine
+db02	Close file
+db62	Write last block
+dba5	Directory entry
+dc46	Read block, allocate buffer
+dcb6	Reset pointer
+dcda	Construct a new block
+dd8d	Write byte in side-sector block
+dd95	Manipulate flags
+dda6	?
+ddab	Verify command code for writing
+ddb7	?
+ddf1	Write a block of a REL file
+ddfd	Write bytes for following track
+de0c	Get following track and sector numbers
+de19	Following track for last block
+de2b	buffer pointer to zero
+de3b	Get track and sector
+de50	Write (?)
+de57	R
+de5e	W
+de65	R
+de6c	W
+de73	R
+de95	Get following track and sector from buffer
+dea5	Copy buffer contents
+dec1	Erase buffer Y
+ded2	Get side-sector number
+dedc	Set buffer pointer to side-sector
+dee9	Buffer pointer for side-sector
+def8	Get side sector and buffer pointer
+df1b	Read side-sector
+df21	Write side-sector
+df45	Set buffer pointer in side-sector
+df4c	Calculate number of blocks in a REL file
+df66	Verify side-sector in buffer
+df93	Get buffer number
+df9e	?
+dfb7	?
+dfc2	?
+dfd0	Get next record iin REL file
+e03c	Write block and read next block
+e07c	Write a byte in a record
+e0ab	Write byte in REL file
+e0f3	Fill record with 0s
+e105	Write buffer number in table
+e120	Get byte from REL file
+e1cb	Get last side-sector
+e207	Perform [P] - Position command
+e2e2	Divide data blocks into records
+e304	Set pointer to next record
+e31c	Expand side-sector
+e44e	Write side-sector and allocate new
+
+e4fc	Table of error messages			DATA
+;	(with start and end letters +$80)  If value AND $7F less
+;	 than $10 then look up text in pointer table.
+;
+;	Format: Error numbers, Description
+;
+;e4fc	00,	Ok
+;e500	20,21,22,23,24,27, Read error
+;e50b	52,	File too large
+;e517	50,	Record not present
+;e522	51,	Overflow in record
+;e52f	25,28,	Write error
+;e533	26,	Write protect on
+;e540	29,	Disk id mismatch
+;e546	30,31,32,33,34, Syntax error
+;e552	60,	Write file open
+;e556	63,	File exists
+;e55f	64,	File type mismatch
+;e567	65,	No block
+;e570	66,67,	Illegal track or sector
+;e589	61,	File not open
+;e58d	39,62,	File not found
+;e592	01,	Files scratched
+;e59f	70,	No channel
+;e5aa	71,	Dir error
+;e5af	72,	Disk full
+;e5b6	73,	Cbm dos v2.6 1541
+;e5c8	74,	Drive not ready
+;
+
+e5d5	Indexed words				DATA
+;	Format: Index number  Description
+;
+;e5d5	09 Error
+;e5db	0A Write
+;e5e1   03 File
+;e5e6   04 Open
+;e5eb   05 Mismatch
+;e5f4   06 Not
+;e5f8   07 Found
+;e5fe   08 Disk
+;e603   0B Record
+;
+
+e60a	Prepare error number and message
+e645	Print error message into error buffer
+e680	TALK
+e688	LISTEN
+e69b	Convert BIN to 2-Ascii (error message buffer)
+e6ab	Convert BCD to 2-Ascii (error message buffer)
+e6bc	Write OK in buffer
+e6c1	Print error on track 00,00 to error buffer
+e6c7	Print error on current track to error buffer
+e706	Write error message string to buffer
+e754	Get character and in buffer
+e767	Get a char of the error message
+e775	Increment pointer
+e77f	Dummy subroutine
+e780	Check for auto start - removed
+e7a3	Perform [&] - USR file execute command
+e84b	Generate checksum
+e853	IRQ routine for serial bus
+e85b	Service the serial bus
+e909	Send data
+e99c	DATA OUT lo
+e9a5	DATA OUT hi
+e9ae	CLOCK OUT hi
+e9b7	CLOCK OUT lo
+e9c0	Read IEEE port
+e9c9	Get data byte from bus
+e9f2	Accept byte with EOI
+ea2e	Accept data from serial bus
+ea59	Test for ATN
+ea6e	Flash LED for hardware defects, self-test
+eaa0	Power-up RESET routine
+ebff	Wait loop
+ec9e	Load dir
+ed23	?
+ed59	Transmit dir line
+ed67	Get byte from buffer
+ed84	Perform [V] - Validate command
+edb3	?
+ede5	Allocate file blocks in BAM
+ee0d	Perform [N] - New (Format) command
+eeb7	Create BAM
+eef4	Write BAM if needed
+ef3a	Set buffer pointer for BAM
+ef4d	Get number of free blocks for dir
+ef5c	Mark block as free
+ef88	Set flag for BAM changed
+ef90	Mark block as allocated
+efcf	Erase bit for sector in BAM entry
+efe9	Powers of 2				DATA
+eff1	Write BAM after change
+f005	Erase BAM buffer
+f011	?
+f05b	?
+f0d1	Crear BAM				?
+f0df	?
+f10f	Get buffer number for BAM
+f119	Buffer number for BAM
+f11e	Find and allocate free block
+f1a9	Find free sector and allocate
+f1fa	Find free sectors in current track
+f220	Verify number of free blocks in BAM
+f24b	Establish number of sectors per track
+f258	Dummy subroutine
+
+;
+;f259	Disk Controller Routines
+;
+
+f259	Initialise disk controller
+f2b0	IRQ routine for disk controller
+f2f9	Head transport
+f36e	Execute program in buffer
+f37c	Bump, find track 1 (head at stop)
+f393	Initialise pointer in buffer
+f3b1	Read block header, verify ID
+f410	Preserve block header
+f418	Work Return value 01 (OK) into queue
+f41b	Work Return value 0B (READ ERROR) into queue
+f41e	Work Return value 09 (READ ERROR) into queue
+f423	Job optimisation
+f4ca	Test command code further
+f4d1	Read sector
+f50a	Find start of data block
+f510	Read block header
+f556	Wait for SYNC
+f56e	Test command code further
+f575	Write data block to disk
+f5e9	Calculate parity for data buffer
+f5f2	Convert buffer of GCR data into binary
+f691	Test command code further
+f698	Compare written data with data on disk
+f6ca	Command code for find sector
+f6d0	Convert 4 binary bytes to 5 GCR bytes
+f77f	GCR (5-bit) nybble table		DATA
+f78f	Convert 260 bytes to 325 bytes group code
+f7e6	Convert 5 GCR bytes to 4 binary bytes
+f8a0	Conversion table GCR to binary - high nybble
+;	$FF means invalid
+f8c0	Conversion table GCR to binary - low nybble
+;	$FF means invalid
+f8e0	Decode 69 GCR bytes
+f934	Convert block header to GCR code
+f969	Error entry disk controller
+f97e	Turn drive motor on
+f98f	Turn drive motor off
+f99c	Job loop disk controller
+f9cb	?
+f9d9	?
+fa05	Move head to next track
+fa1c	Calculate number of head steps
+fa3b	Move stepper motor short distance
+fa4e	Load head
+fa63	?
+fa7b	Prepare fast head movement
+fa97	Fast head movement
+faa5	Prepare slow head movement
+fac7	Formatting
+fda3	Write SYNC 10240 times, erase track
+fdc3	Read/write ($621/$622) times
+fdd3	Attempt counter for formatting
+fde5	?
+fdf5	Copy data from overflow buffer
+fe00	Switch to reading
+fe0e	Write $55 10240 times
+fe30	Convert header in buffer 0 to GCR code
+fe67	Interrupt routine
+
+;fe85	Constands for disk format
+
+fe85	Directory track				DATA
+fe86	Start of bam				DATA
+fe87	Length of bam per track			DATA
+fe88	End of bam				DATA
+fe89	Table of command words			DATA
+;	"VIDMBUP&CRSN"
+;	Validate, Initialise, D(Backup unused),
+;	Memory, Block, User,
+;	Position, &and;USR execute, Copy,
+;	Rename, Scratch, New (Format).
+
+fe95	Low  byte of command addresses		DATA
+fea1	High byte of command addresses		DATA
+fead	Bytes for syntax check			DATA
+feb2	File control methods "RWAM"		DATA
+feb6	File types "DSPUL"			DATA
+febb	Names of file types			DATA
+febb	1st letter "DSPUR"			DATA
+fec0	2nd letter "EERSE"			DATA
+fec5	3rd letter "LQGRL"			DATA
+feca	Error LED bit value			DATA
+fecd	Masks for bit command			DATA
+fed1	Number of sectors per track		DATA
+fed5	Constands for disk format		DATA
+fed5	'A' marker for 1541 format		DATA
+fed6	4 track ranges				DATA
+fed7	Number of tracks			DATA
+fed8	Tracks on which sector numbers change	DATA
+fedb	Control bytes for head postion		DATA
+fee0	Buffer address high bytes		DATA
+fee6	ROM checksum				DATA
+
+fee7	From UI command $EB22, to reset
+;	Without RAM/ROM test
+feea	Patch for diagnostic routine from $EA7A
+fef3	Delay loop for serial bus in 1541 mode, from $E97D
+fefb	Patch for data output to serial bus, from $E980
+ff01	U9 vector, switch 1540/1541
+ff10	Patch for reset routine, from $EAA4
+ff20	Patch for listen to serial bus, from $E9DC
+ff2f	Unused					EMPTY
+
+ffe6	Format	[C8C6]				WORD
+ffe8	Turn motor off [F98F]			WORD
+
+ffea	USER vectors
+ffea	UA, U1	[CD5F]				WORD
+ffec	UB, U2	[CD97]				WORD
+ffee	UC, U3	[0500]				WORD
+fff0	UD, U4	[0503]				WORD
+fff2	UE, U5	[0506]				WORD
+fff4	UF, U6	[0509]				WORD
+fff6	UG, U7	[050C]				WORD
+fff8	UH, U8	[050F]				WORD
+fffa	UI, U9	[FF01]				WORD
+
+fffc	Hardware vectors
+fffc	RESET [EAA0]				WORD
+fffe	IRQ   [FE67]				WORD

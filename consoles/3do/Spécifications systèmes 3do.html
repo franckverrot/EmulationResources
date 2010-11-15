@@ -1,0 +1,91 @@
+<html><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<body>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Author" content="Franck LXS Verrot">
+<center>
+<h2>Spécifications système de la 3DO de Panasonic.</h2>
+<img border=0 src="3do.jpg" height='240' weight='320'alt="La 3DO dans sa plus belle robe">
+</center>
+<XMP>
+
+                             Graphics        Graphics
+     ---------               animation       animation
+     |  3DO  |               processor       processor
+     | block |                 |32|____________|32|
+     |diagram|                 |________  ________|
+ M   ---------                         |32|
+ o                                _____|__|_____
+ n __  Video   _______ 1MB  ______|            |____ 2MB
+ i __ processor_______ VRAM __32__|            |_32_ DRAM
+ t                                |            |
+ o                                |            |
+ r                                |    DMA     |____  Expansion   __ CDROM
+                                  | controller |_32_ Port Control __ Drive
+                                  |            |
+ A                                |            |___ Control __ Control pad
+ u__    D/A    __ Digital   ______|            |_8_  Port   __ 3d goggles
+ d__ Converter __ Signal    __16__|____________|               keyboard
+ i                Processor            |32|
+ o               ______________________|  |
+                |   ______    _________   |
+                |32|      |32|         |32|
+              Optional    Video    32-bit RISC _____ Math Co-  ___ ROM &
+    Video -->  Video      Decomp    Processor  _____ Processor ___ SRAM
+               Input     Port/plug
+</XMP>
+ 
+
+<H2>Spécifications:</H2>
+<ul>
+<li> 32-bit 12.5Mhz RISC CPU (ARM60) crée par Advanced RISC Machines (ARM) (équivalent à un 68030 cadencé à 25Mhz)
+<li> Résolution 640x480 pixels à 16.7 millions de couleurs
+<li> Deux co-processeurs vidéo accélérés dont les principales fonctions sont:
+<ul>
+<li> Fréquence d'horloge de 25Mhz.
+   <li> Capable de produire de 9 à 16 millions de pixels réels par secondes (36 à 64 Mpixels/seconde interpolés), tordus, agrandis, tournés et mappés textures.
+   <li> Capable de mapper une bitmap rectangulaire dans un polygone quelconque à 4 point.
+   <li> Les sources bitmap pour textures peuvent être de 1,2,4,6,8, ou 16 bits par pixels et sont compressés avec l'algorithme RLE
+    pour un excellent compromis entre une haute résolution et un faible espace de stockage.
+   <li> Support de la transparence, translucidité, et les effets d'ombrage de couleurs.
+</ul>
+<li> Processeur à signal digital (DSP) 16 bit amélioré dont les principales fonctions sont:
+<ul>
+<li> Specifically designed for mixing, manipulating, and synthesizing CD
+     quality sound.
+   <li> Fréquence d'horloge de 25Mhz.
+   <li> Archictecture RISC pipeliné.
+   <li> Registres  16 bits.
+   <li> 17 canaux DMA 16 bits séparés vers et depuis la mémoire du système.
+   <li> Instruction SRAM embarquée et en registres mémoire.
+   <li> Triatement interne 20 bits.
+   <li> Capable d'un filtrage spécial pour créer des effets comme le son 3D.
+</ul>
+<li> Bus séparés pour des mise à jour du rafrâichissement vidéo (VRAM est doublement supportée).
+<li> Vitesse de Bus Super Rapide(Super Fast BUS Speed) (50 Megabytes par secondes).
+<li> Co-processeur mathématique amélioré dessiné par NTG pour l'accélération des opétations sur les matrices à points fixés. (Note: Ce n'est *pas* l'ARM FPA).
+<li> Lecteur CD-ROM avec les caractéristiques suivantes:
+<ul>
+<li> Temps d'accès de 320ms.
+   <li> Transfert de donnée double vitesse 300kbps.
+   <li> Buffer de RAM à 32kbytes.
+</ul>
+<li> 2 Mo de DRAM
+<li> 1 Mo de VRAM (également capable de stocker/exécuter du code et des données).
+<li> 1 Mo de ROM
+<li> 36 canaux DMA séparés pour un traitement rapide des données et une utilisation des bus efficaces.
+<li> 2 ports d'expensions:
+<ul>
+<li> 1 port High-speed 68 pins x 1 AV Entrée/Sortie (pour les cartouches FMV)
+   <li> 1 port High-speed 30 pins x 1 expension Entrée/Sortie.
+</ul>
+<li> 1 port de contrôle, capable 1 Control port, capable de la connexion en série jusqu'à 8 périphériques.
+<li> Système d'exploitation 32 bits multitâche.
+<li> Son stéro 16 bits.
+<li> Fréquence d'échantillonnage sonore de 44.1KHz.
+<li> Supports complet du son Dolby(tm) Surround.
+<li> SRAM 32kb sauvegardée par batterie.
+<li> Extensible.
+</ul>
+</body>
+</html>

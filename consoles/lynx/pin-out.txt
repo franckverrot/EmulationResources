@@ -1,0 +1,53 @@
+
+
+Lynx-cards sizes are : 128KB,256KB and 512KB. 1MB is also possible.
+
+Lynx sees this cards through a port and may not address them directly,
+only via a counter, better two counters: one for the block (0..255 on
+all cards) the other for the position in the current block (0..4095,
+depends on card-size). The postions wraps, so the block has to be
+set manualy and the program/game has to know the exact card-size to
+allow reads of more the one block.
+
+Ok here's the pin-out:
+1	GND
+2	D3
+3	D2
+4	D4
+5	D1
+6	D5
+7	D0
+8	D6
+9	D7
+10	CARD/ (this is OE/)
+11	A1
+12	A2
+13	A3
+14	A6
+15	A4
+16	A5
+17	A0
+18	A7
+19	A16
+20	A17
+21	A18
+22	A19
+23	A15
+24	A14
+25	A13
+26	A12
+27	SWCON/ (this is WE/)
+28	A8
+29	A9
+30	A10
+31	Vcc
+32	AUDIOIN (I/O pin but not analog, digital, for 1MBcards used)
+33	Vcc
+34	SWVCC
+
+Note: A12..A19 is connected to a 74HC164 to select block
+      A0...A10 is connected to a 4040 to select postion
+      A11      is __missing__
+      CARD/ is strobed on reads
+      SWCON/ is strobed on writes
+

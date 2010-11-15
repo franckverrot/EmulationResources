@@ -1,0 +1,170 @@
+Technical Information
+
+
+
+
+PSX DIAGRAM
+
+
+
+
+
+
+
+       CDROM <-------> CDROM DECODER
+CDROM BUFFER <----------//     |
+                        /      |
+                       /       |
+        /-------------/     R3000A <--> GTE >---\
+SPEAKERS  <-- SPU <-----------/|\----------->  GPU --> SCREEN
+               |               |                |
+         SOUND BUFFER          |          FRAME BUFFER (VRAM)
+                               | 
+                    SIO <------|------> PIO
+                   MDEC <------|------> OS ROM
+                              / \
+                 MEMORY <----/   \----> PERIPHERICALS
+
+     Transfers:  MEMORY <---- DMA ----> BUFFERS
+
+
+
+
+
+
+
+1.CPU: MIPS RISC R3000A, 32 REGISTERS, CACHE: 4 Kbytes. 
+2.GTE: (Geometry Transfer Engine) It uses matrices and vectors. Its results can be read by GPU. 
+3.GPU: (Graphic Processing Unit). 
+4.FRAME BUFFER: 1 Mbytes. 
+5.SPU: (Sound Processing Unit), 24 voices, 44 KHz. 
+6.SOUND BUFFER: 512 Kbytes. 
+7.MDEC: It plays MPEG/JPEG. 
+8.SIO: Serial Port. 
+9.PIO: Parallel Port. 
+10.MEMORY: 2 Mbytes. 
+11.PERIPHERICALS: PADs/MEMORY CARDs/MOUSEs/MODEMs. 
+12.OS ROM: 512 Kbytes. 
+
+FILES
+
+
+1.EXE
+
+•Header: Bytes 0-2047
+
+Code Lenght : End Address - Load Address - 2048d
+
+00-07 ID: "PS-X EXE"
+16-19 Jump Address: first byte of code
+24-27 Load Address: first byte of EXE (including header)
+28-30 End Address: last byte of EXE (including header)
+48-51 Stack Address: first byte of stack
+00113 Territory : "E"=Europe, "U"=USA, "J"=Japan
+•Code: Bytes 2048-...
+
+
+2.SEQ
+
+•It seems that SEQ files are song files with MIDI (instruments or samples?). 
+If that´s true I could easily play those files because some time ago (when I 
+was 18) I did a program like Screamtracker with General MIDI interface.
+
+
+
+
+3.TIM
+
+•I´ll update this info in next days.
+
+
+
+
+
+
+RESOLUTIONS
+
+
+•Horizontal (pixels): 256, 320, 384, 512, 640
+
+•Vertical (pixels): 256(PAL), 512(PAL), 240(NTSC), 480(NTSC)
+
+•Colors: 16(CLUT), 256(CLUT), 65536(DIRECT), 16777216(DIRECT)
+
+
+
+
+Storing a pixel:
+
+•16, 256: unknowed. I think the way is the same as PC: first a pallete of x bytes, 
+ later the body screen (each byte defines a color in the pallete)
+
+•65536 (32768+transparency bit): 
+
+Each word defines a pixel like the following:
+
+word: (bit 31)TBBBBGGGGRRRR(bit 00)
+
+t=transparency bit (1 means transparency pixel)
+
+•16277216: I "suppose" it uses 3 bytes (standard way), but I don´t know.
+
+
+
+
+
+
+FRAME BUFFER (VRAM)
+
+
+•Virtual Area: 1024x512 words
+
+•There are two buffers in this area, GPU BUFFER#1 and GPU BUFFER#2. So this allows 
+ PlayStation to Double Buffer.
+
+•The VRAM can be freely written and read, but by using DMA.
+
+•CLUTs are also located in the VRAM. It seems to be what limits the CLUTs is memory, 
+ not a "number" of them.
+
+
+
+
+
+
+0,0-----------------------------------------------------...--1023,0
+|                          | |                               |
+|                          | | PAL:  255, 511                |
+|      GPU BUFFER #1       | |                               |
+|                          | | NTSC: 239, 479                |
+|<- 255,319,383,511,639 -->| v                               |
+|--------------------------|                                 |
+|                          |                                 |
+|                          |                                 |
+|      GPU BUFFER #2       |                                 |
+|                          |                                 |
+|                          |                                 |
+|--------------------------/                                 |
+|                                                            |
+|                                                            |
+|                                                            |
+|                                                            |
+.                                                            .
+.                                                            .
+.                                                            .
+|                                                            |
+|                                                            |
+0,511---------------------------------------------------...--1023,511
+
+
+
+
+
+
+CDROM
+
+
+•PSX CDROM seems to read ISO 9660 format. So files can be read directly from CD.
+
+•I´ve done a program which read audio tracks, but some games like Wipeout´2097 don´t 
+ work in my Sony CDU33A CDROM (Prodigy Track). I don´t know *exactly* why it happens.

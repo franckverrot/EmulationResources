@@ -1,0 +1,664 @@
+[iNES Header/Format Information File]
+[Version 2.0 Compiled on 1/31/98]
+[VmprHntrD - kennedy5@flash.net]
+
+
+NOTE: This document is on the iNES format is almost totally complete.  I still
+need to add some little tidbits as the iNES format is updated.  Please do not
+modify this document in any way without MY prior consent.  If you wish to add
+to this please talk to me through e-mail, or in the evenings on the IRC -
+EFnet, in the channel #emu.  [I'm an OP in there.] :P
+
+BE ADVISED: Any emails sent to me about ROM requests will be ignored and most
+likely forwarded to the SPA at piracy@spa.org.  You get one warning and this
+is it, sorry to be harsh but I have to.  ...Am I a nice guy or what?
+
+<"In"Famous Quotes:>
+"Power TENDS to corrupt; Absolute power corrupts absolutely." - I forget :)
+"Escape is impossible and obedience is imperative!" - Cmdr. Yurak from Voltron
+"I'm surrounded by fools and imbusiles!" - King Zarkon from Voltron
+
+<Personal thanks goes to:>
+* Zophar for help with some math and errors.
+* FanWen for the greater extension of the iNES Extended Header format and all
+  the associated work along with it.
+* Groups like Damaged Cybernetics, GitM, NPS, Vertigo 2099 and more that have
+  in one way or the other brought us the games this guide pertains to.
+* Anyone who has ever e-mailed and/or talked to me in IRC that assisted in the
+  fixes and upkeep of this guide.
+* And thanks to all the loyal readers that actually care about this document
+  and what I have to say here.
+
+
+[Table of Contents]___________________________________________________________
+
+Section 1 .... Known HEXidecimal Values of the First 8 Bytes of the NES Header
+Section 2 ................... The Seventh and Eighth Bytes' HEXidecimal Values
+Section 3 ........... Common iNES File Sizes & What They Are Made Of (PRG/CHR)
+Section 4 .................................. HEXidecimal Values of the PRG/CHR
+Section 5 ........................ Miscellaneous Information on the NES Format
+Section 6 ......... Let's Get Cracking on Prepping Your RAW/FFE/PasoFami Image
+Section 7 ......... Information (Recommended Tools for Converting iNES Images)
+Section 8 ...... UPDATES (The History of the iNES Header/Format Documentation)
+
+
+[Sect.1: - Known HEXidecimal Values of the First 8 Bytes of the NES Header]___
+
+...Those FIRST (8) bytes of your NES, or to be a NES file...
+
+(Bytes 0->3 MUST BE What is stated below.)
+
+0 = 4E (N)
+1 = 45 (E)
+2 = 53 (S)
+3 = 1A (Character Break, necessary!)
+
+(Bytes 4->8-15 Can BE MODIFIED!)
+
+4 = PRG (Hex number depends on size of PRG file)-/-- (See Sect. 4)
+5 = CHR (Hex number depends on size of CHR file)/
+6 = Mapper 0-15/ V or H Mirroring, Battery, 4 Screen VRAM, Trainer Switches
+    Also is used as the "Ones" place holder digit for the extended iNES Header
+    format. (See Sect. 2)
+7 = Mappers 16-?, the extended iNES Header format "Tens" place holder digit.
+    Again (See Sect. 2 for details on how this is set up.)
+
+8->15 = Not used at this tume but MUST BE ALL ZEROS or games will not work.
+
+NOTE: Now that there is a fully established Extened iNES Header Format set up
+      gracefully by FanWen and Marat Fayzullin ALWAYS leave in games that do
+      not use over mapper 15 blank in bytes 8->15 or games WILL NOT WORK!
+
+[Sect.2: - The Seventh and Eighth Bytes' HEXidecimal Values]__________________
+
+Byte 6 in a hexeditor will look something like this:
+
+        59 <---This is for CastleVania III: Dracula's Curse
+
+(The "5" is the mapper number, the "9" stands for Vertical Mirroring AND 4
+Screen VRAM ON!) -- See below for all the possible values!
+
+Byte 7 in a hexeditor will look a little different, something like this:
+
+        * 1->F/0<---Only the first part is used in coorilation with the first
+                    part of byte 6 above. *READ BELOW FOR EXAMPLE!*
+
+*Extended iNES Header Format Design*
+
+Basically in this extended design the 7th byte is used to implement mappers of
+16 and higher.  It does this through a hexidecimal conversion of the actual
+mapper number.  In my example I'll use Mapper 69 with a vertical switch(1).
+
+Example: Mapper 69 = 4E in hexidecimal...
+
+Therefore in the new iNES Extended Header format this is how bytes 6 and 7
+would look in hex and work together.
+
+Example:
+Bytes=> 0       1       2       3       4       5       6       7
+        N       E       S       ^Z      PRG     CHR     MAP/SW  MAP/0(always)
+        4E      45      53      1A      10      20      E1      40
+
+* See above that the ONES DIGIT (E) is in the 6th byte, and the TENS DIGIT (4)
+  is the first half of the 7th byte.  But be advised that the second half of
+  the 7th byte in hex HAS TO ALWAYS BE 0 (zero)!
+
+*AND NOW FOR THE BAD NEWS FOR "YOU"*
+
+Considering iNES has always set the standard for "Mapper Compatibility" we are
+now faced with a new problem ...CONVERSION.  We must convert the current games
+we have to the new format which is very TIME CONSUMING because of the iNES
+Header Editors out there that insert extra garbage into the header.  Therefore
+let's get to FIXING YOUR GAMES for the new "Extended iNES Header Format":
+
+* First get out your hexeditor and move over to the eighth byte.  For example
+  lets use the NESimage tag of: "DiskDude!"
+* On the 7th byte it will be covered by the "D", to make your game a "clean"
+  image you must on the hexidecimal side put a double zero "00" through bytes
+  7-15, then save it.
+* Be very careful doing so, if you hit the first byte of the game, its DEAD if
+  you aren't paying attention and save it...you've been warned.
+* If you can find a program on the internet called "NESFIX.EXE" this will do
+  all the tasks above in a fraction of the time of doing it manually.  Ask
+  around a few people will be able to get it to you.
+
+
+[Below is the current possibilities for the all the supported mappers]
+
+NOTE: The format for this graph is taken from the iNES 0.7 doc to give you a
+      better example of what each mapper is and runs...  I would personally
+      like to thank Marat Fayzullin, Yang FanWen, Y0SHi, and anybody else I
+      left out that assisted in the adding of these new MAPPERS!
+
+
+Mapper #  Name                    Examples (Game Names, etc.)
+______________________________________________________________________________
+
+0         No Mapper               All 32kb ROM + 8kb VROM games like Super
+                                  Mario Bros, Balloon Fight, Slalom, etc.
+1(fixed)  Nintendo MMC1 Chipset   1942, Bomberman II, Mega Man II, etc.
+2         ROM (PRG) Switch        Konami games like CastleVania and Stinger.
+3         VROM (CHR) Switch       Twin Bee, Q*Bert, and many japanese games.
+4(fixed)  Nintendo MMC3 Chipset   Super Mario Bros 2 & 3, Silver Surfer, etc.
+5(100%!)  Nintendo MMC5 Chipset   CastleVania III: Dracula's Curse
+6         FFE F4XXX Games         F4XXX Games off the FFE CD-ROM
+7         32kb ROM (PRG) Switch   Wizards & Warriors, Marble Madness, etc.
+8         FFE F3XXX Games         F3XXX Games off the FFE CD-ROM
+9         Nintendo MMC2 Chipset   Mike Tyson's Punch-Out!!, and Punch-Out!!
+10        Nintendo MMC4 Chipset   Japanese Punch-Out!!, and japanese games.
+11        Color Dreams Chipset    Crystal Mines, Tagin' Dragon, Babyboom, etc.
+12        FFE F6XXX Games         F6XXX Games off the FFE CD-ROM
+15        100-in-1 Cart Switch    100-in-1 Multicart Switch
+
+Below are all the Extened iNES Header Format Mappers which are now, or will be
+in the near future added into another emulator yet to be publicly released.
+* Read above in Section 2 on how to implement Mappers 16 and up in iNES.
+
+16        Ban Dai Chipset         Japanese: Dragon Ball Z, Gaiden etc.
+17        FFE F8XXX Games         F8XXX Games off the FFE CD-ROM
+18        Jaleco SS8806 Chipset   Japanese: Jaleco's Sport Series
+19        Namcot 106 Chipset      Japanese: Famista 90-92, Megami Teisen 1-2
+20        Famicom Disk System     Reserved for the Disk System, DON'T USE IT!
+21        Konami VRC4 2a Chipset  Japanese: Wai Wai World2, Goemon Gaiden 2
+22        Konami VRC4 1b Chipset  Japanese: Twinbee 3, etc.
+23        Konami VRC4 1a Chipset  Japanese: Wai Wai World, Kid Dracula, etc.
+24        Konami VRC6 Chipset     Japanese: CastleVania 3j, MADAKAJ, etc.
+25        Konami VRC4 Chipset     Japanese: Konami Baseball, Gradius 2, etc.
+32        Irem G-101 Chipset      Japanese: Image Fighter 2, etc.
+33        Taito TC0190/TC0350     Japanese: PonDoKoPon, Bubble Bobble 2j, etc.
+34        32kb ROM (PRG) Switch   Japanese: Impossible Mission, Deadly Towers
+65        Irem H3001 Chipset      Japanese: Mr. Love, Mr. Big Hammer, P-Man2
+66        74161/32 Chipset        Japanese: Dragonball 1, BioWarrior DAN
+67        Sunsoft Mapper 3        Japanese: Unknown
+69        Sunsoft Mapper 4        Japanese: Afterburner 2
+70        74161/32 Chipset        Japanese: Unknown variant
+80        X-005 Chipset           Japanese: Demon Sword
+81        C075 Chipset            Japanese: Unknown
+82        X1-17 Chipset           Japanese: Unknown
+83        Cony Mapper             Japanese: Garbo Dentsu
+84        PasoFami Mapper!        Japanese: (.500 .MOD) Supported       
+
+
+[Below is the current possibilities for the second figure of the 7th byte.]
+
+This part of the byte is the place you setup the game to use, or not use
+Horizontal or Vertical mirroring, Battery Backup, 4 Screen VRAM, and a built
+in Trainer.  Below are the different combinations of all the listed options
+in HEXidecimal format.
+
+0 = H (Horizontal Mirroring ONLY)
+1 = V (Vertical Mirroring ONLY)
+2 = H + Bat. (Horizontal Mirroring + Battery ON)
+3 = V + Bat. (Vertical Mirroring + Battery ON)
+4 = H + Train. (Horizontal Mirroring + Trainer ON)
+5 = V + Train. (Vertical Mirroring + Trainer ON)
+6 = H + Bat. + Train. (Horizontal Mirroring + Battery and Trainer ON)
+7 = V + Bat. + Train. (Vertical Mirroring + Battery and Trainer ON)
+8 = H + 4scr. (Horizontal Mirroring + 4 Screen VRAM ON)
+9 = V + 4scr. (Vertical Mirroring + 4 Screen VRAM ON)
+A = H + Bat. + 4scr. (Horizontal Mirroring + Battery and 4 Screen VRAM ON)
+B = V + Bat. + 4scr. (Vertical Mirroring + Battery and 4 Screen VRAM ON)
+C = H + 4scr. + Train. (Horizontal Mirroring + 4 Screen VRAM and Trainer ON)
+D = V + 4scr. + Train. (Vertical Mirroring + 4 Screen VRAM and Trainer ON)
+E = H + Bat. + 4scr. + Train. (Horizontal Mirroring + Battery, 4 Screen VRAM,
+    and Trainer ON)
+F = V + Bat. + 4scr. + Train. (Vertical Mirroring + Battery, 4 Screen VRAM,
+    and Trainer ON)
+
+
+[Sect. 3: - Common iNES File Sizes & What They Are Made of (PRG/CHR)]_________
+
+These are the "known" formats TO ME for the iNES format NES Players!  Be
+advised that "ROM" and "VROM" were the names of the chips that the "PRG" and
+"CHR" data were stored on.  [ROM = PRG   VROM = CHR]
+
+[24K - 24576 bytes]
+(EX: Donkey Kong - 131Kbit ROM + 65Kbit VROM)
+
+PRG => 16384 bytes (1 x 16kb pages)
+CHR => 8192 bytes (1 x 8kb pages)
+
+
+[40K - 40960 bytes]
+(EX: Super Mario Bros. - 262Kbit ROM + 65Kbit VROM)
+
+PRG => 32768 bytes (2 x 16kb pages)
+CHR => 8192 bytes (1 x 8kb pages)
+
+
+[48K - 49152 bytes]
+(EX: Twin-Bee - 262Kbit ROM + 131Kbit VROM)
+
+PRG => 32768 bytes (2 x 16kb pages)
+CHR => 16384 bytes (2 x 8kb pages)
+
+
+[64K - 65536 bytes]
+(EX: Spy Hunter - 262Kbit ROM + 262Kbit VROM)
+
+PRG => 32768 bytes (2 x 16kb pages)
+CHR => 32768 bytes (4 x 8kb pages)
+
+
+[80K - 81936 bytes]
+(EX: Dragon Warrior - 512 Kbit ROM + 131Kbit VROM)
+
+PRG => 65532 bytes (4 x 16kb pages)
+CHR => 16384 bytes (2 x 8kb pages)
+
+
+[128K - 131088 bytes]
+(EX: Legend of Zelda - 1MBit ROM)
+
+PRG => 131088 bytes (8 x 16kb pages)
+CHR => (NONE - "imbedded")
+
+
+[132K - 139280 bytes]
+(EX: Stinger (Twin Bee 2 USA - 1MBit ROM + 65Kbit "imbedded" VROM)
+
+PRG => 131088 bytes (8 x 18kb pages)
+CHR => (8192 bytes ="imbedded")
+
+
+[160K - 163840 bytes]
+(EX: Mappy Land: 1MBit ROM + 262Kbit VROM)
+
+PRG => 131088 bytes (8 x 18kb pages)
+CHR => 32768 bytes (4 x 8kb pages)
+
+
+[192K - 196608 bytes]
+(EX: CastleVania II: Simon's Quest - 1MBit ROM + 512Kbit VROM)
+
+PRG => 131072 bytes (8 x 16kb pages)
+CHR => 65536 bytes (8 x 8kb pages)
+
+
+[192K - 196608 bytes]
+(EX: Wall Street Kid - 1MBit ROM + 512Kbit "imbedded" VROM)
+
+PRG => 131072 bytes (8 x 16kb pages)
+CHR => (65536 bytes - "imbedded")
+
+
+[224K - 229392 bytes]
+(EX: Mad Max - 1MBit ROM + 785Kbit VROM]
+
+PRG => 131072 bytes (8 x 16kb pages)
+CHR => 98304 bytes (12 x 8kb pages)
+
+
+[232K - 237584 bytes]
+(EX: Tetris 2 - 1MBit ROM + 851Kbit VROM)
+
+PRG => 131072 bytes (8 x 16kb pages)
+CHR => 106496 bytes (13 x 8kb pages)
+
+
+[240K = 245760 bytes]
+(EX: Legend of Zelda 2 - 1MBit ROM + 917Kbit VROM)
+
+PRG => 131072 bytes (8 x 16kb pages)
+CHR => 114688 bytes (14 x 8kb pages)
+
+
+[248K - 253468 bytes]
+(EX: Super Contra - 1Mbit ROM + 925Kbit VROM)
+
+PRG => 131072 bytes (8 x 16kb pages)
+CHR => 122880 bytes (15 x 8kb pages)
+
+
+[256K - 262144 bytes]
+(EX: Final Fantasy - 2MBit ROM)
+
+PRG => 262144 bytes (16 x 16kb pages)
+CHR => (NONE - "imbedded")
+
+
+[256K - 262144 bytes]
+(EX: Super Mario Bros. 2 - 1MBit ROM + 1MBbit VROM)
+
+PRG => 131072 bytes (8 x 16kb pages)
+CHR => 131072 bytes (16 x 8kb pages)
+
+
+[312K - 319488 bytes]
+(EX: Bo Jackson Baseball - 1MBit ROM + 1458Kbit VROM)
+
+PRG => 131072 bytes (8 x 16kb pages)
+CHR => 188416 bytes (23 x 8kb pages)
+
+
+[336K - 344064 bytes]
+(EX: Spiderman and the Sinister Six - 1MBit ROM + 2048Kbit VROM)
+
+PRG => 131072 bytes (8 x 16kb pages)
+CHR => 212992 bytes (26 x 8kb pages)
+
+
+[384K - 393216 bytes]
+(EX: Ikari Warriors 2 - 2MBit ROM + 1MBit "imbedded" VROM)
+
+PRG => 262144 bytes (16 x 16kb pages)
+CHR => (131072 bytes - "imbedded")
+
+
+[384K - 393216 bytes]
+(EX: Super Mario Bros. 3 - 2MBit ROM + 1MBit VROM)
+
+PRG => 262144 bytes (16 x 16kb pages)
+CHR => 131072 bytes (16 x 8kb pages)
+
+
+[384K - 393216 bytes]
+(EX: Gremlins 2: the New Batch = 1 MBit ROM + 2MBit VROM)
+
+PRG => 131072 bytes (8 x 16kb pages)
+CHR => 262144 bytes (32 x 8kb pages)
+
+
+[512K - 524288 bytes]
+(EX: CastleVania III: Dracula's Curse - 2MBit ROM + 2MBit VROM)
+
+PRG => 262144 bytes (16 x 16kb pages)
+CHR => 262144 bytes (32 x 8kb pages)
+
+
+[768K - 786432 bytes] - 1st and ONLY 6MBit NES GAME!
+(EX: Kirby's Adventure - 4MBit ROM + 2MBit VROM)
+
+PRG => 524288 bytes (32 x 16kb pages)
+CHR => 262144 bytes (32 x 8kb pages)
+
+
+[1024K - 1048576 bytes]
+(EX: Forget Name (Japanese) - 4MBit ROM + 4MBit VROM)
+
+PRG => 524288 bytes (32 x 16kb pages)
+CHR => 524288 bytes (64 x 8kb pages)
+
+
+[1024K - 1048576 bytes]
+(EX: 100-in-1 illegal cart - 8Mbit ROM)
+
+PRG => 1048576 bytes (64 x 16kb pages)
+CHR => (NONE - "imbedded")
+
+
+* NOTE: 8MBit (Megabit) is equal to 1 MB (Megabyte).  As far as I know from
+        reading NES technical data the 8MBit/1MB game is the largest game size
+        supported by the NES as of when it was discontinued in Summer 1994
+        with its final game Wario's Woods in the United States.
+
+
+[Sect. 4: - HEXidecimal Values of the PRG/CHR]________________________________
+
+[PRG - (Range 1 x 16kb pages -> 64 x 16kb pages)]
+-There is a BARE MINIMUM required for PRG which is 1 x 16kb pages!
+
+* NOTE: To figure out the exact size in bytes each of these pages are worth
+        just start at 1 x 16kb pages (aka: 16384 bytes) and just keep adding
+        16384 more for each "page" higher.
+
+(1 x 16kb pages)  = 01     (2 x 16kb pages)  = 02     (3 x 16kb pages)  = 03
+(4 x 16kb pages)  = 04     (5 x 16kb pages)  = 05     (6 x 16kb pages)  = 06
+(7 x 16kb pages)  = 07     (8 x 16kb pages)  = 08     (9 x 16kb pages)  = 09
+(10 x 16kb pages) = 0A     (11 x 16kb pages) = 0B     (12 x 16kb pages) = 0C
+(13 x 16kb pages) = 0D     (14 x 16kb pages) = 0E     (15 x 16kb pages) = 0F
+(16 x 16kb pages) = 10     (17 x 16kb pages) = 11     (18 x 16kb pages) = 12
+(19 x 16kb pages) = 13     (20 x 16kb pages) = 14     (21 x 16kb pages) = 15
+(22 x 16kb pages) = 16     (23 x 16kb pages) = 17     (24 x 16kb pages) = 18
+(25 x 16kb pages) = 19     (26 x 16kb pages) = 1A     (27 x 16kb pages) = 1B
+(28 x 16kb pages) = 1C     (29 x 16kb pages) = 1D     (30 x 16kb pages) = 1E
+(31 x 16kb pages) = 1F     (32 x 16kb pages) = 20     (33 x 16kb pages) = 21
+(34 x 16kb pages) = 22     (35 x 16kb pages) = 23     (36 x 16kb pages) = 24
+(37 x 16kb pages) = 25     (38 x 16kb pages) = 26     (39 x 16kb pages) = 27
+(40 x 16kb pages) = 28     (41 x 16kb pages) = 29     (42 x 16kb pages) = 2A
+(43 x 16kb pages) = 2B     (44 x 16kb pages) = 2C     (45 x 16kb pages) = 2D
+(46 x 16kb pages) = 2E     (47 x 16kb pages) = 2F     (48 x 16kb pages) = 30 
+(49 x 16kb pages) = 31     (50 x 16kb pages) = 32     (51 x 16kb pages) = 33
+(52 x 16kb pages) = 34     (53 x 16kb pages) = 35     (54 x 16kb pages) = 36
+(55 x 16kb pages) = 37     (56 x 16kb pages) = 38     (57 x 16kb pages) = 39
+(58 x 16kb pages) = 3A     (59 x 16kb pages) = 3B     (60 x 16kb pages) = 3C
+(61 x 16kb pages) = 3D     (62 x 16kb pages) = 3E     (63 x 16kb pages) = 3F
+(64 x 16kb pages) = 40
+
+** SPECIAL NOTICE ** There is now DUAL MMC1 Chipset handling avaliable which
+pushes the total PRG banking up to 32kb pages via 2 16kb pages PRG chips.
+
+This was quite a feat performed with the work of imid, EFX, star69, and Marat
+Fayzullin to get it to run, and because of this DRAGON WARRIOR III, and other
+"like" games now work!  This game for instance uses a 32kb banking mode
+between two MMC1 chips, and to make them work together they communicate with
+each other on the "4th" byte of the game image(not including the iNES header.)
+
+
+[CHR - (Range 1 x 8kb pages -> 64 x 8kb pages)]
+-There is NO MINIMUM required for CHR data because some games have the CHR
+ data imbedded into the PRG info.
+
+* NOTE: To figure out the exact size in bytes each of these pages are worth
+        just start at 1 x 8kb pages (aka: 8192 bytes) and just keep adding
+        8192 bytes more for each "page" higher.
+
+(1 x 8kb pages)  = 01       (2 x 8kb pages)  = 02       (3 x 8kb pages)  = 03
+(4 x 8kb pages)  = 04       (5 x 8kb pages)  = 05       (6 x 8kb pages)  = 06
+(7 x 8kb pages)  = 07       (8 x 8kb pages)  = 08       (9 x 8kb pages)  = 09
+(10 x 8kb pages) = 0A       (11 x 8kb pages) = 0B       (12 x 8kb pages) = 0C
+(13 x 8kb pages) = 0D       (14 x 8kb pages) = 0E       (15 x 8kb pages) = 0F
+(16 x 8kb pages) = 10       (17 x 8kb pages) = 11       (18 x 8kb pages) = 12
+(19 x 8kb pages) = 13       (20 x 8kb pages) = 14       (21 x 8kb pages) = 15
+(22 x 8kb pages) = 16       (23 x 8kb pages) = 17       (24 x 8kb pages) = 18
+(25 x 8kb pages) = 19       (26 x 8kb pages) = 1A       (27 x 8kb pages) = 1B
+(28 x 8kb pages) = 1C       (29 x 8kb pages) = 1D       (30 x 8kb pages) = 1E
+(31 x 8kb pages) = 1F       (32 x 8kb pages) = 20       (33 x 8kb pages) = 21
+(34 x 8kb pages) = 22       (35 x 8kb pages) = 23       (36 x 8kb pages) = 24
+(37 x 8kb pages) = 25       (38 x 8kb pages) = 26       (39 x 8kb pages) = 27
+(40 x 8kb pages) = 28       (41 x 8kb pages) = 29       (42 x 8kb pages) = 2A
+(43 x 8kb pages) = 2B       (44 x 8kb pages) = 2C       (45 x 8kb pages) = 2D
+(46 x 8kb pages) = 2E       (47 x 8kb pages) = 2F       (48 x 8kb pages) = 30
+(49 x 8kb pages) = 31       (50 x 8kb pages) = 32       (51 x 8kb pages) = 33
+(52 x 8kb pages) = 34       (53 x 8kb pages) = 35       (54 x 8kb pages) = 36
+(55 x 8kb pages) = 37       (56 x 8kb pages) = 38       (57 x 8kb pages) = 39
+(58 x 8kb pages) = 3A       (59 x 8kb pages) = 3B       (60 x 8kb pages) = 3C
+(61 x 8kb pages) = 3D       (62 x 8kb pages) = 3E       (63 x 8kb pages) = 3F
+(64 x 8kb pages) = 40
+
+
+[Sect. 5: - Miscellaneous Information on the NES Format]______________________
+
+* The End of the CART.NES file ...the Title]
+  If you wish you can add a title to your NES ROM and below shows you how to
+  do that manually, and the size limits for that title.
+
+  1) First at the very end of the ROM you will eventually ADD 128 bytes to the
+     ROM.  But first, which is part of this 128 bytes, is the addition of the
+     NES Title.  Starting at the first added byte type in the name normally in
+     the character part of the hexeditor.
+
+  2) Next, to finish this is successfully, go over to the HEXidecimal part of
+     the HEXeditor and add in double zeros (00) until you have added in a
+     a TOTAL OF 128 BYTES (which includes the the Title you added yourself.)
+     (So subtract the total bytes of the title from 128 so you do it right.)
+
+  3) If you did it right you now have successfully added a title to your NES
+     ROM and it will show in the title bar in the ROM checkers like NESImage.
+
+
+[Sect. 6: - Let's Get Cracking on Prepping Your RAW/FFE/PasoFami Image]_______
+
+* "RAW" Image Conversion to iNES
+
+  1) For starters check and see if that RAW NES rom image you got is or is not
+     interleaved.  (See #3 if it's interleaved.)
+
+  2) Great!  It's not interleaved so what you need to do is to just add 16
+     bytes onto the beginning of this ROM image.  Then just add the standard
+     NES header to the ROM as stated in Section 1, and then toy around with
+     the mappers until you can or can't get the game to work or do something.
+
+  3) Crap, it's interleaved, don't worry it's fixable.  What you need to do is
+     to write or find a program that will UN-interleave your ROM.  This is the
+     process of seperating all the even and odd bytes.  The even bytes are the
+     ROM (or PRG) data, and the odd bytes are the VROM (or CHR) data if that
+     exists.
+
+  4) Next, in MS-DOS, re-join the PRG and CHR data in the proper order. (Which
+     is PRG data before CHR data.)  First take the split ROM and VROM files and
+     name them something like PARODIUS.PRG(ROM) and PARODIUS.CHR(VROM)...
+     (Parodius is a japanese side shooter game I'm using for this description.)
+
+  5) Now type: copy /B PARODIUS.PRG+PARODIUS.CHR PARODIUS.NES
+     (This is a BINARY copy mode in DOS which will glue the two files together
+     where the PRG ends and the CHR begins.)
+
+  6) Now do as it says in Step #2 and just add the 16byte header to the top of
+     the NES rom, and then add the NES header as stated in Section 1.
+
+
+* "FFE" Image Conversion to iNES
+
+  1) To start check and see if the rom is in a standard file format as shown
+     in Section 3.  If it isn't check to see if it is 512 bytes larger than
+     normal.  If so, this is most likely a FFE header.
+
+  2) To remove this get into your HEXidecimal editor and just have it delete
+     the first 512 bytes from your NES rom.
+
+  3) Then just add a 16byte header to the top of the NES rom, and then add the
+     NES header as stated in Section 1.
+
+
+NOTE: If this rom ends up being interleaved as well just follow the guidelines
+      set above in the RAW rom format section for UN-interleaving a ROM.
+
+BE ADVISED that Some NES roms maybe seem to be 512 or 1024 bytes larger than
+normal.  This is because it either has a trainer, or a combination of a
+trainer and a FFE header.  My best advice to you is that if its a trainer
+leave it, if its a FFE header remove it.  If the rom is 1024 bytes its a combo
+of both, just remove the first 512 bytes and you'll be ok.
+
+
+* "PasoFami (*.PRG/*.CHR -ONLY-)" Image Conversion
+
+  1) Start by deleting that annoying PRM file.  This file is used by the
+     PasoFami emulator just as the 16byte header that iNES uses.
+
+  2) Next is the easy part, a simple binary copy (again I'll use Parodius as
+     the example.)  Type: copy /B PARODIUS.PRG+PARODIUS.CHR PARODIUS.NES
+     (This is a BINARY copy mode in DOS which will glue the two files together
+     where the PRG ends and the CHR begins.)
+
+  3) Now do as it says in Step #2 in the RAW section and just add the 16byte
+     header to the top of the NES rom, and then add the NES header.
+
+NOTE: Some PasoFami images such as Super Mario Bros. 2 for example are in the
+      Famicom Disk System format (EX: SMB2J.DKA) and can't be converted.  When
+      they can be, I'll add that info here.
+
+
+[Sect. 7: - Information (Recommended Tools for Converting iNES Images)]_______
+
+* RECOMMENDED TOOLS FOR USE IN THE ABOVE SECTIONS:
+
+HEXeditor - (ie: Norton Diskedit or Bedit) -I use bedit, it's tiny with lots
+of commands, and very efficient.
+
+READCHAR.EXE - This tool shows you the PRG and CHR data in a RAW, FFE,
+PasoFami, and NES file.  With this you can determine the correct sizes of the
+yet to be determined PRG and CHR pages.  Also if you notice that things are
+out of order (in a PRG, CHR, PRG, etc) format this will show you that the game
+is most likely interleaved.
+
+UNLACE.EXE - This tool is something I had custom made for me.  What this does
+is uninterleaves NES roms from the RAW, FFE (removes the trainer by use of
+command), and iNES format.  What that means is that it splits up to rom and
+puts all the PRG data in one file called (ROM) and all the CHR data in a file
+called (VROM).  And as my manual says above you just got to binary copy them
+back into one file ROM+VROM = NES rom.  Then add the iNES header and you just
+tinker with it until it works, that's if its supported yet.
+
+Also to save time, I do recommend the use of DiskDude's NESimage from version
+3.30+ because it can show you in its menu all the PRG and CHR sizes, as well
+as all the other options avaliable to you.  This is just for people that don't
+want to hexedit their rom and just want to get it working right away...
+impacient aren't you? :)
+
+NESFIX.EXE - If you do use a crummy editor like DiskDude's NES Image remember
+to clean out bytes 8->15 so games will work in Exteneded iNES Header format
+compatible emulators.  To do this find and use NESFIX, and just run it like
+so... NESFIX CART.NES and it will clean out the extra data.  Not only that
+this will save time in that it takes a fraction of the time to do it one by
+one manually.
+
+And finally I recommend you have a NES emulator that is as far along in
+development, or farther, than iNES, and a few smaller sized games to study
+with in conjunction with my text.
+
+
+[Sect. 8: - UPDATES (The History of the iNES Header/Format Documentation)]____
+
+* UPDATE INFORMATION:
+
+[2.0] - Wow v2.0! "SHOW ME THE MUSHROOM!" - Toad McGuire  ...More mappers! =)
+
+- In Sections 1-8 I reformatted some text and removed useless info.
+- In Section 1 added a snipit on what byte 7 does in conjunction with byte 6
+  and explained that 7 = Tens digit and 6 = ones digit for the 16+ mappers.
+  And fixed the chart so that 0 is the beginning digit, not 1.  Stupid error.
+- In Section 2 I added a notice about NESFIX so people can easily repair there
+  polluted headers so they will work in Extened iNES Header format players.
+- Added in Section 2 the all important further extension to the Extended iNES
+  Header format created by FanWen.  Mappers 66-70 80-84 are now added, and a
+  rename to the Konami VRC 2 1a and 1b to VRC 1b and 1a.
+- Reformatted the CHR and PRG cart size lists to fit into 1 screen in Section
+  2 as well.
+- And in Section 7 I added the recommended tool of NESFIX.EXE to remove that
+  nasty garbage out of iNES headers.
+- More BS errors in grammar and spelling fixed again.  Common occurance is it
+  not? >:)  Maybe I need to buy Hookt awn Fawniks and Lurn too Reed. =)
+- In this Section 8 it got to damned big so now I'm limiting the list to the
+  three most current revisions for now on.  (Like anyone really looks back to
+  read that stuff anyways, the important stuff is above.)
+
+[1.9] - *SMB Fanfare please..doo doo doo, dee doo, doo, doo ..iNES 0.7 is out!
+
+- Added to Section 1 notice of basically where the new Extended iNES format is
+  layed out and called from, and an "I TODL YOU SO NOTICE." >:]
+- Added to Section 2 a new MAPPER chart for all the new iNES mappers that are
+  in iNES v0.7.
+- Added to Section 2 the explanation and example of how the new iNES Extended
+  Header format works and is used.
+- Added to Section 2 new MAPPER chart notice that the MMC5 chipset is now
+  emulated 100%, I checked CastleVania III and it ran perfectly!  Also the
+  MAPPERs 1 and 4 work near 100% now, the bugs are fixed!
+- Added to Section 2 new MAPPER chart notice that the MMC1 and MMC3 chipset
+  emulation has been bugfixed, therefore more games run that didn't before.
+- Added to Section 2 Instructions on how to "clean" up games that won't work
+  in the new "Extended iNES v0.7 Format" because some people felt it smart to
+  litter the games with there name, etc. into the header, thanks jerkoffs.
+- Added to Section 3 for "Stinger aka: Twin Bee 2", yet another cart size.
+- Added to Section 3 a little more info to the cart sizes with imbedded CHR.
+- Added to Section 4 sketchy info on why Dragon Warrior III and other 32kb
+  banking mode games are now playable in iNES v0.7 format.
+- Changed out two quotes, added two more appropriate ones.
+- Fixed a few text errors again, sorry I usually type this late at night.
+
+[1.8] - A new attitude... Another addition/fix again!  Screw iNES NESticle me!
+
+- Added to Section 1 a warning about filling up the 8th through 16th byte in
+  an iNES compatible ROM set.
+- Added to Section 2 NEW Mapper info which is that Mapper 7 and the long
+  awaited Mapper 9(MMC2 chip for Punch-Out!! is now functional.
+- Added and rewrote Section 2's working mappers list for the latest players.
+- Added to Section 3 a few new cart sizes so look up Dragon Warrior, Tetris 2,
+  and Mad Max.
+- Fixed this list to no longer support iNES, now all compatibility for all the
+  latest players is dated. (IE: June 12, 1997)
+- A small personal thanks section at the top of the list.
+- Again I have fixed a few grammatical/spelling errors, yah I know not again.
+
+[End Of File]  -Enjoy!
+

@@ -1,0 +1,104 @@
+
+Executeables, "Program Files":
+------------------------------
+
+GXB*,AXF,BIN     Arm eXecutable Format: binary executable which starts with a
+                 branch and 6 address fields
+
+                 This is placed in gp32 ram starting at location 0xc000000. The
+                 entry point is the starting location and the entry is
+                 performed in ARM (not thumb) mode. Here is the header format:
+
+                            b SkipHeader
+                            DCD Start Of Rom Code       @ (?)
+                            DCD End Of Rom Code         @ (?)
+                            DCD Start Of BSS Section    @ (?)
+                            DCD End Of RAM Sections     @ (?)
+                            DCD Start Of DATA Section   @ (?)
+                            DCD End Of RAM Sections     @ (?)
+                            DCD 0x44450011
+                            @ ... sometimes more info here...
+                 SkipHeader:
+                            b EntryPoint
+
+   GXE           Gamepark eXecutable Encryption info: contains name, icon,
+                 encryption info.
+   GXC           Gamepark eXecutable Contents: contains the remaining part of
+                 the executable data.
+
+                 Usually only the first X bytes of a commercial gxc is
+                 encrypted. The percentage of the file that is encrypted is
+                 controlled by the encryption program. (But often it is a very
+                 low percentage.) Here is the format
+
+                 Header (20 bytes long)
+                 Encypted binary data (X% of file)
+                 Unencrypted binary data (100-X% of file)
+
+                 If you remove the 20 byte header and unencrypt the file, then
+                 the resulting data is identical in all other respects with a
+                 .gxb file.
+
+   GXF           Gamepark eXecutable Free/Format: plain executable with icon/
+                 application info
+                 [file header chunk]
+                    0 -  3  : File ID. "gxf " (4byte)
+                    4 -  7  : file size - 8 (4byte)
+                 [info header chunk]
+                    8 - 11  : info Header Size - (4byte)
+                   12 - 12  : icon image flag (if 1, the icon image exists.) (1byte)
+                   13 - 13  : the length of application program title= t_len (1byte)
+                   14 - 13 + t_len : application program title(t_len byte)
+                   14 + t_len -  13 + t_len + 256 : icon image data (256 byte)
+                 [data chunk]
+                  270 + t_len - 273 + t_len       : axf (ARM excutable file) data size (4byte)
+                  274 + t_len -                   : axf data (plain binary)
+
+   FXE           Scrambled (light encryption) binary file & graphic icon for
+                 free games/apps from GP & third party developers. You have to
+                 use Game Park's free launcher to run these on your gp32. When
+                 the launcher unscrambles these files and removes the icon, the
+                 result is identical to a .gxb file. They are usually found in
+                 the gp:\GPMM directory.
+
+Resource Files:
+---------------
+
+   GPG          Graphic File
+                0 - 3   : File ID. "gpg " (4byte)
+                4 - 7   : Date size = file size - 8 (4byte)
+                8 -     : Data
+
+   SEF          PCM File
+                0 - 3   : File ID. "sef " (4byte)
+                4 - 7   : Data size = file size - 8 (4byte)
+                8 -     : Data
+
+   GFT          Font File
+                0 - 3   : File ID. "gft " (4byte)
+                4 - 7   : Data size = file size - 8 (4byte)
+                8 -     : Data
+
+Distribution Archives:
+----------------------
+
+   ZPK           ZPacKed archive: contains directory structure of an encrypted
+                 application
+   FPK           Free zPacKed archive: contains directory structure of a free
+                 application
+   GPK           unencrypted zPacK archive
+
+   SMC,GP*       SmartMedia Card memory dump file
+
+Security:
+---------
+
+   GPS           GamePark uSer: contains the username, password, GP32 ID (all
+                 in encrypted format)
+   GPM*          GamePark Media: contains the gamename (not defined), size (not
+                 defined), SMC ID
+
+  *) not official
+
+[info shamelessly copied from darkfader's site and some other source i dont
+ remember.]

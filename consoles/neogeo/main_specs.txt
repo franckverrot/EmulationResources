@@ -1,0 +1,9 @@
+- Processsors: a Motorola 68000, 12.5 MHz speed, and a Z80A.
+- Memory of Neo Geo cartridge: 58 MBit DRAM and 512 KBit VRAM.
+- Adicional memory of Neo Geo CD: 64 KBit SRAM.
+- Resolution: 320x224.
+- Palette: 65536 colour pallete, but only 4096 simultaneously on screen.
+- Sprites: 380 sprites on screen maximum.
+- CD speed: American version 1x, Japanese version 2x (CDZ)
+- Sound: chip Yamaha 2610.
+- Support "hardware scaling".

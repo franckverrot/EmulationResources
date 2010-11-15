@@ -1,0 +1,1307 @@
+Atari Jaguar Game Cheats and Codes
+----------------------------------------------------------------------------
+Compiled by Clay Halliwell (aka Earl C. Halliwell)
+Last updated December 18, 1998
+
+As seen in the "Atari Jaguar Official Gamer's Guide", by Zach Meston and J. 
+Douglas Arnold.
+
+Additions/corrections to:
+     earl.halliwell@dyess.af.mil
+
+The latest version of this file can be snagged from:
+     Atari Gaming Headquarters
+        http://www.atarihq.com/jaglynx/jag/jagcheat.txt
+
+New info in this update:
+     I-War Level Codes (thanks to Andrew Seed, via Carl Forhan)
+     Skyhammer Cheat (thanks to Chris Blackmore, via Dave Homenuck)
+     Super BurnOut Display Version (thanks to Elysee Ade, via Fred Moreau)
+
+
+Table of Contents
+-----------------
+     JGT   Jaguar General Tricks
+     AVP   Alien vs Predator
+     AKA   Atari Karts
+     BLD   Baldies
+     BTM   Battlemorph
+     BLI   Blue Lightning
+     B13   BrainDead 13
+     B2K   Breakout 2000
+     BSF   Brutal Sports Football
+     BIF   Bubsy in: Fractured Furry Tails
+     CAF   Cannon Fodder
+     CHF   Checkered Flag
+     CLD   Club Drive
+     CBM   Cybermorph
+     D2K   Defender 2000
+     DOM   Doom
+     DRL   Dragon's Lair
+     EDD   Evolution: Dino Dudes
+     FFL   Fight For Life
+     FLB   Flashback
+     FLP   Flip Out!
+     HIL   Highlander: Last of the MacLeods
+     HST   Hover Strike/Hover Strike: Unconquered Lands
+     IS1   Iron Soldier
+     IS2   Iron Soldier 2
+     IWR   I-War
+     KAN   Kasumi Ninja
+     MTR   Memory Track
+     M3D   Missile Command 3D
+     MST   Myst
+     NBJ   NBA Jam: Tournament Edition
+     PTM   Pitfall: The Mayan Adventure
+     PDR   Power Drive Rally
+     PRG   Primal Rage
+     RDN   Raiden
+     RMN   Rayman
+     RNR   Ruiner
+     SKH   Skyhammer
+     SPC   Space Ace
+     SBO   Super Burnout
+     S3D   Supercross 3D
+     SDC   Syndicate
+     T2K   Tempest 2000
+     THP   Theme Park
+     TII   Towers II
+     TMF   Trevor McFur in the Crescent Galaxy
+     TAF   Troy Aikman NFL Football
+     ULV   Ultra Vortek
+     VDS   Val d'Isere Skiing and Snowboarding
+     VGR   Vid Grid
+     VLM   Virtual Light Machine
+     W3D   Wolfenstein 3D
+     WTR   World Tour Racing
+     WRM   Worms
+     ZE5   Zero 5
+     ZL2   Zool 2
+
+Conventions
+-----------
+     "Type" or "Press", with lists of keys separated by commas, means to 
+press the keys in order, without holding them down after they've been 
+pressed.
+     "Hold", with lists of keys separated by plusses, means to press and 
+hold the keys in order.  Unless instructed otherwise, don't release the 
+key(s) until the end of the code.
+     "Type" or "Press", in combination with plusses means to press and hold 
+the keys in order, and then release.
+     "1...4" means to press any single number in the range specified.
+     "A[n]" means to press the specified button or key "n" times.
+     The three-character codes preceding each game title are provided so you 
+can use your editor's search function to go directly to an entry.
+
+Purpose
+-------
+     This document contains level codes and passwords, cheats, cool bugs, 
+and simple gameplay tricks.  It does not contain fighting game moves, walk-
+throughs, maps, nor anything else which properly belongs in a strategy FAQ.
+
+Codes Wanted
+------------
+     The following codes are known to exist and WANTED: Air Cars cheats, 
+Double Dragon V "Play as Shadow Master" code, Super Burnout "Move to the 
+Head of the Pack" cheat, and Ultra Vortek "Play as Guardian" and "Play as 
+Carbon" codes.
+
+     No cheats/tricks/codes are known to exist for the following games: 
+Attack of the Mutant Penguins, Dragon: The Bruce Lee Story, Fever Pitch 
+Soccer, Pinball Fantasies, Sensible Soccer, White Men Can't Jump, and Zoop.  
+But if you discover something, by all means please let me know!
+
+Vanity Zone
+-----------
+     The following are codes I discovered/documented myself: AvP "Freeze 
+Alien Queen", Baldies level codes, Battlemorph cluster codes (with a nudge 
+from Don Thomas) and "Bonus Points" code, Cybermorph level codes and Boss 
+Rampage, Doom "Fire Weapons in Automap" and "Music During Gameplay", 
+Flashback level passwords, Highlander "Rogues Gallery" and "Chicken 
+God/Teleportal", Hover Strike "Weird Ground Texture Colors" and "Vector 
+Graphics Mode", Iron Soldier "Scroll Title Screen", "Swivel Mech View", and 
+"Rapid Left/Right Rotation", Iron Soldier 2 "Instant Demo", Myst saved game 
+codes, Power Drive Rally "Change Car Color", Primal Rage "Alternate 
+Character Colors", Rayman "Toggle Sound Effects", Tempest 2000 "Pause Bug" 
+and "Invisible Web", VLM "Effects Edit Mode" and "External Input Mode", and 
+Wolfenstein 3D "Previous Level".
+
+
+JAGUAR GENERAL TRICKS (JGT)
+---------------------
+Stupid JagCube Tricks:
+     As soon as the spinning cube appears, press and hold Pause (or, press 
+and release Pause+Option before the letters start to fall), then:
+     Zoom In     Up
+     Zoom Out    Down
+     Spin Left   Left
+     Spin Right  Right
+     Reverse     0
+
+Release Pause to continue the boot sequence.  Press Reset (* + #) or any 
+action button to skip the remainder of the boot sequence.
+
+Remove "PAUSED" Message:
+     Press 1+3 when paused.  Doesn't work with all games.
+
+
+ALIEN VS PREDATOR (AVP)
+-----------------
+Cheat Codes:
+All cheats entered anytime during play.  Cheat II is a superset of Cheat I.
+
+Cheat I ("Hold that Fuji!") Enable:
+     Hold Pause+Option.
+     Press 1+3, then release (1+3 only).
+     Press 2+5+7+9.
+     Predator laugh confirms.
+
+Cheat I Commands:
+     Toggle Weapon Access  Option+1...4
+     Reload All Ammo       Option+1+2+3+4 (simultaneous)
+     Raise Security Level  Option+6
+     Lower Security Level  Option+9
+     Toggle Motion Tracker Option+8
+
+Cheat II ("Banana Stops") Enable:
+     Press Pause+Option+6+1+3, then release.
+     Press B,A,9,A,9,A ("BANANA")
+     Press *,Option,6  ("STOPS")
+     Press #,*         ("POST")
+     Press *,Option    ("STOP")
+     Press 2,Option    ("TOP")
+     Predator laugh confirms.
+
+Cheat II Commands:
+     Toggle Weapon Access  Option+1...4
+     Reload All Ammo       Option+1+2+3+4 (simultaneous)
+     Toggle Cheat          Option+5
+     Raise Security Level  Option+6
+     Lower Security Level  Option+9
+     Toggle Motion Tracker Option+8
+     Up Level              Option+A
+     Down Level            Option+B
+
+After entering the Cheat II code, using the Toggle Cheat command will give 
+you unlimited life and ammo (the ammo bars will run down, then refresh 
+themselves; the energy bar will run down to zero and stop).  To get 
+unlimited ammo, you must already have some ammo in the weapon.  The Up/Down 
+Level commands cycle through each sublevel, both alien ships, and all the 
+air vents.  This cheat works with all characters.
+
+Debug Info:
+     Hold Pause.
+     Press Option.
+     Press 1+3.
+     Release Pause.
+     Press Option.
+     Shotgun blast confirms.
+
+"dec(nn,nn)" is your map grid coordinates.  "hex(nnnn,nnnn)" is your precise 
+coordinates (in hexadecimal).  "1(nn)" is the current level.
+
+Freeze Alien Queen:
+     Anywhere inside the Queen's lair, save your game, then reload.  Awaken 
+Queen by walking through the lair entrance.  The Queen can be damaged while 
+frozen, but won't actually die until you "unfreeze" her.
+
+View Alien Ending:
+     Enable the "Banana Stops" cheat.  Must have at least one fully-grown 
+cocoon.  Get killed.  When "Cocoon Hatching" appears, press Option+A or 
+Option+B.
+
+
+ATARI KARTS (AKA)
+-----------
+Skip to Miracle Race:
+     The Beginner Challenge Miracle Race must be playable.  Start this race, 
+then reset (* + #) at any time.  Start a new game and select any of the 
+higher Challenges.  The Miracle Race will still be highlighted and can be 
+played.
+
+Spinout Bug:
+     On any California Highway track, pause the game while driving through a 
+puddle of water, then unpause.  You will be spinning at a speed proportional 
+to how fast you were going when you paused.  You can speed up the spin by 
+pressing the accelerator while spinning.
+
+
+BALDIES (BLD)
+-------
+Level Codes:
+   Green          Ice            Circus         Desert         Hell
+   #1   (none)    #21  26481912  #41  99799799  #61  69556532  #81  99589435
+   #2   69317691  #22  37736169  #42  71394421  #62  92826938  #82  26997667
+   #3   32585431  #23  29329995  #43  37118763  #63  38293232  #83  72143164
+   #4   53199313  #24  25849779  #44  51776684  #64  92729513  #84  25454616
+   #5   95568176  #25  44694221  #45  99584621  #65  23835728  #85  99162722
+   #6   14799741  #26  25259781  #46  96193782  #66  46365977  #86  15969299
+   #7   99112932  #27  26827251  #47  55992751  #67  42127597  #87  22789619
+   #8   25579427  #28  37495714  #48  75326691  #68  59744212  #88  19783692
+   #9   94554648  #29  25899273  #49  36296862  #69  66652545  #89  32927721
+   #10  95555366  #30  25141462  #50  17228223  #70  92969395  #90  19892933
+   #11  95532656  #31  98435959  #51  75478824  #71  22169481  #91  99997799
+   #12  22938689  #32  69667792  #52  67788234  #72  93671736  #92  17214394
+   #13  89232323  #33  24164317  #53  13324585  #73  52999329  #93  33677118
+   #14  22513979  #34  55616442  #54  35133199  #74  92757849  #94  45816776
+   #15  33728582  #35  96722219  #55  69751568  #75  14242694  #95  19296584
+   #16  66977534  #36  56299991  #56  11447799  #76  12857259  #96  29867193
+   #17  22597714  #37  28619972  #57  29399112  #77  12562827  #97  15557992
+   #18  94212475  #38  98692371  #58  72254579  #78  43177495  #98  17956326
+   #19  65545266  #39  22721793  #59  89446554  #79  32752899  #99  23668296
+   #20  26395999  #40  99933281  #60  69653555  #80  22654141  #100 31272228
+
+
+BATTLEMORPH (BTM)
+-----------
+Cluster Codes:
+All codes entered as new player name.  You will be given all weapons and 
+magazines you would have earned up to that point (including secret weapons).  
+Note that on the load-game screen it will say "Zephyr Cluster" even after 
+successfully entering a code.
+     Zephyr     (none)
+     Carmine    ATDC2
+     Ferial     ATDC3
+     Pan Alma   ATDC4
+     Straussen  ATDC5
+     Pyroxine   ATDC6
+     Cygnus     ATDC7
+     Pernish    ATDC8
+
+Quake:
+     Destroy most of the trees (at least 400, of 476 trees total) on all the 
+worlds of the first cluster.
+
+Comedy Mode:
+     Enter "A NAME" as new player name.  Sound confirms.  Changes Skylar's 
+voice, cockpit graphics, and between-level FMV voiceover.
+
+Extra Ships:
+     If the last two digits of your score are "99" on completion of a world, 
+you are awarded two extra ships.
+
+Bonus Points:
+     If the last two digits of your score are "42" on completion of a world, 
+you are awarded 99,958 bonus points ("Hitchhiker's Guide" bonus).
+
+
+BLUE LIGHTNING (BLI)
+--------------
+Comedy Mode:
+     At the option screen, hold 0+1+2+4+5+6+7+9.  Thud sound confirms.  
+Changes voices and adds an extra FMV segment to the end game.
+
+Instant Repair:
+     Comedy mode must be enabled.  Anytime during play, press *.
+
+
+BRAINDEAD 13 (B13)
+------------
+Instant Replay:
+     Press Pause, Pause to replay the current section from the start.
+
+
+BREAKOUT 2000 (B2K)
+-------------
+Cheat Codes:
+Enter all cheats after bricks are formed, but before any balls are launched.
+     99 Balls        1+3+5
+     Skip Level      1+6+7
+     Skip Phase      1+5+7
+     Super Ball      7+8+9+1
+     Plasma Cannon   7+8+9+2
+     Attract Ball    7+8+9+3
+     Catch On        7+8+9+4
+
+Banish Robots:
+     When robots appear during gameplay, press * + #.
+
+
+BRUTAL SPORTS FOOTBALL (BSF)
+----------------------
+Bypass League Mode Bug:
+Enter at the password screen.
+     RMVVKL343
+     333VZ6387
+
+
+BUBSY IN: FRACTURED FURRY TAILS (BIF)
+-------------------------------
+Level Codes:
+     #1   (none)     #6   184792     #11  673167
+     #2   392652     #7   812615     #12  792323
+     #3   458227     #8   781367     #13  672328
+     #4   958936     #9   126712     #14  782389
+     #5   739294     #10  236721     #15  672345
+
+
+CANNON FODDER (CAF)
+-------------
+Regain Lost Weapons:
+     After a troop has been wiped out, if you have at least two men left and 
+some weapons, split off another troop but don't give it any grenades or 
+bazookas.  The new troop will then have the dead troop's weapons.
+
+Quick Map Display:
+     Anytime during play, press *, or 0, or #.
+
+
+CHECKERED FLAG (CHF)
+--------------
+Night Racing:
+     At the Options menu, highlight "Weather", then type 8,4,7,3.
+
+
+CLUB DRIVE (CLD)
+----------
+Planet Todd:
+     At the main menu, highlight and select "World", then press 4+2 
+("Hitchhiker's Guide" cheat).
+
+Debug Info/Camera Enable:
+     Anytime during play, press 8+6 (either controller).  This displays 
+three rows of hexadecimal numbers, and gives you access to the Drop Camera 
+and Fixed Camera views in all play modes.
+
+
+CYBERMORPH (CBM)
+----------
+Sector Codes:
+     #1  1008
+     #2  1328
+     #3  9325
+     #4  9226
+     #5  3444
+     #?  6009 ("Unknown" sector)
+
+Unlimited Ammo:
+     At the Control Options screen, hold 1+3+5+7+8+9.  Sound confirms.
+
+Boss Rampage:
+     Start a new game, then enter "1328" to skip to Sector 2.  Finish 
+Sectors 2 through 4.  Enter "1008" to skip to Sector 1.  Finish Sector 1.  
+You will be forced to fight the Sector 1, 2, 3, and 4 bosses consecutively.
+
+
+DEFENDER 2000 (D2K)
+-------------
+Cheat Codes:
+All codes entered on high score entry screen (any play mode).  Codes remain 
+enabled until the cartridge EEPROM is cleared.
+     Plazma Pong          NOLAN ("Perfect" confirms)
+          Plazma Pong is added to the list of available games.
+     Flossie Defender     OVINE ("Baaa" confirms)
+          Play Flossie Defender by pressing any button to choose a
+          Defender Plus game, then pressing "A" to start.
+     Level Skip           BEEST ("Baaa" confirms)
+          Defender 2000 only.  Anytime during play, press "3" to skip
+          a level, "6" to go to the warp screen.
+
+Huge Bonus:
+     In Defender 2000, catch a falling humanoid as the wave is ending.
+
+
+DOOM (DOM)
+----
+All codes entered during gameplay.  Cheats are disabled in Co-Op and
+Deathmatch modes.
+
+Level Select:
+       1-9  1...9+Pause
+        10  A+Pause
+     11-19  A+1...9+Pause
+        20  B+Pause
+     21-24  B+1...4+Pause
+
+God Mode:
+     Pause, then * + Pause
+
+Very Happy Ammo Mode (full keys, weapons, armor and ammo):
+     Pause, then # + Pause
+
+Fire Weapons in Automap:
+     Hold C+B (or whichever buttons are configured as Use & Fire).
+
+Music During Gameplay:
+     Start a Deathmatch or Co-Op game on Area 23.  Exit the level, press any 
+button to start the congratulation text, then have either (but only one!) 
+player reset and start a new Deathmatch or Co-Op game.  Now one player's Jag 
+will be playing music instead of sound effects.
+
+
+DRAGON'S LAIR (DRL)
+-------------
+Instant Replay:
+     Press Pause, Pause to replay the current section from the start.
+
+
+EVOLUTION: DINO DUDES (EDD)
+---------------------
+Infinite Time:
+Enter at the password screen.
+     <AC>
+     "TIME STANDS"
+     <OK> (thunderclap confirms)
+     <AC>
+     "STILL FOREVER"
+     <OK> ("Okay" and witchdoctor chant confirms)
+
+Infinite Dudes:
+Enter at the password screen.
+     <AC>
+     "ONCE DEAD"
+     <OK> (thunderclap confirms)
+     <AC>
+     "TWICE BORN"
+     <OK> (Belch and witchdoctor chant confirms)
+
+Level Passwords:
+     #1   ROUND ONE        #28  PENAL COLONY      #55  STAGE COACH
+     #2   LIBERTY ISLAND   #29  RELIEF ART        #56  QUAY BORED
+     #3   STONE WALL       #30  TRIBAL DANCE      #57  SPLASH DOWN
+     #4   G MEN            #31  SODA FOUNTAIN     #58  BUG POLITICS
+     #5   WILD WEST        #32  PARKING SPACE     #59  SHAKE SPEAR
+     #6   LEMON ENTRY      #33  PIZZA DUDE        #60  SCHOOL ZONE
+     #7   WAGON WHEEL      #34  CROW FLIES        #61  PINK MARBLE
+     #8   OIL DRUM         #35  TILED ROOF        #62  ROLLING PLAINS
+     #9   MOON ORBIT       #36  SLATE MISSING     #63  ICON DRIVE
+     #10  HARD ROCK        #37  OPENING TIME      #64  CARROT TOP
+     #11  TRIP AND FALL    #38  INNER PEACE       #65  QUILL PEN
+     #12  ALARM CLOCK      #39  BAD DOG           #66  TUTTI FRUTTI
+     #13  BIG COUNTRY      #40  SOUR BELLY        #67  PUBLIC ENEMY
+     #14  HOG TIED         #41  LARGE MUG         #68  BIG END
+     #15  CAN CAN          #42  HALF A BET        #69  TAN PARLOR
+     #16  CUTE MOUSE       #43  SING SING         #70  NEVER READY
+     #17  SPARK PLUG       #44  BROWN COW         #71  SHARK FANGS
+     #18  PONY EXPRESS     #45  IRON HORSE        #72  STOOL PIGEON
+     #19  PADDED CELL      #46  WHITE MALE        #73  PROM QUEEN
+     #20  LOG PLUME        #47  BOX OFFICE        #74  RED LETTER
+     #21  CANVAS SAIL      #48  CORNY FUR         #75  CORN PONE
+     #22  GOLDEN ERA       #49  ATOM CAT          #76  BILGE PUMP
+     #23  WIDE SEAT        #50  FREE WHEELING     #77  SIXTY FOUR BIT
+     #24  BAD KARMA        #51  BRUSH FIRE        #78  HALF MAST
+     #25  CRASH BARRIER    #52  CAR BRA           #79  WALKING BOSS
+     #26  LIME GLASS       #53  PORK PIES         #80  SPACE TO LET
+     #27  SURF UP          #54  STORMY WEATHER
+
+
+FIGHT FOR LIFE (FFL)
+--------------
+Passwords:
+Enter on character select screen after pressing Option.
+     Demo Mode (default)    JAGUARTIME (or 1+5+9)
+     All Special Moves      IWANTPOWER (or 1+3+5+9)
+     Play Junior vs Junior  LOVEJUNIOR (or 1+3+5+7+9)
+          (Morph as Junior: C+U,L,D)
+
+Shorter Junior Battle:
+     Defeat Junior the second time with a ring-out.  When the next fight 
+begins, pause and rewind to before the electrocution.  
+
+
+FLASHBACK (FLB)
+---------
+Level Passwords:
+                                Easy     Medium   Hard
+                                -----------------------
+     Stage 1 - Planet Titan     LETY     RISING   RODEO
+     Stage 2 - New Washington   BOXER    ORDO     BINGO
+     Stage 3 - Death Tower      EAGLE    PROFIT   LSTED
+     Stage 4 - Earth            STKTON   PRIZE    DARTS
+     Stage 5 - Secret Base      TICKET   SKAEPS   BUDDY
+     Stage 6 - Morph Planet I   SUITE    HITTER   MUSIC
+     Stage 7 - Morph Planet II  PHASER   TWIN     SHOGI
+
+
+FLIP OUT! (FLP)
+---------
+Cheat Codes:
+Enter during game, before play starts.  Sound confirms.
+     Finish Match        7,7,9,8,8,9,#
+     Programmer's Heads  1,4,2,8,3,7,2,2
+          (must be a level with three "cheerleader" aliens)
+
+Enter on map screen.  Sound confirms.
+     Access All Levels   7,7,9,8,8,9,9
+
+
+HIGHLANDER: LAST OF THE MACLEODS (HIL)
+--------------------------------
+Cheat Codes:
+Enter anytime during play.  No confirmation.
+     Invulnerability             4,1,3,3,5,6,4
+     Teleport to Rogues Gallery  2,1,8,8,3,5,3,8,9
+     Gain All Vital Objects      9,4,4,6,9,2,1,3
+          (must enter before any items collected; messes up Option
+          button)
+
+Rogues Gallery:
+     The Gallery is hidden in the canyon, behind the large tall rock with 
+the sniper on top.
+
+Chicken God/Teleportal:
+     To gain the Chicken God and activate the Teleportal, place a flower in 
+the vase in the Rogues Gallery.
+
+
+HOVER STRIKE/HOVER STRIKE: UNCONQUERED LANDS (HST)
+--------------------------------------------
+Cheat Codes:
+Enter on the Mission Select screen.  All combinations MUST be pressed 
+simultaneously... this may take a couple of tries.  Sound confirms.
+     Change Globe Speed/Direction          4/6
+     Change Globe Size (CD)                Up/Down
+     Alternate External Monitor (cart)     Right+C+1+4+5
+     Alternate "Ammo Depleted" Cue (cart)  C+4+8
+     Unlimited Weapons/Energy/Shields      Down+3+4+6+7
+     Extra Lives                           3+6+9+#
+     Level Skip                            2+4+6+7+8+9
+     Enable Secret Bonus Missions:
+                              Level 1      Up+2+3+6
+                              Level 2      Down+2+6+7+8
+                              Level 3      Right+3+5+6
+                              Level 4      Up+2+5+8
+                              Level 5      Right+2+4+5+6
+
+Enter anytime during gameplay.
+     Toggle Day/Night                      Up+A+B+C+7
+     Toggle Debug Mode                     Up+A+B+C+6
+          (upper-right number is the current frame rate)
+     Weird Ground Texture Colors (cart)    Up+A+B+C+3
+     Vector Graphics Mode (CD)             Up+A+B+C+3
+     Cycle Background Music (cart)         Up+A+B+C+0
+          (Brief delay before music restarts.  If music doesn't
+          restart, press 0 to make sure you didn't turn music off.)
+     
+
+IRON SOLDIER (IS1)
+------------------
+Cheat Codes:
+Type on the Options screen.  Border flash confirms.
+     Enable "Insane" Difficulty Level  6,8,2,4 ("OUCH" on phone keypad)
+     Access All Levels and Weapons     3,7,6,6,8,2,4,2
+     Infinite Ammo                     2,7,2,8,3,7 ("CRATES")
+     Instant Mission Pass/Fail         2,8,8,8,6,6,7,7,3,7,7
+         (during gameplay, press * to fail, # to pass)
+
+Enter anytime during play.
+     Single-Frame Advance   Pause, then 1 or 3 to advance
+     Rapid Rotation         A+C while turning
+     Display Mission Stats  8
+
+Scroll Title Screen:
+     On the scrolling title screen, once the "Iron Soldier" logo appears, 
+use the joypad to scroll the screen up and down.
+
+Swivel Mech View:
+     At the mech configuration screen, select add or remove weapon, then 1 
+or 2 to swivel your mech (doesn't go all the way around).
+
+Almost Full Repair:
+     When damaged to the point that you get a Low Energy warning, launch a 
+Cruise Missile and hit yourself with it.
+
+
+IRON SOLDIER 2 (IS2)
+--------------------
+Cheat Codes:
+Type on the Options screen.  Option screen exit confirms.
+     Access All Levels and Weapons     5,2,6,2,0,4,8,1
+     Infinite Ammo                     1,4,8,8,2,5,0,2
+     Invulnerability                   8,3,0,5,5,7,2,6
+     Instant Mission Pass/Fail         3,4,4,9,5,2,2,0,7,1,6
+          (during gameplay, press 0 to fail, # to pass, * to die)
+     Combo Cheat (all of the above)    9,7,0,0,2,3,8,6,6,5,4,1
+     Enable "Insane" Difficulty Level  6,8,2,4 ("OUCH" on phone keypad)
+     Play as Satyr War Strider         7,2,8,9,7,6,6 ("SATYR ON")
+          (use Option to cycle weapons; don't run out of ammo in any one
+          weapon, or you'll be stuck with the weapon just before it)
+     View Endgame Sequence             7,2,4,4,9,8,0,1
+          (then select "Start Game" from main menu)
+
+Enter anytime during play.
+     Single-Frame Advance   Pause, then 1 or 3 to advance
+     Rapid Rotation         A+C while turning
+     Display Mission Stats  8
+
+Instant Demo:
+     Press Option on any menu screen.
+
+Jump to Exit:
+     At the mech configuration screen, press A to jump the cursor to the 
+Exit box.
+
+Almost Full Repair:
+     When damaged to the point that you get a Low Energy warning, launch a 
+Cruise Missile and hit yourself with it.
+
+
+I-WAR (IWR)
+-----
+Secret Options:
+At the main menu, press 2+4+6+8. No confirmation; does not survive resets. 
+The option menu will now have a texture toggle option (does nothing), and a 
+node select option.
+
+Level Codes:
+Entered on option screen (Secret Options must be enabled). Select Enter 
+Code, then use number keys to enter code. Left/right moves cursor, A/B/C 
+confirms code. Select Start to begin.
+     #1   Alpha Matrix     3495823456
+     #2   Data Core        7983456383
+     #3   Central Web      5282259782
+     #4   Outer Ring       9452382725
+     #5   Home Node        7357286586
+     #6   Core Dump        3985615345
+     #7   Internal Store   6315678561
+     #8   Vector Five      1238261234
+     #9   AI Reserve       3982612389
+     #10  Safe Segment     4826178962
+     #11  Code Segment     2397856123
+     #12  Parallel Area    3482623457
+     #13  Logic Switch     8563457634
+     #14  Gate Two         8278634589
+     #15  Binary Path      5785623456
+     #16  Damage Vector    5234545214
+     #17  Restore Buffer   9238471472
+     #18  Energy Grid      8957235957
+     #19  Defense Segment  2359834235
+     #20  Decision Vector  7892597223
+     #21  Override Central 7891237892
+          Block
+
+
+KASUMI NINJA (KAN)
+------------
+Cheat Codes:
+At the Options screen, select Change Code (a lockout code must already be 
+entered).  Hold A+C on controller #2, then type code on controller #1.  
+Various sounds confirm.
+     Play as Gyaku/Demon Gyaku     3,7,4,9,6,1
+          (VS mode only; Gyaku/Demon Gyaku replace Senzo and Habaki)
+     Allow Same-Character Fights   6,2,1,5,4,4
+     Sensible Fighter #1           7,4,3,8,7,1
+     Sensible Fighter #2           8,9,9,2,4,4
+          (named after the tiny characters in all Sensible Software games)
+     Reset Parental Lockout        5,2,4,6,4,8
+     Start w/Key to Temple         6,3,7,4,0,4
+     Self-Test Mode                9,3,1,4,2,7
+           (reset and press fire after entering code; cycles through all
+            player and background combinations one fight at a time;
+            press A/B/C/Option on controller #1, or Option on controller
+            #2, to skip to next fight)
+
+Demon Gyaku Moves:
+     Uppercut           A
+     Fire Breath        Toward+A
+     Earthquake Stomp   B
+     Shake & Toss       B (close)
+     Slam & Taunt       Away+B (close)
+     Jump Kick          Jump, B
+     Head Rip Fatality  (unknown)
+
+
+MEMORY TRACK (MTR)
+------------
+Memory Track Manager:
+     Hold Option and turn on Jaguar (not a cheat, but easy to forget).
+
+Commands:
+     Delete File       A/B/C
+     Set Sort Type     Option
+     Set Sort & Save   1+Option/3+Option
+     Edit Name/Size    7+9+Option
+     Delete All Files  *+#+Option
+     Self Test         *+0+#+Option
+     Exit              *+#
+
+
+MISSILE COMMAND 3D (M3D)
+------------------
+Stage Select:
+Virtual mode only.  Enter anytime during play.
+     Stage 1     Pause, 1+9+C+Pause
+     Stage 2     Pause, 2+9+C+Pause
+     Stage 3     Pause, 3+9+C+Pause
+     Ending      Pause, 4+9+C+Pause
+
+
+MYST (MST)
+----
+Atari Headquarters:
+     Set the machine in the planetarium to May 22, 1970 6:30am (birthday of 
+programmer who did the Jag Myst conversion).  The front view of the library 
+will be replaced by a picture of Atari's former HQ.  Look up to see the Myst 
+crew on the balcony.
+
+All Places of Protection Open:
+     B B B B C C B B A B
+     5 5 8 7 2 7 0 0 1 7
+
+     B A B C B A A A B C
+     # 6 5 6 3 0 3 7 5 7
+
+All Red/Blue Pages and White Page Collected:
+     A C A A B C C B C B
+     5 1 5 4 # # 7 0 7 5
+
+     A A B B B C C B B A
+     3 4 2 2 3 # 2 6 7 *
+
+
+NBA JAM: TOURNAMENT EDITION (NBJ)
+---------------------------
+Cheat Codes:
+Enter at "Tonight's Matchup" screen.  Tournament mode must be disabled.  
+Unless otherwise noted, all powerups apply to the first player only (the 
+player who's name appears at the far left of the screen).
+     Strength         Right, Up, Left, Right, B, Down, A
+     Strength powerup.  "MAX POWER" confirms.
+
+     Quick Hands      Left, Right, A, B, Right, Left
+     Stealing(?) powerup.  "QUICK HANDS" confirms.
+
+     Offense          A, Up, B, Down, B, Left, Right
+     Offense powerup.  "OFFENSE" confirms.
+
+     3-Pointers       Up, Down, Down, Left, Left, Right, Up
+     3-pointer powerup.  "THREE POINT" confirms.
+
+     Pushing          B, Right, A, Down, A, Right, B
+     Push powerup.  "PUSH POWERUP" confirms.
+
+     Speed            Up, Up, Down, Down, Left, Right, Left, Left, B, A
+     Speed powerup.  No confirmation.
+
+     Fire             Down, Right, A, A, B, Left
+     Always on fire.  "ON FIRE" confirms.
+
+     Turbo            B, B, Down, Down, A, A, Up, Left
+     Unlimited turbo.  "TURBO" confirms.
+
+     Dunks            Right, Left, B, A, B, A
+     Dunk from anywhere.  "DUNK POWERUP" confirms.
+
+     Shot Percent     Down, Up, Down, B, Up
+     Shows chance of a shot going in.  "SHOT PERCENT DISPLAY" confirms.
+
+     Slippery Court   B, A, Down, A, B, Right[5]
+     All players slide around on the court.  No confirmation.
+
+     Flame Game       A, Left, Left, Down, Right, A, A, B, B, Left
+     All players always on fire.  "ON FIRE" confirms.
+
+     Teleport Passing Down, Right, Right, A, A, Down, Left, Left, Right, B
+     Passed balls "teleport" directly to other player.  No confirmation.
+
+     Push Other       Down, Left, Right, Up, Left[4], A, B
+     Pushing a player causes other player to fall down.  No confirmation.
+
+     Push Both        Down, Up, Down, Up, Left[4], A, A
+     Pushing a player causes both players to fall down.  No confirmation.
+
+     High Shots       Up, Left, Left, Down, Right, Up, A, B, A[3], Down
+     Shots arc much higher than normal.  No confirmation.
+
+     Goal Tending     Right, Up, Down, Down, Right, Up
+     No fouls called for goal tending.  "GOAL TEND" confirms.
+
+     Baby Mode        B, A, B, Up, Down, Left, Right
+     All players have small bodies, normal heads.  "BABY MODE" confirms.
+
+     Big Heads        Up, C, A
+     All players have normal bodies, big heads.  "BIG HEADS" confirms.
+
+     Shrunken Heads   Up[3], B, C, A[6]
+     All players have normal bodies, small heads.  No confirmation.
+
+     Smurf Mode       A, B, C, Down[7]
+     All players have small bodies and heads.  No confirmation.
+
+     Small Ball        Right[6], B[3]
+     Ball reduced to baseball size.  No confirmation.
+     
+     32X Doom Mode    A, B, C, C, B, A, A, B, C, C, B, A
+     What if Jag NBA Jam had been written by the team responsible for 32X
+     Doom?  No confirmation.
+
+     CD-ROM Mode      C, Down, C, Down, C, Down, C, Down, C, Down
+     Brings you the joy of playing NBA Jam off a CD.  No confirmation.
+
+More NBA Players:
+Hold before player select screen appears.
+     Defeated 26 Teams     2+4+6
+     Defeated 27 Teams     4+7+8
+     Extended Roster       1+5+9
+
+Weird Story:
+     At the player roster display in the attract mode, hold Left+1+4+6+9 as 
+the roster ends.
+
+Adisak Attack:
+     Enter Extended Roster cheat, then the Baby Mode cheat.  The phrase 
+"ADISAK ATTACK" will appear on one of the coaching tips screens.  Is that 
+all this does?
+
+Secret Characters:
+All secret character codes entered at the initials screen.  Enter each 
+initial by holding Option + the indicated button.  "n" means do nothing 
+special-- use any button, and don't hold Option.  "SECRET PLAYER" text 
+confirms.
+
+Example:
+     CLINTON     "C"+B "I"+n "C"+A     Bill Clinton
+Move cursor to "C".  Press Option+B.  Move cursor to "I".  Press A, B, or C.  
+Move cursor to "C".  Press Option+A.
+
+     ADISAK      "A"+C "L"+B "P"+A     Adisak L. Pochanayon (High Voltage)
+     ADROCK      "A"+B "D"+C "R"+n     Adrock (Beastie Boys)
+     AIR DOG     "A"+B "I"+n "R"+C     Eric "Air Dog" Samulski (Acclaim)
+     BENNY       "B"+C "N"+n "Y"+B     Benny (Bulls mascot)
+     BIRD        "B"+A "R"+C "D"+A     Larry Bird
+     BLAZE       "B"+C "L"+n "Z"+C     Carol Blazekowski (NBA)
+     CHAMBERS    "K"+n "C"+A " "+n     Kristine Chambers (Atari)
+     CHARLES     "R"+n "O"+A "Y"+B     Prince Charles
+     CLINTON     "C"+B "I"+n "C"+A     Bill Clinton (President of the USA)
+     CLINTON     "H"+n "C"+B " "+n     Hillary Clinton (First Lady)
+     CORRELL     "C"+C "R"+A "L"+n     Correll (Atari)
+     CRUNCH      "C"+n "R"+B "N"+A     Crunch (Wolves mascot)
+     DAMION      "D"+A "J"+B "D"+C     Damion J. Davis (High Voltage)
+     DI-VITA     "S"+n "A"+C "L"+A     Sal DiVita (Bally)
+     FACIME      "X"+A "Y"+B "Z"+B     Alex Facime (Acclaim)
+     FRESH       "W"+n "I"+B "L"+C     Will "Fresh Prince" Smith
+     GANOFSKY    "R"+A "B"+A "G"+A     Robert B. Ganofsky (High Voltage)
+     GELBER      "F"+B "I"+A "L"+B     Phil Gelber (Atari)
+     GORILLA     "G"+B "O"+B "R"+n     Gorilla (Suns mascot)
+     GUNTER      "G"+C "U"+C "N"+A     Gunter
+     HAROLD      "H"+A "A"+n "M"+A     Harold (High Voltage)
+     HEAVY D     "H"+B "V"+n "Y"+A     Heavy D
+     HI VOLTAGE  "K"+B "J"+B "G"+n     Kerry (High Voltage)
+     HUGO        "H"+A "G"+C "O"+n     Hugo (Hornets mascot)
+     JAZZY JEFF  "J"+A "A"+A "Z"+C     D.J. Jazzy Jeff
+     KABUKI      "D"+A "A"+B "N"+n     Eric "Kabuki" Kuby (Acclaim)
+     MCA         "M"+n "C"+B "A"+B     MCA (Beastie Boys)
+     MIKE D      "M"+C "K"+n "D"+C     Mike D. (Beastie Boys)
+     MORTY       "K"+C " "+C "M"+C     Morty (High Voltage)
+     PACEY       "P"+n "A"+n "Y"+C     Larry Pacey (Atari)
+     RIVETT      "R"+C "J"+A "R"+n     Jamie Rivett (Bally)
+     ROSEN       "S"+n "R"+n " "+A     Shawn Rosen
+     ROSENFIELD  "S"+n "E"+A "T"+B     Seth Rosenfield
+     THEINVANICH "T"+C "H"+A "E"+B     Theinvanich
+     THOMAS      "S"+A "O"+n "X"+B     Frank Thomas
+     THOMASON    "F"+A "A"+n "R"+n     Faran Thomason (Atari)
+     TRAMIEL     "L"+n "A"+C "T"+B     Leonard Tramiel (Atari)
+     TURMELL     "M"+A "J"+n "T"+A     Mark Turmell (Bally)
+     WANAT       "W"+B "A"+n "N"+B     Wanat
+     WEASEL      "R"+n "A"+A "Y"+B     Dan "Weasel" Feinstein (Acclaim)
+
+
+PITFALL: THE MAYAN ADVENTURE (PTM)
+----------------------------
+Play 2600 Pitfall:
+     At the main menu, move the cursor to "Info".  Press C[26], Down.
+
+
+POWER DRIVE RALLY (PDR)
+-----------------
+Freeze CPU Car:
+Enter anytime during play.
+     Stop CPU Car     6
+     Start CPU Car    9
+
+Change Car Color:
+     At the car purchase screen, press Up/Down to change car color.
+
+
+PRIMAL RAGE (PRG)
+-----------
+Secret Option Menu:
+     At the "jungle" title screen, before the logo appears, press Left, 
+Left, Right, Right, Left, Left, Right, Right.
+
+Alternate Character Colors:
+Type at the character select screen.
+     Original Recipe     B
+     Alternate           A+B
+     Weird #1            C+B
+     Weird #2            Option+B
+
+
+RAIDEN (RDN)
+------
+Infinite Lives and Bombs:
+     At the first boss, hold 1+4+7+3+6+9+Option.  Extra ship sound confirms.  
+Affects both players.
+
+
+RAYMAN (RMN)
+------
+Cheat Codes:
+Type at the title screen, during the walking hands.  Text confirms.
+     Ray Breakout              1,3,6,4
+          (completing all 11(?) levels gives you infinite continues)
+     50 Lives Per Continue     5,1,5,2,5,3
+     All Powers                1,3,5,7,9
+     Credits                   2,5,5,2
+     Dedications (in French!)
+          0,0,7,*        0,1,0,2,7,1    1,2,3,0        1,2,4,5,7,8
+          1,5,9,0        1,5,9,#        1,5,9,*        2,1,1,1,6
+          2,2,0,4,7,3    2,2,7,1        2,7,2,6,9      3,4,0,8,0
+          3,4,4,7,0      4,5,6,8        9,3,1,0,0      9,6,2,7,2
+
+Toggle Sound Effects:
+     During gameplay, press 8 to turn sound effects on and off.
+
+
+RUINER (RNR)
+------
+Continue:
+     To continue play at the same DefCon (Ruiner) or spells cast (Tower), 
+press 7 or 9 at the game over screen.
+
+
+SKYHAMMER (SKH)
+---------
+Full Weapons, 50K Credits, and Promotion to Next City:
+     While in dock, type *,0,9,1,0,1,9,9,3,#.
+
+
+SPACE ACE (SPC)
+---------
+Instant Replay:
+     Press Pause, Pause to replay the current section from the start.
+
+
+SUPER BURNOUT (SBO)
+-------------
+Turbo Speed:
+     At the title screen, type 1,9,6,7,2.  Sound confirms.  Automatic 
+transmission must be selected for this code to work.  Once your bike's speed 
+reaches 175 MPH, holding C (or whichever button you have configured to 
+"Nothing") will accelerate you up to 343 MPH.
+
+Punisher:
+     At the title screen, type 2,1,7,9,4.  Sound confirms.  You may now 
+choose the Punisher on the bike select screen.  This code may be used in 
+conjunction with the Turbo Speed code.
+
+Display Version Number:
+     While turning on the Jaguar, hold A+B+C.
+
+
+SUPERCROSS 3D (S3D)
+-------------
+Crash Replay:
+     Anytime during play, press Pause, then 1-5 to replay the first, second, 
+third, fourth, or fifth crash.  After the fifth crash, 5 becomes the most 
+recent crash, 4 the second most recent, etc...
+
+
+SYNDICATE (SDC)
+---------
+Cheat Codes:
+All codes entered as Company Name.
+     Play any Mission             NUK THEM
+     Get $100,000,000             ROB A BANK
+     Speed up Game Clock 20X      WATCH THE CLOCK
+     Start with $100,000,000 and  TO THE TOP
+       all Weapons/Mods/Missions
+
+Reload All Weapons For Free:
+     Save your game.  Reload your game.  Resets any research in progress.
+
+
+TEMPEST 2000 (T2K)
+------------
+Enable Cheats:
+     At the main menu, hold 1+4+7+A.  "Excellent" confirms.  The following 
+cheats are enabled during gameplay.
+     Skip to Next Level       Option
+     Enable Warp Bonus Round  6
+
+Enable Rotary Controller:
+     At the Game Option menu, hold Pause on both controllers.  "Excellent" 
+confirms.
+
+Rotate Web:
+     At the web select screen, press Left/Right to rotate the web.
+
+Pause Bug:
+     At end of the Bacon/Jupiter River bonus round, press Pause just as it 
+switches back to the main game (after approximately two and a half pulses of 
+the "Excellent!" graphic).
+     The graphics in the game will now be slightly glitched.  The starfield 
+won't scroll, messages won't disappear, the SuperZapper might not work, and 
+the web won't be solid-filled.  Entering the "Green Path" bonus round 
+effectively ends your game.  Exiting the Jupiter River or LSD bonus rounds 
+will occasionally mess up the double-buffering of the main game (though it 
+corrects itself after you die or finish the level).
+
+Invisible Web:
+     Start any Tempest Plus game.  Hold down Option (cheats must be active) 
+until you get to the rainbow levels.  The web will be invisible during the 
+rainbow levels only.
+
+THEME PARK (THP)
+----------
+All Shops and Rides:
+     Invest all your money into shops research, then wait until April, two 
+years later.
+
+Adjust Screen Position:     
+     At any time, hold Option and press Left/Right to adjust the screen.  
+
+
+TOWERS II (TII)
+---------
+Cheat Codes:
+Enter any time while paused.
+     God Mode & Full Maps 3+7, 1+9
+     Screen Position      C+Up/Down
+     Screen Height        C+Left/Right
+
+NOTE: Towers II ships with the screen height set slightly larger than the 
+"neutral" setting.  To correct this, start a game, bring up the character 
+stats, then gradually decrease the height until there are no doubled lines 
+in the text.
+
+Secret Room:
+     In the Test of Magic area, stand on the purple carpet flanked by two 
+candles, and use the Levitation spell.
+
+
+TREVOR MCFUR IN THE CRESCENT GALAXY (TMF)
+-----------------------------------
+Enable Cheats:
+     At the title screen, type 1,1,9,3 ("Trevor's Birthday").  No 
+confirmation.  The following cheats are enabled during gameplay and on the 
+level select screen.  Enter on controller #2.
+
+Option  Skip to next stage
+ Right  Speed up enemies/background graphics
+  Left  Slow down   "     "
+     A  Speed up foreground graphics
+     B  Slow down   "     "
+     C  Fire special weapon without depleting inventory
+     1  Power up gun
+     2  Cycle through bomb powerups
+     3  Mark other moons as completed
+     4  Toggle invincibility
+     0  Cycle through sound effects
+     *  Play sound effect
+
+
+TROY AIKMAN NFL FOOTBALL (TAF)
+------------------------
+Extra Touchdowns:
+     After scoring a touchdown, press Option and call a time-out.  You get 6 
+points and the ball at the 1-yard line.  Press Option and call a time-out 
+again for another 6 points.
+
+
+ULTRA VORTEK (ULV)
+------------
+Turbo Option:
+     At the title screen, hold 1+5+9.  "Fight!" confirms.  At the main menu, 
+you will now have the choice between normal and turbo play speed.
+
+Secret Option Menu:
+     At the title screen, hold 1+2+3+7+9+Option.
+
+Access Voice Modem:
+     At the title screen, type 9,1,1.  "Awesome!" confirms.
+
+Fight Carbon:
+     Start a game at the Hard or Killer difficulty level.  Defeat your 
+opponent with a double flawless on the Earthquake Zone stage.
+
+Secret Levels:
+Type on the background select screen.
+     Hidden Palace     #
+     Subway Passage    *
+
+
+VAL D'ISERE SKIING AND SNOWBOARDING (VDS)
+-----------------------------------
+Secret Option Menu:
+     At the main option screen, type 4,0,8,5,7,4,1,4.
+
+Infinite Chances:
+     At the time results screen, reset (* + #) after losing a race, then
+select Play.
+
+
+VID GRID (VGR)
+--------
+Instant Unscramble:
+     Anytime during play, press 4+7+8+B.
+
+
+VIRTUAL LIGHT MACHINE (VLM)
+---------------------
+Spectrum and Triggers Edit Mode:
+     On a blank VLM screen (no menus or status bars displayed), hold * + 0 + 
+1 + 3.
+
+Effects Edit Mode:
+     Enable Spectrum and Triggers Edit mode.  With the cursor on the first 
+entry, press Up then Down, eight times.  Press C to exit menus with no 
+designated exit button.
+
+External Input Mode:
+     Close lid without a CD in the drive.  Hold A + * + #.
+
+NOTE: This "code" may be a bug, because the read head will continually 
+attempt to seek the surface of the CD once you've entered it.  This could 
+possibly shorten the lifespan of your Jag CD.
+
+
+WOLFENSTEIN 3D (W3D)
+--------------
+Cheat Codes:
+Enter anytime during play or in automap.
+     God Mode         4,6,6,8
+     Full Inventory   4,9,9,6
+     Next Level       4,7,8,6
+     Previous Level   4,6,9,6
+     Refresh Info     4,8,8,7
+
+Music Test:
+     At the "ball" title screen, press #.
+
+Level Select:
+     At the main menu, hold 1+3+7+9.  3-5 and 6-7 are secret levels.
+
+
+WORLD TOUR RACING (WTR)
+-----------------
+Cheat Codes:
+Hold down while selecting the option that starts the race (Race, Qualify, 
+etc...).
+     Race as a Bus    4
+     Track Edit Mode  0
+          (abort race and restart to view changes)
+
+Texture-Map Track:
+     Anytime during play, press 8 to toggle texture mapping of the track.
+
+First-Place Race Codes:
+     #1 U.S.A.      #2 Hungary     #3 Germany     #4 Brazil
+     00000000       00000000       00000001       00000001
+     39721063       79441102       19216456       58991638
+     37889812       40151109       30780394       42882646
+     64384072       63200081       70080120       83520168
+
+     #5 San Marino  #6 Monaco      #7 Mexico      #8 Canada 
+     00000001       00000002       00000002       00000003
+     98766992       29801569       69577264       09297645
+     34187162       19696667       55991186       03905186
+     41920200       44320244       22720312       61120325
+
+     #9 France      #10 England    #11 Portugal   #12 Italy
+     00000003       00000003       00000004       00000004
+     48963393       88739088       28514442       68180184
+     53418674       89709025       80338310       88966342
+     99520396       68960400       75840467       24640487
+
+     #13 Egypt      #14 Australia  #15 Japan
+     00000005       00000005       00000005
+     08065487       47841182       78875418
+     81124970       08711517       54587794
+     08640556       96224567       39207006
+
+
+WORMS (WRM)
+-----
+Cheat Codes:
+After the landscape is generated, press B and enter code.
+     Recall Last Played Level  1471
+     Allow All Levels          ALL
+     Only Alien Levels         ALIEN
+     Only Arctic Levels        ARCTIC
+     Only Candy Levels         CANDY
+     Only Desert Levels        DESERT
+     Only Forest Levels        FOREST
+     Only Hell Levels          666
+     Only Junkyard Levels      JUNK
+     Only Martian Levels       MARS
+
+Cool Landscapes:
+After the landscape is generated, press B and enter code.
+     62997503     Injun Joe's Hideout - Desert
+     OUCH         King of the Hill - Forest
+     BEN          Two sides of the ocean - Hell
+     24833916     Flat and featureless - Hell 
+     TISSOGDRIT   Flat w/evenly spaced statues - Alien 
+     WILTON       Flat w/evenly spaced snowmen - Arctic 
+     MYSTEE       Flat w/trees - Forest
+     731931229    Long bridge - Ice 
+     99289        Long bridge - Forest 
+     HOPELESS     Long bridge - Forest 
+     BADRAN       Long bridge - Desert
+     SEAGULL      Long bridge - Candy 
+     02180719     Big columns, bottomless - Arctic 
+     02182719     Big columns, bottomless - Hell 
+     02184719     Big columns, bottomless - Beach 
+     02186719     Big columns, bottomless - Junkyard 
+     02188719     Big columns, bottomless - Arctic 
+     7373888390   Big columns - Hell 
+     8131166523   Short columns - Beach 
+     02183719     Big dome - Forest 
+     02185719     Big bowl - Alien 
+     02187719     Slope/dome - Arctic 
+     02189719     Slope/dome - Beach 
+     70345        Shallow slope w/bars - Candy 
+     7007230      Big slope - Arctic 
+     416241       Caverns of Viet Nam - Forest 
+     LOSE         Outcrop at sea - Martian
+     66888        Tiny outcrop at sea - Junkyard
+     980351       Pedestal at sea - Alien
+     HIDEYHOLE    Bigger pedestal at sea - Forest
+     75912494     Yet another pedestal at sea - Forest
+     98620        Caverns of Mars - Martian
+     TRIFECTA     Underground maze - Hell
+     CLITO        Underground maze II - Hell
+     8878942      Trash heap at sea - Junkyard
+     3333333333   Bridge and land bridge - Forest
+
+
+ZERO 5 (ZE5)
+------
+Cheat Codes:
+At the Options screen, select Change Mission and highlight the high mission 
+to be unlocked.  Hold Pause while entering code.  Sound confirms.
+     Unlock Mission 1      0,5,0,5,0,5
+     Unlock Missions 1-2   6,8,9,2,1,4
+     Unlock Missions 1-3   1,2,2,1,6,9
+     Unlock Missions 1-4   6,7,6,3,9,6
+     Unlock Missions 1-5   4,9,3,1,7,5
+     Unlock Missions 1-6   3,2,9,7,8,1
+     Unlock Missions 1-7   7,4,8,6,2,7
+     Unlock Missions 1-8   2,4,9,3,4,7
+     Unlock Missions 1-9   (unknown)
+     Unlock Missions 1-10  2,7,6,5,4,9
+     Unlock Missions 1-11  1,0,7,8,4,0
+     Unlock Missions 1-12  2,9,7,4,3,0
+     Unlock Missions 1-13  9,2,1,7,5,3
+     Unlock Missions 1-14  3,8,5,1,7,9
+     Unlock Missions 1-15  9,0,1,9,3,4
+
+NOTE: Entering a mission-unlock code will lock all missions above and beyond 
+that one, even if you've previously unlocked them.
+
+
+ZOOL 2 (ZL2)
+------
+Cheat Codes:
+Enter on the Options screen.  Rooster sound confirms.
+     Bulberry Hill            7,7,7,4,9
+     Tooting Common           8,8,5,6,3
+     Snaking Pass             3,3,6,6,6
+     Mount Ices               1,1,9,6,8
+     Mental Blockage          9,1,2,6,6
+
+     Always Get Bonus Round   3,1,8,6,7
+     Infinite health          1,1,2,7,5
+     99 Lives                 3,1,9,6,5
+
