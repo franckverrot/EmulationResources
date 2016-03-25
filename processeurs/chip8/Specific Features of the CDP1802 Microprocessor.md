@@ -1,9 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<!-- saved from url=(0064)http://personal.atl.bellsouth.net/lig/d/o/dogas/cosmac/note1.htm -->
-<HTML><HEAD><TITLE>Untitled Document</TITLE>
-<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
-<META content="MSHTML 6.00.2600.0" name=GENERATOR></HEAD>
-<BODY bgColor=#ffffff>
+
 <P><B><FONT size=4>Specific Features of the CDP1802 
 Microprocessor</FONT></B><FONT size=4> (<FONT size=2>ref. RCA MPM-201C 
 p.7</FONT>)</FONT></P>
