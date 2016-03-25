@@ -1,12 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<HTML><HEAD><TITLE>Chip-8 Instruction Set</TITLE>
-<META http-equiv=Content-Type content="text/html; charset=windows-1252">
-</HEAD>
-<BODY>
-<P>
-<HR>
+# Chip-8 Instruction Set
 
-<H1>Chip 8 instruction set </H1>
 <P>(all values in Hexadecimal unless stated) 
 <HR>
 
