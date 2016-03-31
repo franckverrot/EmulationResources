@@ -1,68 +1,68 @@
 <html>
 <head>
-<title>Comment écrire un désassembleur?</title>
+<title>Comment Ã©crire un dÃ©sassembleur?</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 <body bgcolor="#bbccdd">
-<center><h1><font color="#ff0000">Comment écrire un désassembleur?</font></h1>
+<center><h1><font color="#ff0000">Comment Ã©crire un dÃ©sassembleur?</font></h1>
 <tt>Un tutorial par <a href="mailto:linuxshell@wanadoo.fr">Linuxshell</a>
-<br>Téléchargé sur <a href="http://linuxshell.free.fr/">LXS_*</a></tt></center>
+<br>TÃ©lÃ©chargÃ© sur <a href="http://linuxshell.free.fr/">LXS_*</a></tt></center>
 <br>
 <center><h3>Partie 2 : Conception du tool-kit.</h3></center>
 <br>
-// Dernière version le :14/07/2002<br>
+// DerniÃ¨re version le :14/07/2002<br>
 <br>
 <br><hr>
-<b>Table des matières:</b>
+<b>Table des matiÃ¨res:</b>
 <ol type="i">
     	<li>Un point sur les connaissances;</li>
-    	<li>Réunir les informations;</li>
-    	<li>Ecrire le désassembleur;</li> 
+    	<li>RÃ©unir les informations;</li>
+    	<li>Ecrire le dÃ©sassembleur;</li> 
 		<li>Optimiser notre programme;</li>
     </ol>
 <hr>
 <br>
 <h4>i. Un point sur les connaissances;</h4>
-Dans le premier volet de cette série nous avons décrit le fonctionnement d'une ROM ainsi que la manière qu'a un CPU pour traiter les<br>
-informations contenues dans cette ROM. Afin de pouvoir comprendre à peu près totalement cette documentation, il est nécessaire d'avoir<br>
+Dans le premier volet de cette sÃ©rie nous avons dÃ©crit le fonctionnement d'une ROM ainsi que la maniÃ¨re qu'a un CPU pour traiter les<br>
+informations contenues dans cette ROM. Afin de pouvoir comprendre Ã  peu prÃ¨s totalement cette documentation, il est nÃ©cessaire d'avoir<br>
 des connaissances en C assez solides, et un gros moral! :)
 <br>
 <br>
 <br>
 <br>
-<h4>ii. Réunir les informations;</h4>
-Voila la partie la plus cruciale de notre travail, il va falloir réunir le maximum d'informations sur l'architecture émulée, afin de<br>
-connaître intégralement le fonctionnement de la machine, de pouvoir comprendre quel rôle a tel ou tel processeur dans la machine.<br>
-La machine ici étudiée sera le Chip8, beaucoup utilisé par les militaires à son époque, grâce notamment à sa facilité de programmation<br>
-et son échelle de température allant de -45 à +55°C...<br>
-Récupérons donc le peu de documentation que nous avons sur le sujet...<br>
-Etant donné qu'il n'y a vraiment pas beaucoup de documentations disponibles, nous disposerons uniquement du jeu d'instructiondu processeur<br>
+<h4>ii. RÃ©unir les informations;</h4>
+Voila la partie la plus cruciale de notre travail, il va falloir rÃ©unir le maximum d'informations sur l'architecture Ã©mulÃ©e, afin de<br>
+connaÃ®tre intÃ©gralement le fonctionnement de la machine, de pouvoir comprendre quel rÃ´le a tel ou tel processeur dans la machine.<br>
+La machine ici Ã©tudiÃ©e sera le Chip8, beaucoup utilisÃ© par les militaires Ã  son Ã©poque, grÃ¢ce notamment Ã  sa facilitÃ© de programmation<br>
+et son Ã©chelle de tempÃ©rature allant de -45 Ã  +55Â°C...<br>
+RÃ©cupÃ©rons donc le peu de documentation que nous avons sur le sujet...<br>
+Etant donnÃ© qu'il n'y a vraiment pas beaucoup de documentations disponibles, nous disposerons uniquement du jeu d'instructiondu processeur<br>
 ainsi que les ROMs en domaine publique (ou libres) disponibles sur le net.<br>
 <br>
-Après lecture de l'"instruction set", deux choses sortent:<br>
-&nbsp;-&nbsp;Les instructions sont fixées à 2 bytes;<br>
-&nbsp;-&nbsp;Un seul processeur a besoin d'être émuler, il produire à la fois le son et les graphismes.<br>
+AprÃ¨s lecture de l'"instruction set", deux choses sortent:<br>
+&nbsp;-&nbsp;Les instructions sont fixÃ©es Ã  2 bytes;<br>
+&nbsp;-&nbsp;Un seul processeur a besoin d'Ãªtre Ã©muler, il produire Ã  la fois le son et les graphismes.<br>
 <br>
 <br>
 <br>
 <br>
-<h4>iii. Ecrire le désassembleur;</h4>
-Le jeu d'instruction sous les yeux, l'environnement de développement lancé ainsi qu'un éditeur héxadécimal avec 2 ou 3 ROMs chargées nous<br>
-sommes prêt à commencer(ici nous utiliserons une fenêtre DOS, libre à vous de faire ça dans une fenêtre windows).<br>
+<h4>iii. Ecrire le dÃ©sassembleur;</h4>
+Le jeu d'instruction sous les yeux, l'environnement de dÃ©veloppement lancÃ© ainsi qu'un Ã©diteur hÃ©xadÃ©cimal avec 2 ou 3 ROMs chargÃ©es nous<br>
+sommes prÃªt Ã  commencer(ici nous utiliserons une fenÃªtre DOS, libre Ã  vous de faire Ã§a dans une fenÃªtre windows).<br>
 Tout d'abord les fondamentales:<br><br><b>
 #include &lt;stdio.h&gt;<br>
 <br>
 int main(int argc, char **argv)<br>
 {<br><br>
-if(argc<2) // Si aucune rom n´est donnée<br>
+if(argc<2) // Si aucune rom nÂ´est donnÃ©e<br>
 {<br>
-printf("\tDésassembleur Chip8 par LXS\n"<br>
+printf("\tDÃ©sassembleur Chip8 par LXS\n"<br>
 "Utilisation: %s <rom>", argv[0]);<br>
 return 0;<br>
 }</b><br>
 }<br>
 <br>
-Donc jusqu'ici rien de terrible, si aucune rom n'est donnée on quitte.<br>
+Donc jusqu'ici rien de terrible, si aucune rom n'est donnÃ©e on quitte.<br>
 Rajoutons la gestion d'ouverture de la ROM:<br><br><b>
 FILE *fp;<br>
 if((fp= fopen(argv[1],"rb")) <= NULL)<br>
@@ -72,35 +72,35 @@ return 0;<br>
 }<br>
 </b>
 <br>
-Ajoutons alors la lecture de la ROM, étant donné que les roms sont minuscules pour nos PC, chargeons les en entier en mémoire pour plus<br>
-de facilité à manipuler les données et dans les déplacements en mémoire:<br>
+Ajoutons alors la lecture de la ROM, Ã©tant donnÃ© que les roms sont minuscules pour nos PC, chargeons les en entier en mÃ©moire pour plus<br>
+de facilitÃ© Ã  manipuler les donnÃ©es et dans les dÃ©placements en mÃ©moire:<br>
 <br><b>
 char* buffer;<br>
 <br>
 fseek(fp,0,SEEK_END);<br>
-int taille = ftell(fp); // détermination de la taille du fichier;<br>
+int taille = ftell(fp); // dÃ©termination de la taille du fichier;<br>
 fseek(fp,0,SEEK_SET);<br><br>
-// allocation de la mémoire<br>
+// allocation de la mÃ©moire<br>
 (char *)buffer = (char*)malloc(sizeof(fp));<br>
 <br>	
-// lecture intégrale du fichier, les données sont à présent stockées dans buffer<br>
+// lecture intÃ©grale du fichier, les donnÃ©es sont Ã  prÃ©sent stockÃ©es dans buffer<br>
 fread(buffer,sizeof(char),taille,fp);<br>
 <br></b>
 <br>
-Les données extraites, il ne reste plus qu'à lire puis de les analyser...<br>
+Les donnÃ©es extraites, il ne reste plus qu'Ã  lire puis de les analyser...<br>
 <br>
 <br>
 <br>
 <b>
 int opcode = 0x0;<br>
-char reg_1; // registre numéro 1<br>
-char reg_2; // registre numéro 2<br>
+char reg_1; // registre numÃ©ro 1<br>
+char reg_2; // registre numÃ©ro 2<br>
 <br>
 <br>
 for(int i = 0; i < taille;) // pour toute la rom<br>
 	{<br>
-		// buffer[i++] & 0xFF est l'instruction suivante à la position i<br>
-        //affichage tel que: #op: identifiant_opcode @offset__héxa instruction_asm<br>
+		// buffer[i++] & 0xFF est l'instruction suivante Ã  la position i<br>
+        //affichage tel que: #op: identifiant_opcode @offset__hÃ©xa instruction_asm<br>
 		printf("#op:%X @0x%X\t", opcode = buffer[i]>>4 & 0xF, &buffer[i]-&buffer[0]);<br>
 		switch(opcode)<br>
 		{<br>
@@ -317,26 +317,26 @@ for(int i = 0; i < taille;) // pour toute la rom<br>
 <br>
 <br>
 <br>
-Bon on peut facilmeent voir qu'ici rien n'est optimisé, de plus à la fin de la lecture le désassembleur essayera<br>
-de traduire en assembleur les données graphiques...donc nous avons tout de même un petit désassembleur fait maison<br>
-bientôt près à égaler ceux présent sur les (trop peu nombreux) sites d'émulation.<br>
-Au passage rien ne vous empêche de rediriger cette sortie sur un fichier(fprintf par exemple) afin de pouvoir disposer<br>
-des informations extraites à n'importe quel moment.<br>
+Bon on peut facilmeent voir qu'ici rien n'est optimisÃ©, de plus Ã  la fin de la lecture le dÃ©sassembleur essayera<br>
+de traduire en assembleur les donnÃ©es graphiques...donc nous avons tout de mÃªme un petit dÃ©sassembleur fait maison<br>
+bientÃ´t prÃ¨s Ã  Ã©galer ceux prÃ©sent sur les (trop peu nombreux) sites d'Ã©mulation.<br>
+Au passage rien ne vous empÃªche de rediriger cette sortie sur un fichier(fprintf par exemple) afin de pouvoir disposer<br>
+des informations extraites Ã  n'importe quel moment.<br>
 <br>
-Donc ici le désassembleur lira les 2 premiers bytes de la ROM, isolera le premier nombre héxadécimal, puis redirigera le<br>
-tout à l'endroit correspondant à son traitement(les 'case').<br>
-Une fois les registres isolés à leur tour, le traitement s'effectue simplement et la ROM est désassemblée!<br>
+Donc ici le dÃ©sassembleur lira les 2 premiers bytes de la ROM, isolera le premier nombre hÃ©xadÃ©cimal, puis redirigera le<br>
+tout Ã  l'endroit correspondant Ã  son traitement(les 'case').<br>
+Une fois les registres isolÃ©s Ã  leur tour, le traitement s'effectue simplement et la ROM est dÃ©sassemblÃ©e!<br>
 <br>
 <br>
 <br>
 <br>
 <h4>iv. Optimiser notre programme;</h4>
-Et oui afin de diposer d'un désassembleur correct, il nous faut régler le petit problème cité plus haut, c'est à dire<br>
-l'interprétation des données graphiques.<br>
+Et oui afin de diposer d'un dÃ©sassembleur correct, il nous faut rÃ©gler le petit problÃ¨me citÃ© plus haut, c'est Ã  dire<br>
+l'interprÃ©tation des donnÃ©es graphiques.<br>
 De plus nous pourrions ajouter les labels des JMP, JSR, etc...<br>
 Tout est possible pour optimiser notre programme, de plus il est portable sous *nix,Win, BSD, etc...<br>
-Une dernière chose très importante c'est l'endianness de la machine. Ici il faut êtr en Little Endian, donc dans le code<br>
-final il faudra jongler avec le byteswapping si vous êtes en Big Endian.<br>
+Une derniÃ¨re chose trÃ¨s importante c'est l'endianness de la machine. Ici il faut Ãªtr en Little Endian, donc dans le code<br>
+final il faudra jongler avec le byteswapping si vous Ãªtes en Big Endian.<br>
 <br><br><br>
 C'est tout pour ce second tutorial, la prochaine fois nous parlerons..d'autre chose :)
 
